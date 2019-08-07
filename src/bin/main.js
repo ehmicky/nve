@@ -12,7 +12,6 @@ const runCli = async function() {
     // Forward the exit code from the child process
     exit(exitCode)
   } catch (error) {
-    // eslint-disable-next-line no-console, no-restricted-globals
     console.error(error.message)
     exit(1)
   }
