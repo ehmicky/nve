@@ -1,11 +1,15 @@
 import { platform, arch } from 'process'
 import { createGunzip } from 'zlib'
 import { createWriteStream } from 'fs'
+import { promisify } from 'util'
 
 import { extract as tarExtract } from 'tar-fs'
-import pEvent from 'p-event'
+import endOfStream from 'end-of-stream'
 
 import { fetchUrl } from './fetch.js'
+
+// TODO: replace with Stream.finished() after dropping support for Node 8/9
+const pEndOfStream = promisify(endOfStream)
 
 // Retrieve the Node binary from the Node website and persist it
 // The URL depends on the current OS and CPU architecture
@@ -25,7 +29,7 @@ const downloadWindowsNode = async function(version, nodePath) {
 
   const writeStream = createWriteStream(nodePath, { mode: NODE_MODE })
   body.pipe(writeStream)
-  await pEvent(writeStream, 'finish')
+  await pEndOfStream(writeStream)
 }
 
 const NODE_MODE = 0o755
@@ -45,7 +49,7 @@ const URL_BASE = 'https://nodejs.org/dist'
 const unarchive = async function(archive, outputDir) {
   const extract = tarExtract(outputDir, { ignore: shouldExclude, strip: 2 })
   archive.pipe(extract)
-  await pEvent(extract, 'finish')
+  await pEndOfStream(extract)
 }
 
 // As a performance optimization, we only unpack the node binary, not the other
