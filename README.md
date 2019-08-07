@@ -64,7 +64,7 @@ nve VERSION ARGUMENTS...
 A `node` of that specific `VERSION` will be called with `ARGUMENTS`:
 `node ARGUMENTS...`.
 
-# Usage (programmatic)
+# Usage (Node.js)
 
 ```js
 const nve = require('nve')
