@@ -1,5 +1,3 @@
-/* eslint-disable import/no-commonjs */
-// eslint-disable-next-line filenames/match-exported
 import { validateInput } from './validate.js'
 import { getVersion } from './versions.js'
 import { runNode } from './run.js'
@@ -16,4 +14,3 @@ const nve = async function(versionRange, args = []) {
 // We do not use `export default` because Babel transpiles it in a way that
 // requires CommonJS users to `require(...).default` instead of `require(...)`.
 module.exports = nve
-/* eslint-enable import/no-commonjs */
