@@ -7,7 +7,69 @@
 
 Run a specific Node.js version.
 
-Work in progress!
+As opposed to [`nvm`](https://github.com/nvm-sh/nvm) this:
+
+- runs the Node.js version for a single command not for the entire shell session
+- does not require each Node.js version to be installed first
+- works on Windows
+- does not require Bash
+
+This is also much faster than [`nvm exec`](https://github.com/nvm-sh/nvm) and
+[`npx -r node`](https://github.com/aredridel/node-bin-gen).
+
+# Example
+
+```bash
+# Run any Node.js version
+$ nve 8 file.js
+
+$ nve 8 --print 'process.version'
+v8.16.0
+
+# Run the latest Node.js version
+$ nve '*' --version
+v8.16.0
+
+# Use version range
+$ nve ~8.5 --version
+v8.5.0
+```
+
+# Demo
+
+You can try this library:
+
+- either directly [in your browser](https://repl.it/@ehmicky/nve).
+- or by executing the [`examples` files](examples/README.md) in a terminal.
+
+# Install
+
+First make sure `node` is globally installed. While the global `node` version
+must be `>=8.12.0`, the command run by `nve` can use any Node.js version.
+
+Then:
+
+```bash
+npm install -g nve
+```
+
+# Usage (CLI)
+
+```bash
+nve VERSION ARGUMENTS...
+```
+
+`VERSION` can be any [version range](https://github.com/npm/node-semver).
+
+A `node` of that specific `VERSION` will be called with `ARGUMENTS`:
+`node ARGUMENTS...`.
+
+# Usage (programmatic)
+
+```js
+const nve = require('nve')
+const { exitCode, signal } = await nve(version, [...args])
+```
 
 # Support
 
