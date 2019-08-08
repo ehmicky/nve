@@ -5,9 +5,9 @@ import { promisify } from 'util'
 import pEvent from 'p-event'
 import pathExists from 'path-exists'
 import findCacheDir from 'find-cache-dir'
+import cleanWrite from 'clean-write'
 
 import { downloadNode, NODE_FILENAME } from './download.js'
-import { cleanupOnError } from './cleanup.js'
 
 const pMkdir = promisify(mkdir)
 
@@ -32,10 +32,7 @@ const getNodePath = async function(version) {
 
   await createOutputDir(outputDir)
 
-  await cleanupOnError(
-    () => downloadNode(version, outputDir, nodePath),
-    nodePath,
-  )
+  await cleanWrite(() => downloadNode(version, outputDir, nodePath), nodePath)
 
   return nodePath
 }

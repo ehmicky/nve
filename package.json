@@ -53,6 +53,7 @@
     "test": "test"
   },
   "dependencies": {
+    "clean-write": "0.0.1",
     "core-js": "^3.1.4",
     "cross-fetch": "^3.0.4",
     "end-of-stream": "^1.4.1",
@@ -61,7 +62,6 @@
     "p-event": "^4.1.0",
     "path-exists": "^4.0.0",
     "semver": "^6.3.0",
-    "signal-exit": "^3.0.2",
     "tar-fs": "^2.0.0"
   },
   "devDependencies": {
