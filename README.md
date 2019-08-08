@@ -13,8 +13,6 @@ As opposed to [`nvm`](https://github.com/nvm-sh/nvm) this:
 - does not need installing each Node version first
 - works on Windows
 - does not require Bash
-- can be run either on the [command line](#usage-cli) or
-  [programatically](#usage-node)
 
 This is also much faster than [`nvm exec`](https://github.com/nvm-sh/nvm) and
 [`npx -r node`](https://github.com/aredridel/node-bin-gen).
@@ -60,7 +58,7 @@ npm install -g nve
 `node >=8.12.0` must be globally installed. However the command run by `nve` can
 use any Node version.
 
-# Usage (CLI)
+# Usage
 
 ```bash
 nve VERSION [ARGS...]
@@ -77,30 +75,6 @@ But using a specific Node version. Any Node
 
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
-
-# Usage (Node)
-
-<!-- TODO: remove eslint-skip once estree supports top-level await -->
-<!-- eslint-skip -->
-
-```js
-const nve = require('nve')
-
-const version = '12'
-const args = ['file.js']
-const { code, signal } = await nve(version, args)
-```
-
-## nve(version, args?)
-
-_version_: `string`<br> _args_: `any[]`<br> _Returns_: `Promise<object>`
-
-The returned `object` has the following properties:
-
-- _code_ `number | null`:
-  [Exit code](https://nodejs.org/api/child_process.html#child_process_event_exit)
-- _signal_ `string | null`:
-  [Termination signal](https://nodejs.org/api/child_process.html#child_process_event_exit)
 
 # Support
 
