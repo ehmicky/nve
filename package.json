@@ -53,11 +53,11 @@
     "test": "test"
   },
   "dependencies": {
-    "all-node-versions": "0.0.1",
     "core-js": "^3.1.4",
     "cross-fetch": "^3.0.4",
     "end-of-stream": "^1.4.1",
     "find-cache-dir": "^3.0.0",
+    "normalize-node-version": "0.0.1",
     "p-event": "^4.1.0",
     "path-exists": "^4.0.0",
     "semver": "^6.3.0",

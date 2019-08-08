@@ -4,12 +4,14 @@ import { promisify } from 'util'
 
 import pEvent from 'p-event'
 import pathExists from 'path-exists'
+import findCacheDir from 'find-cache-dir'
 
-import { CACHE_DIR } from './cache.js'
 import { downloadNode, NODE_FILENAME } from './download.js'
 import { cleanupOnError } from './cleanup.js'
 
 const pMkdir = promisify(mkdir)
+
+export const CACHE_DIR = findCacheDir({ name: 'nve', create: true })
 
 // Download the Node binary for a specific `version` then run it with `args`
 export const runNode = async function(version, args) {

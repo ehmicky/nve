@@ -1,12 +1,13 @@
+import normalizeNodeVersion from 'normalize-node-version'
+
 import { validateInput } from './validate.js'
-import { getVersion } from './versions.js'
 import { runNode } from './run.js'
 
 // Forwards `args` to another node instance of a specific `versionRange`
 const nve = async function(versionRange, args = []) {
   validateInput(versionRange, args)
 
-  const version = await getVersion(versionRange)
+  const version = await normalizeNodeVersion(versionRange)
   const { code, signal } = await runNode(version, args)
   return { code, signal }
 }
