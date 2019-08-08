@@ -7,8 +7,8 @@ const nve = async function(versionRange, args = []) {
   validateInput(versionRange, args)
 
   const version = await getVersion(versionRange)
-  const { exitCode, signal } = await runNode(version, args)
-  return { exitCode, signal }
+  const { code, signal } = await runNode(version, args)
+  return { code, signal }
 }
 
 // We do not use `export default` because Babel transpiles it in a way that

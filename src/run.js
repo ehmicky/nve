@@ -10,8 +10,8 @@ import { cleanupOnError } from './cleanup.js'
 // Download the Node binary for a specific `version` then run it with `args`
 export const runNode = async function(version, args) {
   const nodePath = await getNodePath(version)
-  const { exitCode, signal } = await runNodeProcess(nodePath, args)
-  return { exitCode, signal }
+  const { code, signal } = await runNodeProcess(nodePath, args)
+  return { code, signal }
 }
 
 // Download the Node binary for a specific `version`.
@@ -36,8 +36,6 @@ const getNodePath = async function(version) {
 // We also forward standard streams and exit code.
 const runNodeProcess = async function(nodePath, args) {
   const childProcess = spawn(nodePath, args, { stdio: 'inherit' })
-  const [exitCode, signal] = await pEvent(childProcess, 'exit', {
-    multiArgs: true,
-  })
-  return { exitCode, signal }
+  const [code, signal] = await pEvent(childProcess, 'exit', { multiArgs: true })
+  return { code, signal }
 }

@@ -9,10 +9,12 @@ Run a specific Node.js version.
 
 As opposed to [`nvm`](https://github.com/nvm-sh/nvm) this:
 
-- runs the Node.js version for a single command not for the entire shell session
-- does not require each Node.js version to be installed first
+- applies to a single command (not to the entire shell session)
+- does not need installing each Node version first
 - works on Windows
 - does not require Bash
+- can be run either on the [command line](#usage-cli) or
+  [programatically](#usage-node)
 
 This is also much faster than [`nvm exec`](https://github.com/nvm-sh/nvm) and
 [`npx -r node`](https://github.com/aredridel/node-bin-gen).
@@ -20,19 +22,26 @@ This is also much faster than [`nvm exec`](https://github.com/nvm-sh/nvm) and
 # Example
 
 ```bash
-# Run any Node.js version
+# Run any Node version
+$ nve 12
+Welcome to Node.js v12.8.0.
+Type ".help" for more information.
+> .exit
+
+# Same as `node file.js` but using Node 8
 $ nve 8 file.js
 
+# Any Node CLI flag can be used
 $ nve 8 --print 'process.version'
 v8.16.0
 
-# Run the latest Node.js version
+# Run the latest Node version
 $ nve '*' --version
-v8.16.0
+v12.8.0
 
 # Use version range
-$ nve ~8.5 --version
-v8.5.0
+$ nve '<8' --version
+v7.10.1
 ```
 
 # Demo
@@ -44,32 +53,51 @@ You can try this library:
 
 # Install
 
-First make sure `node` is globally installed. While the global `node` version
-must be `>=8.12.0`, the command run by `nve` can use any Node.js version.
-
-Then:
-
 ```bash
 npm install -g nve
 ```
 
+`node >=8.12.0` must be globally installed. However the command run by `nve` can
+use any Node version.
+
 # Usage (CLI)
 
 ```bash
-nve VERSION ARGUMENTS...
+nve VERSION [ARGS...]
 ```
 
-`VERSION` can be any [version range](https://github.com/npm/node-semver).
+This is exactly the same as:
 
-A `node` of that specific `VERSION` will be called with `ARGUMENTS`:
-`node ARGUMENTS...`.
+```bash
+node [ARGS...]
+```
 
-# Usage (Node.js)
+But using a specific Node version. Any Node
+[CLI flag](https://nodejs.org/api/cli.html) can be passed.
+
+`VERSION` can be any [version range](https://github.com/npm/node-semver) such as
+`12`, `12.6.0` or `<12`.
+
+# Usage (Node)
 
 ```js
 const nve = require('nve')
-const { exitCode, signal } = await nve(version, [...args])
+
+const version = '12'
+const args = ['file.js']
+const { code, signal } = await nve(version, args)
 ```
+
+## nve(version, args?)
+
+_version_: `string`<br> _args_: `any[]`<br> _Returns_: `Promise<object>`
+
+The returned `object` has the following properties:
+
+- _code_ `number | null`:
+  [Exit code](https://nodejs.org/api/child_process.html#child_process_event_exit)
+- _signal_ `string | null`:
+  [Termination signal](https://nodejs.org/api/child_process.html#child_process_event_exit)
 
 # Support
 
