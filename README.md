@@ -80,6 +80,9 @@ But using a specific Node version. Any Node
 
 # Usage (Node)
 
+<!-- TODO: remove eslint-skip once estree supports top-level await -->
+<!-- eslint-skip -->
+
 ```js
 const nve = require('nve')
 
