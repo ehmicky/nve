@@ -1,4 +1,6 @@
 import { spawn } from 'child_process'
+import { mkdir } from 'fs'
+import { promisify } from 'util'
 
 import pEvent from 'p-event'
 import pathExists from 'path-exists'
@@ -6,6 +8,8 @@ import pathExists from 'path-exists'
 import { CACHE_DIR } from './cache.js'
 import { downloadNode, NODE_FILENAME } from './download.js'
 import { cleanupOnError } from './cleanup.js'
+
+const pMkdir = promisify(mkdir)
 
 // Download the Node binary for a specific `version` then run it with `args`
 export const runNode = async function(version, args) {
@@ -24,12 +28,22 @@ const getNodePath = async function(version) {
     return nodePath
   }
 
+  await createOutputDir(outputDir)
+
   await cleanupOnError(
     () => downloadNode(version, outputDir, nodePath),
     nodePath,
   )
 
   return nodePath
+}
+
+const createOutputDir = async function(outputDir) {
+  if (await pathExists(outputDir)) {
+    return
+  }
+
+  await pMkdir(outputDir)
 }
 
 // Forward arguments to another node binary located at `nodePath`.
