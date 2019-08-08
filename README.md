@@ -80,6 +80,7 @@ But using a specific Node version. Any Node
 
 # See also
 
+- [`download-node`](https://github.com/ehmicky/download-node): Download Node.js
 - [`normalize-node-version`](https://github.com/ehmicky/normalize-node-versions):
   Normalize and validate Node.js versions
 - [`all-node-versions`](https://github.com/ehmicky/all-node-versions): List all
