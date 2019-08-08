@@ -78,6 +78,11 @@ But using a specific Node version. Any Node
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
 
+# See also
+
+- [`all-node-versions`](https://github.com/ehmicky/all-node-versions): List all
+  available Node.js versions
+
 # Support
 
 If you found a bug or would like a new feature, _don't hesitate_ to
