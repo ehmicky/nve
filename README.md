@@ -8,37 +8,50 @@
 
 Run a specific Node.js version.
 
-As opposed to [`nvm`](https://github.com/nvm-sh/nvm) this:
+This executes a file, command or REPL using a specific Node.js version.
 
-- applies to a single command (not to the entire shell session)
-- does not need installing each Node version first
+Unlike [`nvm run`](https://github.com/nvm-sh/nvm/blob/master/README.md#usage)
+it:
+
+- is much faster
+- does not need a separate installation step for each Node version
 - works on Windows
 - does not require Bash
+- is installed as a Node module (as opposed to a
+  [Bash installation script](https://github.com/nvm-sh/nvm/blob/master/README.md#installation-and-update)
+  downloaded with `curl`)
 
-This is also much faster than [`nvm exec`](https://github.com/nvm-sh/nvm) and
-[`npx -r node`](https://github.com/aredridel/node-bin-gen).
+The Node.js version applies to a single file or command. To run a specific
+Node.js version for an entire project or shell session, please use
+[`nvm`](https://github.com/nvm-sh/nvm) and
+[`nvm-windows`](https://github.com/coreybutler/nvm-windows),
+[`n`](https://github.com/tj/n) or [`nvs`](https://github.com/jasongin/nvs).
 
 # Example
 
 ```bash
-# Run any Node version
+# Same as `node` but with Node 12
 $ nve 12
 Welcome to Node.js v12.8.0.
 Type ".help" for more information.
 > .exit
 
-# Same as `node file.js` but using Node 8
+# Same as `node file.js` but with Node 8
 $ nve 8 file.js
 
 # Any Node CLI flag can be used
 $ nve 8 --print 'process.version'
 v8.16.0
 
+# Run a specific version
+$ nve 8.10.0 --version
+v8.10.0
+
 # Run the latest Node version
 $ nve '*' --version
 v12.8.0
 
-# Use version range
+# Use a version range
 $ nve '<8' --version
 v7.10.1
 ```
