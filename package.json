@@ -53,7 +53,7 @@
     "test": "test"
   },
   "dependencies": {
-    "core-js": "^3.1.4",
+    "core-js": "^3.2.0",
     "find-cache-dir": "^3.0.0",
     "get-node": "0.0.1",
     "normalize-node-version": "^0.0.2",
