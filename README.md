@@ -90,6 +90,10 @@ But using a specific Node version. Any Node
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
 
+The first time `nve` is run with a new `VERSION`, the Node binary will be
+downloaded from `nodejs.org` under the hood. This initially takes few seconds.
+However subsequent runs are almost instantaneous.
+
 # See also
 
 - [`get-node`](https://github.com/ehmicky/get-node): Download Node.js
