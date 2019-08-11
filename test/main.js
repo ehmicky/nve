@@ -7,7 +7,7 @@ import nve from '../src/main.js'
 
 const TEST_VERSION = '6.0.0'
 
-const runCli = async function(args = '--version', versionRange = TEST_VERSION) {
+const runCli = async function(versionRange = TEST_VERSION, args = '--version') {
   const binPath = await getBinPath()
   const { stdout, stderr, exitCode: code } = await execa.command(
     `${binPath} ${versionRange} ${args}`,
@@ -23,7 +23,7 @@ test('Forward stdout/stderr', async t => {
 })
 
 test('Print errors on stderr', async t => {
-  const { stderr } = await runCli('--invalid')
+  const { stderr } = await runCli(TEST_VERSION, '--invalid')
 
   t.true(stderr.includes('--invalid'))
 })
@@ -35,7 +35,7 @@ test('Forward exit code on success | CLI', async t => {
 })
 
 test('Forward exit code on failure | CLI', async t => {
-  const { code } = await runCli('does_not_exist.js')
+  const { code } = await runCli(TEST_VERSION, 'does_not_exist.js')
 
   t.is(code, 1)
 })
@@ -53,7 +53,7 @@ test('Forward signal | programmatic', async t => {
 })
 
 test('Invalid arguments | CLI', async t => {
-  const { stderr, code } = await runCli('', 'invalid_version')
+  const { stderr, code } = await runCli('invalid_version')
 
   t.is(code, 1)
   t.true(stderr.includes('invalid_version'))
