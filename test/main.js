@@ -1,20 +1,9 @@
 import test from 'ava'
-import { getBinPath } from 'get-bin-path'
-import execa from 'execa'
 import { each } from 'test-each'
 
 import nve from '../src/main.js'
 
-const TEST_VERSION = '6.0.0'
-
-const runCli = async function(versionRange = TEST_VERSION, args = '--version') {
-  const binPath = await getBinPath()
-  const { stdout, stderr, exitCode: code } = await execa.command(
-    `${binPath} ${versionRange} ${args}`,
-    { reject: false },
-  )
-  return { stdout, stderr, code }
-}
+import { TEST_VERSION, runCli } from './helpers/main.js'
 
 test('Forward stdout/stderr', async t => {
   const { stdout } = await runCli()
