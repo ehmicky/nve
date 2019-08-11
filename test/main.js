@@ -8,12 +8,19 @@ const runCli = async function(args = '--version') {
   const binPath = await getBinPath()
   const { stdout, exitCode } = await execa.command(
     `${binPath} ${TEST_VERSION} ${args}`,
+    { reject: false },
   )
   return { stdout, exitCode }
 }
 
-test('Success', async t => {
+test('Execute command', async t => {
   const { stdout } = await runCli()
 
   t.is(stdout, `v${TEST_VERSION}`)
+})
+
+test('Forward exit code on success', async t => {
+  const { exitCode } = await runCli()
+
+  t.is(exitCode, 0)
 })
