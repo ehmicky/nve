@@ -6,17 +6,23 @@ const TEST_VERSION = '6.0.0'
 
 const runCli = async function(args = '--version') {
   const binPath = await getBinPath()
-  const { stdout, exitCode } = await execa.command(
+  const { stdout, stderr, exitCode } = await execa.command(
     `${binPath} ${TEST_VERSION} ${args}`,
     { reject: false },
   )
-  return { stdout, exitCode }
+  return { stdout, stderr, exitCode }
 }
 
-test('Execute command', async t => {
+test('Forward stdout/stderr', async t => {
   const { stdout } = await runCli()
 
   t.is(stdout, `v${TEST_VERSION}`)
+})
+
+test('Print errors on stderr', async t => {
+  const { stderr } = await runCli('--invalid')
+
+  t.true(stderr.includes('--invalid'))
 })
 
 test('Forward exit code on success', async t => {
