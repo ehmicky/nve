@@ -1,6 +1,9 @@
 import test from 'ava'
 import { getBinPath } from 'get-bin-path'
 import execa from 'execa'
+import { each } from 'test-each'
+
+import nve from '../src/main.js'
 
 const TEST_VERSION = '6.0.0'
 
@@ -35,4 +38,10 @@ test('Forward exit code on failure', async t => {
   const { exitCode } = await runCli('does_not_exist.js')
 
   t.is(exitCode, 1)
+})
+
+each([[TEST_VERSION, true]], ({ title }, [versionRange, args]) => {
+  test(`Invalid arguments | programmatic ${title}`, async t => {
+    await t.throwsAsync(nve(versionRange, args))
+  })
 })
