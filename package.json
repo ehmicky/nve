@@ -54,7 +54,6 @@
   },
   "dependencies": {
     "core-js": "^3.2.0",
-    "get-bin-path": "^1.0.2",
     "get-node": "^1.0.0",
     "global-cache-dir": "^1.0.0",
     "p-event": "^4.1.0"
@@ -62,6 +61,7 @@
   "devDependencies": {
     "ava": "^2.2.0",
     "execa": "^2.0.3",
+    "get-bin-path": "^1.0.2",
     "gulp": "^4.0.2",
     "gulp-shared-tasks": "^0.30.34",
     "husky": "^3.0.3",
