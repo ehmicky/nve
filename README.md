@@ -95,6 +95,17 @@ from [`nodejs.org`](https://nodejs.org/dist/) under the hood. This initially
 takes few seconds. However subsequent runs are
 [almost instantaneous](#benchmarks).
 
+## Native modules
+
+If your code is using native modules, `nve` will work providing:
+
+- they are built with [N-API](https://nodejs.org/api/n-api.html)
+- the target Node.js version is `>=8.12.0` (since N-API was not available or
+  stable before that)
+
+Otherwise the following error message will be shown:
+`Error: The module was compiled against a different Node.js version`.
+
 ## Node.js mirror
 
 The binaries are downloaded from
