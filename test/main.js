@@ -9,11 +9,11 @@ const TEST_VERSION = '6.0.0'
 
 const runCli = async function(args = '--version') {
   const binPath = await getBinPath()
-  const { stdout, stderr, exitCode } = await execa.command(
+  const { stdout, stderr, exitCode: code } = await execa.command(
     `${binPath} ${TEST_VERSION} ${args}`,
     { reject: false },
   )
-  return { stdout, stderr, exitCode }
+  return { stdout, stderr, code }
 }
 
 test('Forward stdout/stderr', async t => {
@@ -28,16 +28,22 @@ test('Print errors on stderr', async t => {
   t.true(stderr.includes('--invalid'))
 })
 
-test('Forward exit code on success', async t => {
-  const { exitCode } = await runCli()
+test('Forward exit code on success | CLI', async t => {
+  const { code } = await runCli()
 
-  t.is(exitCode, 0)
+  t.is(code, 0)
 })
 
-test('Forward exit code on failure', async t => {
-  const { exitCode } = await runCli('does_not_exist.js')
+test('Forward exit code on failure | CLI', async t => {
+  const { code } = await runCli('does_not_exist.js')
 
-  t.is(exitCode, 1)
+  t.is(code, 1)
+})
+
+test('Forward exit code on success | programmatic', async t => {
+  const { code } = await nve(TEST_VERSION, ['-e', '""'])
+
+  t.is(code, 0)
 })
 
 each(
