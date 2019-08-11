@@ -64,7 +64,7 @@
     "get-bin-path": "^1.0.2",
     "gulp": "^4.0.2",
     "gulp-shared-tasks": "^0.30.35",
-    "husky": "^3.0.3",
+    "husky": "^3.0.4",
     "path-exists": "^4.0.0",
     "test-each": "^1.7.2"
   },
