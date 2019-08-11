@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "ava": "^2.2.0",
-    "execa": "^2.0.3",
+    "execa": "^2.0.4",
     "get-bin-path": "^1.0.2",
     "gulp": "^4.0.2",
     "gulp-shared-tasks": "^0.30.35",
