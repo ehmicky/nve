@@ -119,7 +119,7 @@ npx node: 1385ms
 # See also
 
 - [`get-node`](https://github.com/ehmicky/get-node): Download Node.js
-- [`normalize-node-version`](https://github.com/ehmicky/normalize-node-versions):
+- [`normalize-node-version`](https://github.com/ehmicky/normalize-node-version):
   Normalize and validate Node.js versions
 - [`all-node-versions`](https://github.com/ehmicky/all-node-versions): List all
   available Node.js versions
