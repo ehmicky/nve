@@ -7,7 +7,7 @@ import nve from './main.js'
 // version range. The version range is specified as the first argument.
 const runCli = async function() {
   try {
-    const [versionRange, ...args] = argv.slice(2)
+    const [, , versionRange, ...args] = argv
     const { code } = await nve(versionRange, args)
     // Forward the exit code from the child process
     exit(code)
