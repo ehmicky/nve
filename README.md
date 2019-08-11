@@ -21,9 +21,9 @@ it:
   [Bash installation script](https://github.com/nvm-sh/nvm/blob/master/README.md#installation-and-update)
   downloaded with `curl`)
 
-The Node.js version applies to a single file or command. To run a specific
-Node.js version for an entire project or shell session, please use
-[`nvm`](https://github.com/nvm-sh/nvm) and
+This executes a single file or command. To run a specific Node.js version for an
+entire project or shell session, please use
+[`nvm`](https://github.com/nvm-sh/nvm),
 [`nvm-windows`](https://github.com/coreybutler/nvm-windows),
 [`n`](https://github.com/tj/n) or [`nvs`](https://github.com/jasongin/nvs).
 
@@ -90,9 +90,9 @@ But using a specific Node version. Any Node
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
 
-The first time `nve` is run with a new `VERSION`, the Node binary will be
-downloaded from `nodejs.org` under the hood. This initially takes few seconds.
-However subsequent runs are almost instantaneous.
+The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
+from `nodejs.org` under the hood. This initially takes few seconds. However
+subsequent runs are almost instantaneous.
 
 # See also
 
