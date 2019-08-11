@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # nve usage examples.
 # This file can be directly run:
-#   - first install `nve`
+#   - first install `nve` globally
 #   - then `bash node_modules/nve/examples/main.sh`
 # An online demo is also available at:
 #   https://repl.it/@ehmicky/nve

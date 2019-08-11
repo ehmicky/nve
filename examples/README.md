@@ -1,6 +1,6 @@
 This directory contains [examples](main.sh) of this library.
 
-To execute them, first [install](../README.md#install) `nve`. Then run
+To execute them, first [install](../README.md#install) `nve` globally. Then run
 `bash node_modules/nve/examples/main.sh`.
 
 You can edit the [examples](main.sh).
