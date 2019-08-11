@@ -41,7 +41,7 @@ test('Forward exit code on failure', async t => {
 })
 
 each(
-  [[TEST_VERSION, true], [TEST_VERSION, [true]]],
+  [[TEST_VERSION, true], [TEST_VERSION, [true]], ['invalid_version']],
   ({ title }, [versionRange, args]) => {
     test(`Invalid arguments | programmatic ${title}`, async t => {
       await t.throwsAsync(nve(versionRange, args))
