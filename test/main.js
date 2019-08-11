@@ -40,10 +40,16 @@ test('Forward exit code on failure | CLI', async t => {
   t.is(code, 1)
 })
 
-test('Forward exit code on success | programmatic', async t => {
+test('Forward exit code | programmatic', async t => {
   const { code } = await nve(TEST_VERSION, ['-e', '""'])
 
   t.is(code, 0)
+})
+
+test('Forward signal | programmatic', async t => {
+  const { signal } = await nve(TEST_VERSION, ['-e', '""'])
+
+  t.is(signal, null)
 })
 
 each(
