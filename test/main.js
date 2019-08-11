@@ -4,7 +4,9 @@ import nve from '../src/main.js'
 
 import { TEST_VERSION, runCli } from './helpers/main.js'
 
-test('Forward stdout/stderr', async t => {
+// Tests fail on Windows when run in parallel unless Node executable is already
+// cached. This is due to some bug within `spawn-wrap` (used by nyc)
+test.serial('Forward stdout/stderr', async t => {
   const { stdout } = await runCli()
 
   t.is(stdout, `v${TEST_VERSION}`)
