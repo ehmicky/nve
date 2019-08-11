@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "ava": "^2.2.0",
+    "execa": "^2.0.3",
     "gulp": "^4.0.2",
     "gulp-shared-tasks": "^0.30.34",
     "husky": "^3.0.3"

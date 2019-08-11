@@ -1,21 +1,19 @@
-import { execFile } from 'child_process'
-import { promisify } from 'util'
-
 import test from 'ava'
 import { getBinPath } from 'get-bin-path'
-
-const pExecFile = promisify(execFile)
+import execa from 'execa'
 
 const TEST_VERSION = '6.0.0'
 
-test('Success', async t => {
+const runCli = async function(args = '--version') {
   const binPath = await getBinPath()
-  const { stdout } = await pExecFile('node', [
-    binPath,
-    TEST_VERSION,
-    '--version',
-  ])
-  const stdoutA = stdout.trim()
+  const { stdout, exitCode } = await execa.command(
+    `${binPath} ${TEST_VERSION} ${args}`,
+  )
+  return { stdout, exitCode }
+}
 
-  t.is(stdoutA, `v${TEST_VERSION}`)
+test('Success', async t => {
+  const { stdout } = await runCli()
+
+  t.is(stdout, `v${TEST_VERSION}`)
 })
