@@ -24,3 +24,9 @@ test('Forward exit code on success', async t => {
 
   t.is(exitCode, 0)
 })
+
+test('Forward exit code on failure', async t => {
+  const { exitCode } = await runCli('does_not_exist.js')
+
+  t.is(exitCode, 1)
+})
