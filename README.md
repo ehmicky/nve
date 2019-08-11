@@ -97,8 +97,9 @@ takes few seconds. However subsequent runs are
 
 ## Node.js mirror
 
-The binaries are downloaded from `https://nodejs.org/dist`. You can specify a
-mirror website using the environment variable `NODE_MIRROR`.
+The binaries are downloaded from
+[https://nodejs.org/dist](https://nodejs.org/dist). You can specify a mirror
+website using the environment variable `NODE_MIRROR`.
 
 ```bash
 NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
