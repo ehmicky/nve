@@ -4,10 +4,7 @@ import nve from '../src/main.js'
 
 import { TEST_VERSION, runCli } from './helpers/main.js'
 
-// On Windows, `get-node` does not work when running in parallel unless already
-// cached, because Windows lock files make atomic writes fail. So we need to
-// run the first serially in order for it be cached.
-test.serial('Forward stdout/stderr', async t => {
+test('Forward stdout/stderr', async t => {
   const { stdout } = await runCli()
 
   t.is(stdout, `v${TEST_VERSION}`)
