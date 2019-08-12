@@ -27,7 +27,7 @@ entire project or shell session, please use
 [`nvm-windows`](https://github.com/coreybutler/nvm-windows),
 [`n`](https://github.com/tj/n) or [`nvs`](https://github.com/jasongin/nvs).
 
-# Example
+# Examples
 
 ```bash
 # Same as `node` but with Node 12
