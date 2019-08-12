@@ -94,6 +94,15 @@ The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
 from `nodejs.org` under the hood. This initially takes few seconds. However
 subsequent runs are almost instantaneous.
 
+## Node.js mirror
+
+The binaries are downloaded from `https://nodejs.org/dist`. You can specify a
+mirror website using the environment variable `NODE_MIRROR`.
+
+```bash
+NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
+```
+
 # See also
 
 - [`get-node`](https://github.com/ehmicky/get-node): Download Node.js
