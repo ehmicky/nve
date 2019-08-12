@@ -92,7 +92,7 @@ But using a specific Node version. Any Node
 
 The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
 from `nodejs.org` under the hood. This initially takes few seconds. However
-subsequent runs are almost instantaneous.
+subsequent runs are [almost instantaneous](#benchmarks).
 
 ## Node.js mirror
 
@@ -106,7 +106,7 @@ NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
 # Benchmarks
 
 The [following benchmarks](benchmarks/main.js) compare the average time to run
-`node --version` using `nve`, [`nvm run`](https://github.com/nvm-sh/nvm) and
+`nve`, [`nvm run`](https://github.com/nvm-sh/nvm) and
 [`npx -r node`](https://github.com/aredridel/node-bin-gen/blob/master/node-bin-README.md#use-with-npx):
 
 ```
