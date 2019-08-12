@@ -148,7 +148,7 @@ button (pencil icon) and suggest a correction.
 If you would like to help us fix a bug or add a new feature, please check our
 [guidelines](CONTRIBUTING.md). Pull requests are welcome!
 
-<!-- Thanks go to our wonderful contributors: -->
+Thanks go to our wonderful contributors:
 
 <!-- ALL-CONTRIBUTORS-LIST:START -->
 <!-- prettier-ignore -->
