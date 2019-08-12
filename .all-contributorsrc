@@ -20,6 +20,15 @@
         "ideas",
         "doc"
       ]
+    },
+    {
+      "login": "scottwarren",
+      "name": "Scott Warren",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2718494?v=4",
+      "profile": "https://scottwarren.dev",
+      "contributions": [
+        "question"
+      ]
     }
   ],
   "contributorsPerLine": 7
