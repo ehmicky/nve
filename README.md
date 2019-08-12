@@ -13,7 +13,7 @@ This executes a file, command or REPL using a specific Node.js version.
 Unlike [`nvm run`](https://github.com/nvm-sh/nvm/blob/master/README.md#usage)
 it:
 
-- is much faster
+- is [10 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
 - works on Windows
 - does not require Bash
@@ -101,6 +101,18 @@ mirror website using the environment variable `NODE_MIRROR`.
 
 ```bash
 NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
+```
+
+# Benchmarks
+
+The [following benchmarks](benchmarks/main.js) compare the average time to run
+`node --version` using `nve`, [`nvm run`](https://github.com/nvm-sh/nvm) and
+[`npx -r node`](https://github.com/aredridel/node-bin-gen/blob/master/node-bin-README.md#use-with-npx):
+
+```
+nve:           68ms
+nvm run:      852ms
+npx -r node: 1385ms
 ```
 
 # See also
