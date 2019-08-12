@@ -53,7 +53,7 @@
     "test": "test"
   },
   "dependencies": {
-    "core-js": "^3.2.0",
+    "core-js": "^3.2.1",
     "get-node": "^1.0.2",
     "global-cache-dir": "^1.0.0",
     "p-event": "^4.1.0"
