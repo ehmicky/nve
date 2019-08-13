@@ -108,12 +108,12 @@ NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
 
 The [following benchmarks](benchmarks/main.js) compare the average time to run
 `nve`, [`nvm run`](https://github.com/nvm-sh/nvm) and
-[`npx -r node`](https://github.com/aredridel/node-bin-gen/blob/master/node-bin-README.md#use-with-npx):
+[`npx node`](https://github.com/aredridel/node-bin-gen/blob/master/node-bin-README.md#use-with-npx):
 
 ```
-nve:           68ms
-nvm run:      852ms
-npx -r node: 1385ms
+nve:        68ms
+nvm run:   852ms
+npx node: 1385ms
 ```
 
 # See also

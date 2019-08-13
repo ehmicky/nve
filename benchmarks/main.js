@@ -31,7 +31,7 @@ export const nvm = async function() {
 }
 
 export const npx = {
-  title: 'npx -r node',
+  title: 'npx node',
   async main() {
     await pExecFile('npx', [`node@${VERSION}`, '--version'])
   },
