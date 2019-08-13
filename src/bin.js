@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { argv, exit } from 'process'
 
-import nve from './main.js'
+import { nve } from './main.js'
 
 // CLI that forwards its arguments to another node instance of a specific
 // version range. The version range is specified as the first argument.

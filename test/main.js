@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import nve from '../src/main.js'
+import { nve } from '../src/main.js'
 
 import { TEST_VERSION, runCli } from './helpers/main.js'
 
