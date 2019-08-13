@@ -10,12 +10,17 @@ import { validateInput } from './validate.js'
 export const nve = async function(versionRange, args = []) {
   validateInput(args)
 
-  // Download the Node.js binary
-  const cacheDir = await globalCacheDir(CACHE_DIR)
-  const nodePath = await getNode(versionRange, cacheDir)
+  const nodePath = await getPath(versionRange)
 
   const { code, signal } = await runNodeProcess(nodePath, args)
   return { code, signal }
+}
+
+// Download the Node.js binary
+export const getPath = async function(versionRange) {
+  const cacheDir = await globalCacheDir(CACHE_DIR)
+  const nodePath = await getNode(versionRange, cacheDir)
+  return nodePath
 }
 
 const CACHE_DIR = 'nve'

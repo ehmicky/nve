@@ -1,6 +1,7 @@
 import test from 'ava'
+import pathExists from 'path-exists'
 
-import { nve } from '../src/main.js'
+import { nve, getPath } from '../src/main.js'
 
 import { TEST_VERSION, runCli } from './helpers/main.js'
 
@@ -40,4 +41,10 @@ test('Forward signal | programmatic', async t => {
   const { signal } = await nve(TEST_VERSION, ['-e', '""'])
 
   t.is(signal, null)
+})
+
+test('Retrieve node filepath', async t => {
+  const path = await getPath(TEST_VERSION)
+
+  t.true(await pathExists(path))
 })
