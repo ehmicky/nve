@@ -91,8 +91,9 @@ But using a specific Node version. Any Node
 `12`, `12.6.0` or `<12`.
 
 The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
-from `nodejs.org` under the hood. This initially takes few seconds. However
-subsequent runs are [almost instantaneous](#benchmarks).
+from [`nodejs.org`](https://nodejs.org/dist/) under the hood. This initially
+takes few seconds. However subsequent runs are
+[almost instantaneous](#benchmarks).
 
 ## Node.js mirror
 
