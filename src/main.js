@@ -1,4 +1,5 @@
 import { spawn } from 'child_process'
+import { env } from 'process'
 
 import getNode from 'get-node'
 import globalCacheDir from 'global-cache-dir'
@@ -19,7 +20,8 @@ export const nve = async function(versionRange, args = []) {
 // Download the Node.js binary
 export const getPath = async function(versionRange) {
   const cacheDir = await globalCacheDir(CACHE_DIR)
-  const nodePath = await getNode(versionRange, cacheDir)
+  const progress = env.NVE_PROGRESS !== '0'
+  const nodePath = await getNode(versionRange, cacheDir, { progress })
   return nodePath
 }
 
