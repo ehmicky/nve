@@ -59,7 +59,7 @@
     "p-event": "^4.1.0"
   },
   "devDependencies": {
-    "ava": "^2.2.0",
+    "ava": "^2.3.0",
     "execa": "^2.0.4",
     "get-bin-path": "^1.0.2",
     "gulp": "^4.0.2",
