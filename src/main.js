@@ -18,10 +18,12 @@ export const nve = async function(versionRange, args = []) {
 }
 
 // Download the Node.js binary
-export const getPath = async function(versionRange) {
+export const getPath = async function(versionRange, progress) {
   const cacheDir = await globalCacheDir(CACHE_DIR)
-  const progress = env.NVE_PROGRESS !== '0'
-  const nodePath = await getNode(versionRange, cacheDir, { progress })
+  const progressA = progress !== false && env.NVE_PROGRESS !== '0'
+  const nodePath = await getNode(versionRange, cacheDir, {
+    progress: progressA,
+  })
   return nodePath
 }
 
