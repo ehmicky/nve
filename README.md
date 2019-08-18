@@ -90,10 +90,15 @@ But using a specific Node version. Any Node
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
 
+## Initial download
+
 The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
 from [`nodejs.org`](https://nodejs.org/dist/) under the hood. This initially
 takes few seconds. However subsequent runs are
 [almost instantaneous](#benchmarks).
+
+A spinner will show the download progress. This can be disabled using the
+environment variable `NVE_PROGRESS=0`.
 
 ## Native modules
 
