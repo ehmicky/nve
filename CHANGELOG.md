@@ -1,3 +1,9 @@
+# 1.2.2
+
+## Internal
+
+- Internal changes
+
 # 1.2.1
 
 ## Features
