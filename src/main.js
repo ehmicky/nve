@@ -7,7 +7,7 @@ import pEvent from 'p-event'
 import { validateInput } from './validate.js'
 
 // Forwards `args` to another node instance of a specific `versionRange`
-export const nve = async function(versionRange, args = [], opts) {
+const nve = async function(versionRange, args = [], opts) {
   validateInput(args)
 
   // Download the Node.js binary
@@ -28,3 +28,7 @@ const getResult = async function(childProcess) {
   const [code, signal] = await pEvent(childProcess, 'exit', { multiArgs: true })
   return { code, signal }
 }
+
+// We do not use `export default` because Babel transpiles it in a way that
+// requires CommonJS users to `require(...).default` instead of `require(...)`.
+module.exports = nve
