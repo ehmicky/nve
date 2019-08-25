@@ -1,0 +1,3 @@
+cwd: build
+run:
+  cli: {}
