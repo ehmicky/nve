@@ -159,8 +159,8 @@ NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
 _versionRange_: `string`<br> _args_: `string[]`<br> _options_:
 `object`<br>_Return value_: `object`
 
-`args` and `options` are the same as
-[`child_process.spawn()`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
+`args` and `options` are the same as in
+[`child_process.spawn(command, args, options)`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
 `options.stdio` defaults to `inherit`.
 
 The return value is an object with the following properties:
