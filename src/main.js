@@ -7,26 +7,24 @@ import pEvent from 'p-event'
 import { validateInput } from './validate.js'
 
 // Forwards `args` to another node instance of a specific `versionRange`
-export const nve = async function(versionRange, args = []) {
+export const nve = async function(versionRange, args = [], opts) {
   validateInput(args)
 
-  const nodePath = await getNodePath(versionRange)
-
-  const { code, signal } = await runNodeProcess(nodePath, args)
-  return { code, signal }
-}
-
-// Download the Node.js binary
-const getNodePath = async function(versionRange) {
+  // Download the Node.js binary
   const progress = env.NVE_PROGRESS !== '0'
   const { path: nodePath } = await getNode(versionRange, { progress })
-  return nodePath
+
+  // Forward arguments to another node binary located at `nodePath`.
+  // We also forward standard streams.
+  const childProcess = spawn(nodePath, args, { ...DEFAULT_OPTIONS, ...opts })
+
+  const result = getResult(childProcess)
+  return { childProcess, result }
 }
 
-// Forward arguments to another node binary located at `nodePath`.
-// We also forward standard streams and exit code.
-const runNodeProcess = async function(nodePath, args) {
-  const childProcess = spawn(nodePath, args, { stdio: 'inherit' })
+const DEFAULT_OPTIONS = { stdio: 'inherit' }
+
+const getResult = async function(childProcess) {
   const [code, signal] = await pEvent(childProcess, 'exit', { multiArgs: true })
   return { code, signal }
 }
