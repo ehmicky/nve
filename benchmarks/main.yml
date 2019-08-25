@@ -1,0 +1,8 @@
+tasks:
+  - id: nve
+    main: ./src/bin.js 6.0.0 --version
+  - id: nvm
+    main: bash -i -c nvm\ run\ 6.0.0\ --version
+  - id: npx
+    title: npx node
+    main: npx node@6.0.0 --version
