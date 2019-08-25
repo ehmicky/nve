@@ -1,3 +1,9 @@
+# 1.3.0
+
+## Features
+
+- Retry downloading the Node.js binaries on network errors.
+
 # 1.2.2
 
 ## Internal
