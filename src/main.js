@@ -18,8 +18,8 @@ const nve = async function(versionRange, args = [], opts) {
   // We also forward standard streams.
   const childProcess = spawn(nodePath, args, { ...DEFAULT_OPTIONS, ...opts })
 
-  const result = getResult(childProcess)
-  return { childProcess, result }
+  const promise = getResult(childProcess)
+  return { childProcess, promise }
 }
 
 const DEFAULT_OPTIONS = { stdio: 'inherit' }

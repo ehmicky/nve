@@ -13,6 +13,7 @@ This executes a file, command or REPL using a specific Node.js version.
 Unlike [`nvm run`](https://github.com/nvm-sh/nvm/blob/master/README.md#usage)
 it:
 
+- can be run programmatically
 - is [10 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
 - works on Windows
@@ -21,11 +22,12 @@ it:
   [Bash installation script](https://github.com/nvm-sh/nvm/blob/master/README.md#installation-and-update)
   downloaded with `curl`)
 
-This executes a single file or command. To run a specific Node.js version for an
-entire project or shell session, please use
-[`nvm`](https://github.com/nvm-sh/nvm),
+`nve` executes a single file or command. It does not modify the `node` nor `npm`
+global binaries. To run a specific Node.js version for an entire project or
+shell session, please use [`nvm`](https://github.com/nvm-sh/nvm),
 [`nvm-windows`](https://github.com/coreybutler/nvm-windows),
-[`n`](https://github.com/tj/n) or [`nvs`](https://github.com/jasongin/nvs).
+[`n`](https://github.com/tj/n) or [`nvs`](https://github.com/jasongin/nvs)
+instead.
 
 # Examples
 
@@ -56,6 +58,16 @@ $ nve '<8' --version
 v7.10.1
 ```
 
+Or from Node.js:
+
+<!-- Remove 'eslint-skip' once estree supports top-level await -->
+<!-- eslint-skip -->
+
+```js
+const { promise, childProcess } = await nve('8', ['--version'])
+await promise
+```
+
 # Demo
 
 You can try this library:
@@ -72,7 +84,7 @@ npm install -g nve
 `node >=8.12.0` must be globally installed. However the command run by `nve` can
 use any Node version.
 
-# Usage
+# Usage (CLI)
 
 ```bash
 nve VERSION [ARGS...]
@@ -89,6 +101,23 @@ But using a specific Node version. Any Node
 
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
+
+# Usage (Node.js)
+
+<!-- Remove 'eslint-skip' once estree supports top-level await -->
+<!-- eslint-skip -->
+
+```js
+const options = {}
+const { promise, childProcess } = await nve('8', ['--version'], options)
+const { code, signal } = await promise
+```
+
+You can either:
+
+- use the `promise` if you just want to wait for the child process to complete
+  and retrieve its exit `code` or `signal`
+- use the `childProcess` if you want to to access its output
 
 ## Initial download
 
@@ -120,6 +149,16 @@ website using the environment variable `NODE_MIRROR`.
 ```bash
 NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
 ```
+
+# API (Node.js)
+
+## nve(versionRange, args?, options?)
+
+_versionRange_: `string`<br> _args_: `string[]`<br> _options_: `object`
+
+`args` and `options` are the same as
+[`child_process.spawn()`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
+`options.stdio` defaults to `inherit`.
 
 # Benchmarks
 

@@ -34,16 +34,16 @@ test('Forward exit code on failure | CLI', async t => {
 })
 
 test('Forward exit code | programmatic', async t => {
-  const { result } = await nve(TEST_VERSION, ['-e', '""'])
+  const { promise } = await nve(TEST_VERSION, ['-e', '""'])
 
-  const { code } = await result
+  const { code } = await promise
   t.is(code, 0)
 })
 
 test('Forward signal | programmatic', async t => {
-  const { result } = await nve(TEST_VERSION, ['-e', '""'])
+  const { promise } = await nve(TEST_VERSION, ['-e', '""'])
 
-  const { signal } = await result
+  const { signal } = await promise
   t.is(signal, null)
 })
 

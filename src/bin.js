@@ -8,8 +8,8 @@ import nve from './main.js'
 const runCli = async function() {
   try {
     const [, , versionRange, ...args] = argv
-    const { result } = await nve(versionRange, args)
-    const { code } = await result
+    const { promise } = await nve(versionRange, args)
+    const { code } = await promise
     // Forward the exit code from the child process
     exit(code)
   } catch (error) {
