@@ -13,7 +13,7 @@ This executes a file, command or REPL using a specific Node.js version.
 Unlike [`nvm run`](https://github.com/nvm-sh/nvm/blob/master/README.md#usage)
 it:
 
-- can be run programmatically
+- can be run [programmatically](#usage-nodejs)
 - is [10 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
 - works on Windows
