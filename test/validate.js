@@ -5,18 +5,31 @@ import nve from '../src/main.js'
 
 import { TEST_VERSION, runCli } from './helpers/main.js'
 
-test('Invalid arguments | CLI', async t => {
-  const { stderr, code } = await runCli('invalid_version')
+each(
+  [[''], [TEST_VERSION], ['invalid_version', 'node']],
+  ({ title }, [versionRange, command]) => {
+    test(`Invalid arguments | CLI ${title}`, async t => {
+      const { code, stderr } = await runCli(`${versionRange} ${command}`)
 
-  t.is(code, 1)
-  t.true(stderr.includes('invalid_version'))
-})
+      t.is(code, 1)
+      t.true(stderr !== '')
+    })
+  },
+)
 
 each(
-  [[TEST_VERSION, true], [TEST_VERSION, [true]], ['invalid_version']],
-  ({ title }, [versionRange, args]) => {
+  [
+    [],
+    [TEST_VERSION],
+    [TEST_VERSION, true],
+    [TEST_VERSION, 'node', true],
+    [TEST_VERSION, 'node', [true]],
+    [TEST_VERSION, 'node', [], true],
+    ['invalid_version', 'node'],
+  ],
+  ({ title }, [versionRange, command, args, opts]) => {
     test(`Invalid arguments | programmatic ${title}`, async t => {
-      await t.throwsAsync(nve(versionRange, args))
+      await t.throwsAsync(nve(versionRange, command, args, opts))
     })
   },
 )

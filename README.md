@@ -8,12 +8,12 @@
 
 Run any Node.js version.
 
-This executes a file, command or REPL using a specific Node.js version.
+This executes any command using a specific Node.js version.
 
 Unlike [`nvm run`](https://github.com/nvm-sh/nvm/blob/master/README.md#usage)
 it:
 
-- can be run [programmatically](#usage-nodejs)
+- can be run [programmatically](#programmatic)
 - is [10 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
 - works on Windows (no need to run as Administrator)
@@ -33,39 +33,37 @@ instead.
 
 ```bash
 # Same as `node` but with Node 12
-$ nve 12
-Welcome to Node.js v12.8.0.
+$ nve 12 node
+Welcome to Node.js v12.10.0.
 Type ".help" for more information.
 > .exit
 
 # Same as `node file.js` but with Node 8
-$ nve 8 file.js
+$ nve 8 node file.js
 
-# Any Node CLI flag can be used
-$ nve 8 --print 'process.version'
-v8.16.0
+# Any command can be used
+$ nve 8 npm test
 
 # Run a specific version
-$ nve 8.10.0 --version
+$ nve 8.10.0 npm test
 v8.10.0
 
 # Run the latest Node version
-$ nve '*' --version
-v12.8.0
+$ nve "*" npm test
+v12.10.0
 
 # Use a version range
-$ nve '<8' --version
+$ nve "<8" npm test
 v7.10.1
 ```
 
-Or from Node.js:
+Or [programmatically](#programmatic):
 
 <!-- Remove 'eslint-skip' once estree supports top-level await -->
 <!-- eslint-skip -->
 
 ```js
-const { promise, childProcess } = await nve('8', ['--version'])
-await promise
+const childProcess = await nve('8', 'node', ['--version'])
 ```
 
 # Demo
@@ -82,46 +80,29 @@ npm install -g nve
 ```
 
 `node >=8.12.0` must be globally installed. However the command run by `nve` can
-use any Node version.
+use any Node version (providing it is compatible with it).
 
-# Usage (CLI)
+# Usage
+
+## CLI
 
 ```bash
-nve VERSION [ARGS...]
+nve VERSION COMMAND [ARGS...]
 ```
 
 This is exactly the same as:
 
 ```bash
-node [ARGS...]
+COMMAND [ARGS...]
 ```
 
-But using a specific Node version. Any Node
-[CLI flag](https://nodejs.org/api/cli.html) can be passed.
+But using a specific Node version.
 
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
 
-# Usage (Node.js)
-
-<!-- Remove 'eslint-skip' once estree supports top-level await -->
-<!-- eslint-skip -->
-
-```js
-const options = {}
-const { promise, childProcess } = await nve('8', ['--version'], options)
-const { code, signal } = await promise
-```
-
-You can either:
-
-- use the `promise` if you just want to wait for the child process to complete
-  and retrieve its exit `code` or `signal`
-- use the
-  [`childProcess`](https://nodejs.org/api/child_process.html#child_process_class_childprocess)
-  if you want to to access its output. Please note
-  [`options.stdio`](https://nodejs.org/api/child_process.html#child_process_options_stdio)
-  defaults to `inherit`.
+`COMMAND` must be compatible with the specific Node `VERSION`. For example `npm`
+is [only compatible with Node `>=6`](https://github.com/npm/cli#important).
 
 ## Initial download
 
@@ -136,7 +117,7 @@ environment variable `NVE_PROGRESS=0`.
 You can specify a mirror website using the environment variable `NODE_MIRROR`.
 
 ```bash
-NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
+NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION COMMAND [ARGS...]
 ```
 
 ## Native modules
@@ -150,24 +131,26 @@ If your code is using native modules, `nve` will work providing:
 Otherwise the following error message will be shown:
 `Error: The module was compiled against a different Node.js version`.
 
-# API (Node.js)
+## Programmatic
 
-## nve(versionRange, args?, options?)
+### nve(versionRange, command, args?, options?)
 
-_versionRange_: `string`<br> _args_: `string[]`<br> _options_:
-`object`<br>_Return value_: `Promise<object>`
+_versionRange_: `string`<br> _command_: `string`<br>_args_: `string[]`<br>
+_options_: `object`<br>_Return value_:
+[`Promise<childProcess>`](https://nodejs.org/api/child_process.html#child_process_class_childprocess)
 
-`args` and `options` are the same as in
+`command`, `args` and `options` are the same as in
 [`child_process.spawn(command, args, options)`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
 
-The return value is a promise resolving to an object with the following
-properties:
+[`options.stdio`](https://nodejs.org/api/child_process.html#child_process_options_stdio)
+defaults to `inherit`.
 
-- `promise`: resolves with
-  [`code`](https://nodejs.org/api/child_process.html#child_process_event_exit)
-  and
-  [`signal`](https://nodejs.org/api/child_process.html#child_process_event_exit)
-- [`childProcess`](https://nodejs.org/api/child_process.html#child_process_class_childprocess)
+<!-- Remove 'eslint-skip' once estree supports top-level await -->
+<!-- eslint-skip -->
+
+```js
+const childProcess = await nve('8', 'command', ['--version'], options)
+```
 
 # Benchmarks
 

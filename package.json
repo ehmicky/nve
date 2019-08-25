@@ -8,7 +8,7 @@
     "!~"
   ],
   "bin": {
-    "nve": "build/src/bin.js"
+    "nve": "build/src/bin/main.js"
   },
   "scripts": {
     "test": "gulp test"
@@ -55,7 +55,9 @@
   "dependencies": {
     "core-js": "^3.2.1",
     "get-node": "^4.0.3",
-    "p-event": "^4.1.0"
+    "p-event": "^4.1.0",
+    "path-key": "^3.1.0",
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^0.30.46",
@@ -65,6 +67,7 @@
     "get-stream": "^5.1.0",
     "gulp": "^4.0.2",
     "husky": "^3.0.8",
+    "read-pkg-up": "^6.0.0",
     "test-each": "^1.7.2"
   },
   "engines": {

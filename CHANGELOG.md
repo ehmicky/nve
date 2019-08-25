@@ -1,3 +1,22 @@
+# 3.0.0
+
+## Breaking changes
+
+- `nve VERSION` must now be followed by `node`. For example `nve 8` should now
+  be `nve 8 node` and `nve 8 file.js` should be `nve 8 node file.js`.
+- If you use use `nve` from
+  [Node.js/programmatically](https://github.com/ehmicky/nve#api-nodejs), the
+  return value is now `childProcess` instead of `{ promise, childProcess }`.
+
+## Features
+
+- Binaries can now be executed such as `nve 8 npm test`. Keep in mind that the
+  binary must be compatible with the chosen Node.js version. For example `npm`
+  is only compatible with Node `>=6`.
+- If the script spawn child processes, those will now re-use the same Node.js
+  version.
+- Add `--help` and `--version` CLI flags.
+
 # 2.2.3
 
 ## Internal
