@@ -1,3 +1,5 @@
+import { ChildProcess } from 'child_process'
+
 import test from 'ava'
 
 import nve from '../src/main.js'
@@ -42,4 +44,10 @@ test('Forward signal | programmatic', async t => {
 
   const { signal } = await result
   t.is(signal, null)
+})
+
+test('Forward child process | programmatic', async t => {
+  const { childProcess } = await nve(TEST_VERSION, ['-e', '""'])
+
+  t.true(childProcess instanceof ChildProcess)
 })
