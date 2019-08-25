@@ -10,16 +10,16 @@ import { validateInput } from './validate.js'
 export const nve = async function(versionRange, args = []) {
   validateInput(args)
 
-  const nodePath = await getPath(versionRange)
+  const nodePath = await getNodePath(versionRange)
 
   const { code, signal } = await runNodeProcess(nodePath, args)
   return { code, signal }
 }
 
 // Download the Node.js binary
-export const getPath = async function(versionRange, progress) {
-  const progressA = progress !== false && env.NVE_PROGRESS !== '0'
-  const nodePath = await getNode(versionRange, { progress: progressA })
+const getNodePath = async function(versionRange) {
+  const progress = env.NVE_PROGRESS !== '0'
+  const { path: nodePath } = await getNode(versionRange, { progress })
   return nodePath
 }
 
