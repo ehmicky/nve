@@ -1,6 +1,7 @@
 import { ChildProcess } from 'child_process'
 
 import test from 'ava'
+import getStream from 'get-stream'
 
 import nve from '../src/main.js'
 
@@ -50,4 +51,13 @@ test('Forward child process | programmatic', async t => {
   const { childProcess } = await nve(TEST_VERSION, ['-e', '""'])
 
   t.true(childProcess instanceof ChildProcess)
+})
+
+test('Can pass arguments and options | programmatic', async t => {
+  const { childProcess } = await nve(TEST_VERSION, ['-p', '"test"'], {
+    stdio: 'pipe',
+  })
+
+  const stdout = await getStream(childProcess.stdout)
+  t.is(stdout.trim(), 'test')
 })
