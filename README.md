@@ -22,7 +22,7 @@ it:
   [Bash installation script](https://github.com/nvm-sh/nvm/blob/master/README.md#installation-and-update)
   downloaded with `curl`)
 
-`nve` executes a single file or command. It does not modify the `node` nor `npm`
+`nve` executes a single file or command. It does not change the `node` nor `npm`
 global binaries. To run a specific Node.js version for an entire project or
 shell session, please use [`nvm`](https://github.com/nvm-sh/nvm),
 [`nvm-windows`](https://github.com/coreybutler/nvm-windows),
@@ -119,7 +119,8 @@ You can either:
   and retrieve its exit `code` or `signal`
 - use the
   [`childProcess`](https://nodejs.org/api/child_process.html#child_process_class_childprocess)
-  if you want to to access its output
+  if you want to to access its output. Please note `options.stdio` defaults to
+  `inherit`.
 
 ## Initial download
 
@@ -161,7 +162,6 @@ _versionRange_: `string`<br> _args_: `string[]`<br> _options_:
 
 `args` and `options` are the same as in
 [`child_process.spawn(command, args, options)`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
-`options.stdio` defaults to `inherit`.
 
 The return value is an object with the following properties:
 
