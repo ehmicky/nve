@@ -117,7 +117,9 @@ You can either:
 
 - use the `promise` if you just want to wait for the child process to complete
   and retrieve its exit `code` or `signal`
-- use the `childProcess` if you want to to access its output
+- use the
+  [`childProcess`](https://nodejs.org/api/child_process.html#child_process_class_childprocess)
+  if you want to to access its output
 
 ## Initial download
 
@@ -154,11 +156,20 @@ NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
 
 ## nve(versionRange, args?, options?)
 
-_versionRange_: `string`<br> _args_: `string[]`<br> _options_: `object`
+_versionRange_: `string`<br> _args_: `string[]`<br> _options_:
+`object`<br>_Return value_: `object`
 
 `args` and `options` are the same as
 [`child_process.spawn()`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
 `options.stdio` defaults to `inherit`.
+
+The return value is an object with the following properties:
+
+- `promise`: resolves with
+  [`code`](https://nodejs.org/api/child_process.html#child_process_event_exit)
+  and
+  [`signal`](https://nodejs.org/api/child_process.html#child_process_event_exit)
+- [`childProcess`](https://nodejs.org/api/child_process.html#child_process_class_childprocess)
 
 # Benchmarks
 
