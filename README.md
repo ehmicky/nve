@@ -119,18 +119,25 @@ You can either:
   and retrieve its exit `code` or `signal`
 - use the
   [`childProcess`](https://nodejs.org/api/child_process.html#child_process_class_childprocess)
-  if you want to to access its output. Please note `options.stdio` defaults to
-  `inherit`.
+  if you want to to access its output. Please note
+  [`options.stdio`](https://nodejs.org/api/child_process.html#child_process_options_stdio)
+  defaults to `inherit`.
 
 ## Initial download
 
 The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
-from [`nodejs.org`](https://nodejs.org/dist/) under the hood. This initially
-takes few seconds. However subsequent runs are
+from [`https://nodejs.org/dist`](https://nodejs.org/dist/) under the hood. This
+initially takes few seconds. However subsequent runs are
 [almost instantaneous](#benchmarks).
 
 A spinner will show the download progress. This can be disabled using the
 environment variable `NVE_PROGRESS=0`.
+
+You can specify a mirror website using the environment variable `NODE_MIRROR`.
+
+```bash
+NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
+```
 
 ## Native modules
 
@@ -142,16 +149,6 @@ If your code is using native modules, `nve` will work providing:
 
 Otherwise the following error message will be shown:
 `Error: The module was compiled against a different Node.js version`.
-
-## Node.js mirror
-
-The binaries are downloaded from
-[https://nodejs.org/dist](https://nodejs.org/dist). You can specify a mirror
-website using the environment variable `NODE_MIRROR`.
-
-```bash
-NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION [ARGS...]
-```
 
 # API (Node.js)
 
