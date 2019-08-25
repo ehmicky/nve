@@ -1,3 +1,10 @@
+# 2.0.0
+
+## Features
+
+- `nve` can now be accessed from
+  [Node.js/programmatically](https://github.com/ehmicky/nve#api-nodejs).
+
 # 1.3.0
 
 ## Features
