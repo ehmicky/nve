@@ -1,3 +1,3 @@
 'use strict'
 
-module.exports = require('gulp-shared-tasks')
+module.exports = require('@ehmicky/dev-tasks')
