@@ -1,1 +1,1 @@
-extends: standard-prettier-fp/.eslintrc.yml
+extends: '@ehmicky/eslint-config/.eslintrc.yml'
