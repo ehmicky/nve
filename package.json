@@ -64,7 +64,7 @@
     "get-stream": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-shared-tasks": "^0.30.38",
-    "husky": "^3.0.4",
+    "husky": "^3.0.5",
     "test-each": "^1.7.2"
   },
   "engines": {
