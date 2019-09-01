@@ -1,1 +1,1 @@
-export { default } from 'gulp-shared-tasks/ava.config.js'
+export { default } from '@ehmicky/dev-tasks/ava.config.js'
