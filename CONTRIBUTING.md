@@ -42,7 +42,7 @@ to learn how to use them. You don't need to know Gulp to use these tasks.
 # Requirements
 
 Our coding style is documented
-[here](https://github.com/ehmicky/eslint-config-standard-prettier-fp#coding-style).
+[here](https://github.com/ehmicky/eslint-config#coding-style).
 Linting and formatting should automatically handle it though.
 
 After submitting the pull request, please make sure the Continuous Integration
