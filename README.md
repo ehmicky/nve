@@ -16,7 +16,7 @@ it:
 - can be run [programmatically](#usage-nodejs)
 - is [10 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
-- works on Windows
+- works on Windows (no need to run as Administrator)
 - does not require Bash
 - is installed as a Node module (as opposed to a
   [Bash installation script](https://github.com/nvm-sh/nvm/blob/master/README.md#installation-and-update)
