@@ -1,6 +1,6 @@
 language: node_js
 node_js: '12'
-dist: xenial
+dist: bionic
 # When pushing a tagged commit, Travis adds two builds: one with the tag, one
 # without. We only want to build the one with the tag, because it's the one
 # that runs the deployment stage
