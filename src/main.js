@@ -7,7 +7,7 @@ import pEvent from 'p-event'
 import { validateInput } from './validate.js'
 
 // Forwards `args` to another node instance of a specific `versionRange`
-const nve = async function(versionRange, args = [], opts) {
+const nve = async function(versionRange, args = [], opts = {}) {
   validateInput(args)
 
   // Download the Node.js binary
