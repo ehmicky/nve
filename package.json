@@ -58,7 +58,7 @@
     "p-event": "^4.1.0"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^0.30.40",
+    "@ehmicky/dev-tasks": "^0.30.41",
     "ava": "^2.3.0",
     "execa": "^2.0.4",
     "get-bin-path": "^1.0.2",
