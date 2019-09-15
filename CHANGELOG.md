@@ -1,3 +1,9 @@
+# 2.2.0
+
+## Features
+
+- Improve progress messages on console
+
 # 2.1.0
 
 ## Features
