@@ -46,15 +46,15 @@ $ nve 8 npm test
 
 # Run a specific version
 $ nve 8.10.0 npm test
-v8.10.0
 
 # Run the latest Node version
 $ nve "*" npm test
-v12.10.0
 
 # Use a version range
 $ nve "<8" npm test
-v7.10.1
+
+# Use a different mirror for the Node binaries
+$ nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test
 ```
 
 Or [programmatically](#programmatic):

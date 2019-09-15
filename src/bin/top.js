@@ -14,7 +14,21 @@ const addExample = function(yargsA, [example, description]) {
   return yargsA.example(example, description)
 }
 
-const CONFIG = {}
+const CONFIG = {
+  progress: {
+    boolean: true,
+    describe: `Show a loading spinner. Default: true`,
+  },
+  mirror: {
+    alias: 'm',
+    string: true,
+    requiresArg: true,
+    describe: `Base URL. Defaults to 'https://nodejs.org/dist'.
+Can be customized (for example "https://npm.taobao.org/mirrors/node").
+
+The following environment variables can also be used: NODE_MIRROR, NVM_NODEJS_ORG_MIRROR, N_NODE_MIRROR or NODIST_NODE_MIRROR.`,
+  },
+}
 
 const USAGE = `$0 [OPTIONS...] VERSION COMMAND [ARGS...]
 
@@ -28,4 +42,8 @@ const EXAMPLES = [
   ['nve 8.10.0 npm test', 'Run a specific version'],
   [`nve "*" npm test`, 'Run the latest Node version'],
   [`nve "<8" npm test`, 'Use a version range'],
+  [
+    `nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test`,
+    'Use a different mirror for the Node binaries',
+  ],
 ]

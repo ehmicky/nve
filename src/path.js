@@ -9,8 +9,8 @@ import pathKey from 'path-key'
 //  - binaries work, even on Windows
 export const fixPath = function({
   nodePath,
-  opts,
-  opts: { env = processEnv },
+  spawnOpts,
+  spawnOpts: { env = processEnv },
 }) {
   const pathName = pathKey({ env })
   // `PATH` should always be defined on a normal OS
@@ -22,9 +22,9 @@ export const fixPath = function({
 
   // Already added
   if (tokens.some(token => token === nodeDir)) {
-    return opts
+    return spawnOpts
   }
 
   const pathA = [nodeDir, ...tokens].join(delimiter)
-  return { ...opts, env: { ...env, [pathName]: pathA } }
+  return { ...spawnOpts, env: { ...env, [pathName]: pathA } }
 }

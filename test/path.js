@@ -18,13 +18,13 @@ each(
     ['node', getBinPathSync(), HELPER_VERSION, 'node', '--version'],
   ],
   [undefined, { title: 'env', env: processEnv }],
-  ({ title }, args, opts) => {
+  ({ title }, args, spawnOpts) => {
     test(`Works with child processes | ${title}`, async t => {
       const childProcess = await nve(
         HELPER_VERSION,
         'node',
         [FORK_FILE, ...args],
-        { stdio: 'pipe', ...opts },
+        { spawn: { stdio: 'pipe', ...spawnOpts } },
       )
       const stdout = await getStream(childProcess.stdout)
       const version = stdout.trim().replace(LEADING_V_REGEXP, '')

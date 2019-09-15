@@ -25,6 +25,9 @@ each(
     [TEST_VERSION, 'node', true],
     [TEST_VERSION, 'node', [true]],
     [TEST_VERSION, 'node', [], true],
+    [TEST_VERSION, 'node', [], { spawn: true }],
+    [TEST_VERSION, 'node', [], { progress: '' }],
+    [TEST_VERSION, 'node', [], { mirror: true }],
     ['invalid_version', 'node'],
   ],
   ({ title }, [versionRange, command, args, opts]) => {
