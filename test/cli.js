@@ -33,7 +33,7 @@ test('Print errors on stderr', async t => {
 test('--help | CLI', async t => {
   const { stdout } = await runCli('--help')
 
-  t.snapshot(stdout)
+  t.snapshot(stdout.trim())
 })
 
 test('--version | CLI', async t => {
