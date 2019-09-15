@@ -87,7 +87,7 @@ use any Node version (providing it is compatible with it).
 ## CLI
 
 ```bash
-nve VERSION COMMAND [ARGS...]
+nve [OPTIONS...] VERSION COMMAND [ARGS...]
 ```
 
 This is exactly the same as:
@@ -104,21 +104,27 @@ But using a specific Node version.
 `COMMAND` must be compatible with the specific Node `VERSION`. For example `npm`
 is [only compatible with Node `>=6`](https://github.com/npm/cli#important).
 
-## Initial download
-
 The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
-from [`https://nodejs.org/dist`](https://nodejs.org/dist/) under the hood. This
-initially takes few seconds. However subsequent runs are
+under the hood. This initially takes few seconds. However subsequent runs are
 [almost instantaneous](#benchmarks).
 
-A spinner will show the download progress. This can be disabled using the
-environment variable `NVE_PROGRESS=0`.
+## Options
 
-You can specify a mirror website using the environment variable `NODE_MIRROR`.
+### --progress
 
-```bash
-NODE_MIRROR="https://npm.taobao.org/mirrors/node" nve VERSION COMMAND [ARGS...]
-```
+_Type_: `boolean`<br>_Default_: `true`
+
+Whether to show a progress spinner when the Node binary is downloading.
+
+### --mirror
+
+_Alias_: `-m`<br>_Type_: `string`<br>_Default_: `https://nodejs.org/dist`
+
+Base URL to retrieve Node binaries. Can be overridden (for example
+`https://npm.taobao.org/mirrors/node`).
+
+The following environment variables can also be used: `NODE_MIRROR`,
+`NVM_NODEJS_ORG_MIRROR`, `N_NODE_MIRROR` or `NODIST_NODE_MIRROR`.
 
 ## Native modules
 
@@ -139,10 +145,13 @@ _versionRange_: `string`<br> _command_: `string`<br>_args_: `string[]`<br>
 _options_: `object`<br>_Return value_:
 [`Promise<childProcess>`](https://nodejs.org/api/child_process.html#child_process_class_childprocess)
 
-`command`, `args` and `options` are the same as in
-[`child_process.spawn(command, args, options)`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
+`options` has the same members as the CLI options: [`progress`](#--progress) and
+[`mirror`](#--mirror).
 
-[`options.stdio`](https://nodejs.org/api/child_process.html#child_process_options_stdio)
+`command` and `args` are the same as in
+[`child_process.spawn(command, args, options)`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
+An `options.spawn` object can be specified to pass options to `spawn()`.
+[`options.spawn.stdio`](https://nodejs.org/api/child_process.html#child_process_options_stdio)
 defaults to `inherit`.
 
 <!-- Remove 'eslint-skip' once estree supports top-level await -->
