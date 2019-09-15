@@ -16,7 +16,7 @@ const addExample = function(yargsA, [example, description]) {
 
 const CONFIG = {}
 
-const USAGE = `nve [OPTIONS...] VERSION COMMAND [ARGS...]
+const USAGE = `$0 [OPTIONS...] VERSION COMMAND [ARGS...]
 
 Run "COMMAND [ARGS...]" but using a specific Node.js version.
 VERSION can be any version range such as "12", "12.6.0" or "<12".`
