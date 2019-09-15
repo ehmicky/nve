@@ -40,7 +40,7 @@ test('--version | CLI', async t => {
   const [
     { stdout },
     {
-      package: { version },
+      pkg: { version },
     },
   ] = await Promise.all([runCli('--version'), readPkgUp()])
 
