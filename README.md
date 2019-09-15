@@ -150,7 +150,8 @@ _options_: `object`<br>_Return value_:
 
 `command` and `args` are the same as in
 [`child_process.spawn(command, args, options)`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
-An `options.spawn` object can be specified to pass options to `spawn()`.
+An `options.spawn` object can be specified to pass options to
+`child_process.spawn()`.
 [`options.spawn.stdio`](https://nodejs.org/api/child_process.html#child_process_options_stdio)
 defaults to `inherit`.
 
