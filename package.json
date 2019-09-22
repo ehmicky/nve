@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "core-js": "^3.2.1",
-    "get-node": "^4.0.2",
+    "get-node": "^4.0.3",
     "p-event": "^4.1.0"
   },
   "devDependencies": {
