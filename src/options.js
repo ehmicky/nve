@@ -1,6 +1,7 @@
 import { validate } from 'jest-validate'
+import isPlainObj from 'is-plain-obj'
 
-import { isPlainObject, omitBy } from './utils.js'
+import { omitBy } from './utils.js'
 
 // Validate input parameters and assign default values.
 // `versionRange` can start with `v` or not.
@@ -34,7 +35,7 @@ const validateBasic = function({ versionRange, command, args, opts }) {
     throw new TypeError(`Third argument must be an array of strings: ${args}`)
   }
 
-  if (!isPlainObject(opts)) {
+  if (!isPlainObj(opts)) {
     throw new TypeError(`Last argument must be an options object: ${opts}`)
   }
 }

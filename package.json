@@ -56,6 +56,7 @@
     "core-js": "^3.2.1",
     "end-of-stream": "^1.4.4",
     "get-node": "^4.0.3",
+    "is-plain-obj": "^2.0.0",
     "jest-validate": "^24.9.0",
     "p-event": "^4.1.0",
     "path-key": "^3.1.0",
