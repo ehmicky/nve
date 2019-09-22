@@ -7,15 +7,8 @@
 - the `NVE_PROGRESS` environment variable has been removed. The
   [`--progress` option](https://github.com/ehmicky/nve/blob/master/README.md#--progress)
   should be used instead.
-
-## Breaking changes (programmatic usage only)
-
-- the return value is now `childProcess` instead of `{ promise, childProcess }`.
-- to pass options to the underlying
-  [`child_process.spawn(command, args, options)`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options),
-  [`options.spawn`](https://github.com/ehmicky/nve/blob/master/README.md#nveversionrange-args-options)
-  must now be used instead of `options`.
-- `stdio` now defaults to `pipe` instead of `inherit`
+- the programmatic usage has changed: please see the new
+  [API](https://github.com/ehmicky/nve/blob/master/README.md#programmatic).
 
 ## Features
 
