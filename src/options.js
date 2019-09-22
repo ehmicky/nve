@@ -9,7 +9,11 @@ export const getOpts = function({ versionRange, command, args, opts }) {
   validate(opts, { exampleConfig: EXAMPLE_OPTS, recursiveBlacklist: ['spawn'] })
 
   const optsA = omitBy(opts, isUndefined)
-  const optsB = { ...DEFAULT_OPTS, ...optsA }
+  const optsB = {
+    ...DEFAULT_OPTS,
+    ...optsA,
+    spawn: { ...DEFAULT_OPTS.spawn, ...optsA.spawn },
+  }
   return optsB
 }
 
