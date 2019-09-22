@@ -31,7 +31,7 @@ test('--version | CLI', async t => {
   const [
     { stdout },
     {
-      package: { version },
+      packageJson: { version },
     },
   ] = await Promise.all([runCli('--version'), readPkgUp()])
 
