@@ -49,3 +49,9 @@ test('node --version | CLI', async t => {
 
   t.is(stdout, `v${TEST_VERSION}`)
 })
+
+test('CLI flags | CLI', async t => {
+  const { code } = await runCli(`--no-progress ${TEST_VERSION} node --version`)
+
+  t.is(code, 0)
+})
