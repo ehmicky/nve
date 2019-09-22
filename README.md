@@ -152,8 +152,6 @@ _options_: `object`<br>_Return value_:
 [`child_process.spawn(command, args, options)`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
 An `options.spawn` object can be specified to pass options to
 `child_process.spawn()`.
-[`options.spawn.stdio`](https://nodejs.org/api/child_process.html#child_process_options_stdio)
-defaults to `inherit`.
 
 <!-- Remove 'eslint-skip' once estree supports top-level await -->
 <!-- eslint-skip -->

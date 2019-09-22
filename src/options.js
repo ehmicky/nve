@@ -48,11 +48,12 @@ const isUndefined = function(key, value) {
 }
 
 const DEFAULT_OPTS = {
-  spawn: { stdio: 'inherit' },
+  spawn: {},
 }
 
 const EXAMPLE_OPTS = {
   ...DEFAULT_OPTS,
+  spawn: { stdio: 'inherit' },
   progress: true,
   mirror: 'https://nodejs.org/dist',
 }

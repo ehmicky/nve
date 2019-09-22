@@ -22,9 +22,14 @@ const runCli = async function() {
 }
 
 const runMain = async function({ versionRange, command, args, opts }) {
-  const childProcess = await nve(versionRange, command, args, opts)
+  const childProcess = await nve(versionRange, command, args, {
+    ...opts,
+    ...CLI_OPTS,
+  })
   const code = await pEvent(childProcess, 'exit')
   return code
 }
+
+const CLI_OPTS = { spawn: { stdio: 'inherit' } }
 
 runCli()

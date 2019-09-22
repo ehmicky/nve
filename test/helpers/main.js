@@ -20,10 +20,10 @@ export const getStdout = async function({
   versionRange = TEST_VERSION,
   command = 'node',
   args = ['--version'],
-  spawnOpts = {},
+  spawnOpts,
 }) {
   const { stdout } = await nve(versionRange, command, args, {
-    spawn: { stdio: 'pipe', ...spawnOpts },
+    spawn: spawnOpts,
   })
   const stdoutA = await getStream(stdout)
   return stdoutA.trim()
