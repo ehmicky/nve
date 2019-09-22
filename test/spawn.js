@@ -2,6 +2,7 @@ import { ChildProcess } from 'child_process'
 import { version } from 'process'
 
 import test from 'ava'
+import { each } from 'test-each'
 
 import nve from '../src/main.js'
 
@@ -13,7 +14,7 @@ test('Forward child process | programmatic', async t => {
   t.true(childProcess instanceof ChildProcess)
 })
 
-test('Can pass arguments and options | programmatic', async t => {
+test('Can pass arguments | programmatic', async t => {
   const stdout = await getStdout({
     versionRange: TEST_VERSION,
     command: 'node',
@@ -22,6 +23,25 @@ test('Can pass arguments and options | programmatic', async t => {
 
   t.is(stdout, 'test')
 })
+
+each(
+  [
+    { stdio: 'ignore', output: null },
+    { stdio: 'inherit', output: null },
+    { stdio: 'pipe', output: `v${TEST_VERSION}` },
+    { output: `v${TEST_VERSION}` },
+  ],
+  ({ title }, { stdio, output }) => {
+    test(`Can use stdio | ${title}`, async t => {
+      const stdout = await getStdout({
+        versionRange: TEST_VERSION,
+        spawnOpts: { stdio },
+      })
+
+      t.is(stdout, output)
+    })
+  },
+)
 
 test('Can fire binaries', async t => {
   const stdout = await getStdout({

@@ -32,6 +32,10 @@
   to change the base URL to retrieve Node.js binaries
 - Add `--help` and `--version` CLI flags
 
+## Bugs
+
+- Ensure `nve` does not exit until `stdout` and `stderr` have been flushed
+
 # 2.2.3
 
 ## Internal

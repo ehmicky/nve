@@ -25,6 +25,11 @@ export const getStdout = async function({
   const { stdout } = await nve(versionRange, command, args, {
     spawn: spawnOpts,
   })
+
+  if (stdout === null) {
+    return stdout
+  }
+
   const stdoutA = await getStream(stdout)
   return stdoutA.trim()
 }

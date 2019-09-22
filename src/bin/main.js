@@ -1,12 +1,17 @@
 #!/usr/bin/env node
 import { exit } from 'process'
+import { promisify } from 'util'
 
 import pEvent from 'p-event'
+import endOfStream from 'end-of-stream'
 
 import nve from '../main.js'
 
 import { defineCli } from './top.js'
 import { parseOpts } from './parse.js'
+
+// TODO: replace with `Stream.finished()` after dropping support for Node 8/9
+const pEndOfStream = promisify(endOfStream)
 
 // CLI that forwards its arguments but using a specific Node.js version
 const runCli = async function() {
@@ -26,8 +31,20 @@ const runMain = async function({ versionRange, command, args, opts }) {
     ...opts,
     ...CLI_OPTS,
   })
-  const code = await pEvent(childProcess, 'exit')
+  const [code] = await Promise.all([
+    pEvent(childProcess, 'exit'),
+    waitForStream(childProcess.stdout),
+    waitForStream(childProcess.stderr),
+  ])
   return code
+}
+
+const waitForStream = async function(stream) {
+  if (stream === null) {
+    return
+  }
+
+  await pEndOfStream(stream)
 }
 
 const CLI_OPTS = { spawn: { stdio: 'inherit' } }
