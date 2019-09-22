@@ -32,6 +32,7 @@ const runMain = async function({ versionRange, command, args, opts }) {
     ...CLI_OPTS,
   })
   const [code] = await Promise.all([
+    // TODO: use `require('events').once()` after dropping support for Node 8/9
     pEvent(childProcess, 'exit'),
     waitForStream(childProcess.stdout),
     waitForStream(childProcess.stderr),
