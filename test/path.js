@@ -25,9 +25,8 @@ each(
         args: [FORK_FILE, ...args],
         spawnOpts,
       })
-      const version = removeLeadingV(stdout)
 
-      t.is(version, HELPER_VERSION)
+      t.is(stdout, `v${HELPER_VERSION}`)
     })
   },
 )
@@ -38,22 +37,14 @@ test('Works with nyc as child', async t => {
     command: 'nyc',
     args: ['--silent', '--', 'node', '--version'],
   })
-  const version = removeLeadingV(stdout)
 
-  t.is(version, HELPER_VERSION)
+  t.is(stdout, `v${HELPER_VERSION}`)
 })
 
 test('Works with nyc as parent with node command', async t => {
   const { stdout } = await execa.command(
     `nyc --silent -- ${BIN_PATH} ${HELPER_VERSION} node --version`,
   )
-  const version = removeLeadingV(stdout)
 
-  t.is(version, HELPER_VERSION)
+  t.is(stdout, `v${HELPER_VERSION}`)
 })
-
-const removeLeadingV = function(stdout) {
-  return stdout.replace(LEADING_V_REGEXP, '')
-}
-
-const LEADING_V_REGEXP = /^v/u
