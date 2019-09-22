@@ -47,13 +47,6 @@ test('--version | CLI', async t => {
   t.is(stdout, version)
 })
 
-// Fails with nyc (see above)
-// test('node --version | CLI', async t => {
-//   const { stdout } = await runCli(`${TEST_VERSION} node --version`)
-
-//   t.is(stdout, `v${TEST_VERSION}`)
-// })
-
 test('node --help | CLI', async t => {
   const { stdout } = await runCli(`${TEST_VERSION} node --help`)
 
