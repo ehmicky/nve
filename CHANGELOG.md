@@ -1,3 +1,9 @@
+# 2.2.1
+
+## Bugs
+
+- Fix `CTRL-C` not working
+
 # 2.2.0
 
 ## Features
