@@ -1,3 +1,9 @@
+# 2.2.3
+
+## Internal
+
+- Internal changes
+
 # 2.2.2
 
 ## Bugs
