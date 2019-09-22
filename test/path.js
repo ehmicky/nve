@@ -15,6 +15,8 @@ const BIN_PATH = getBinPathSync()
 // Those tests do not work in Travis CI with Windows.
 // However they work on Windows locally.
 // TODO: figure out why those tests are failing on CI.
+// This will probably be fixed once nyc@15 is released.
+// See https://github.com/istanbuljs/spawn-wrap/issues/108
 if (platform !== 'win32' || !isCi) {
   each(
     [
@@ -48,6 +50,12 @@ if (platform !== 'win32' || !isCi) {
   })
 }
 
+// `nyc nve ...` does not work because `nyc` monkey patches
+// `child_process.spawn()` and forces `node` to be `process.execPath` (the
+// `node` that spawned `nyc`, i.e. the global `node`) by modifying the `PATH`
+// environment variable.
+// This should be fixed with nyc@15
+// See https://github.com/istanbuljs/spawn-wrap/issues/108
 test('Works with nyc as parent with node command', async t => {
   const { stdout } = await execa.command(
     `nyc --silent -- ${BIN_PATH} ${HELPER_VERSION} node --version`,
