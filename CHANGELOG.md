@@ -1,3 +1,9 @@
+# 2.2.2
+
+## Bugs
+
+- Improve error messages
+
 # 2.2.1
 
 ## Bugs
