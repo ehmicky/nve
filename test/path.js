@@ -1,4 +1,5 @@
 import { env as processEnv } from 'process'
+import { normalize } from 'path'
 
 import test from 'ava'
 import { each } from 'test-each'
@@ -7,7 +8,7 @@ import execa from 'execa'
 
 import { HELPER_VERSION, getStdout } from './helpers/main.js'
 
-const FORK_FILE = `${__dirname}/helpers/fork.js`
+const FORK_FILE = normalize(`${__dirname}/helpers/fork.js`)
 const BIN_PATH = getBinPathSync()
 
 each(
