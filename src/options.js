@@ -1,7 +1,6 @@
 import { validate } from 'jest-validate'
 import isPlainObj from 'is-plain-obj'
-
-import { omitBy } from './utils.js'
+import filterObj from 'filter-obj'
 
 // Validate input parameters and assign default values.
 // `versionRange` can start with `v` or not.
@@ -9,7 +8,7 @@ export const getOpts = function({ versionRange, command, args, opts }) {
   validateBasic({ versionRange, command, args, opts })
   validate(opts, { exampleConfig: EXAMPLE_OPTS, recursiveBlacklist: ['spawn'] })
 
-  const optsA = omitBy(opts, isUndefined)
+  const optsA = filterObj(opts, isDefined)
   const optsB = {
     ...DEFAULT_OPTS,
     ...optsA,
@@ -48,8 +47,8 @@ const isString = function(arg) {
   return typeof arg === 'string'
 }
 
-const isUndefined = function(key, value) {
-  return value === undefined
+const isDefined = function(key, value) {
+  return value !== undefined
 }
 
 const DEFAULT_OPTS = {
