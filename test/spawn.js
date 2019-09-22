@@ -14,13 +14,21 @@ test('Forward child process | programmatic', async t => {
 })
 
 test('Can pass arguments and options | programmatic', async t => {
-  const stdout = await getStdout(TEST_VERSION, 'node', ['-p', '"test"'])
+  const stdout = await getStdout({
+    versionRange: TEST_VERSION,
+    command: 'node',
+    args: ['-p', '"test"'],
+  })
 
   t.is(stdout, 'test')
 })
 
 test('Can fire binaries', async t => {
-  const stdout = await getStdout(version, 'npm', ['--version'])
+  const stdout = await getStdout({
+    versionRange: version,
+    command: 'npm',
+    args: ['--version'],
+  })
 
   t.true(stdout !== '')
 })

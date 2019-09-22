@@ -16,13 +16,14 @@ export const runCli = async function(args) {
   return { stdout, stderr, code }
 }
 
-export const getStdout = async function(
+export const getStdout = async function({
   versionRange = TEST_VERSION,
   command = 'node',
   args = ['--version'],
-) {
+  spawnOpts = {},
+}) {
   const { stdout } = await nve(versionRange, command, args, {
-    spawn: { stdio: 'pipe' },
+    spawn: { stdio: 'pipe', ...spawnOpts },
   })
   const stdoutA = await getStream(stdout)
   return stdoutA.trim()

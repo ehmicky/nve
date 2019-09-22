@@ -3,15 +3,6 @@ import readPkgUp from 'read-pkg-up'
 
 import { TEST_VERSION, runCli } from './helpers/main.js'
 
-// Tests fail on Windows when run in parallel unless Node executable is already
-// cached. This is due to some bug within `spawn-wrap` (used by nyc)
-// TODO: this fails when run with nyc
-// test.serial('Forward stdout/stderr', async t => {
-//   const { stdout } = await runCli(`${TEST_VERSION} node --version`)
-
-//   t.is(stdout, `v${TEST_VERSION}`)
-// })
-
 test('Forward exit code on success | CLI', async t => {
   const { code } = await runCli(`${TEST_VERSION} node --version`)
 
@@ -51,4 +42,10 @@ test('node --help | CLI', async t => {
   const { stdout } = await runCli(`${TEST_VERSION} node --help`)
 
   t.true(stdout.includes('Usage: node'))
+})
+
+test('node --version | CLI', async t => {
+  const { stdout } = await runCli(`${TEST_VERSION} node --version`)
+
+  t.is(stdout, `v${TEST_VERSION}`)
 })
