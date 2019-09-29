@@ -2,7 +2,7 @@ import { platform } from 'process'
 
 import execa from 'execa'
 
-import { fixPath, patchExecPath, unpatchExecPath } from './path.js'
+import { fixPath } from './path.js'
 
 // Forward arguments to another node binary located at `nodePath`.
 // We also forward standard streams.
@@ -10,14 +10,9 @@ export const spawnProcess = function({ nodePath, command, args, spawnOpts }) {
   const commandA = getCommand(command, nodePath)
 
   const spawnOptsA = fixPath({ nodePath, spawnOpts })
-  const execPath = patchExecPath(nodePath)
 
-  try {
-    const childProcess = execa(commandA, args, spawnOptsA)
-    return { childProcess }
-  } finally {
-    unpatchExecPath(execPath)
-  }
+  const childProcess = execa(commandA, args, spawnOptsA)
+  return { childProcess }
 }
 
 const getCommand = function(command, nodePath) {

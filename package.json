@@ -59,6 +59,7 @@
     "get-node": "^4.0.3",
     "is-plain-obj": "^2.0.0",
     "jest-validate": "^24.9.0",
+    "npm-run-path": "^3.1.0",
     "path-key": "^3.1.0",
     "yargs": "^14.0.0"
   },

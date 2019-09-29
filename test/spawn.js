@@ -3,6 +3,7 @@ import { version } from 'process'
 
 import test from 'ava'
 import { each } from 'test-each'
+import pathKey from 'path-key'
 
 import nve from '../src/main.js'
 
@@ -45,8 +46,33 @@ test('Can fire global binaries', async t => {
 })
 
 test('Can fire local binaries', async t => {
-  const { childProcess } = await nve(version, 'ava', ['--version'])
+  const { childProcess } = await nve(version, 'ava', ['--version'], {
+    spawn: { env: { [pathKey()]: '' }, preferLocal: true },
+  })
   const { stdout } = await childProcess
 
   t.true(stdout !== '')
+})
+
+test('Can disable firing local binaries', async t => {
+  const { childProcess } = await nve(version, 'ava', ['--version'], {
+    spawn: { env: { [pathKey()]: '' }, preferLocal: false, stdio: 'ignore' },
+  })
+  const { exitCode } = await t.throwsAsync(childProcess)
+
+  t.not(exitCode, 0)
+})
+
+test('Can specify both preferLocal and cwd options', async t => {
+  const { childProcess } = await nve(version, 'ava', ['--version'], {
+    spawn: {
+      env: { [pathKey()]: '' },
+      preferLocal: true,
+      cwd: '/',
+      stdio: 'ignore',
+    },
+  })
+  const { exitCode } = await t.throwsAsync(childProcess)
+
+  t.not(exitCode, 0)
 })
