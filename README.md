@@ -10,7 +10,7 @@ Run any Node.js version.
 
 This executes any command using a specific Node.js version.
 
-Unlike [`nvm run`](https://github.com/nvm-sh/nvm/blob/master/README.md#usage)
+Unlike [`nvm exec`](https://github.com/nvm-sh/nvm/blob/master/README.md#usage)
 it:
 
 - can be run [programmatically](#programmatic)
