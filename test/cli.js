@@ -11,15 +11,29 @@ test('Forward exit code on success | CLI', async t => {
 })
 
 test('Forward exit code on failure | CLI', async t => {
-  const { exitCode } = await runCli(`${TEST_VERSION} invalidBinary`)
+  const { exitCode } = await runCli(`${TEST_VERSION} node -e process.exit(2)`)
 
-  t.not(exitCode, 0)
+  t.is(exitCode, 2)
 })
 
-test('Print errors on stderr', async t => {
+test('Default exit code to 1 | CLI', async t => {
+  const { exitCode } = await runCli(
+    `${TEST_VERSION} node -e process.kill(process.pid)`,
+  )
+
+  t.is(exitCode, 1)
+})
+
+test('Print non-Execa errors on stderr', async t => {
   const { stderr } = await runCli(`${TEST_VERSION} invalidBinary`)
 
   t.true(stderr.includes('invalidBinary'))
+})
+
+test('Does not print Execa errors on stderr', async t => {
+  const { stderr } = await runCli(`${TEST_VERSION} node -e process.exit(2)`)
+
+  t.is(stderr, '')
 })
 
 test('--help | CLI', async t => {
