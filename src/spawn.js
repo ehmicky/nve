@@ -1,5 +1,6 @@
-import { spawn } from 'child_process'
 import { platform } from 'process'
+
+import execa from 'execa'
 
 import { fixPath } from './path.js'
 
@@ -10,8 +11,8 @@ export const spawnProcess = function({ nodePath, command, args, spawnOpts }) {
 
   const spawnOptsA = fixPath({ nodePath, spawnOpts })
 
-  const childProcess = spawn(commandA, args, spawnOptsA)
-  return childProcess
+  const childProcess = execa(commandA, args, spawnOptsA)
+  return { childProcess }
 }
 
 const getCommand = function(command, nodePath) {

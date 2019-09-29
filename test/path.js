@@ -7,7 +7,9 @@ import { getBinPathSync } from 'get-bin-path'
 import execa from 'execa'
 import isCi from 'is-ci'
 
-import { HELPER_VERSION, getStdout } from './helpers/main.js'
+import nve from '../src/main.js'
+
+import { HELPER_VERSION } from './helpers/versions.js'
 
 const FORK_FILE = normalize(`${__dirname}/helpers/fork.js`)
 const BIN_PATH = getBinPathSync()
@@ -27,24 +29,27 @@ if (platform !== 'win32' || !isCi) {
     [undefined, { title: 'env', env: processEnv }],
     ({ title }, args, spawnOpts) => {
       test(`Works with child processes | ${title}`, async t => {
-        const stdout = await getStdout({
-          versionRange: HELPER_VERSION,
-          command: 'node',
-          args: [FORK_FILE, ...args],
-          spawnOpts,
-        })
+        const { childProcess } = await nve(
+          HELPER_VERSION,
+          'node',
+          [FORK_FILE, ...args],
+          { spawn: spawnOpts },
+        )
+        const { stdout } = await childProcess
 
-        t.is(stdout, `v${HELPER_VERSION}`)
+        t.is(stdout.trim(), `v${HELPER_VERSION}`)
       })
     },
   )
 
   test('Works with nyc as child', async t => {
-    const stdout = await getStdout({
-      versionRange: HELPER_VERSION,
-      command: 'nyc',
-      args: ['--silent', '--', 'node', '--version'],
-    })
+    const { childProcess } = await nve(HELPER_VERSION, 'nyc', [
+      '--silent',
+      '--',
+      'node',
+      '--version',
+    ])
+    const { stdout } = await childProcess
 
     t.is(stdout, `v${HELPER_VERSION}`)
   })

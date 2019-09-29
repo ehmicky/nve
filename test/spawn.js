@@ -6,37 +6,31 @@ import { each } from 'test-each'
 
 import nve from '../src/main.js'
 
-import { TEST_VERSION, getStdout } from './helpers/main.js'
+import { TEST_VERSION } from './helpers/versions.js'
 
 test('Forward child process | programmatic', async t => {
-  const childProcess = await nve(TEST_VERSION, 'node', ['-e', '""'])
+  const { childProcess } = await nve(TEST_VERSION, 'node', ['-p', '"test"'])
 
   t.true(childProcess instanceof ChildProcess)
-})
 
-test('Can pass arguments | programmatic', async t => {
-  const stdout = await getStdout({
-    versionRange: TEST_VERSION,
-    command: 'node',
-    args: ['-p', '"test"'],
-  })
-
+  const { exitCode, stdout } = await childProcess
+  t.is(exitCode, 0)
   t.is(stdout, 'test')
 })
 
 each(
   [
-    { stdio: 'ignore', output: null },
-    { stdio: 'inherit', output: null },
+    { stdio: 'ignore', output: undefined },
+    { stdio: 'inherit', output: undefined },
     { stdio: 'pipe', output: `v${TEST_VERSION}` },
     { output: `v${TEST_VERSION}` },
   ],
   ({ title }, { stdio, output }) => {
     test(`Can use stdio | ${title}`, async t => {
-      const stdout = await getStdout({
-        versionRange: TEST_VERSION,
-        spawnOpts: { stdio },
+      const { childProcess } = await nve(TEST_VERSION, 'node', ['--version'], {
+        spawn: { stdio },
       })
+      const { stdout } = await childProcess
 
       t.is(stdout, output)
     })
@@ -44,11 +38,8 @@ each(
 )
 
 test('Can fire binaries', async t => {
-  const stdout = await getStdout({
-    versionRange: version,
-    command: 'npm',
-    args: ['--version'],
-  })
+  const { childProcess } = await nve(version, 'npm', ['--version'])
+  const { stdout } = await childProcess
 
   t.true(stdout !== '')
 })

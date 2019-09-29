@@ -3,15 +3,16 @@ import { each } from 'test-each'
 
 import nve from '../src/main.js'
 
-import { TEST_VERSION, runCli } from './helpers/main.js'
+import { runCli } from './helpers/cli.js'
+import { TEST_VERSION } from './helpers/versions.js'
 
 each(
   [[''], [TEST_VERSION], ['invalid_version', 'node']],
   ({ title }, [versionRange, command]) => {
     test(`Invalid arguments | CLI ${title}`, async t => {
-      const { code, stderr } = await runCli(`${versionRange} ${command}`)
+      const { exitCode, stderr } = await runCli(`${versionRange} ${command}`)
 
-      t.is(code, 1)
+      t.not(exitCode, 0)
       t.true(stderr !== '')
     })
   },

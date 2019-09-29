@@ -1,18 +1,19 @@
 import test from 'ava'
 import readPkgUp from 'read-pkg-up'
 
-import { TEST_VERSION, runCli } from './helpers/main.js'
+import { runCli } from './helpers/cli.js'
+import { TEST_VERSION } from './helpers/versions.js'
 
 test('Forward exit code on success | CLI', async t => {
-  const { code } = await runCli(`${TEST_VERSION} node --version`)
+  const { exitCode } = await runCli(`${TEST_VERSION} node --version`)
 
-  t.is(code, 0)
+  t.is(exitCode, 0)
 })
 
 test('Forward exit code on failure | CLI', async t => {
-  const { code } = await runCli(`${TEST_VERSION} invalidBinary`)
+  const { exitCode } = await runCli(`${TEST_VERSION} invalidBinary`)
 
-  t.is(code, 1)
+  t.not(exitCode, 0)
 })
 
 test('Print errors on stderr', async t => {
@@ -51,7 +52,9 @@ test('node --version | CLI', async t => {
 })
 
 test('CLI flags | CLI', async t => {
-  const { code } = await runCli(`--no-progress ${TEST_VERSION} node --version`)
+  const { exitCode } = await runCli(
+    `--no-progress ${TEST_VERSION} node --version`,
+  )
 
-  t.is(code, 0)
+  t.is(exitCode, 0)
 })

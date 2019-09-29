@@ -12,9 +12,9 @@
 
 ## Features
 
-- Binaries can now be executed such as `nve 8 npm test`. Keep in mind that the
-  binary must be compatible with the chosen Node.js version. For example `npm`
-  is only compatible with Node `>=6`.
+- Global binaries can now be executed such as `nve 8 npm test`. Keep in mind
+  that the binary must be compatible with the chosen Node.js version. For
+  example `npm` is only compatible with Node `>=6`.
 - If the script spawn child processes, those will now re-use the same Node.js
   version
 - Add

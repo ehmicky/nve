@@ -26,5 +26,5 @@ export const fixPath = function({
   }
 
   const pathA = [nodeDir, ...tokens].join(delimiter)
-  return { ...spawnOpts, env: { ...env, [pathName]: pathA } }
+  return { ...spawnOpts, env: { [pathName]: pathA } }
 }
