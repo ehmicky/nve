@@ -9,7 +9,7 @@ import isCi from 'is-ci'
 
 import nve from '../src/main.js'
 
-import { HELPER_VERSION } from './helpers/versions.js'
+import { HELPER_VERSION, TEST_VERSION } from './helpers/versions.js'
 
 const FORK_FILE = normalize(`${__dirname}/helpers/fork.js`)
 const BIN_PATH = getBinPathSync()
@@ -67,4 +67,13 @@ test('Works with nyc as parent with node command', async t => {
   )
 
   t.is(stdout, `v${HELPER_VERSION}`)
+})
+
+test('Does not change process.execPath', async t => {
+  // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
+  const { execPath } = process
+  await nve(TEST_VERSION, 'node', ['--version'])
+
+  // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
+  t.is(process.execPath, execPath)
 })

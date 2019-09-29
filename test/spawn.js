@@ -37,8 +37,15 @@ each(
   },
 )
 
-test('Can fire binaries', async t => {
+test('Can fire global binaries', async t => {
   const { childProcess } = await nve(version, 'npm', ['--version'])
+  const { stdout } = await childProcess
+
+  t.true(stdout !== '')
+})
+
+test('Can fire local binaries', async t => {
+  const { childProcess } = await nve(version, 'ava', ['--version'])
   const { stdout } = await childProcess
 
   t.true(stdout !== '')

@@ -28,3 +28,18 @@ export const fixPath = function({
   const pathA = [nodeDir, ...tokens].join(delimiter)
   return { ...spawnOpts, env: { [pathName]: pathA } }
 }
+
+// This is needed to fix a bug with execa `preferLocal: true` option.
+// See https://github.com/sindresorhus/npm-run-path/pull/5#issuecomment-538677471
+export const patchExecPath = function(nodePath) {
+  // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
+  const { execPath } = process
+  // eslint-disable-next-line no-restricted-globals, node/prefer-global/process, fp/no-mutation
+  process.execPath = nodePath
+  return execPath
+}
+
+export const unpatchExecPath = function(execPath) {
+  // eslint-disable-next-line no-restricted-globals, node/prefer-global/process, fp/no-mutation
+  process.execPath = execPath
+}

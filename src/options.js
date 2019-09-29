@@ -52,7 +52,7 @@ const isDefined = function(key, value) {
 }
 
 const DEFAULT_OPTS = {
-  spawn: {},
+  spawn: { preferLocal: true },
 }
 
 const EXAMPLE_OPTS = {
