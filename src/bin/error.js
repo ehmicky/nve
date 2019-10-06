@@ -11,37 +11,23 @@
 // printed for a) and b). However we should report c) d) and e) as those are
 // not application errors.
 // Execa reports the last three ones differently, using `error.originalMessage`.
-export const handleExecaError = function(error) {
-  const errorA = fixOriginalMessage(error)
-  // eslint-disable-next-line fp/no-mutation
-  errorA.message = getErrorMessage(errorA)
-  return errorA
-}
-
-// TODO: remove once https://github.com/sindresorhus/execa/pull/373 is merged.
-// That PR is adding `error.originalMessage` to `execa`
-const fixOriginalMessage = function(error) {
-  const lines = error.message.split('\n')
-
-  if (lines.length <= 1) {
-    return error
-  }
-
-  // eslint-disable-next-line no-param-reassign, fp/no-mutation
-  error.originalMessage = lines.slice(1).join('\n')
+export const handleExecaError = function({
+  error,
+  error: { originalMessage = '' },
+}) {
+  // eslint-disable-next-line fp/no-mutation, no-param-reassign
+  error.message = originalMessage
   return error
-}
-
-const getErrorMessage = function({ originalMessage = '' }) {
-  return originalMessage
 }
 
 export const handleTopError = function({
   exitCode = DEFAULT_EXIT_CODE,
   message,
 }) {
-  if (message.trim() !== '') {
-    console.error(message)
+  const messageA = message.trim()
+
+  if (messageA !== '') {
+    console.error(messageA)
   }
 
   return exitCode

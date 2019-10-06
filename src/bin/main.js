@@ -31,7 +31,7 @@ const runMain = async function({ versionRange, command, args, opts }) {
     const { exitCode } = await childProcess
     return exitCode
   } catch (error) {
-    throw handleExecaError(error)
+    throw handleExecaError({ error })
   }
 }
 
