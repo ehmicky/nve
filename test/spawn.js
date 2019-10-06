@@ -45,17 +45,16 @@ test('Can fire global binaries', async t => {
 })
 
 test('Can fire local binaries', async t => {
-  const { childProcess } = await nve(HELPER_VERSION, 'ava', ['--version'], {
-    spawn: { env: { [pathKey()]: '' }, preferLocal: true },
-  })
+  const { childProcess } = await runWithoutPath({ preferLocal: true })
   const { stdout } = await childProcess
 
   t.true(stdout !== '')
 })
 
 test('Can disable firing local binaries', async t => {
-  const { childProcess } = await nve(HELPER_VERSION, 'ava', ['--version'], {
-    spawn: { env: { [pathKey()]: '' }, preferLocal: false, stdio: 'ignore' },
+  const { childProcess } = await runWithoutPath({
+    preferLocal: false,
+    stdio: 'ignore',
   })
   const { exitCode } = await t.throwsAsync(childProcess)
 
@@ -63,15 +62,18 @@ test('Can disable firing local binaries', async t => {
 })
 
 test('Can specify both preferLocal and cwd options', async t => {
-  const { childProcess } = await nve(HELPER_VERSION, 'ava', ['--version'], {
-    spawn: {
-      env: { [pathKey()]: '' },
-      preferLocal: true,
-      cwd: '/',
-      stdio: 'ignore',
-    },
+  const { childProcess } = await runWithoutPath({
+    preferLocal: true,
+    cwd: '/',
+    stdio: 'ignore',
   })
   const { exitCode } = await t.throwsAsync(childProcess)
 
   t.not(exitCode, 0)
 })
+
+const runWithoutPath = function(spawnOpts) {
+  return nve(HELPER_VERSION, 'ava', ['--version'], {
+    spawn: { env: { [pathKey()]: '' }, ...spawnOpts },
+  })
+}
