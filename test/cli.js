@@ -45,6 +45,12 @@ test('Does not print Execa errors on stderr', async t => {
   t.is(stderr, '')
 })
 
+test('No commands | CLI', async t => {
+  const { stdout } = await runCli(`--no-progress v${TEST_VERSION}`)
+
+  t.is(stdout, TEST_VERSION)
+})
+
 test('--help | CLI', async t => {
   const { stdout } = await runCli('--help')
 

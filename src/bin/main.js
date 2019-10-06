@@ -12,7 +12,12 @@ const runCli = async function() {
   try {
     const yargs = defineCli()
     const { versionRange, command, args, opts } = parseOpts(yargs)
-    const { exitCode } = await runMain({ versionRange, command, args, opts })
+    const exitCode = await runMain({
+      versionRange,
+      command,
+      args,
+      opts,
+    })
     exit(exitCode)
   } catch (error) {
     const exitCode = handleTopError(error)
@@ -21,11 +26,22 @@ const runCli = async function() {
 }
 
 const runMain = async function({ versionRange, command, args, opts }) {
-  const { childProcess } = await runVersion(versionRange, command, args, opts)
+  const { childProcess, version } = await runVersion(
+    versionRange,
+    command,
+    args,
+    opts,
+  )
+
+  // When `command` is `undefined`, we only print the normalized Node.js version
+  if (childProcess === undefined) {
+    console.log(version)
+    return 0
+  }
 
   try {
     const { exitCode } = await childProcess
-    return { exitCode }
+    return exitCode
   } catch (error) {
     throw handleExecaError({ error })
   }

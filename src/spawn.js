@@ -12,6 +12,8 @@ export const spawnProcess = function({
   args,
   spawnOptions,
 }) {
+  // `command` can be `undefined`, allowing users to only download and normalize
+  // the Node.js version
   if (command === undefined) {
     return
   }
