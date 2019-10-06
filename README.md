@@ -165,13 +165,13 @@ const childProcess = await nve('8', 'command', ['--version'], options)
 # Benchmarks
 
 The [following benchmarks](benchmarks/main.js) compare the average time to run
-`nve`, [`nvm run`](https://github.com/nvm-sh/nvm) and
+`nve`, [`nvm exec`](https://github.com/nvm-sh/nvm) and
 [`npx node`](https://github.com/aredridel/node-bin-gen/blob/master/node-bin-README.md#use-with-npx):
 
 ```
-nve:        68ms
-nvm run:   852ms
-npx node: 1385ms
+nve:       106ms
+nvm exec: 1020ms
+npx node: 1437ms
 ```
 
 # See also
