@@ -8,7 +8,6 @@ import { TEST_VERSION } from './helpers/versions.js'
 each(
   [
     [],
-    [TEST_VERSION],
     [TEST_VERSION, true],
     [TEST_VERSION, 'node', true],
     [TEST_VERSION, 'node', [true]],

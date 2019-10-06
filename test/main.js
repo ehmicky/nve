@@ -26,3 +26,9 @@ test('Return normalized Node.js version', async t => {
 
   t.is(version, TEST_VERSION)
 })
+
+test('Can omit command', async t => {
+  const { version } = await runVersion(TEST_VERSION)
+
+  t.is(version, TEST_VERSION)
+})

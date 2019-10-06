@@ -29,8 +29,10 @@ const validateBasic = function({ versionRange, command, args, opts }) {
     throw new TypeError(`First argument must be a version: ${versionRange}`)
   }
 
-  if (typeof command !== 'string') {
-    throw new TypeError(`Second argument must be a command: ${command}`)
+  if (typeof command !== 'string' && command !== undefined) {
+    throw new TypeError(
+      `Second argument must be a command or undefined: ${command}`,
+    )
   }
 
   if (!isStringArray(args)) {

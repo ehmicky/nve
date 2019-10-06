@@ -12,6 +12,10 @@ export const spawnProcess = function({
   args,
   spawnOptions,
 }) {
+  if (command === undefined) {
+    return
+  }
+
   const commandA = getCommand(command, nodePath, spawnOptions)
 
   const spawnOptionsA = fixPath({ nodePath, spawnOptions })
