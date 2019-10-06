@@ -31,7 +31,9 @@ test('Print non-Execa errors on stderr', async t => {
 })
 
 test('Does not print Execa errors on stderr', async t => {
-  const { stderr } = await runCli(`${TEST_VERSION} node -e process.exit(2)`)
+  const { stderr } = await runCli(
+    `--no-progress ${TEST_VERSION} node -e process.exit(2)`,
+  )
 
   t.is(stderr, '')
 })
@@ -60,7 +62,9 @@ test('node --help | CLI', async t => {
 })
 
 test('node --version | CLI', async t => {
-  const { stdout } = await runCli(`${TEST_VERSION} node --version`)
+  const { stdout } = await runCli(
+    `--no-progress ${TEST_VERSION} node --version`,
+  )
 
   t.is(stdout, `v${TEST_VERSION}`)
 })

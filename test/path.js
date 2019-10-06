@@ -63,7 +63,7 @@ if (platform !== 'win32' || !isCi) {
 // See https://github.com/istanbuljs/spawn-wrap/issues/108
 test('Works with nyc as parent with node command', async t => {
   const { stdout } = await execa.command(
-    `nyc --silent -- ${BIN_PATH} ${HELPER_VERSION} node --version`,
+    `nyc --silent -- ${BIN_PATH} --no-progress ${HELPER_VERSION} node --version`,
   )
 
   t.is(stdout, `v${HELPER_VERSION}`)
