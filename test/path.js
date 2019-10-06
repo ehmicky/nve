@@ -6,6 +6,7 @@ import { each } from 'test-each'
 import { getBinPathSync } from 'get-bin-path'
 import execa from 'execa'
 import isCi from 'is-ci'
+import pathKey from 'path-key'
 
 import { runVersion } from '../src/main.js'
 
@@ -26,14 +27,14 @@ if (platform !== 'win32' || !isCi) {
       ['node', FORK_FILE, 'node', '--version'],
       ['node', BIN_PATH, HELPER_VERSION, 'node', '--version'],
     ],
-    [undefined, { title: 'env' }],
-    ({ title }, args, spawnOpts) => {
+    [{}, { [pathKey()]: undefined }],
+    ({ title }, args, env) => {
       test(`Works with child processes | ${title}`, async t => {
         const { childProcess } = await runVersion(
           HELPER_VERSION,
           'node',
           [FORK_FILE, ...args],
-          { spawn: spawnOpts },
+          { spawn: { env } },
         )
         const { stdout } = await childProcess
 
