@@ -3,20 +3,7 @@ import { each } from 'test-each'
 
 import { runVersion } from '../src/main.js'
 
-import { runCli } from './helpers/cli.js'
 import { TEST_VERSION } from './helpers/versions.js'
-
-each(
-  [[''], [TEST_VERSION], ['invalid_version', 'node']],
-  ({ title }, [versionRange, command]) => {
-    test(`Invalid arguments | CLI ${title}`, async t => {
-      const { exitCode, stderr } = await runCli(`${versionRange} ${command}`)
-
-      t.not(exitCode, 0)
-      t.true(stderr !== '')
-    })
-  },
-)
 
 each(
   [

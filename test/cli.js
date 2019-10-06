@@ -1,8 +1,12 @@
 import test from 'ava'
+import { each } from 'test-each'
 import readPkgUp from 'read-pkg-up'
+import { getBinPath } from 'get-bin-path'
+import execa from 'execa'
 
-import { runCli } from './helpers/cli.js'
 import { TEST_VERSION } from './helpers/versions.js'
+
+const BIN_PATH = getBinPath()
 
 test('Forward exit code on success | CLI', async t => {
   const { exitCode } = await runCli(`${TEST_VERSION} node --version`)
@@ -76,3 +80,20 @@ test('CLI flags | CLI', async t => {
 
   t.is(exitCode, 0)
 })
+
+each(
+  [[''], [TEST_VERSION], ['invalid_version', 'node']],
+  ({ title }, [versionRange, command]) => {
+    test(`Invalid arguments | CLI ${title}`, async t => {
+      const { exitCode, stderr } = await runCli(`${versionRange} ${command}`)
+
+      t.not(exitCode, 0)
+      t.true(stderr !== '')
+    })
+  },
+)
+
+const runCli = async function(args) {
+  const binPath = await BIN_PATH
+  return execa.command(`${binPath} ${args}`, { reject: false })
+}
