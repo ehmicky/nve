@@ -46,6 +46,7 @@ const EXAMPLES = [
   ['nve 12 node', 'Same as "node" but with Node 12'],
   ['nve 8 node file.js', 'Same as "node file.js" but with Node 8'],
   ['nve 8 npm test', 'Any command can be used'],
+  ['nve 8 ava', 'Execute a local binary'],
   ['nve 8.10.0 npm test', 'Run a specific version'],
   [`nve "*" npm test`, 'Run the latest Node version'],
   [`nve "<8" npm test`, 'Use a version range'],
@@ -53,5 +54,9 @@ const EXAMPLES = [
     `nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test`,
     'Use a different mirror for the Node binaries',
   ],
-  ['nve --shell 8 "npm run build && npm test"', 'Run command inside a shell'],
+  ['nve 8 npm run build && nve 8 npm test', 'Chaining command without a shell'],
+  [
+    'nve --shell 8 "npm run build && npm test"',
+    'Chaining command with a shell',
+  ],
 ]

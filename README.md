@@ -16,7 +16,7 @@ it:
 - can be run [programmatically](#programmatic)
 - is [10 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
-- runs always the latest minor/patch Node version (when only the major version
+- always runs the latest minor/patch Node version (when only the major version
   is specified)
 - works on Windows (no need to run as Administrator)
 - does not require Bash
@@ -24,9 +24,9 @@ it:
   [Bash installation script](https://github.com/nvm-sh/nvm/blob/master/README.md#installation-and-update)
   downloaded with `curl`)
 
-`nve` executes a single file or command. It does not change the `node` nor `npm`
-global binaries. To run a specific Node.js version for an entire project or
-shell session, please use [`nvm`](https://github.com/nvm-sh/nvm),
+`nve` executes a **single file or command**. It does not change the `node` nor
+`npm` global binaries. To run a specific Node.js version for an **entire project
+or shell session**, please use [`nvm`](https://github.com/nvm-sh/nvm),
 [`nvm-windows`](https://github.com/coreybutler/nvm-windows),
 [`n`](https://github.com/tj/n) or [`nvs`](https://github.com/jasongin/nvs)
 instead.
@@ -36,7 +36,7 @@ instead.
 ```bash
 # Same as `node` but with Node 12
 $ nve 12 node
-Welcome to Node.js v12.10.0.
+Welcome to Node.js v12.11.1.
 Type ".help" for more information.
 > .exit
 
@@ -45,6 +45,9 @@ $ nve 8 node file.js
 
 # Any command can be used
 $ nve 8 npm test
+
+# Execute a local binary
+$ nve 8 ava
 
 # Run a specific version
 $ nve 8.10.0 npm test
@@ -57,15 +60,26 @@ $ nve "<8" npm test
 
 # Use a different mirror for the Node binaries
 $ nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test
+
+# Chaining commands without a shell
+$ nve 8 npm run build && nve 8 npm test
+# Chaining commands with a shell
+$ nve --shell 8 "npm run build && npm test"
 ```
 
-Or [programmatically](#programmatic):
+[Programmatically](#programmatic):
 
 <!-- Remove 'eslint-skip' once estree supports top-level await -->
 <!-- eslint-skip -->
 
 ```js
-const childProcess = await nve('8', 'node', ['--version'])
+const { runVersion } = require('nve')
+
+const { childProcess, version } = await runVersion('8', 'node', ['--version'])
+console.log(version) // 8.16.1
+const { exitCode, stdout, stderr } = await childProcess
+console.log(exitCode) // 0
+console.log(stdout) // v8.16.1
 ```
 
 # Demo
@@ -98,13 +112,15 @@ This is exactly the same as:
 COMMAND [ARGS...]
 ```
 
-But using a specific Node version.
+But using a specific Node `VERSION`.
 
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
 
 `COMMAND` must be compatible with the specific Node `VERSION`. For example `npm`
 is [only compatible with Node `>=6`](https://github.com/npm/cli#important).
+
+Both global and local binaries can be executed.
 
 The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
 under the hood. This initially takes few seconds. However subsequent runs are
@@ -114,7 +130,7 @@ under the hood. This initially takes few seconds. However subsequent runs are
 
 ### --shell
 
-_Type_: `boolean`<br>_Default_: `false`
+_Alias_: `-s`<br> _Type_: `boolean`<br>_Default_: `false`
 
 When using shell-specific chaining or structures such as `&&` or `||`, `nve`
 should be repeated.
@@ -124,7 +140,7 @@ nve 8 npm run build && nve 8 npm test
 ```
 
 Although [not recommended](https://github.com/sindresorhus/execa#shell),
-`--shell` can be used to run the command inside a shell instead.
+`--shell` can achieve the same result by running the command inside a shell.
 
 ```
 nve --shell 8 "npm run build && npm test"
@@ -162,27 +178,62 @@ Otherwise the following error message will be shown:
 
 ## Programmatic
 
-### nve(versionRange, command, args?, options?)
+### runVersion(versionRange, command, args?, options?)
 
 _versionRange_: `string`<br> _command_: `string`<br>_args_: `string[]`<br>
-_options_: `object`<br>_Return value_:
-[`Promise<childProcess>`](https://nodejs.org/api/child_process.html#child_process_class_childprocess)
-
-`options` has the same members as the CLI options: [`progress`](#--progress) and
-[`mirror`](#--mirror).
+_options_: `object`<br>_Return value_: `object`
 
 `command` and `args` are the same as in
-[`child_process.spawn(command, args, options)`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
-An `options.spawn` object can be specified to pass options to
-`child_process.spawn()`.
-[`options.spawn.preferLocal`](https://github.com/sindresorhus/execa#preferlocal)
-defaults to `true`.
+[`execa(command, args, options)`](https://github.com/sindresorhus/execa#execafile-arguments-options)
+
+#### Options
+
+##### progress, mirror
+
+Same options as with the [CLI](#options).
+
+##### spawn
+
+_Type_: `object` _Default_: `{ preferLocal: true }`
+
+Options passed to
+[`execa(command, args, options)`](https://github.com/sindresorhus/execa#execafile-arguments-options)
+
+#### Return value
+
+_Type_: `object`
+
+##### childProcess
+
+_Type_:
+[`execaResult`](https://github.com/sindresorhus/execa#execafile-arguments-options)
+
+[`childProcess` instance](https://nodejs.org/api/child_process.html#child_process_class_childprocess).
+It is also a `Promise` resolving or rejecting with a
+[`childProcessResult`](https://github.com/sindresorhus/execa#childProcessResult).
+
+##### version
+
+_Type_: `version`
+
+Normalized Node.js version. For example if `v8` was passed as input, `version`
+will be `"8.16.1"`.
+
+#### Example
 
 <!-- Remove 'eslint-skip' once estree supports top-level await -->
 <!-- eslint-skip -->
 
 ```js
-const childProcess = await nve('8', 'command', ['--version'], options)
+const { runVersion } = require('nve')
+
+const { childProcess, version } = await nve(
+  '8',
+  'command',
+  ['--version'],
+  options,
+)
+const { exitCode, stdout, stderr } = await childProcess
 ```
 
 # Benchmarks
