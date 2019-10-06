@@ -20,6 +20,9 @@ const BIN_PATH = getBinPathSync()
 // This will probably be fixed once nyc@15 is released.
 // See https://github.com/istanbuljs/spawn-wrap/issues/108
 if (platform !== 'win32' || !isCi) {
+  // Those tests also ensure that locally installed `node` (`npx -r node@...`)
+  // do not have priority in child processes. `node` is installed as a
+  // `devDependency` to do this.
   each(
     [
       ['node', '--version'],
