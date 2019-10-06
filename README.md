@@ -64,6 +64,9 @@ $ nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test
 $ nve 8 npm run build && nve 8 npm test
 # Chaining commands with a shell
 $ nve --shell 8 "npm run build && npm test"
+
+# Cache Node 8 download without executing any command
+$ nve 8
 ```
 
 [Programmatically](#programmatic):
@@ -102,7 +105,7 @@ use any Node version (providing it is compatible with it).
 ## CLI
 
 ```bash
-nve [OPTIONS...] VERSION COMMAND [ARGS...]
+nve [OPTIONS...] VERSION [COMMAND] [ARGS...]
 ```
 
 This is exactly the same as:
@@ -124,6 +127,9 @@ Both global and local binaries can be executed.
 The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
 under the hood. This initially takes few seconds. However subsequent runs are
 [almost instantaneous](#benchmarks).
+
+`COMMAND` can be omitted in order to cache that initial download without
+executing any commands.
 
 ## Options
 
@@ -177,7 +183,7 @@ Otherwise the following error message is shown:
 
 ## Programmatic
 
-### runVersion(versionRange, command, args?, options?)
+### runVersion(versionRange, command?, args?, options?)
 
 _versionRange_: `string`<br> _command_: `string`<br>_args_: `string[]`<br>
 _options_: `object`<br>_Return value_: `Promise<object>`
@@ -205,11 +211,14 @@ _Type_: `Promise<object>`
 ##### childProcess
 
 _Type_:
-[`execaResult`](https://github.com/sindresorhus/execa#execafile-arguments-options)
+[`execaResult?`](https://github.com/sindresorhus/execa#execafile-arguments-options)
 
 [`childProcess` instance](https://nodejs.org/api/child_process.html#child_process_class_childprocess).
 It is also a `Promise` resolving or rejecting with a
 [`childProcessResult`](https://github.com/sindresorhus/execa#childProcessResult).
+
+This is `undefined` when
+[`command`](#runversionversionrange-command-args-options) is `undefined`.
 
 ##### version
 

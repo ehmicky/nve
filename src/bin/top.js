@@ -59,4 +59,5 @@ const EXAMPLES = [
     'nve --shell 8 "npm run build && npm test"',
     'Chaining command with a shell',
   ],
+  ['nve 8', 'Cache Node.js binary download without executing any command'],
 ]
