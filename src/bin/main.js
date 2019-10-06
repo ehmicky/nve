@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { exit } from 'process'
 
-import nve from '../main.js'
+import { runVersion } from '../main.js'
 
 import { defineCli } from './top.js'
 import { parseOpts } from './parse.js'
@@ -21,7 +21,7 @@ const runCli = async function() {
 }
 
 const runMain = async function({ versionRange, command, args, opts }) {
-  const { childProcess } = await nve(versionRange, command, args, {
+  const { childProcess } = await runVersion(versionRange, command, args, {
     ...opts,
     ...CLI_OPTS,
   })

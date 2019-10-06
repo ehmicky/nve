@@ -7,7 +7,7 @@ import { getBinPathSync } from 'get-bin-path'
 import execa from 'execa'
 import isCi from 'is-ci'
 
-import nve from '../src/main.js'
+import { runVersion } from '../src/main.js'
 
 import { HELPER_VERSION, TEST_VERSION } from './helpers/versions.js'
 
@@ -29,7 +29,7 @@ if (platform !== 'win32' || !isCi) {
     [undefined, { title: 'env', env: processEnv }],
     ({ title }, args, spawnOpts) => {
       test(`Works with child processes | ${title}`, async t => {
-        const { childProcess } = await nve(
+        const { childProcess } = await runVersion(
           HELPER_VERSION,
           'node',
           [FORK_FILE, ...args],
@@ -43,7 +43,7 @@ if (platform !== 'win32' || !isCi) {
   )
 
   test('Works with nyc as child', async t => {
-    const { childProcess } = await nve(HELPER_VERSION, 'nyc', [
+    const { childProcess } = await runVersion(HELPER_VERSION, 'nyc', [
       '--silent',
       '--',
       'node',
@@ -72,7 +72,7 @@ test('Works with nyc as parent with node command', async t => {
 test('Does not change process.execPath', async t => {
   // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
   const { execPath } = process
-  await nve(TEST_VERSION, 'node', ['--version'])
+  await runVersion(TEST_VERSION, 'node', ['--version'])
 
   // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
   t.is(process.execPath, execPath)

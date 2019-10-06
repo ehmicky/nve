@@ -5,7 +5,12 @@ import { spawnProcess } from './spawn.js'
 
 // Forwards `args` to another node instance of a specific `versionRange`
 // eslint-disable-next-line max-params
-const nve = async function(versionRange, command, args = [], opts = {}) {
+export const runVersion = async function(
+  versionRange,
+  command,
+  args = [],
+  opts = {},
+) {
   const { spawn: spawnOpts, ...optsA } = getOpts({
     versionRange,
     command,
@@ -18,7 +23,3 @@ const nve = async function(versionRange, command, args = [], opts = {}) {
   const childProcess = spawnProcess({ nodePath, command, args, spawnOpts })
   return childProcess
 }
-
-// We do not use `export default` because Babel transpiles it in a way that
-// requires CommonJS users to `require(...).default` instead of `require(...)`.
-module.exports = nve

@@ -6,12 +6,15 @@ import { each } from 'test-each'
 import pathKey from 'path-key'
 import isCi from 'is-ci'
 
-import nve from '../src/main.js'
+import { runVersion } from '../src/main.js'
 
 import { TEST_VERSION, HELPER_VERSION } from './helpers/versions.js'
 
 test('Forward child process | programmatic', async t => {
-  const { childProcess } = await nve(TEST_VERSION, 'node', ['-p', '"test"'])
+  const { childProcess } = await runVersion(TEST_VERSION, 'node', [
+    '-p',
+    '"test"',
+  ])
 
   t.true(childProcess instanceof ChildProcess)
 
@@ -29,9 +32,12 @@ each(
   ],
   ({ title }, { stdio, output }) => {
     test(`Can use stdio | ${title}`, async t => {
-      const { childProcess } = await nve(TEST_VERSION, 'node', ['--version'], {
-        spawn: { stdio },
-      })
+      const { childProcess } = await runVersion(
+        TEST_VERSION,
+        'node',
+        ['--version'],
+        { spawn: { stdio } },
+      )
       const { stdout } = await childProcess
 
       t.is(stdout, output)
@@ -40,7 +46,9 @@ each(
 )
 
 test('Can fire global binaries', async t => {
-  const { childProcess } = await nve(HELPER_VERSION, 'npm', ['--version'])
+  const { childProcess } = await runVersion(HELPER_VERSION, 'npm', [
+    '--version',
+  ])
   const { stdout } = await childProcess
 
   t.true(stdout !== '')
@@ -82,7 +90,7 @@ if (platform !== 'win32' || !isCi) {
 }
 
 const runWithoutPath = function(spawnOpts) {
-  return nve(HELPER_VERSION, 'ava', ['--version'], {
+  return runVersion(HELPER_VERSION, 'ava', ['--version'], {
     spawn: { env: { [pathKey()]: '' }, ...spawnOpts },
   })
 }
