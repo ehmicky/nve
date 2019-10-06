@@ -58,11 +58,11 @@ const isDefined = function(key, value) {
 
 const DEFAULT_OPTS = {
   spawnOptions: { preferLocal: true },
+  progress: false,
 }
 
 const EXAMPLE_OPTS = {
   ...DEFAULT_OPTS,
   spawnOptions: { stdio: 'inherit' },
-  progress: true,
   mirror: 'https://nodejs.org/dist',
 }

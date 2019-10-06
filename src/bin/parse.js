@@ -57,4 +57,7 @@ const handleSpawnOpts = function({ shell, ...opts }) {
   return { ...opts, spawnOptions: { shell } }
 }
 
-const DEFAULT_CLI_OPTS = { spawnOptions: { stdio: 'inherit', buffer: false } }
+const DEFAULT_CLI_OPTS = {
+  progress: true,
+  spawnOptions: { stdio: 'inherit', buffer: false },
+}

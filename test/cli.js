@@ -38,15 +38,13 @@ test('Print non-Execa errors on stderr', async t => {
 })
 
 test('Does not print Execa errors on stderr', async t => {
-  const { stderr } = await runCli(
-    `--no-progress ${TEST_VERSION} node -e process.exit(2)`,
-  )
+  const { stderr } = await runCli(`${TEST_VERSION} node -e process.exit(2)`)
 
   t.is(stderr, '')
 })
 
 test('No commands | CLI', async t => {
-  const { stdout } = await runCli(`--no-progress v${TEST_VERSION}`)
+  const { stdout } = await runCli(`v${TEST_VERSION}`)
 
   t.is(stdout, TEST_VERSION)
 })
@@ -75,17 +73,13 @@ test('node --help | CLI', async t => {
 })
 
 test('node --version | CLI', async t => {
-  const { stdout } = await runCli(
-    `--no-progress ${TEST_VERSION} node --version`,
-  )
+  const { stdout } = await runCli(`${TEST_VERSION} node --version`)
 
   t.is(stdout, `v${TEST_VERSION}`)
 })
 
 test('CLI flags | CLI', async t => {
-  const { exitCode } = await runCli(
-    `--no-progress ${TEST_VERSION} node --version`,
-  )
+  const { exitCode } = await runCli(`${TEST_VERSION} node --version`)
 
   t.is(exitCode, 0)
 })
@@ -96,7 +90,7 @@ test('CLI flags | CLI', async t => {
 if (platform !== 'darwin' || !isCi) {
   test('Can run in shell mode | CLI', async t => {
     const { exitCode } = await runCli(
-      `--no-progress --shell ${TEST_VERSION} node\\ --version\\ &&\\ node\\ --version`,
+      `--shell ${TEST_VERSION} node\\ --version\\ &&\\ node\\ --version`,
     )
 
     t.is(exitCode, 0)
@@ -121,5 +115,5 @@ each(
 
 const runCli = async function(args) {
   const binPath = await BIN_PATH
-  return execa.command(`${binPath} ${args}`, { reject: false })
+  return execa.command(`${binPath} --no-progress ${args}`, { reject: false })
 }
