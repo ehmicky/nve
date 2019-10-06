@@ -166,13 +166,13 @@ The following environment variables can also be used: `NODE_MIRROR`,
 
 ## Native modules
 
-If your code is using native modules, `nve` will work providing:
+If your code is using native modules, `nve` works providing:
 
 - they are built with [N-API](https://nodejs.org/api/n-api.html)
 - the target Node.js version is `>=8.12.0` (since N-API was not available or
   stable before that)
 
-Otherwise the following error message will be shown:
+Otherwise the following error message is shown:
 `Error: The module was compiled against a different Node.js version`.
 
 ## Programmatic
