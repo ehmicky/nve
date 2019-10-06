@@ -1,4 +1,4 @@
-import { env as processEnv, platform } from 'process'
+import { platform } from 'process'
 import { normalize } from 'path'
 
 import test from 'ava'
@@ -26,7 +26,7 @@ if (platform !== 'win32' || !isCi) {
       ['node', FORK_FILE, 'node', '--version'],
       ['node', BIN_PATH, HELPER_VERSION, 'node', '--version'],
     ],
-    [undefined, { title: 'env', env: processEnv }],
+    [undefined, { title: 'env', env: {} }],
     ({ title }, args, spawnOpts) => {
       test(`Works with child processes | ${title}`, async t => {
         const { childProcess } = await runVersion(
