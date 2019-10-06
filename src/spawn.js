@@ -12,7 +12,7 @@ export const spawnProcess = function({ nodePath, command, args, spawnOpts }) {
   const spawnOptsA = fixPath({ nodePath, spawnOpts })
 
   const childProcess = execa(commandA, args, spawnOptsA)
-  return { childProcess }
+  return childProcess
 }
 
 const getCommand = function(command, nodePath) {
