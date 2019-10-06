@@ -1,3 +1,12 @@
+# 3.1.0
+
+## Features
+
+- It is now possible to
+  [omit the `command`](https://github.com/ehmicky/nve/blob/master/README.md#cli).
+  For example `nve 8` instead of `nve 8 npm test`. This can be used to cache the
+  Node.js binary download without executing any command.
+
 # 3.0.0
 
 ## Breaking changes
