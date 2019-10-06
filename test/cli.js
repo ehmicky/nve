@@ -82,7 +82,9 @@ test('CLI flags | CLI', async t => {
   t.is(exitCode, 0)
 })
 
-// TODO: this does not work in Travis CI.
+// TODO: this does not work with nyc
+// This might be fixed with nyc@15
+// See https://github.com/istanbuljs/spawn-wrap/issues/108
 if (!isCi) {
   test('Can run in shell mode | CLI', async t => {
     const { all: stdout } = await runCli(

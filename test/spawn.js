@@ -81,7 +81,9 @@ const runWithoutPath = function(spawnOpts) {
   })
 }
 
-// TODO: this does not work in Travis CI.
+// TODO: this does not work with nyc
+// This might be fixed with nyc@15
+// See https://github.com/istanbuljs/spawn-wrap/issues/108
 if (!isCi) {
   test('Can run in shell mode | programmatic', async t => {
     const { childProcess } = await runVersion(
