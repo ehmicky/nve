@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Demo of the CLI usage.
-# This file can be directly run:
-#   - first install `nve` globally
-#   - then `bash node_modules/nve/examples/main.sh`
+# This file can be directly run
+#   npm install nve
+#   bash node_modules/nve/examples/main.sh
 # An online demo is also available at:
 #   https://repl.it/@ehmicky/nve
 

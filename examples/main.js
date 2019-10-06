@@ -1,7 +1,7 @@
 // Demo of the programmatic usage.
 // This file can be directly run:
-//   - first install `nve` globally
-//   - then `node node_modules/nve/examples/main.js`
+//   npm install nve
+//   node node_modules/nve/examples/main.js
 // An online demo is also available at:
 //   https://repl.it/@ehmicky/nve
 
