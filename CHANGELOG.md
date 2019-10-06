@@ -7,7 +7,7 @@
   For example `nve 8` should now be `nve 8 node` and `nve 8 file.js` should be
   `nve 8 node file.js`.
 - The `NVE_PROGRESS` environment variable has been removed. The
-  [`--progress` option](https://github.com/ehmicky/nve/blob/master/README.md#--progress)
+  [`--no-progress` option](https://github.com/ehmicky/nve/blob/master/README.md#--progress)
   should be used instead.
 - The programmatic usage has changed: please see the new
   [API](https://github.com/ehmicky/nve/blob/master/README.md#programmatic)
@@ -31,7 +31,7 @@
   [options](https://github.com/sindresorhus/execa#options) when run
   programmatically
 
-## Bugs
+## Bug fixes
 
 - If the script spawns child processes, those will now use the correct Node.js
   version
@@ -45,13 +45,13 @@
 
 # 2.2.2
 
-## Bugs
+## Bug fixes
 
 - Improve error messages
 
 # 2.2.1
 
-## Bugs
+## Bug fixes
 
 - Fix `CTRL-C` not working
 
@@ -71,7 +71,7 @@
 
 # 2.0.1
 
-## Bugs
+## Bug fixes
 
 - Fix cache invalidation bug
 

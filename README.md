@@ -189,7 +189,7 @@ _options_: `object`<br>_Return value_: `Promise<object>`
 
 ##### progress, mirror
 
-Same options as the [CLI options](#options).
+Same as the [CLI options](#options).
 
 ##### spawnOptions
 
