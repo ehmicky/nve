@@ -36,4 +36,4 @@ nve 8 node --version && nve 8 node file.js
 nve --shell 8 "node --version && node file.js"
 
 # Cache Node 8 download without executing any command
-$ nve 8
+nve 8
