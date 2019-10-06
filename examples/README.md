@@ -1,8 +1,17 @@
-This directory contains [examples](main.sh) of this library.
+This directory contains examples of this library. They can be run and edited:
 
-To execute them, first [install](../README.md#install) `nve` globally. Then run
-`bash node_modules/nve/examples/main.sh`.
+- either directly [in your browser](https://repl.it/@ehmicky/nve).
+- or in a terminal with the following commands:
 
-You can edit the [examples](main.sh).
+```bash
+npm install -g nve
+# To run JavaScript examples
+node node_modules/nve/examples/main.js
+# To run command line examples
+bash node_modules/nve/examples/main.sh
+```
 
-They can also be run directly [in your browser](https://repl.it/@ehmicky/nve).
+# Examples
+
+- [command line](main.sh)
+- [JavaScript](main.js)
