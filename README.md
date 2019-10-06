@@ -226,7 +226,7 @@ will be `"8.16.1"`.
 ```js
 const { runVersion } = require('nve')
 
-const { childProcess, version } = await nve(
+const { childProcess, version } = await runVersion(
   '8',
   'command',
   ['--version'],
