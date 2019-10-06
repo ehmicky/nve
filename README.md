@@ -191,7 +191,7 @@ _options_: `object`<br>_Return value_: `Promise<object>`
 
 Same options as the [CLI options](#options).
 
-##### spawn
+##### spawnOptions
 
 _Type_: `object`<br>_Default_: `{ preferLocal: true }`
 

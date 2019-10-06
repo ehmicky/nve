@@ -22,7 +22,7 @@ each(
         TEST_VERSION,
         'node',
         ['--version'],
-        { spawn: { stdio } },
+        { spawnOptions: { stdio } },
       )
       const { stdout } = await childProcess
 
@@ -75,9 +75,9 @@ if (platform !== 'win32' || !isCi) {
   })
 }
 
-const runWithoutPath = function(spawnOpts) {
+const runWithoutPath = function(spawnOptions) {
   return runVersion(HELPER_VERSION, 'ava', ['--version'], {
-    spawn: { env: { [pathKey()]: '' }, ...spawnOpts },
+    spawnOptions: { env: { [pathKey()]: '' }, ...spawnOptions },
   })
 }
 
@@ -86,7 +86,7 @@ test('Can run in shell mode | programmatic', async t => {
     TEST_VERSION,
     'node --version && node --version',
     [],
-    { spawn: { shell: true } },
+    { spawnOptions: { shell: true } },
   )
   const { exitCode } = await childProcess
 

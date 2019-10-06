@@ -49,5 +49,5 @@ const handleSpawnOpts = function({ shell, ...opts }) {
     return opts
   }
 
-  return { ...opts, spawn: { shell } }
+  return { ...opts, spawnOptions: { shell } }
 }

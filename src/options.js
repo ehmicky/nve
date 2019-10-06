@@ -6,13 +6,16 @@ import filterObj from 'filter-obj'
 // `versionRange` can start with `v` or not.
 export const getOpts = function({ versionRange, command, args, opts }) {
   validateBasic({ versionRange, command, args, opts })
-  validate(opts, { exampleConfig: EXAMPLE_OPTS, recursiveBlacklist: ['spawn'] })
+  validate(opts, {
+    exampleConfig: EXAMPLE_OPTS,
+    recursiveBlacklist: ['spawnOptions'],
+  })
 
   const optsA = filterObj(opts, isDefined)
   const optsB = {
     ...DEFAULT_OPTS,
     ...optsA,
-    spawn: { ...DEFAULT_OPTS.spawn, ...optsA.spawn },
+    spawnOptions: { ...DEFAULT_OPTS.spawnOptions, ...optsA.spawnOptions },
   }
   return optsB
 }
@@ -52,12 +55,12 @@ const isDefined = function(key, value) {
 }
 
 const DEFAULT_OPTS = {
-  spawn: { preferLocal: true },
+  spawnOptions: { preferLocal: true },
 }
 
 const EXAMPLE_OPTS = {
   ...DEFAULT_OPTS,
-  spawn: { stdio: 'inherit' },
+  spawnOptions: { stdio: 'inherit' },
   progress: true,
   mirror: 'https://nodejs.org/dist',
 }

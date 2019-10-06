@@ -24,7 +24,7 @@ const runMain = async function({ versionRange, command, args, opts }) {
   const { childProcess } = await runVersion(versionRange, command, args, {
     ...DEFAULT_CLI_OPTS,
     ...opts,
-    spawn: { ...DEFAULT_CLI_OPTS.spawn, ...opts.spawn },
+    spawnOptions: { ...DEFAULT_CLI_OPTS.spawnOptions, ...opts.spawnOptions },
   })
 
   try {
@@ -35,6 +35,6 @@ const runMain = async function({ versionRange, command, args, opts }) {
   }
 }
 
-const DEFAULT_CLI_OPTS = { spawn: { stdio: 'inherit', buffer: false } }
+const DEFAULT_CLI_OPTS = { spawnOptions: { stdio: 'inherit', buffer: false } }
 
 runCli()

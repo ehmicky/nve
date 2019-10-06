@@ -10,8 +10,8 @@ import pathKey from 'path-key'
 //  - binaries work, even on Windows
 export const fixPath = function({
   nodePath,
-  spawnOpts,
-  spawnOpts: { env = processEnv, preferLocal, cwd = getCwd() },
+  spawnOptions,
+  spawnOptions: { env = processEnv, preferLocal, cwd = getCwd() },
 }) {
   const pathName = pathKey({ env })
   const path = env[pathName] || ''
@@ -19,7 +19,7 @@ export const fixPath = function({
   const pathA = handleLocalBinaries(path, preferLocal, cwd)
   const pathB = prependNodePath(pathA, nodePath)
 
-  return { ...spawnOpts, env: { [pathName]: pathB }, preferLocal: false }
+  return { ...spawnOptions, env: { [pathName]: pathB }, preferLocal: false }
 }
 
 // `execa()` `preferLocal: true` option conflicts with `nve` in two ways:

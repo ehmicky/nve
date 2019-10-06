@@ -6,12 +6,17 @@ import { fixPath } from './path.js'
 
 // Forward arguments to another node binary located at `nodePath`.
 // We also forward standard streams.
-export const spawnProcess = function({ nodePath, command, args, spawnOpts }) {
-  const commandA = getCommand(command, nodePath, spawnOpts)
+export const spawnProcess = function({
+  nodePath,
+  command,
+  args,
+  spawnOptions,
+}) {
+  const commandA = getCommand(command, nodePath, spawnOptions)
 
-  const spawnOptsA = fixPath({ nodePath, spawnOpts })
+  const spawnOptionsA = fixPath({ nodePath, spawnOptions })
 
-  const childProcess = execa(commandA, args, spawnOptsA)
+  const childProcess = execa(commandA, args, spawnOptionsA)
   return childProcess
 }
 
