@@ -16,8 +16,7 @@ it:
 - can be run [programmatically](#programmatic)
 - is [10 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
-- always runs the latest minor/patch Node version (when only the major version
-  is specified)
+- always runs the latest minor/patch Node version (unless explicitly specified)
 - works on Windows (no need to run as Administrator)
 - does not require Bash
 - is installed as a Node module (as opposed to a
@@ -190,14 +189,14 @@ _options_: `object`<br>_Return value_: `object`
 
 ##### progress, mirror
 
-Same options as with the [CLI](#options).
+Same options as the [CLI options](#options).
 
 ##### spawn
 
-_Type_: `object` _Default_: `{ preferLocal: true }`
+_Type_: `object`<br>_Default_: `{ preferLocal: true }`
 
 Options passed to
-[`execa(command, args, options)`](https://github.com/sindresorhus/execa#execafile-arguments-options)
+[`execa(command, args, options)`](https://github.com/sindresorhus/execa#options)
 
 #### Return value
 
