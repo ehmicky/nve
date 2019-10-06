@@ -180,7 +180,7 @@ Otherwise the following error message will be shown:
 ### runVersion(versionRange, command, args?, options?)
 
 _versionRange_: `string`<br> _command_: `string`<br>_args_: `string[]`<br>
-_options_: `object`<br>_Return value_: `object`
+_options_: `object`<br>_Return value_: `Promise<object>`
 
 `command` and `args` are the same as in
 [`execa(command, args, options)`](https://github.com/sindresorhus/execa#execafile-arguments-options)
@@ -200,7 +200,7 @@ Options passed to
 
 #### Return value
 
-_Type_: `object`
+_Type_: `Promise<object>`
 
 ##### childProcess
 
@@ -213,7 +213,7 @@ It is also a `Promise` resolving or rejecting with a
 
 ##### version
 
-_Type_: `version`
+_Type_: `string`
 
 Normalized Node.js version. For example if `v8` was passed as input, `version`
 will be `"8.16.1"`.
