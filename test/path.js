@@ -26,7 +26,7 @@ if (platform !== 'win32' || !isCi) {
       ['node', FORK_FILE, 'node', '--version'],
       ['node', BIN_PATH, HELPER_VERSION, 'node', '--version'],
     ],
-    [undefined, { title: 'env', env: {} }],
+    [undefined, { title: 'env' }],
     ({ title }, args, spawnOpts) => {
       test(`Works with child processes | ${title}`, async t => {
         const { childProcess } = await runVersion(
