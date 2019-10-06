@@ -19,10 +19,10 @@ const getCommand = function(command, nodePath) {
   // Some libraries like `spawn-wrap` (used by `nyc`) monkey patch
   // `child_process.spawn()` to modify `$PATH` and prepend their own `node`
   // wrapper. We fix it by using the `node` absolute path instead of relying on
-  // `PATH`. Note that this does not work:
+  // `$PATH`. Note that this does not work:
   //  - with nested child processes
   //  - with binaries
-  // This is also slightly faster as it does not require any PATH lookup.
+  // This is also slightly faster as it does not require any `$PATH` lookup.
   if (command === 'node') {
     return nodePath
   }

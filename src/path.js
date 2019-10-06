@@ -14,7 +14,7 @@ export const fixPath = function({
   spawnOpts: { env = processEnv, preferLocal, cwd = getCwd() },
 }) {
   const pathName = pathKey({ env })
-  // `PATH` should always be defined on a normal OS
+  // `$PATH` should always be defined on a normal OS
   // istanbul ignore next
   const path = env[pathName] || ''
 
@@ -25,15 +25,15 @@ export const fixPath = function({
 }
 
 // `execa()` `preferLocal: true` option conflicts with `nve` in two ways:
-//  - it adds local binaries in front of the `PATH` which means
+//  - it adds local binaries in front of the `$PATH` which means
 //    `npm install node` has priority over `nodePath`
-//  - it adds `process.execPath` in front of the `PATH` which makes it higher
+//  - it adds `process.execPath` in front of the `$PATH` which makes it higher
 //    priority than `nodePath`
 // We fix this by emulating `preferLocal: true` ourselves.
 // TODO: once https://github.com/sindresorhus/npm-run-path/pull/9 and
 // https://github.com/sindresorhus/npm-run-path/pull/8 are merged, and an
 // `execPath` option is added to `execa`, we can use that option instead of
-// both calling `npm-run-path` and modifying `PATH` ourselves.
+// both calling `npm-run-path` and modifying `$PATH` ourselves.
 const handleLocalBinaries = function(path, preferLocal, cwd) {
   if (!preferLocal) {
     return path
