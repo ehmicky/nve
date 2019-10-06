@@ -81,18 +81,23 @@ const runWithoutPath = function(spawnOptions) {
   })
 }
 
-test('Can run in shell mode | programmatic', async t => {
-  const { childProcess } = await runVersion(
-    TEST_VERSION,
-    'node --version && node --version',
-    [],
-    { spawnOptions: { shell: true } },
-  )
-  const { exitCode } = await childProcess
+// This does not work with nyc on MacOS
+// This might be fixed with nyc@15
+// See https://github.com/istanbuljs/spawn-wrap/issues/108
+if (platform !== 'darwin' || !isCi) {
+  test('Can run in shell mode | programmatic', async t => {
+    const { childProcess } = await runVersion(
+      TEST_VERSION,
+      'node --version && node --version',
+      [],
+      { spawnOptions: { shell: true } },
+    )
+    const { exitCode } = await childProcess
 
-  t.is(exitCode, 0)
-  // TODO: enable the following line. It currently does not work with nyc
-  // This might be fixed with nyc@15
-  // See https://github.com/istanbuljs/spawn-wrap/issues/108
-  // t.is(stdout, `v${TEST_VERSION}\nv${TEST_VERSION}`)
-})
+    t.is(exitCode, 0)
+    // TODO: enable the following line. It currently does not work with nyc
+    // This might be fixed with nyc@15
+    // See https://github.com/istanbuljs/spawn-wrap/issues/108
+    // t.is(stdout, `v${TEST_VERSION}\nv${TEST_VERSION}`)
+  })
+}
