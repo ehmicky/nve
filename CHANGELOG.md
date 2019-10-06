@@ -2,13 +2,15 @@
 
 ## Breaking changes
 
-- `nve VERSION` must now be followed by `node`. For example `nve 8` should now
-  be `nve 8 node` and `nve 8 file.js` should be `nve 8 node file.js`.
+- `nve VERSION` must now
+  [be followed by `node`](https://github.com/ehmicky/nve/blob/master/README.md#examples).
+  For example `nve 8` should now be `nve 8 node` and `nve 8 file.js` should be
+  `nve 8 node file.js`.
 - the `NVE_PROGRESS` environment variable has been removed. The
   [`--progress` option](https://github.com/ehmicky/nve/blob/master/README.md#--progress)
   should be used instead.
 - the programmatic usage has changed: please see the new
-  [API](https://github.com/ehmicky/nve/blob/master/README.md#programmatic).
+  [API](https://github.com/ehmicky/nve/blob/master/README.md#programmatic)
 
 ## Features
 
@@ -16,21 +18,23 @@
   that the binary must be compatible with the chosen Node.js version. For
   example `npm` is only compatible with Node `>=6`.
 - Local binaries can be executed as well
-- If the script spawn child processes, those will now re-use the same Node.js
-  version
-- Add
-  [`--progress` option](https://github.com/ehmicky/nve/blob/master/README.md#--progress)
-  to hide the progress spinner when downloading the Node binary
-- Add
+- Add the
+  [`--shell` option](https://github.com/ehmicky/nve/blob/master/README.md#--shell)
+  to run a command inside a shell
+- Add the
   [`--mirror` option](https://github.com/ehmicky/nve/blob/master/README.md#--mirror)
   to change the base URL to retrieve Node.js binaries
-- Add
-  [`--shell` option](https://github.com/ehmicky/nve/blob/master/README.md#--shell)
-  to run a command inside a shell.
-- Add `--help` and `--version` CLI flags
+- Add the `--help` and `--version` CLI flags
+- [Execa](https://github.com/sindresorhus/execa) is now used under the hood
+  which provides with additional
+  [features](https://github.com/sindresorhus/execa#why) and
+  [options](https://github.com/sindresorhus/execa#options) when run
+  programmatically
 
 ## Bugs
 
+- If the script spawns child processes, those will now use the correct Node.js
+  version
 - Ensure `nve` does not exit until `stdout` and `stderr` have been flushed
 
 # 2.2.3
