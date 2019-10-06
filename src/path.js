@@ -14,7 +14,6 @@ export const fixPath = function({
   spawnOpts: { env = processEnv, preferLocal, cwd = getCwd() },
 }) {
   const pathName = pathKey({ env })
-  // `$PATH` should always be defined on a normal OS
   const path = env[pathName] || ''
 
   const pathA = handleLocalBinaries(path, preferLocal, cwd)
