@@ -12,7 +12,7 @@ const runCli = async function() {
   try {
     const yargs = defineCli()
     const { versionRange, command, args, opts } = parseOpts(yargs)
-    const exitCode = await runMain({ versionRange, command, args, opts })
+    const { exitCode } = await runMain({ versionRange, command, args, opts })
     exit(exitCode)
   } catch (error) {
     const exitCode = handleTopError(error)
@@ -21,20 +21,14 @@ const runCli = async function() {
 }
 
 const runMain = async function({ versionRange, command, args, opts }) {
-  const { childProcess } = await runVersion(versionRange, command, args, {
-    ...DEFAULT_CLI_OPTS,
-    ...opts,
-    spawnOptions: { ...DEFAULT_CLI_OPTS.spawnOptions, ...opts.spawnOptions },
-  })
+  const { childProcess } = await runVersion(versionRange, command, args, opts)
 
   try {
     const { exitCode } = await childProcess
-    return exitCode
+    return { exitCode }
   } catch (error) {
     throw handleExecaError({ error })
   }
 }
-
-const DEFAULT_CLI_OPTS = { spawnOptions: { stdio: 'inherit', buffer: false } }
 
 runCli()

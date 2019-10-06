@@ -14,8 +14,13 @@ export const parseOpts = function(yargs) {
   const optsA = yargs.parse(opts)
   const optsB = filterObj(optsA, isUserOpt)
   const optsC = handleSpawnOpts(optsB)
+  const optsD = {
+    ...DEFAULT_CLI_OPTS,
+    ...optsC,
+    spawnOptions: { ...DEFAULT_CLI_OPTS.spawnOptions, ...optsC.spawnOptions },
+  }
 
-  return { versionRange, command, args, opts: optsC }
+  return { versionRange, command, args, opts: optsD }
 }
 
 const getVersionIndex = function(input) {
@@ -51,3 +56,5 @@ const handleSpawnOpts = function({ shell, ...opts }) {
 
   return { ...opts, spawnOptions: { shell } }
 }
+
+const DEFAULT_CLI_OPTS = { spawnOptions: { stdio: 'inherit', buffer: false } }
