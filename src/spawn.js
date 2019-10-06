@@ -7,7 +7,7 @@ import { fixPath } from './path.js'
 // Forward arguments to another node binary located at `nodePath`.
 // We also forward standard streams.
 export const spawnProcess = function({ nodePath, command, args, spawnOpts }) {
-  const commandA = getCommand(command, nodePath)
+  const commandA = getCommand(command, nodePath, spawnOpts)
 
   const spawnOptsA = fixPath({ nodePath, spawnOpts })
 
@@ -15,7 +15,14 @@ export const spawnProcess = function({ nodePath, command, args, spawnOpts }) {
   return childProcess
 }
 
-const getCommand = function(command, nodePath) {
+const getCommand = function(command, nodePath, { shell }) {
+  // The following is not relevant in shell mode:
+  //  - shell spawning creates a nested child process
+  //  - `file.cmd` is not necessary when run through `cmd.exe`
+  if (shell) {
+    return command
+  }
+
   // Some libraries like `spawn-wrap` (used by `nyc`) monkey patch
   // `child_process.spawn()` to modify `$PATH` and prepend their own `node`
   // wrapper. We fix it by using the `node` absolute path instead of relying on
