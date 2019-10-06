@@ -81,6 +81,14 @@ test('CLI flags | CLI', async t => {
   t.is(exitCode, 0)
 })
 
+test('Can run in shell mode | CLI', async t => {
+  const { all: stdout } = await runCli(
+    `--no-progress --shell ${TEST_VERSION} node\\ --version\\ &&\\ node\\ --version`,
+  )
+
+  t.is(stdout, `v${TEST_VERSION}\nv${TEST_VERSION}`)
+})
+
 each(
   [[''], [TEST_VERSION], ['invalid_version', 'node']],
   ({ title }, [versionRange, command]) => {

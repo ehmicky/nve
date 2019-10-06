@@ -17,7 +17,8 @@ const addExample = function(yargsA, [example, description]) {
 const CONFIG = {
   progress: {
     boolean: true,
-    describe: `Show a loading spinner. Default: true`,
+    describe: `Show a loading spinner.
+Default: true`,
   },
   mirror: {
     alias: 'm',
@@ -27,6 +28,12 @@ const CONFIG = {
 Can be customized (for example "https://npm.taobao.org/mirrors/node").
 
 The following environment variables can also be used: NODE_MIRROR, NVM_NODEJS_ORG_MIRROR, N_NODE_MIRROR or NODIST_NODE_MIRROR.`,
+  },
+  shell: {
+    alias: 's',
+    boolean: true,
+    describe: `Run command inside a shell (such as Bash or cmd.exe).
+Default: false`,
   },
 }
 
@@ -46,4 +53,5 @@ const EXAMPLES = [
     `nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test`,
     'Use a different mirror for the Node binaries',
   ],
+  ['nve --shell 8 "npm run build && npm test"', 'Run command inside a shell'],
 ]

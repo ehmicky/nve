@@ -13,8 +13,9 @@ export const parseOpts = function(yargs) {
 
   const optsA = yargs.parse(opts)
   const optsB = filterObj(optsA, isUserOpt)
+  const optsC = handleSpawnOpts(optsB)
 
-  return { versionRange, command, args, opts: optsB }
+  return { versionRange, command, args, opts: optsC }
 }
 
 const getVersionIndex = function(input) {
@@ -42,3 +43,11 @@ const isUserOpt = function(key, value) {
 }
 
 const INTERNAL_KEYS = ['help', 'version', '_', '$0']
+
+const handleSpawnOpts = function({ shell, ...opts }) {
+  if (shell === undefined) {
+    return opts
+  }
+
+  return { ...opts, spawn: { shell } }
+}

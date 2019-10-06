@@ -24,6 +24,9 @@
 - Add
   [`--mirror` option](https://github.com/ehmicky/nve/blob/master/README.md#--mirror)
   to change the base URL to retrieve Node.js binaries
+- Add
+  [`--shell` option](https://github.com/ehmicky/nve/blob/master/README.md#--shell)
+  to run a command inside a shell.
 - Add `--help` and `--version` CLI flags
 
 ## Bugs

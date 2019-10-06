@@ -112,6 +112,27 @@ under the hood. This initially takes few seconds. However subsequent runs are
 
 ## Options
 
+### --shell
+
+_Type_: `boolean`<br>_Default_: `false`
+
+When using shell-specific chaining or structures such as `&&` or `||`, `nve`
+should be repeated.
+
+```
+nve 8 npm run build && nve 8 npm test
+```
+
+Although [not recommended](https://github.com/sindresorhus/execa#shell),
+`--shell` can be used to run the command inside a shell instead.
+
+```
+nve --shell 8 "npm run build && npm test"
+```
+
+Please note that shell-specific features such as globbing, environment variables
+or `$VARIABLE` expansion work even without `--shell`.
+
 ### --progress
 
 _Type_: `boolean`<br>_Default_: `true`
@@ -154,6 +175,8 @@ _options_: `object`<br>_Return value_:
 [`child_process.spawn(command, args, options)`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
 An `options.spawn` object can be specified to pass options to
 `child_process.spawn()`.
+[`options.spawn.preferLocal`](https://github.com/sindresorhus/execa#preferlocal)
+defaults to `true`.
 
 <!-- Remove 'eslint-skip' once estree supports top-level await -->
 <!-- eslint-skip -->
