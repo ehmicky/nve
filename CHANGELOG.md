@@ -6,10 +6,10 @@
   [be followed by `node`](https://github.com/ehmicky/nve/blob/master/README.md#examples).
   For example `nve 8` should now be `nve 8 node` and `nve 8 file.js` should be
   `nve 8 node file.js`.
-- the `NVE_PROGRESS` environment variable has been removed. The
+- The `NVE_PROGRESS` environment variable has been removed. The
   [`--progress` option](https://github.com/ehmicky/nve/blob/master/README.md#--progress)
   should be used instead.
-- the programmatic usage has changed: please see the new
+- The programmatic usage has changed: please see the new
   [API](https://github.com/ehmicky/nve/blob/master/README.md#programmatic)
 
 ## Features
