@@ -15,7 +15,6 @@ export const fixPath = function({
 }) {
   const pathName = pathKey({ env })
   // `$PATH` should always be defined on a normal OS
-  // istanbul ignore next
   const path = env[pathName] || ''
 
   const pathA = handleLocalBinaries(path, preferLocal, cwd)
