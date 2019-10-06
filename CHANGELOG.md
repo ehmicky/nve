@@ -1,3 +1,11 @@
+# 3.1.1
+
+## Bug fixes
+
+- Make the
+  [`progress` option](https://github.com/ehmicky/nve/blob/master/README.md#progress)
+  default to `false` programmatically.
+
 # 3.1.0
 
 ## Features

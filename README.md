@@ -193,9 +193,13 @@ _options_: `object`<br>_Return value_: `Promise<object>`
 
 #### Options
 
-##### progress, mirror
+##### progress
 
-Same as the [CLI options](#options).
+Like the [`--progress` CLI option](#--progress). Defaults to `false`.
+
+##### mirror
+
+Like the [`--mirror` CLI option](#--mirror).
 
 ##### spawnOptions
 
