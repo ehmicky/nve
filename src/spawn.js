@@ -2,8 +2,6 @@ import { platform } from 'process'
 
 import execa from 'execa'
 
-import { fixPath } from './path.js'
-
 // Forward arguments to another node binary located at `nodePath`.
 // We also forward standard streams.
 export const spawnProcess = function({
@@ -14,7 +12,17 @@ export const spawnProcess = function({
 }) {
   const commandA = getCommand(command, nodePath, spawnOptions)
 
-  const spawnOptionsA = fixPath({ nodePath, spawnOptions })
+  // Fix `$PATH` so that `node` points to the right version.
+  // We do this instead of directly calling `node` so that:
+  //  - child processes use the same Node.js version
+  //  - binaries work, even on Windows
+  // We use `execa` `execPath` for this.
+  // This option requires `preferLocal: true`
+  const spawnOptionsA = {
+    ...spawnOptions,
+    execPath: nodePath,
+    preferLocal: true,
+  }
 
   const childProcess = fireCommand(commandA, args, spawnOptionsA)
   return { childProcess, command: commandA, args, spawnOptions: spawnOptionsA }

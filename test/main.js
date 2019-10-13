@@ -54,5 +54,5 @@ test('Returns the modified args', async t => {
 test('Returns the spawn options', async t => {
   const { spawnOptions } = await runVersion(TEST_VERSION, 'node', ['--version'])
 
-  t.false(spawnOptions.preferLocal)
+  t.true(spawnOptions.preferLocal)
 })
