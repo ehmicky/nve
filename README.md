@@ -6,13 +6,12 @@
 [![Twitter](https://img.shields.io/badge/%E2%80%8B-twitter-4cc61e.svg?logo=twitter)](https://twitter.com/intent/follow?screen_name=ehmicky)
 [![Medium](https://img.shields.io/badge/%E2%80%8B-medium-4cc61e.svg?logo=medium)](https://medium.com/@ehmicky)
 
-Run any Node.js version.
-
-This executes any command using a specific Node.js version.
+Run any command on specific Node.js versions.
 
 Unlike [`nvm exec`](https://github.com/nvm-sh/nvm/blob/master/README.md#usage)
 it:
 
+- can run multiple Node.js versions at once
 - can be run [programmatically](#programmatic)
 - is [10 times faster](#benchmarks)
 - does not need a separate installation step for each Node version

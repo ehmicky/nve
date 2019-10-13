@@ -15,7 +15,7 @@ export const runVersion = async function(
   validateRange(versionRange)
   const { spawnOptions, ...optsA } = getOpts({ command, args, opts })
 
-  const { path: nodePath, version } = await getNode(versionRange, optsA)
+  const { nodePath, version } = await downloadNode(versionRange, optsA)
 
   const {
     childProcess,
@@ -27,6 +27,7 @@ export const runVersion = async function(
   return {
     childProcess,
     version,
+    versionRange,
     command: commandA,
     args: argsA,
     spawnOptions: spawnOptionsA,
@@ -35,7 +36,7 @@ export const runVersion = async function(
 
 // Same as `runVersion()` but for several versions at once
 // eslint-disable-next-line max-params
-export const runVersions = async function(
+export const runVersions = async function*(
   versionRanges,
   command,
   args = [],
@@ -45,10 +46,11 @@ export const runVersions = async function(
   const { spawnOptions, ...optsA } = getOpts({ command, args, opts })
 
   const nodes = await Promise.all(
-    versionRanges.map(versionRange => getNode(versionRange, optsA)),
+    versionRanges.map(versionRange => downloadNode(versionRange, optsA)),
   )
 
-  return nodes.map(({ path: nodePath, version }) => {
+  // eslint-disable-next-line fp/no-loops
+  for (const { nodePath, version, versionRange } of nodes) {
     const {
       childProcess,
       command: commandA,
@@ -56,12 +58,18 @@ export const runVersions = async function(
       spawnOptions: spawnOptionsA,
     } = spawnProcess({ nodePath, command, args, spawnOptions })
 
-    return {
+    yield {
       childProcess,
       version,
+      versionRange,
       command: commandA,
       args: argsA,
       spawnOptions: spawnOptionsA,
     }
-  })
+  }
+}
+
+const downloadNode = async function(versionRange, opts) {
+  const { path: nodePath, version } = await getNode(versionRange, opts)
+  return { nodePath, version, versionRange }
 }

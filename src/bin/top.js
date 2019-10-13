@@ -37,9 +37,10 @@ Default: false`,
   },
 }
 
-const USAGE = `$0 [OPTIONS...] VERSION [COMMAND] [ARGS...]
+const USAGE = `$0 [OPTIONS...] VERSION... [COMMAND] [ARGS...]
 
-Run "COMMAND [ARGS...]" but using a specific Node.js version.
+Run "COMMAND [ARGS...]" on specific Node.js versions.
+Either one or several VERSION can be specified.
 VERSION can be any version range such as "12", "12.6.0" or "<12".`
 
 const EXAMPLES = [

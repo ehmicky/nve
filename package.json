@@ -18,7 +18,7 @@
       "pre-push": "gulp check --full"
     }
   },
-  "description": "Run any Node.js version",
+  "description": "Run any command on specific Node.js versions",
   "keywords": [
     "nodejs",
     "node",
@@ -53,12 +53,14 @@
     "test": "test"
   },
   "dependencies": {
+    "chalk": "^2.4.2",
     "core-js": "^3.3.2",
     "execa": "^3.2.0",
     "filter-obj": "^2.0.1",
     "get-node": "^5.1.0",
     "is-plain-obj": "^2.0.0",
     "jest-validate": "^24.9.0",
+    "semver": "^6.3.0",
     "yargs": "^14.2.0"
   },
   "devDependencies": {
