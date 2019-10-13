@@ -30,6 +30,7 @@ const runMain = function({ versionRanges, command, args, opts }) {
   return runSerial({ versionRanges, command, args, opts })
 }
 
+// Run a single version
 const runSingle = async function({
   versionRanges: [versionRange],
   command,
@@ -67,6 +68,7 @@ const runSingle = async function({
   }
 }
 
+// Run multiple versions serially
 const runSerial = async function({ versionRanges, command, args, opts }) {
   const optsA = {
     ...opts,
