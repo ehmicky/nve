@@ -56,7 +56,7 @@
     "core-js": "^3.2.1",
     "execa": "^3.0.0",
     "filter-obj": "^2.0.1",
-    "get-node": "^5.0.0",
+    "get-node": "^5.1.0",
     "is-plain-obj": "^2.0.0",
     "jest-validate": "^24.9.0",
     "npm-run-path": "^4.0.0",
