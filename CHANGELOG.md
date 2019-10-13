@@ -1,3 +1,9 @@
+# 3.2.1
+
+## Dependencies
+
+- Remove `npm-run-path` and `filter-obj` as direct production dependencies
+
 # 3.2.0
 
 ## Features
