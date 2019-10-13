@@ -1,3 +1,9 @@
+# 3.1.4
+
+## Dependencies
+
+- Remove `path-key` as a direct production dependency
+
 # 3.1.3
 
 ## Dependencies
