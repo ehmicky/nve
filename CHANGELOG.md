@@ -1,3 +1,9 @@
+# 3.2.0
+
+## Features
+
+- Improve speed
+
 # 3.1.4
 
 ## Dependencies
