@@ -1,3 +1,9 @@
+# 3.1.3
+
+## Dependencies
+
+- [Upgrade `execa`](https://github.com/sindresorhus/execa/releases/tag/v3.0.0)
+
 # 3.1.2
 
 ## Internal
