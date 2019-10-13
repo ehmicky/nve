@@ -7,6 +7,8 @@ import filterObj from 'filter-obj'
 //  - binaries work, even on Windows
 // We use `npm-run-path`, which means `preferLocal` is always `true` under the
 // hood.
+// TODO: replace by `{ execPath: nodePath, preferLocal: true }` once
+// https://github.com/sindresorhus/execa/pull/377 is merged.
 export const fixPath = function({
   nodePath,
   spawnOptions,
