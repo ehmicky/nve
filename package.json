@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "core-js": "^3.2.1",
-    "execa": "^2.1.0",
+    "execa": "^3.0.0",
     "filter-obj": "^2.0.1",
     "get-node": "^5.0.0",
     "is-plain-obj": "^2.0.0",
