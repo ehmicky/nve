@@ -10,15 +10,14 @@ export const runSingle = async function({
   args,
   opts,
 }) {
-  const optsA = {
-    ...opts,
-    spawnOptions: { ...opts.spawnOptions, stdio: 'inherit', buffer: false },
-  }
   const { childProcess, version } = await runVersion(
     versionRange,
     command,
     args,
-    optsA,
+    {
+      ...opts,
+      spawnOptions: { ...opts.spawnOptions, stdio: 'inherit', buffer: false },
+    },
   )
 
   if (command === undefined) {

@@ -11,11 +11,10 @@ export const runSerial = async function({
   args,
   opts,
 }) {
-  const optsA = {
+  const iterable = runVersions(versionRanges, command, args, {
     ...opts,
     spawnOptions: { ...opts.spawnOptions, stdio: 'inherit', buffer: false },
-  }
-  const iterable = runVersions(versionRanges, command, args, optsA)
+  })
 
   if (command === undefined) {
     await printVersions(iterable)
