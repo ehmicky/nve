@@ -102,7 +102,7 @@ if (platform !== 'darwin' || !isCi) {
 }
 
 each(
-  [[''], [TEST_VERSION], ['invalid_version', 'node']],
+  [['', ''], [TEST_VERSION, 'invalid_binary'], ['invalid_version', 'node']],
   ({ title }, [versionRange, command]) => {
     test(`Invalid arguments | CLI ${title}`, async t => {
       const { exitCode, stderr } = await runCli(`${versionRange} ${command}`)
