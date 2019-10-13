@@ -1,3 +1,9 @@
+# 3.2.2
+
+## Bug fixes
+
+- Fix missing dependency
+
 # 3.2.1
 
 ## Dependencies
