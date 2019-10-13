@@ -12,21 +12,20 @@ export const spawnProcess = function({
   args,
   spawnOptions,
 }) {
-  // `command` can be `undefined`, allowing users to only download and normalize
-  // the Node.js version
-  if (command === undefined) {
-    return
-  }
-
   const commandA = getCommand(command, nodePath, spawnOptions)
 
   const spawnOptionsA = fixPath({ nodePath, spawnOptions })
 
-  const childProcess = execa(commandA, args, spawnOptionsA)
-  return childProcess
+  const childProcess = fireCommand(commandA, args, spawnOptionsA)
+  return { childProcess, command: commandA, args, spawnOptions: spawnOptionsA }
 }
 
+// eslint-disable-next-line complexity
 const getCommand = function(command, nodePath, { shell }) {
+  if (command === undefined) {
+    return
+  }
+
   // The following is not relevant in shell mode:
   //  - shell spawning creates a nested child process
   //  - `file.cmd` is not necessary when run through `cmd.exe`
@@ -54,4 +53,14 @@ const getCommand = function(command, nodePath, { shell }) {
   }
 
   return command
+}
+
+const fireCommand = function(command, args, spawnOptions) {
+  // `command` can be `undefined`, allowing users to only download and normalize
+  // the Node.js version
+  if (command === undefined) {
+    return
+  }
+
+  return execa(command, args, spawnOptions)
 }

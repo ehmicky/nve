@@ -32,3 +32,27 @@ test('Can omit command', async t => {
 
   t.is(version, TEST_VERSION)
 })
+
+test('Returns the modified command', async t => {
+  const { command } = await runVersion(TEST_VERSION, 'node', ['--version'])
+
+  t.not(command, 'node')
+})
+
+test('Returns the modified command even if undefined', async t => {
+  const { command } = await runVersion(TEST_VERSION)
+
+  t.is(command, undefined)
+})
+
+test('Returns the modified args', async t => {
+  const { args } = await runVersion(TEST_VERSION, 'node', ['--version'])
+
+  t.deepEqual(args, ['--version'])
+})
+
+test('Returns the spawn options', async t => {
+  const { spawnOptions } = await runVersion(TEST_VERSION, 'node', ['--version'])
+
+  t.false(spawnOptions.preferLocal)
+})

@@ -1,3 +1,9 @@
+# 3.1.2
+
+## Internal
+
+- Internal changes
+
 # 3.1.1
 
 ## Bug fixes

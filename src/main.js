@@ -20,6 +20,18 @@ export const runVersion = async function(
 
   const { path: nodePath, version } = await getNode(versionRange, optsA)
 
-  const childProcess = spawnProcess({ nodePath, command, args, spawnOptions })
-  return { childProcess, version }
+  const {
+    childProcess,
+    command: commandA,
+    args: argsA,
+    spawnOptions: spawnOptionsA,
+  } = spawnProcess({ nodePath, command, args, spawnOptions })
+
+  return {
+    childProcess,
+    version,
+    command: commandA,
+    args: argsA,
+    spawnOptions: spawnOptionsA,
+  }
 }
