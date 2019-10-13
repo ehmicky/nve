@@ -41,6 +41,13 @@ test('Can fire global binaries', async t => {
 })
 
 test('Can fire local binaries', async t => {
+  const { childProcess } = await runWithoutPath({})
+  const { stdout } = await childProcess
+
+  t.true(stdout !== '')
+})
+
+test('Can use preferLocal: true (noop)', async t => {
   const { childProcess } = await runWithoutPath({ preferLocal: true })
   const { stdout } = await childProcess
 
@@ -53,22 +60,8 @@ test('Can fire local binaries', async t => {
 // This will probably be fixed once nyc@15 is released.
 // See https://github.com/istanbuljs/spawn-wrap/issues/108
 if (platform !== 'win32' || !isCi) {
-  test('Can disable firing local binaries', async t => {
-    const { childProcess } = await runWithoutPath({
-      preferLocal: false,
-      stdio: 'ignore',
-    })
-    const { exitCode } = await t.throwsAsync(childProcess)
-
-    t.not(exitCode, 0)
-  })
-
-  test('Can specify both preferLocal and cwd options', async t => {
-    const { childProcess } = await runWithoutPath({
-      preferLocal: true,
-      cwd: '/',
-      stdio: 'ignore',
-    })
+  test('Can use cwd options for local binaries', async t => {
+    const { childProcess } = await runWithoutPath({ cwd: '/', stdio: 'ignore' })
     const { exitCode } = await t.throwsAsync(childProcess)
 
     t.not(exitCode, 0)

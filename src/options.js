@@ -57,7 +57,7 @@ const isDefined = function(key, value) {
 }
 
 const DEFAULT_OPTS = {
-  spawnOptions: { preferLocal: true },
+  spawnOptions: {},
   progress: false,
 }
 

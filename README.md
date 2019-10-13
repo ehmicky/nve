@@ -203,10 +203,14 @@ Like the [`--mirror` CLI option](#--mirror).
 
 ##### spawnOptions
 
-_Type_: `object`<br>_Default_: `{ preferLocal: true }`
+_Type_: `object`<br>_Default_: `{}`
 
 Options passed to
 [`execa(command, args, options)`](https://github.com/sindresorhus/execa#options)
+
+The
+[`preferLocal` option](https://github.com/sindresorhus/execa/blob/master/readme.md#preferlocal)
+is always `true`.
 
 #### Return value
 
