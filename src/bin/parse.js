@@ -14,15 +14,15 @@ export const parseInput = function(yargs) {
 }
 
 const parseArgs = function(input, yargs) {
-  if (input.length === 0) {
-    return missingVersion(yargs)
-  }
-
   // yargs parses any --option meant for the `command`.
   // However we only want to apply yargs on the --option meant for `nve`.
   const versionStart = getVersionStart(input)
   const opts = input.slice(0, versionStart)
   const otherArgs = input.slice(versionStart)
+
+  if (otherArgs.length === 0) {
+    return missingVersion(yargs)
+  }
 
   // Separate variadic version ranges from `command` and `args`
   const versionEnd = getVersionEnd(otherArgs, yargs)
