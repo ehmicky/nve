@@ -37,9 +37,13 @@ export const runCli = async function(opts, versionRange, args, execaOpts) {
 }
 
 const normalizeOutput = function(output) {
-  return output
-    .replace(/\r\n/gu, '\n')
-    .trim()
-    .replace(/\u2B22/gu, '<>')
-    .replace(/\u2666/gu, '<>')
+  return (
+    output
+      // Windows specifics
+      .replace(/\r\n/gu, '\n')
+      .replace(/cmd "test"/gu, 'test')
+      .trim()
+      .replace(/\u2B22/gu, '<>')
+      .replace(/\u2666/gu, '<>')
+  )
 }
