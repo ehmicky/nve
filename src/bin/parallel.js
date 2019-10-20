@@ -4,11 +4,13 @@ import { promisify } from 'util'
 import { runVersions } from '../main.js'
 
 import { getParallelStdinOptions } from './stdin.js'
+import { getColorOptions } from './colors.js'
 import { printVersionHeader } from './header.js'
 import { printVersions } from './dry.js'
 import { cleanupProcesses } from './cleanup.js'
 import { handleParallelError, handleFastParallelError } from './error.js'
 import { writeProcessOutput } from './output.js'
+// eslint-disable-next-line import/max-dependencies
 import { asyncIteratorAll } from './utils.js'
 
 const pSetTimeout = promisify(setTimeout)
@@ -22,9 +24,11 @@ export const runParallel = async function({
   continueOpt,
 }) {
   const stdinOptions = await getParallelStdinOptions()
+  const colorOptions = getColorOptions()
   const spawnOptions = {
     ...opts.spawnOptions,
     ...stdinOptions,
+    ...colorOptions,
     stdout: 'pipe',
     stderr: 'pipe',
     buffer: true,
@@ -38,8 +42,7 @@ export const runParallel = async function({
   })
 
   if (command === undefined) {
-    await printVersions(iterable)
-    return
+    return printVersions(iterable)
   }
 
   const state = {}
