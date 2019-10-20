@@ -1,4 +1,4 @@
-import { stdout } from 'process'
+import { stdout, stderr } from 'process'
 
 import { red } from 'chalk'
 
@@ -45,7 +45,7 @@ export const handleSerialError = function({
     throw error
   }
 
-  console.error(commandMessage)
+  stderr.write(`${commandMessage}\n`)
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
   state.exitCode = exitCode
 }
@@ -55,10 +55,12 @@ export const handleParallelError = function({
   error: { message, all },
   versionRange,
 }) {
-  stdout.write(all)
+  if (all.trim() !== '') {
+    stdout.write(`${all}\n\n`)
+  }
 
   const commandMessage = getCommandMessage(message, versionRange)
-  console.error(commandMessage)
+  stderr.write(`${commandMessage}\n`)
 }
 
 const getCommandMessage = function(message, versionRange) {
@@ -79,7 +81,7 @@ export const handleTopError = function(
   const messageA = message.trim()
 
   if (messageA !== '') {
-    console.error(messageA)
+    stderr.write(`${messageA}\n`)
   }
 
   printHelp(message, code, yargs)
@@ -95,7 +97,7 @@ const printHelp = function(message, code, yargs) {
     return
   }
 
-  console.error(`\nError: invalid input syntax.\n`)
+  stderr.write(`\nError: invalid input syntax.\n\n`)
   yargs.showHelp()
 }
 

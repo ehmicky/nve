@@ -1,8 +1,8 @@
 /* eslint-disable max-lines */
-import { stdout } from 'process'
+import { stdout, stderr } from 'process'
 import { promisify } from 'util'
 
-import pMapSeries from 'p-map-series'
+import { red } from 'chalk'
 
 import { runVersions } from '../main.js'
 
@@ -52,15 +52,21 @@ export const runParallel = async function({
 
 const cleanupProcesses = async function(versions, continueOpt, state) {
   await Promise.all(
-    versions.map(({ childProcess }, index) =>
-      cleanupProcess({ childProcess, index, versions, state, continueOpt }),
+    versions.map(({ childProcess, versionRange }) =>
+      cleanupProcess({
+        childProcess,
+        versionRange,
+        versions,
+        state,
+        continueOpt,
+      }),
     ),
   )
 }
 
 const cleanupProcess = async function({
   childProcess,
-  index,
+  versionRange,
   versions,
   state,
   continueOpt,
@@ -68,17 +74,26 @@ const cleanupProcess = async function({
   try {
     await childProcess
   } catch (error) {
-    terminateProcesses({ index, versions, state, continueOpt })
+    terminateProcesses({ error, versions, versionRange, state, continueOpt })
   }
 }
 
-const terminateProcesses = function({ index, versions, state, continueOpt }) {
-  if (state.failedIndex !== undefined || continueOpt) {
+const terminateProcesses = function({
+  error,
+  versions,
+  versionRange,
+  state,
+  continueOpt,
+}) {
+  if (state.failedError !== undefined || continueOpt) {
     return
   }
 
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  state.failedIndex = index
+  state.failedError = error
+  // eslint-disable-next-line fp/no-mutation, no-param-reassign
+  state.failedVersionRange = versionRange
+
   versions.forEach(terminateProcess)
 }
 
@@ -87,9 +102,20 @@ const terminateProcess = function({ childProcess }) {
 }
 
 const runProcesses = async function(versions, continueOpt, state) {
-  await pMapSeries(versions, ({ childProcess, versionRange }, index) =>
-    runProcess({ childProcess, versionRange, continueOpt, state, index }),
-  )
+  // eslint-disable-next-line fp/no-loops
+  for await (const { childProcess, versionRange } of versions) {
+    const shouldStop = await runProcess({
+      childProcess,
+      versionRange,
+      continueOpt,
+      state,
+    })
+
+    // eslint-disable-next-line max-depth
+    if (shouldStop) {
+      return
+    }
+  }
 }
 
 const runProcess = async function({
@@ -97,19 +123,17 @@ const runProcess = async function({
   versionRange,
   continueOpt,
   state,
-  index,
 }) {
-  const isFailedProcess = state.failedIndex === index
-
-  if (!state.abortedPrinted || isFailedProcess) {
-    printVersionHeader(versionRange)
-  }
+  printVersionHeader(versionRange)
 
   try {
     const { all } = await childProcess
-    stdout.write(`${all}\n`)
+
+    if (all.trim() !== '') {
+      stdout.write(`${all}\n`)
+    }
   } catch (error) {
-    await handleProcessError({ error, versionRange, continueOpt, state, index })
+    return handleProcessError({ error, versionRange, continueOpt, state })
   }
 }
 
@@ -119,36 +143,35 @@ const handleProcessError = async function({
   versionRange,
   continueOpt,
   state,
-  index,
 }) {
   if (continueOpt) {
     handleParallelError({ error, versionRange })
-    return
+    return false
   }
 
-  // Ensure abort logic is triggered first
+  // Ensure termination logic is triggered first
   await pSetTimeout(0)
 
+  const { failedError, failedVersionRange } = state
+
   // TODO: remove
-  if (state.failedIndex === undefined) {
+  if (failedError === undefined) {
     throw new Error('Should never happen')
   }
 
-  const isFailedProcess = state.failedIndex === index
+  if (failedError !== error) {
+    // eslint-disable-next-line max-depth
+    if (error.all.trim() !== '') {
+      stdout.write(`${error.all}\n`)
+    }
 
-  if (state.abortedPrinted && !isFailedProcess) {
-    return
+    stderr.write(red(`Node ${versionRange} aborted\n`))
+
+    printVersionHeader(failedVersionRange)
   }
 
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  state.abortedPrinted = true
+  handleParallelError({ error: failedError, versionRange: failedVersionRange })
 
-  if (!isFailedProcess) {
-    stdout.write(error.all)
-    console.error(`Node ${versionRange} aborted`)
-    return
-  }
-
-  handleParallelError({ error, versionRange })
+  return true
 }
 /* eslint-enable max-lines */
