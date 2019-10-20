@@ -48,6 +48,7 @@ const EXAMPLES = [
   ['nve 8 node file.js', 'Same as "node file.js" but with Node 8'],
   ['nve 8 npm test', 'Any command can be used'],
   ['nve 8 ava', 'Execute a local binary'],
+  ['nve 8 10 12 npm test', 'Run multiple versions'],
   ['nve 8.10.0 npm test', 'Run a specific version'],
   [`nve "*" npm test`, 'Run the latest Node version'],
   [`nve "<8" npm test`, 'Use a version range'],
@@ -60,5 +61,6 @@ const EXAMPLES = [
     'nve --shell 8 "npm run build && npm test"',
     'Chaining command with a shell',
   ],
-  ['nve 8', 'Cache Node.js binary download without executing any command'],
+  ['nve 8', 'Cache Node 8 download without executing any command'],
+  ['nve 8 10 12', 'Cache multiple Node downloads'],
 ]

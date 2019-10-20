@@ -18,6 +18,9 @@ nve 8 node file.js
 # Any command can be used, including local binaries
 nve 8 npm --version
 
+# Run multiple versions
+nve 8 10 12 node --version
+
 # Run a specific version
 nve 8.10.0 node --version
 
@@ -37,3 +40,6 @@ nve --shell 8 "node --version && node file.js"
 
 # Cache Node 8 download without executing any command
 nve 8
+
+# Cache multiple Node downloads
+nve 8 10 12

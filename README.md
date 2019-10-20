@@ -47,6 +47,9 @@ $ nve 8 npm test
 # Execute a local binary
 $ nve 8 ava
 
+# Run multiple versions
+$ nve 8 10 12 npm test
+
 # Run a specific version
 $ nve 8.10.0 npm test
 
@@ -66,6 +69,9 @@ $ nve --shell 8 "npm run build && npm test"
 
 # Cache Node 8 download without executing any command
 $ nve 8
+
+# Cache multiple Node downloads
+$ nve 8 10 12
 ```
 
 [Programmatically](#programmatic):
@@ -77,10 +83,21 @@ $ nve 8
 const { runVersion } = require('nve')
 
 const { childProcess, version } = await runVersion('8', 'node', ['--version'])
-console.log(version) // 8.16.1
+console.log(`Node ${version}`) // Node 8.16.1
 const { exitCode, stdout, stderr } = await childProcess
-console.log(exitCode) // 0
+console.log(`Exit code: ${exitCode}`) // 0
 console.log(stdout) // v8.16.1
+```
+
+```js
+const { runVersions } = require('nve')
+
+for await (const {childProcess, version} of runVersions(['8', '10', '12'], 'node', ['--version'])) {
+  console.log(`Node ${version}`)
+  const { exitCode, stdout, stderr } = await childProcess
+  console.log(`Exit code: ${exitCode}`)
+  console.log(stdout)
+}
 ```
 
 # Demo
@@ -104,7 +121,7 @@ use any Node version (providing it is compatible with it).
 ## CLI
 
 ```bash
-nve [OPTIONS...] VERSION [COMMAND] [ARGS...]
+nve [OPTIONS...] VERSION... [COMMAND] [ARGS...]
 ```
 
 This is exactly the same as:
@@ -113,7 +130,7 @@ This is exactly the same as:
 COMMAND [ARGS...]
 ```
 
-But using a specific Node `VERSION`.
+But using specific Node `VERSION`. Several `VERSION` can be specified at once.
 
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
@@ -249,6 +266,36 @@ const { childProcess, version } = await runVersion(
   options,
 )
 const { exitCode, stdout, stderr } = await childProcess
+```
+
+### runVersions(versionRanges, command?, args?, options?)
+
+_versionRanges_: `string[]`<br> _command_: `string`<br>_args_: `string[]`<br>
+_options_: `object`<br>_Return value_: `AsyncIterable<object>`
+
+This is the same as
+[`runVersion()`](#runversionversionrange-command-args-options) but executing
+multiple versions at once.
+
+Instead of returning a promise,
+[an async iterator is returned](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of).
+
+#### Example
+
+<!-- Remove 'eslint-skip' once estree supports top-level await -->
+<!-- eslint-skip -->
+
+```js
+const { runVersions } = require('nve')
+
+for await (const { childProcess, version } of runVersions(
+  ['8', '10', '12'],
+  'command',
+  ['--version'],
+  options,
+)) {
+  const { exitCode, stdout, stderr } = await childProcess
+}
 ```
 
 # Benchmarks
