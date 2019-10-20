@@ -4,6 +4,7 @@ import { each } from 'test-each'
 import { runVersion } from '../src/main.js'
 
 import { TEST_VERSION } from './helpers/versions.js'
+import { runFirstVersion } from './helpers/run.js'
 
 each(
   [
@@ -17,9 +18,10 @@ each(
     [TEST_VERSION, 'node', [], { mirror: true }],
     ['invalid_version', 'node'],
   ],
-  ({ title }, [versionRange, command, args, opts]) => {
+  [runVersion, runFirstVersion],
+  ({ title }, [versionRange, command, args, opts], run) => {
     test(`Invalid arguments | programmatic ${title}`, async t => {
-      await t.throwsAsync(runVersion(versionRange, command, args, opts))
+      await t.throwsAsync(run(versionRange, command, args, opts))
     })
   },
 )
