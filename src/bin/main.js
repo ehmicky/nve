@@ -10,9 +10,8 @@ import { handleTopError } from './error.js'
 
 // CLI that forwards its arguments but using a specific Node.js version
 const runCli = async function() {
-  const yargs = defineCli()
-
   try {
+    const yargs = defineCli()
     const {
       versionRanges,
       command,
@@ -31,7 +30,7 @@ const runCli = async function() {
     })
     exit(exitCode)
   } catch (error) {
-    handleTopError(error, yargs)
+    handleTopError(error)
     exit(1)
   }
 }

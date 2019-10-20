@@ -16,8 +16,7 @@ each(
       const { exitCode, stderr } = await runCli(options, versionRange, command)
 
       t.is(exitCode, 1)
-      t.true(stderr.includes('invalid input'))
-      t.true(stderr.includes('Examples'))
+      t.true(stderr.includes('Invalid input'))
     })
   },
 )
@@ -29,8 +28,7 @@ each(
       const { exitCode, stderr } = await runCli(options, versionRange, command)
 
       t.is(exitCode, 1)
-      t.false(stderr.includes('invalid input'))
-      t.false(stderr.includes('Examples'))
+      t.false(stderr.includes('Invalid input'))
     })
   },
 )
