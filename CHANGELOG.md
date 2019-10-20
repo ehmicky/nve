@@ -1,3 +1,13 @@
+# 3.3.0
+
+## Features
+
+- Allow running multiple versions at once. For example `nve 8 10 12 npm test`
+  will run tests on Node 8, 10 and 12.
+- Running multiple versions can also be done programmatically using
+  `runVersions()`
+- Improve error messages
+
 # 3.2.2
 
 ## Bug fixes
