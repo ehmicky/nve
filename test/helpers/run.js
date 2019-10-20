@@ -1,5 +1,6 @@
 import execa from 'execa'
 import { getBinPath } from 'get-bin-path'
+import { nodejs } from 'figures'
 
 import { runVersions } from '../../src/main.js'
 
@@ -43,7 +44,6 @@ const normalizeOutput = function(output) {
       .replace(/\r\n/gu, '\n')
       .replace(/cmd "test"/gu, 'test')
       .trim()
-      .replace(/\u2B22/gu, '<>')
-      .replace(/\u2666/gu, '<>')
+      .replace(new RegExp(nodejs, 'gu'), '<>')
   )
 }
