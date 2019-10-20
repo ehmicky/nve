@@ -6,8 +6,8 @@ import readPkgUp from 'read-pkg-up'
 import isCi from 'is-ci'
 import hasAnsi from 'has-ansi'
 
-import { TEST_VERSION, OLD_TEST_VERSION } from './helpers/versions.js'
-import { runCli, runCliSerial } from './helpers/run.js'
+import { TEST_VERSION, OLD_TEST_VERSION } from '../helpers/versions.js'
+import { runCli, runCliSerial } from '../helpers/run.js'
 
 each([runCli, runCliSerial], ({ title }, run) => {
   test(`Forward exit code on success | CLI ${title}`, async t => {
