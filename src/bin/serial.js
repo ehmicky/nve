@@ -3,7 +3,7 @@ import { runVersions } from '../main.js'
 import { getSerialStdinOptions } from './stdin.js'
 import { printHeader } from './header.js'
 import { printVersions } from './dry.js'
-import { handleMultipleError } from './error.js'
+import { handleSerialError } from './error.js'
 
 // Run multiple Node versions serially
 export const runSerial = async function({
@@ -52,6 +52,6 @@ const runProcess = async function(childProcess, versionRange) {
   try {
     await childProcess
   } catch (error) {
-    throw handleMultipleError({ error, versionRange })
+    throw handleSerialError({ error, versionRange })
   }
 }

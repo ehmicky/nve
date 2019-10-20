@@ -24,7 +24,7 @@ export const handleSingleError = function({
 }
 
 // If several versions were specified, `nve` is more explicit about failures.
-export const handleMultipleError = function({
+export const handleSerialError = function({
   error,
   error: { message },
   versionRange,
