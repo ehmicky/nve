@@ -114,6 +114,9 @@ const runProcesses = async function(versions, continueOpt, state) {
       state,
     })
 
+    // If the `continue` option is `false` (default), we stop execution.
+    // Otherwise, we continue execution but we print the error message and use
+    // the last non-0 exit code.
     // eslint-disable-next-line max-depth
     if (shouldStop) {
       return

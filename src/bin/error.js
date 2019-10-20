@@ -29,12 +29,20 @@ export const handleSingleError = function({
   return exitCode
 }
 
-// If several serial versions were specified, `nve` is more explicit about
-// failures.
-// If the `continue` option is `false` (default), we stop execution.
-// Otherwise, we continue execution but we print the error message and use the
-// last non-0 exit code.
-export const handleSerialError = function(
+// Handle errors thrown in serial runs
+export const handleSerialError = function(error, versionRange, state) {
+  handleMultipleError(error, versionRange, state)
+}
+
+// Handle errors thrown in parallel runs
+export const handleParallelError = function(error, versionRange, state) {
+  writeProcessOutput(`${error.all}\n`, stdout)
+  handleMultipleError(error, versionRange, state)
+}
+
+// If several versions were specified, `nve` is also more explicit about
+// failures. This is for both serial and parallel runs.
+const handleMultipleError = function(
   { message, exitCode = DEFAULT_EXIT_CODE },
   versionRange,
   state,
@@ -46,24 +54,6 @@ export const handleSerialError = function(
   state.exitCode = exitCode
 }
 
-// If several parallel versions were specified, `nve` is also more explicit
-// about failures.
-export const handleParallelError = function(
-  { message, exitCode = DEFAULT_EXIT_CODE, all },
-  versionRange,
-  state,
-) {
-  writeProcessOutput(`${all}\n`, stdout)
-
-  const commandMessage = getCommandMessage(message, versionRange)
-  stderr.write(`${commandMessage}\n`)
-
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  state.exitCode = exitCode
-}
-
-const DEFAULT_EXIT_CODE = 1
-
 const getCommandMessage = function(message, versionRange) {
   return red(
     message
@@ -74,6 +64,8 @@ const getCommandMessage = function(message, versionRange) {
 
 // Remove the command path and arguments from the error message
 const COMMAND_REGEXP = /:.*/u
+
+const DEFAULT_EXIT_CODE = 1
 
 // Handle top-level errors not due to child process errors, such as input
 // validation errors, Node.js download errors and bugs.
