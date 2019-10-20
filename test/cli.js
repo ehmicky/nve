@@ -3,13 +3,10 @@ import { platform } from 'process'
 import test from 'ava'
 import { each } from 'test-each'
 import readPkgUp from 'read-pkg-up'
-import { getBinPath } from 'get-bin-path'
-import execa from 'execa'
 import isCi from 'is-ci'
 
 import { TEST_VERSION } from './helpers/versions.js'
-
-const BIN_PATH = getBinPath()
+import { runCli } from './helpers/run.js'
 
 test('Forward exit code on success | CLI', async t => {
   const { exitCode } = await runCli(`${TEST_VERSION} node --version`)
@@ -112,8 +109,3 @@ each(
     })
   },
 )
-
-const runCli = async function(args) {
-  const binPath = await BIN_PATH
-  return execa.command(`${binPath} --no-progress ${args}`, { reject: false })
-}
