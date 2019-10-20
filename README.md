@@ -29,7 +29,7 @@ or shell session**, please use [`nvm`](https://github.com/nvm-sh/nvm),
 [`n`](https://github.com/tj/n) or [`nvs`](https://github.com/jasongin/nvs)
 instead.
 
-# Examples
+# Examples (CLI)
 
 ```bash
 # Same as `node` but with Node 12
@@ -46,9 +46,6 @@ $ nve 8 npm test
 
 # Execute a local binary
 $ nve 8 ava
-
-# Run multiple versions
-$ nve 8 10 12 npm test
 
 # Run a specific version
 $ nve 8.10.0 npm test
@@ -74,7 +71,28 @@ $ nve 8
 $ nve 8 10 12
 ```
 
-[Programmatically](#programmatic):
+# Examples (multiple versions)
+
+```bash
+$ nve 12 10 8 npm test
+
+ ⬢  Node 12
+
+  105 tests passed
+  Finished 'test' after 3.8 s
+
+ ⬢  Node 10
+
+  105 tests passed
+  Finished 'test' after 4.2 s
+
+ ⬢  Node 8
+
+  105 tests passed
+  Finished 'test' after 4.5 s
+```
+
+# Examples (programmatic)
 
 <!-- Remove 'eslint-skip' once estree supports top-level await -->
 <!-- eslint-skip -->
