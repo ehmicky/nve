@@ -35,21 +35,25 @@ export const handleSerialError = function({
   state,
   continueOpt,
 }) {
-  const messageA = red(
+  const commandMessage = getCommandMessage(message, versionRange)
+
+  if (!continueOpt) {
+    // eslint-disable-next-line fp/no-mutation, no-param-reassign
+    error.message = commandMessage
+    throw error
+  }
+
+  console.error(commandMessage)
+  // eslint-disable-next-line fp/no-mutation, no-param-reassign
+  state.exitCode = exitCode
+}
+
+const getCommandMessage = function(message, versionRange) {
+  return red(
     message
       .replace(COMMAND_REGEXP, '')
       .replace('Command', `Node ${versionRange}`),
   )
-
-  if (!continueOpt) {
-    // eslint-disable-next-line fp/no-mutation, no-param-reassign
-    error.message = messageA
-    throw error
-  }
-
-  console.error(messageA)
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  state.exitCode = exitCode
 }
 
 // Remove the command path and arguments from the error message
