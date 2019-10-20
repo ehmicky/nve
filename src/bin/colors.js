@@ -6,6 +6,11 @@ import { stdout } from 'process'
 // We fix this by setting the `FORCE_COLOR` environment variable instead, which
 // is used for example by `stdout.hasColors()` and `chalk`.
 export const getColorOptions = function() {
+  // TODO: remove once dropping support for Node 8/9
+  if (stdout.getColorDepth === undefined) {
+    return {}
+  }
+
   const colorDepth = stdout.getColorDepth()
 
   // No need to do this change since current process already cannot show colors
