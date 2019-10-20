@@ -70,10 +70,9 @@ test(`Write buffered output | runCliParallel`, async t => {
   const { stdout } = await runCli(
     '--parallel',
     `${TEST_VERSION} ${OLD_TEST_VERSION}`,
-    `node -p console.log(process.version)
-setTimeout(()=>{Buffer.from("")},0)
-setTimeout(()=>{},1e9)
-""`,
+    `node -e console.log(process.version)
+setTimeout(()=>{Buffer.from("")},1e3)
+setTimeout(()=>{},1e9)`,
   )
 
   t.true(stdout.includes(TEST_VERSION))
