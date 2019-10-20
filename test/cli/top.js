@@ -5,18 +5,10 @@ import readPkgUp from 'read-pkg-up'
 import { TEST_VERSION } from '../helpers/versions.js'
 import { runCli, runCliSerial } from '../helpers/run.js'
 
-each([runCli, runCliSerial], ({ title }, run) => {
-  test(`node --help | CLI ${title}`, async t => {
-    const { stdout } = await run('', TEST_VERSION, 'node --help')
-
-    t.true(stdout.includes('Usage: node'))
-  })
-})
-
 test('--help | CLI', async t => {
   const { stdout } = await runCli('', '', '--help')
 
-  t.true(stdout.includes('any version range'))
+  t.true(stdout.includes('Examples'))
 })
 
 test('--version | CLI', async t => {
@@ -28,6 +20,14 @@ test('--version | CLI', async t => {
   ] = await Promise.all([runCli('', '', '--version'), readPkgUp()])
 
   t.is(stdout, version)
+})
+
+each([runCli, runCliSerial], ({ title }, run) => {
+  test(`node --help | CLI ${title}`, async t => {
+    const { stdout } = await run('', TEST_VERSION, 'node --help')
+
+    t.true(stdout.includes('Usage: node'))
+  })
 })
 
 test('node --version | CLI runCli', async t => {
