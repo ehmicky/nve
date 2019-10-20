@@ -1,3 +1,5 @@
+import { stdout } from 'process'
+
 import { red } from 'chalk'
 
 // Handle errors thrown by `execa()`
@@ -46,6 +48,17 @@ export const handleSerialError = function({
   console.error(commandMessage)
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
   state.exitCode = exitCode
+}
+
+// If several parallel versions were specified
+export const handleParallelError = function({
+  error: { message, all },
+  versionRange,
+}) {
+  stdout.write(all)
+
+  const commandMessage = getCommandMessage(message, versionRange)
+  console.error(commandMessage)
 }
 
 const getCommandMessage = function(message, versionRange) {

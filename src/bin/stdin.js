@@ -32,3 +32,8 @@ export const getSerialStdinOptions = async function() {
   const input = await getStdin.buffer()
   return { stdin: 'pipe', input }
 }
+
+export const getParallelStdinOptions = async function() {
+  const input = await getStdin.buffer()
+  return { stdin: 'pipe', input }
+}
