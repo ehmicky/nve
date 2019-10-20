@@ -47,11 +47,11 @@ export const handleSerialError = function({
 
 // If several parallel versions were specified, `nve` is also more explicit
 // about failures.
-export const handleParallelError = function({
-  error: { message, exitCode = DEFAULT_EXIT_CODE, all },
+export const handleParallelError = function(
+  { message, exitCode = DEFAULT_EXIT_CODE, all },
   versionRange,
   state,
-}) {
+) {
   writeProcessOutput(`${all}\n`, stdout)
 
   const commandMessage = getCommandMessage(message, versionRange)
