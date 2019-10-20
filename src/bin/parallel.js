@@ -151,11 +151,6 @@ const handleProcessError = async function({
 
   const { failedError, failedVersionRange } = state
 
-  // TODO: remove
-  if (failedError === undefined) {
-    throw new Error('Should never happen')
-  }
-
   printAborted({
     error,
     failedError,
