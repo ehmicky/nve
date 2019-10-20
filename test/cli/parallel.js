@@ -23,6 +23,23 @@ Node ${OLD_TEST_VERSION} failed with exit code 1`),
   )
 })
 
+test('No --continue | runCliParallel', async t => {
+  const { exitCode, stdout, stderr } = await runCli(
+    '--parallel',
+    `${OLD_TEST_VERSION} ${TEST_VERSION}`,
+    'node -p Buffer.from("")',
+  )
+
+  t.is(exitCode, 1)
+  t.is(
+    stderr,
+    `<>  Node ${OLD_TEST_VERSION}
+
+Node ${OLD_TEST_VERSION} failed with exit code 1`,
+  )
+  t.true(stdout.startsWith('[eval]:1'))
+})
+
 test('--continue | runCliParallel', async t => {
   const { exitCode, stdout, stderr } = await runCli(
     '--parallel --continue',
