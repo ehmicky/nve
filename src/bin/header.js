@@ -14,9 +14,13 @@ export const printHeader = function({
   }
 
   const versionRange = versionRanges[index]
-  const header = green(`\n ${nodejs}  Node ${versionRange}\n\n`)
-  stderr.write(header)
+  printVersionHeader(versionRange)
 
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
   state.index = index + 1
+}
+
+export const printVersionHeader = function(versionRange) {
+  const header = green(`\n ${nodejs}  Node ${versionRange}\n\n`)
+  stderr.write(header)
 }
