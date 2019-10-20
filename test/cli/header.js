@@ -1,19 +1,26 @@
 import test from 'ava'
+import { each } from 'test-each'
 import hasAnsi from 'has-ansi'
 
 import { TEST_VERSION } from '../helpers/versions.js'
-import { runCliSerial } from '../helpers/run.js'
+import { runCliSerial, runCliParallel } from '../helpers/run.js'
 
-test('Prints headers | runCliSerial', async t => {
-  const { all } = await runCliSerial('', TEST_VERSION, 'node --version')
+// Tests in this file randomly fail (printing the same line twice in some
+// child processes output) when run in parallel.
+// TODO: figure out why
 
-  t.is(
-    all,
-    `<>  Node ${TEST_VERSION}\n\nv${TEST_VERSION}\n\n <>  Node ${TEST_VERSION}\n\nv${TEST_VERSION}`,
-  )
+each([runCliSerial, runCliParallel], ({ title }, run) => {
+  test.serial(`Prints headers | ${title}`, async t => {
+    const { all } = await run('', TEST_VERSION, 'node --version')
+
+    t.is(
+      all,
+      `<>  Node ${TEST_VERSION}\n\nv${TEST_VERSION}\n\n <>  Node ${TEST_VERSION}\n\nv${TEST_VERSION}`,
+    )
+  })
 })
 
-test('Prints headers in colors | runCliSerial', async t => {
+test.serial('Prints headers in colors | runCliSerial', async t => {
   const { stderr } = await runCliSerial('', TEST_VERSION, 'node --version', {
     env: { FORCE_COLOR: '1' },
   })
@@ -21,7 +28,7 @@ test('Prints headers in colors | runCliSerial', async t => {
   t.true(hasAnsi(stderr))
 })
 
-test('Prints headers in correct order | runCliSerial', async t => {
+test.serial('Prints headers in correct order | runCliSerial', async t => {
   const { all } = await runCliSerial('', TEST_VERSION, 'echo test')
 
   t.is(
