@@ -49,7 +49,17 @@ const runProcesses = async function({
 
   // eslint-disable-next-line fp/no-loops
   for await (const { childProcess, versionRange } of iterable) {
-    await runProcess({ childProcess, versionRange, state, continueOpt })
+    const shouldStop = await runProcess({
+      childProcess,
+      versionRange,
+      state,
+      continueOpt,
+    })
+
+    // eslint-disable-next-line max-depth
+    if (shouldStop) {
+      return
+    }
 
     printHeader({ versionRanges, state })
   }
@@ -65,5 +75,6 @@ const runProcess = async function({
     await childProcess
   } catch (error) {
     handleSerialError({ error, versionRange, state, continueOpt })
+    return !continueOpt
   }
 }

@@ -33,20 +33,11 @@ export const handleSingleError = function({
 // Otherwise, we continue execution but we print the error message and use the
 // last non-0 exit code.
 export const handleSerialError = function({
-  error,
   error: { message, exitCode = DEFAULT_EXIT_CODE },
   versionRange,
   state,
-  continueOpt,
 }) {
   const commandMessage = getCommandMessage(message, versionRange)
-
-  if (!continueOpt) {
-    // eslint-disable-next-line fp/no-mutation, no-param-reassign
-    error.message = commandMessage
-    throw error
-  }
-
   stderr.write(`${commandMessage}\n`)
 
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
