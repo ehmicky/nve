@@ -68,6 +68,11 @@ export const handleParallelError = function(error, versionRange, state) {
 
 // If several versions were specified, `nve` is also more explicit about
 // failures. This is for both serial and parallel runs.
+// The exit code is the one of the last error that was printed:
+//  - with serial runs and parallel runs with --continue, this is the last
+//    failed child process in input order
+//  - with parallel runs without --continue, this is the first failed child
+//    process
 const handleMultipleError = function(
   { message, exitCode = DEFAULT_EXIT_CODE },
   versionRange,

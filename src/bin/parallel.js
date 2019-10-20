@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { stdout } from 'process'
 import { promisify } from 'util'
 
@@ -7,6 +6,7 @@ import { runVersions } from '../main.js'
 import { getParallelStdinOptions } from './stdin.js'
 import { printVersionHeader } from './header.js'
 import { printVersions } from './dry.js'
+import { cleanupProcesses } from './cleanup.js'
 import { handleParallelError, handleFastParallelError } from './error.js'
 import { writeProcessOutput } from './output.js'
 import { asyncIteratorAll } from './utils.js'
@@ -41,6 +41,7 @@ export const runParallel = async function({
   }
 
   const state = {}
+  // Start all child processes in parallel, but do not await them yet
   const versions = await asyncIteratorAll(iterable)
 
   await Promise.all([
@@ -51,57 +52,8 @@ export const runParallel = async function({
   return state.exitCode
 }
 
-const cleanupProcesses = async function(versions, continueOpt, state) {
-  await Promise.all(
-    versions.map(({ childProcess, versionRange }) =>
-      cleanupProcess({
-        childProcess,
-        versionRange,
-        versions,
-        state,
-        continueOpt,
-      }),
-    ),
-  )
-}
-
-const cleanupProcess = async function({
-  childProcess,
-  versionRange,
-  versions,
-  state,
-  continueOpt,
-}) {
-  try {
-    await childProcess
-  } catch (error) {
-    terminateProcesses({ error, versions, versionRange, state, continueOpt })
-  }
-}
-
-const terminateProcesses = function({
-  error,
-  versions,
-  versionRange,
-  state,
-  continueOpt,
-}) {
-  if (state.failedError !== undefined || continueOpt) {
-    return
-  }
-
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  state.failedError = error
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  state.failedVersionRange = versionRange
-
-  versions.forEach(terminateProcess)
-}
-
-const terminateProcess = function({ childProcess }) {
-  childProcess.kill()
-}
-
+// Print child processes in serial order, even though they are running in
+// parallel in the background.
 const runProcesses = async function(versions, continueOpt, state) {
   // eslint-disable-next-line fp/no-loops
   for await (const { childProcess, versionRange } of versions) {
@@ -139,6 +91,8 @@ const runProcess = async function({
   }
 }
 
+// We use different error handling logic depending on whether `--continue` is
+// used
 const handleProcessError = async function({
   error,
   versionRange,
@@ -155,4 +109,3 @@ const handleProcessError = async function({
 
   handleFastParallelError(error, versionRange, state)
 }
-/* eslint-enable max-lines */
