@@ -15,8 +15,8 @@ each([runCliSerial, runCliParallel], ({ title }, run) => {
 each(
   [runCliSerial, runCliParallel],
   [
-    { opts: '', minimum: 0, maximum: 1e3 },
-    { opts: '--continue', minimum: 1e3, maximum: 2e3 },
+    { opts: '', minimum: 0, maximum: 5e3 },
+    { opts: '--continue', minimum: 5e3, maximum: 10e3 },
   ],
   ({ title }, run, { opts, minimum, maximum }) => {
     test.serial(
@@ -26,7 +26,7 @@ each(
         await runCli(
           opts,
           `${OLD_TEST_VERSION} ${TEST_VERSION}`,
-          'node -e Buffer.from("")&&setTimeout(()=>{},1e3)',
+          'node -e Buffer.from("")&&setTimeout(()=>{},5e3)',
         )
         const duration = Date.now() - start
 
