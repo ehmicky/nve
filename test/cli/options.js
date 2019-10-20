@@ -5,9 +5,9 @@ import { each } from 'test-each'
 import isCi from 'is-ci'
 
 import { TEST_VERSION } from '../helpers/versions.js'
-import { runCli, runCliSerial } from '../helpers/run.js'
+import { runCli, runCliSerial, runCliParallel } from '../helpers/run.js'
 
-each([runCli, runCliSerial], ({ title }, run) => {
+each([runCli, runCliSerial, runCliParallel], ({ title }, run) => {
   // This test does not work with nyc on MacOS
   // This might be fixed with nyc@15
   // See https://github.com/istanbuljs/spawn-wrap/issues/108
