@@ -135,3 +135,18 @@ test('node --version | CLI runCliSerial', async t => {
 
   t.is(stdout, `v${TEST_VERSION}\nv${TEST_VERSION}`)
 })
+
+test('Prints headers | CLI runCliSerial', async t => {
+  const { all } = await runCliSerial('', TEST_VERSION, 'node --version')
+
+  t.is(
+    all,
+    `<>  Node ${TEST_VERSION}
+
+v${TEST_VERSION}
+
+ <>  Node ${TEST_VERSION}
+
+v${TEST_VERSION}`,
+  )
+})
