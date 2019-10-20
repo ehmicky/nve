@@ -25,6 +25,16 @@ export const runCliSerial = function(opts, versionRange, args, execaOpts) {
 }
 
 // eslint-disable-next-line max-params
+export const runCliParallel = function(opts, versionRange, args, execaOpts) {
+  return runCli(
+    `${opts} --parallel`,
+    `${versionRange} ${versionRange}`,
+    args,
+    execaOpts,
+  )
+}
+
+// eslint-disable-next-line max-params
 export const runCli = async function(opts, versionRange, args, execaOpts) {
   const binPath = await BIN_PATH
   const { exitCode, stdout, stderr, all } = await execa.command(
