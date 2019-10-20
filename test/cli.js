@@ -55,6 +55,12 @@ each([runCli, runCliSerial], ({ title }, run) => {
       // t.is(stdout, `v${TEST_VERSION}\nv${TEST_VERSION}`)
     })
   }
+
+  test(`node --help | CLI ${title}`, async t => {
+    const { stdout } = await run('', TEST_VERSION, 'node --help')
+
+    t.true(stdout.includes('Usage: node'))
+  })
 })
 
 each(
@@ -89,10 +95,16 @@ test('Prints Execa errors on stderr | CLI runMany', async t => {
   )
 })
 
-test('No commands | CLI', async t => {
+test('No commands | CLI runCli', async t => {
   const { stdout } = await runCli('', `v${TEST_VERSION}`, '')
 
   t.is(stdout, TEST_VERSION)
+})
+
+test('No commands | CLI runCliSerial', async t => {
+  const { stdout } = await runCliSerial('', `v${TEST_VERSION}`, '')
+
+  t.is(stdout, `${TEST_VERSION}\n${TEST_VERSION}`)
 })
 
 test('--help | CLI', async t => {
@@ -112,14 +124,14 @@ test('--version | CLI', async t => {
   t.is(stdout, version)
 })
 
-test('node --help | CLI', async t => {
-  const { stdout } = await runCli('', TEST_VERSION, 'node --help')
-
-  t.true(stdout.includes('Usage: node'))
-})
-
-test('node --version | CLI', async t => {
+test('node --version | CLI runCli', async t => {
   const { stdout } = await runCli('', TEST_VERSION, 'node --version')
 
   t.is(stdout, `v${TEST_VERSION}`)
+})
+
+test('node --version | CLI runCliSerial', async t => {
+  const { stdout } = await runCliSerial('', TEST_VERSION, 'node --version')
+
+  t.is(stdout, `v${TEST_VERSION}\nv${TEST_VERSION}`)
 })
