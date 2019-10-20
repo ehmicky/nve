@@ -19,12 +19,13 @@ import { writeProcessOutput } from './output.js'
 // those are not application errors.
 // Execa reports the last three ones differently, using `error.originalMessage`.
 export const handleSingleError = function({
-  error,
-  error: { originalMessage = '' },
+  error: { originalMessage, exitCode = DEFAULT_EXIT_CODE },
 }) {
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  error.message = originalMessage
-  return error
+  if (originalMessage !== undefined) {
+    stderr.write(`${originalMessage}\n`)
+  }
+
+  return exitCode
 }
 
 // If several serial versions were specified, `nve` is more explicit about
@@ -60,6 +61,8 @@ export const handleParallelError = function({
   state.exitCode = exitCode
 }
 
+const DEFAULT_EXIT_CODE = 1
+
 const getCommandMessage = function(message, versionRange) {
   return red(
     message
@@ -71,18 +74,10 @@ const getCommandMessage = function(message, versionRange) {
 // Remove the command path and arguments from the error message
 const COMMAND_REGEXP = /:.*/u
 
-export const handleTopError = function(
-  { exitCode = DEFAULT_EXIT_CODE, message },
-  yargs,
-) {
-  writeProcessOutput(message.trim(), stderr)
-
+export const handleTopError = function({ message }, yargs) {
+  stderr.write(`${message}\n`)
   printHelp(message, yargs)
-
-  return exitCode
 }
-
-const DEFAULT_EXIT_CODE = 1
 
 // Print --help on common input syntax mistakes
 const printHelp = function(message, yargs) {

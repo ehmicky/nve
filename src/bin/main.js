@@ -31,8 +31,8 @@ const runCli = async function() {
     })
     exit(exitCode)
   } catch (error) {
-    const exitCode = handleTopError(error, yargs)
-    exit(exitCode)
+    handleTopError(error, yargs)
+    exit(1)
   }
 }
 

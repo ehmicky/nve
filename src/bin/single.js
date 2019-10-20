@@ -31,13 +31,9 @@ export const runSingle = async function({
     return
   }
 
-  await runProcess(childProcess)
-}
-
-const runProcess = async function(childProcess) {
   try {
     await childProcess
   } catch (error) {
-    throw handleSingleError({ error })
+    return handleSingleError({ error })
   }
 }
