@@ -89,6 +89,9 @@ console.log(`Exit code: ${exitCode}`) // 0
 console.log(stdout) // v8.16.1
 ```
 
+<!-- Remove 'eslint-skip' once estree supports top-level await -->
+<!-- eslint-skip -->
+
 ```js
 const { runVersions } = require('nve')
 

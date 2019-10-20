@@ -13,15 +13,16 @@ export const runSerial = async function({
   opts,
 }) {
   const stdinOptions = await getSerialStdinOptions()
+  const spawnOptions = {
+    ...opts.spawnOptions,
+    ...stdinOptions,
+    stdout: 'inherit',
+    stderr: 'inherit',
+    buffer: false,
+  }
   const iterable = runVersions(versionRanges, command, args, {
     ...opts,
-    spawnOptions: {
-      ...opts.spawnOptions,
-      ...stdinOptions,
-      stdout: 'inherit',
-      stderr: 'inherit',
-      buffer: false,
-    },
+    spawnOptions,
   })
 
   if (command === undefined) {
