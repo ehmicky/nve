@@ -33,11 +33,11 @@ export const handleSingleError = function({
 // If the `continue` option is `false` (default), we stop execution.
 // Otherwise, we continue execution but we print the error message and use the
 // last non-0 exit code.
-export const handleSerialError = function({
-  error: { message, exitCode = DEFAULT_EXIT_CODE },
+export const handleSerialError = function(
+  { message, exitCode = DEFAULT_EXIT_CODE },
   versionRange,
   state,
-}) {
+) {
   const commandMessage = getCommandMessage(message, versionRange)
   stderr.write(`${commandMessage}\n`)
 

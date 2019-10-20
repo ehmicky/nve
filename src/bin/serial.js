@@ -74,7 +74,7 @@ const runProcess = async function({
   try {
     await childProcess
   } catch (error) {
-    handleSerialError({ error, versionRange, state, continueOpt })
+    handleSerialError(error, versionRange, state)
     return !continueOpt
   }
 }
