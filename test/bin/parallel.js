@@ -1,4 +1,5 @@
 import test from 'ava'
+import { each } from 'test-each'
 
 import { TEST_VERSION, OLD_TEST_VERSION } from '../helpers/versions.js'
 import { runCli, runCliSerial, runCliParallel } from '../helpers/run.js'
@@ -60,14 +61,22 @@ Node ${OLD_TEST_VERSION} failed with exit code 1
   )
 })
 
-test.serial(`Run in parallel | runCliParallel`, async t => {
-  const startSerial = Date.now()
-  await runCliSerial('', TEST_VERSION, 'node -e setTimeout(()=>{},1e3)')
-  const durationSerial = Date.now() - startSerial
+each(
+  [
+    { run: runCliSerial, parallel: false },
+    { run: runCliParallel, parallel: true },
+  ],
+  ({ title }, { run, parallel }) => {
+    test(`Run in parallel/serial | ${title}`, async t => {
+      const { stdout } = await run(
+        '',
+        TEST_VERSION,
+        `node -e console.log(Date.now())
+setTimeout(()=>{console.log(Date.now())},5e3)`,
+      )
 
-  const startParallel = Date.now()
-  await runCliParallel('', TEST_VERSION, 'node -e setTimeout(()=>{},1e3)')
-  const durationParallel = Date.now() - startParallel
-
-  t.true(durationSerial >= durationParallel)
-})
+      const [, endOne, startTwo] = stdout.split('\n')
+      t.is(endOne >= startTwo, parallel)
+    })
+  },
+)

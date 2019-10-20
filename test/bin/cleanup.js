@@ -15,13 +15,13 @@ each([runCliSerial, runCliParallel], ({ title }, run) => {
 each(
   [{ opts: '', terminate: true }, { opts: '--continue', terminate: false }],
   ({ title }, { opts, terminate }) => {
-    test.serial(`Terminate other processes on failures | ${title}`, async t => {
+    test(`Terminate other processes on failures | ${title}`, async t => {
       const { stdout } = await runCli(
         `--parallel ${opts}`,
         `${TEST_VERSION} ${OLD_TEST_VERSION}`,
         `node -e process.on("SIGTERM",()=>{console.log("SIGTERM");process.exit()})
 Buffer.from("")
-setTimeout(()=>{},1e4)`,
+setTimeout(()=>{},5e3)`,
         { all: true },
       )
 
