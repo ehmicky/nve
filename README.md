@@ -11,8 +11,8 @@ Run any command on specific Node.js versions.
 Unlike [`nvm exec`](https://github.com/nvm-sh/nvm/blob/master/README.md#usage)
 it:
 
-- can run multiple Node.js versions at once
-- can be run [programmatically](#programmatic)
+- can run [multiple Node.js versions](#examples-multiple-versions) at once
+- can be run [programmatically](#examples-programmatic)
 - is [7 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
 - can run the major release's latest minor/patch version automatically
