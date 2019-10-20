@@ -29,6 +29,7 @@ export const runParallel = async function({
     stderr: 'pipe',
     buffer: true,
     all: true,
+    stripFinalNewline: true,
   }
   const iterable = runVersions(versionRanges, command, args, {
     ...opts,
