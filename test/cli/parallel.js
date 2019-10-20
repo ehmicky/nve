@@ -5,7 +5,7 @@ import { runCli } from '../helpers/run.js'
 
 test(`Forward exit code and output on late failure | runCliParallel`, async t => {
   const { exitCode, stdout, stderr } = await runCli(
-    '--parallel',
+    '--parallel --continue',
     `${TEST_VERSION} ${OLD_TEST_VERSION}`,
     'node -p Buffer.from("")',
   )
