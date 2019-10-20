@@ -298,8 +298,8 @@ This is the same as
 [`runVersion()`](#runversionversionrange-command-args-options) but executing
 multiple versions at once.
 
-Instead of returning a promise,
-[an async iterator is returned](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of).
+This returns
+[an async iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of).
 
 #### Example
 
