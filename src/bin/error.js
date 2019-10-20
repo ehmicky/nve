@@ -42,7 +42,7 @@ export const handleMultipleError = function({
 const COMMAND_REGEXP = /:.*/u
 
 export const handleTopError = function(
-  { exitCode = DEFAULT_EXIT_CODE, message },
+  { exitCode = DEFAULT_EXIT_CODE, message, errno },
   yargs,
 ) {
   const messageA = message.trim()
@@ -51,22 +51,23 @@ export const handleTopError = function(
     console.error(messageA)
   }
 
-  printHelp(message, yargs)
+  printHelp(message, errno, yargs)
 
   return exitCode
 }
 
 const DEFAULT_EXIT_CODE = 1
 
-// Print --help on common mistakes
-const printHelp = function(message, yargs) {
-  if (!shouldPrintHelp(message)) {
+// Print --help on common input syntax mistakes
+const printHelp = function(message, errno, yargs) {
+  if (!shouldPrintHelp(message, errno)) {
     return
   }
 
+  console.error(`\nError: invalid input syntax.\n`)
   yargs.showHelp()
 }
 
-const shouldPrintHelp = function(message) {
-  return message.includes('Missing version')
+const shouldPrintHelp = function(message, errno) {
+  return message.includes('Missing version') || errno === 'ENOENT'
 }

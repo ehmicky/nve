@@ -18,13 +18,18 @@ each(
 )
 
 each(
-  [['', '', ''], ['--shell', '', ''], ['--shell', '', 'node --version']],
+  [
+    ['', '', ''],
+    ['--shell', '', ''],
+    ['--shell', '', 'node --version'],
+    ['', TEST_VERSION, 'invalid'],
+  ],
   ({ title }, [options, versionRange, command]) => {
-    test(`Missing version | CLI ${title}`, async t => {
+    test(`Invalid input | CLI ${title}`, async t => {
       const { exitCode, stderr } = await runCli(options, versionRange, command)
 
       t.is(exitCode, 1)
-      t.true(stderr.includes('Missing version'))
+      t.true(stderr.includes('invalid input'))
       t.true(stderr.includes('Examples'))
     })
   },
