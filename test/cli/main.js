@@ -1,8 +1,8 @@
 import test from 'ava'
 import { each } from 'test-each'
 
-import { TEST_VERSION } from '../helpers/versions.js'
 import { runCli, runCliSerial } from '../helpers/run.js'
+import { TEST_VERSION } from '../helpers/versions.js'
 
 each([runCli, runCliSerial], ({ title }, run) => {
   test(`Forward exit code on success | CLI ${title}`, async t => {
