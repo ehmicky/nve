@@ -1,5 +1,3 @@
-import { env } from 'process'
-
 import test from 'ava'
 import hasAnsi from 'has-ansi'
 
@@ -21,12 +19,10 @@ v${TEST_VERSION}`,
   )
 })
 
-test.serial('Prints headers in colors | CLI runCliSerial', async t => {
-  // eslint-disable-next-line fp/no-mutation
-  env.FORCE_COLOR = '1'
-  const { stderr } = await runCliSerial('', TEST_VERSION, 'node --version')
-  // eslint-disable-next-line fp/no-delete
-  delete env.FORCE_COLOR
+test('Prints headers in colors | CLI runCliSerial', async t => {
+  const { stderr } = await runCliSerial('', TEST_VERSION, 'node --version', {
+    env: { FORCE_COLOR: '1' },
+  })
 
   t.true(hasAnsi(stderr))
 })

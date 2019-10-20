@@ -18,15 +18,17 @@ export const runVersionMany = async function(
   return value
 }
 
-export const runCliSerial = function(opts, versionRange, args) {
-  return runCli(opts, `${versionRange} ${versionRange}`, args)
+// eslint-disable-next-line max-params
+export const runCliSerial = function(opts, versionRange, args, execaOpts) {
+  return runCli(opts, `${versionRange} ${versionRange}`, args, execaOpts)
 }
 
-export const runCli = async function(opts, versionRange, args) {
+// eslint-disable-next-line max-params
+export const runCli = async function(opts, versionRange, args, execaOpts) {
   const binPath = await BIN_PATH
   const { exitCode, stdout, stderr, all } = await execa.command(
     `${binPath} --no-progress ${opts} ${versionRange} ${args}`,
-    { reject: false, all: true },
+    { reject: false, all: true, ...execaOpts },
   )
   const stdoutA = normalizeOutput(stdout)
   const stderrA = normalizeOutput(stderr)
