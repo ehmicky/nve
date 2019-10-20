@@ -40,12 +40,12 @@ test
 test`,
     )
   })
-})
 
-test('Prints headers in colors | runCliSerial', async t => {
-  const { stderr } = await runCliSerial('', TEST_VERSION, 'node --version', {
-    env: { FORCE_COLOR: '1' },
+  test(`Prints headers in colors | ${title}`, async t => {
+    const { stderr } = await run('', TEST_VERSION, 'node --version', {
+      env: { FORCE_COLOR: '1' },
+    })
+
+    t.true(hasAnsi(stderr))
   })
-
-  t.true(hasAnsi(stderr))
 })
