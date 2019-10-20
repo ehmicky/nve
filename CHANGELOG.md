@@ -2,10 +2,11 @@
 
 ## Features
 
-- Allow running multiple versions at once. For example `nve 8 10 12 npm test`
-  will run tests on Node 8, 10 and 12.
+- Allow running
+  [multiple versions at once](https://github.com/ehmicky/nve/blob/9441a69a0539caf5245f2b9e67c8031b70b5c5c2/README.md#examples-multiple-versions).
+  For example `nve 8 10 12 npm test` will run tests on Node 8, 10 and 12.
 - Running multiple versions can also be done programmatically using
-  `runVersions()`
+  [`runVersions()`](https://github.com/ehmicky/nve/blob/9441a69a0539caf5245f2b9e67c8031b70b5c5c2/README.md#runversionsversionranges-command-args-options)
 - Improve error messages
 
 # 3.2.2
