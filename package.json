@@ -58,7 +58,7 @@
     "execa": "^3.2.0",
     "figures": "^3.1.0",
     "filter-obj": "^2.0.1",
-    "get-node": "^5.1.0",
+    "get-node": "^5.2.0",
     "get-stdin": "^7.0.0",
     "is-plain-obj": "^2.0.0",
     "jest-validate": "^24.9.0",
