@@ -41,17 +41,32 @@ export const handleMultipleError = function({
 // Remove the command path and arguments from the error message
 const COMMAND_REGEXP = /:.*/u
 
-export const handleTopError = function({
-  exitCode = DEFAULT_EXIT_CODE,
-  message,
-}) {
+export const handleTopError = function(
+  { exitCode = DEFAULT_EXIT_CODE, message },
+  yargs,
+) {
   const messageA = message.trim()
 
   if (messageA !== '') {
     console.error(messageA)
   }
 
+  printHelp(message, yargs)
+
   return exitCode
 }
 
 const DEFAULT_EXIT_CODE = 1
+
+// Print --help on common mistakes
+const printHelp = function(message, yargs) {
+  if (!shouldPrintHelp(message)) {
+    return
+  }
+
+  yargs.showHelp()
+}
+
+const shouldPrintHelp = function(message) {
+  return message.includes('Missing version')
+}

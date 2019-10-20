@@ -16,3 +16,16 @@ each(
     })
   },
 )
+
+each(
+  [['', '', ''], ['--shell', '', ''], ['--shell', '', 'node --version']],
+  ({ title }, [options, versionRange, command]) => {
+    test(`Missing version | CLI ${title}`, async t => {
+      const { exitCode, stderr } = await runCli(options, versionRange, command)
+
+      t.is(exitCode, 1)
+      t.true(stderr.includes('Missing version'))
+      t.true(stderr.includes('Examples'))
+    })
+  },
+)
