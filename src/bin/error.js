@@ -2,6 +2,8 @@ import { stdout, stderr } from 'process'
 
 import { red } from 'chalk'
 
+import { writeProcessOutput } from './output.js'
+
 // Handle errors thrown by `execa()`
 // We forward the exit code reported by `execa()` using `error.exitCode`.
 // An error is thrown if:
@@ -55,9 +57,7 @@ export const handleParallelError = function({
   error: { message, all },
   versionRange,
 }) {
-  if (all.trim() !== '') {
-    stdout.write(`${all}\n\n`)
-  }
+  writeProcessOutput(`${all}\n`, stdout)
 
   const commandMessage = getCommandMessage(message, versionRange)
   stderr.write(`${commandMessage}\n`)
@@ -78,11 +78,7 @@ export const handleTopError = function(
   { exitCode = DEFAULT_EXIT_CODE, message, code },
   yargs,
 ) {
-  const messageA = message.trim()
-
-  if (messageA !== '') {
-    stderr.write(`${messageA}\n`)
-  }
+  writeProcessOutput(message.trim(), stderr)
 
   printHelp(message, code, yargs)
 

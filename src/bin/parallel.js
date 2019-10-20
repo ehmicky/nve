@@ -10,6 +10,7 @@ import { getParallelStdinOptions } from './stdin.js'
 import { printVersionHeader } from './header.js'
 import { printVersions } from './dry.js'
 import { handleParallelError } from './error.js'
+import { writeProcessOutput } from './output.js'
 import { asyncIteratorAll } from './utils.js'
 
 const pSetTimeout = promisify(setTimeout)
@@ -128,10 +129,7 @@ const runProcess = async function({
 
   try {
     const { all } = await childProcess
-
-    if (all.trim() !== '') {
-      stdout.write(`${all}\n`)
-    }
+    writeProcessOutput(all, stdout)
   } catch (error) {
     return handleProcessError({ error, versionRange, continueOpt, state })
   }
@@ -181,9 +179,7 @@ const printAborted = function({
     return
   }
 
-  if (all.trim() !== '') {
-    stdout.write(`${all}\n`)
-  }
+  writeProcessOutput(all, stdout)
 
   stderr.write(red(`Node ${versionRange} aborted\n`))
 
