@@ -15,7 +15,7 @@ it:
 - can be run [programmatically](#programmatic)
 - is [7 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
-- always runs the latest minor/patch Node version (unless explicitly specified)
+- can run the major release's latest minor/patch version automatically
 - works on Windows (no need to run as Administrator)
 - does not require Bash
 - is installed as a Node module (as opposed to a
