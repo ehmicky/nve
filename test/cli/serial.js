@@ -18,12 +18,8 @@ test(`Forward exit code and output on late failure | CLI runCliSerial`, async t 
 
   t.is(exitCode, 1)
   t.true(
-    all.startsWith(`<>  Node ${TEST_VERSION}
-
-<Buffer >
-
- <>  Node ${OLD_TEST_VERSION}
-
-[eval]:1`),
+    all.startsWith(
+      `<>  Node ${TEST_VERSION}\n\n<Buffer >\n\n <>  Node ${OLD_TEST_VERSION}\n\n[eval]:1`,
+    ),
   )
 })
