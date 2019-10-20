@@ -1,4 +1,9 @@
 import { stdout } from 'process'
+import { WriteStream } from 'tty'
+
+const {
+  prototype: { getColorDepth },
+} = WriteStream
 
 // When running child processes in parallel, stdout cannot be the interactive
 // TTY since it needs to be buffered so we print each child process output in
@@ -6,8 +11,12 @@ import { stdout } from 'process'
 // We fix this by setting the `FORCE_COLOR` environment variable instead, which
 // is used for example by `stdout.hasColors()` and `chalk`.
 export const getColorOptions = function() {
-  // When `stdout` is not a TTY
-  if (stdout.getColorDepth === undefined) {
+  if (!stdout.isTTY) {
+    return {}
+  }
+
+  // TODO: remove after dropping support for Node 8/9
+  if (getColorDepth === undefined) {
     return {}
   }
 
