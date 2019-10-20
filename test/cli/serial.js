@@ -17,3 +17,15 @@ test(`Forward exit code and output on late failure | runCliSerial`, async t => {
     ),
   )
 })
+
+test(`--continue | runCliSerial`, async t => {
+  const { exitCode, all } = await runCli(
+    '--continue',
+    `${OLD_TEST_VERSION} ${TEST_VERSION}`,
+    'node -p Buffer.from("")',
+  )
+
+  t.is(exitCode, 1)
+  t.true(all.startsWith(`<>  Node ${OLD_TEST_VERSION}\n\n[eval]:1`))
+  t.true(all.endsWith(`<>  Node ${TEST_VERSION}\n\n<Buffer >`))
+})

@@ -15,6 +15,18 @@ const addExample = function(yargsA, [example, description]) {
 }
 
 const CONFIG = {
+  shell: {
+    alias: 's',
+    boolean: true,
+    describe: `Run command inside a shell (such as Bash or cmd.exe).
+Default: false`,
+  },
+  continue: {
+    alias: 'c',
+    boolean: true,
+    describe: `When running multiple Node versions, do not abort when one of those versions fails.
+Default: false`,
+  },
   progress: {
     boolean: true,
     describe: `Show a loading spinner.
@@ -29,12 +41,6 @@ Can be customized (for example "https://npm.taobao.org/mirrors/node").
 
 The following environment variables can also be used: NODE_MIRROR, NVM_NODEJS_ORG_MIRROR, N_NODE_MIRROR or NODIST_NODE_MIRROR.`,
   },
-  shell: {
-    alias: 's',
-    boolean: true,
-    describe: `Run command inside a shell (such as Bash or cmd.exe).
-Default: false`,
-  },
 }
 
 const USAGE = `$0 [OPTIONS...] VERSION... [COMMAND] [ARGS...]
@@ -48,7 +54,11 @@ const EXAMPLES = [
   ['nve 8 node file.js', 'Same as "node file.js" but with Node 8'],
   ['nve 8 npm test', 'Any command can be used'],
   ['nve 8 ava', 'Execute a local binary'],
-  ['nve 8 10 12 npm test', 'Run multiple versions'],
+  ['nve 12 10 8 npm test', 'Run multiple versions'],
+  [
+    'nve --continue 12 10 8 npm test',
+    'Do not abort on the first version that fails',
+  ],
   ['nve 8.10.0 npm test', 'Run a specific version'],
   [`nve "*" npm test`, 'Run the latest Node version'],
   [`nve "<8" npm test`, 'Use a version range'],
@@ -62,5 +72,5 @@ const EXAMPLES = [
     'Chaining command with a shell',
   ],
   ['nve 8', 'Cache Node 8 download without executing any command'],
-  ['nve 8 10 12', 'Cache multiple Node downloads'],
+  ['nve 12 10 8', 'Cache multiple Node downloads'],
 ]

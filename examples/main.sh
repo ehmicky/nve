@@ -19,7 +19,10 @@ nve 8 node file.js
 nve 8 npm --version
 
 # Run multiple versions
-nve 8 10 12 node --version
+nve 12 10 8 node --version
+
+# Do not abort on the first version that fails
+nve --continue 12 10 8 node --version
 
 # Run a specific version
 nve 8.10.0 node --version
@@ -42,4 +45,4 @@ nve --shell 8 "node --version && node file.js"
 nve 8
 
 # Cache multiple Node downloads
-nve 8 10 12
+nve 12 10 8

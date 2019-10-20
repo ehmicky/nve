@@ -6,7 +6,8 @@ export const parseOpts = function(opts, yargs) {
   const optsB = filterObj(optsA, isUserOpt)
   const optsC = handleSpawnOpts(optsB)
   const optsD = { ...DEFAULT_CLI_OPTS, ...optsC }
-  return optsD
+  const { continue: continueOpt, ...optsE } = optsD
+  return { opts: optsE, continueOpt }
 }
 
 // Remove `yargs`-specific options, shortcuts and dash-cased
@@ -30,4 +31,4 @@ const handleSpawnOpts = function({ shell, ...opts }) {
   return { ...opts, spawnOptions: { shell } }
 }
 
-const DEFAULT_CLI_OPTS = { progress: true }
+const DEFAULT_CLI_OPTS = { progress: true, continue: false }

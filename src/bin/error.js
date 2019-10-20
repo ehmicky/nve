@@ -24,18 +24,31 @@ export const handleSingleError = function({
 }
 
 // If several versions were specified, `nve` is more explicit about failures.
+// If the `continue` option is `false` (default), we stop execution.
+// Otherwise, we continue execution but we print the error message and use the
+// last non-0 exit code.
 export const handleSerialError = function({
   error,
-  error: { message },
+  error: { message, exitCode = DEFAULT_EXIT_CODE },
   versionRange,
+  state,
+  continueOpt,
 }) {
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  error.message = red(
+  const messageA = red(
     message
       .replace(COMMAND_REGEXP, '')
       .replace('Command', `Node ${versionRange}`),
   )
-  return error
+
+  if (!continueOpt) {
+    // eslint-disable-next-line fp/no-mutation, no-param-reassign
+    error.message = messageA
+    throw error
+  }
+
+  console.error(messageA)
+  // eslint-disable-next-line fp/no-mutation, no-param-reassign
+  state.exitCode = exitCode
 }
 
 // Remove the command path and arguments from the error message

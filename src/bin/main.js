@@ -12,21 +12,29 @@ const runCli = async function() {
   const yargs = defineCli()
 
   try {
-    const { versionRanges, command, args, opts } = parseInput(yargs)
-    await runMain({ versionRanges, command, args, opts })
-    exit(0)
+    const { versionRanges, command, args, opts, continueOpt } = parseInput(
+      yargs,
+    )
+    const exitCode = await runMain({
+      versionRanges,
+      command,
+      args,
+      opts,
+      continueOpt,
+    })
+    exit(exitCode)
   } catch (error) {
     const exitCode = handleTopError(error, yargs)
     exit(exitCode)
   }
 }
 
-const runMain = function({ versionRanges, command, args, opts }) {
+const runMain = function({ versionRanges, command, args, opts, continueOpt }) {
   if (versionRanges.length === 1) {
     return runSingle({ versionRanges, command, args, opts })
   }
 
-  return runSerial({ versionRanges, command, args, opts })
+  return runSerial({ versionRanges, command, args, opts, continueOpt })
 }
 
 runCli()

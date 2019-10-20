@@ -68,7 +68,7 @@ $ nve --shell 8 "npm run build && npm test"
 $ nve 8
 
 # Cache multiple Node downloads
-$ nve 8 10 12
+$ nve 12 10 8
 ```
 
 # Examples (multiple versions)
@@ -90,6 +90,9 @@ $ nve 12 10 8 npm test
 
   105 tests passed
   Finished 'test' after 4.5 s
+
+# Do not abort on the first version that fails
+$ nve --continue 12 10 8 npm test
 ```
 
 # Examples (programmatic)
@@ -190,6 +193,13 @@ nve --shell 8 "npm run build && npm test"
 
 Please note that shell-specific features such as globbing, environment variables
 or `$VARIABLE` expansion work even without `--shell`.
+
+### --continue
+
+_Alias_: `-c`<br> _Type_: `boolean`<br>_Default_: `false`
+
+By default, when running multiple Node versions and one of those versions fails,
+the others are aborted. This option disables this.
 
 ### --progress
 
