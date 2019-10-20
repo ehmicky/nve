@@ -6,9 +6,9 @@ import { each } from 'test-each'
 import { runVersion } from '../src/main.js'
 
 import { TEST_VERSION } from './helpers/versions.js'
-import { runFirstVersion } from './helpers/run.js'
+import { runVersionMany } from './helpers/run.js'
 
-each([runVersion, runFirstVersion], ({ title }, run) => {
+each([runVersion, runVersionMany], ({ title }, run) => {
   test(`Forward child process | ${title}`, async t => {
     const { childProcess } = await run(TEST_VERSION, 'node', ['-p', '"test"'])
 

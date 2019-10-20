@@ -6,7 +6,7 @@ import { runVersions } from '../../src/main.js'
 const BIN_PATH = getBinPath()
 
 // eslint-disable-next-line max-params
-export const runFirstVersion = async function(
+export const runVersionMany = async function(
   versionRange,
   command,
   args,

@@ -8,7 +8,7 @@ import isCi from 'is-ci'
 import { runVersion } from '../src/main.js'
 
 import { TEST_VERSION, HELPER_VERSION } from './helpers/versions.js'
-import { runFirstVersion } from './helpers/run.js'
+import { runVersionMany } from './helpers/run.js'
 
 each(
   [
@@ -17,7 +17,7 @@ each(
     { stdio: 'pipe', output: `v${TEST_VERSION}` },
     { output: `v${TEST_VERSION}` },
   ],
-  [runVersion, runFirstVersion],
+  [runVersion, runVersionMany],
   ({ title }, { stdio, output }, run) => {
     test(`Can use stdio | ${title}`, async t => {
       const { childProcess } = await run(TEST_VERSION, 'node', ['--version'], {
@@ -31,7 +31,7 @@ each(
 )
 
 // eslint-disable-next-line complexity
-each([runVersion, runFirstVersion], ({ title }, run) => {
+each([runVersion, runVersionMany], ({ title }, run) => {
   test(`Can fire global binaries | ${title}`, async t => {
     const { childProcess } = await run(HELPER_VERSION, 'npm', ['--version'])
     const { stdout } = await childProcess
