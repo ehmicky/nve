@@ -20,6 +20,7 @@ export const runSerial = async function({
     stdout: 'inherit',
     stderr: 'inherit',
     buffer: false,
+    reject: true,
   }
   const iterable = runVersions(versionRanges, command, args, {
     ...opts,

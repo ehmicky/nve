@@ -18,6 +18,7 @@ export const runSingle = async function({
     stdout: 'inherit',
     stderr: 'inherit',
     buffer: false,
+    reject: true,
   }
   const { childProcess, version } = await runVersion(
     versionRange,
