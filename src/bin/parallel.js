@@ -137,7 +137,6 @@ const runProcess = async function({
   }
 }
 
-// eslint-disable-next-line max-statements, complexity
 const handleProcessError = async function({
   error,
   versionRange,
@@ -159,19 +158,36 @@ const handleProcessError = async function({
     throw new Error('Should never happen')
   }
 
-  if (failedError !== error) {
-    // eslint-disable-next-line max-depth
-    if (error.all.trim() !== '') {
-      stdout.write(`${error.all}\n`)
-    }
-
-    stderr.write(red(`Node ${versionRange} aborted\n`))
-
-    printVersionHeader(failedVersionRange)
-  }
+  printAborted({
+    error,
+    failedError,
+    versionRange,
+    failedVersionRange,
+  })
 
   handleParallelError({ error: failedError, versionRange: failedVersionRange })
 
   return true
 }
+
+const printAborted = function({
+  error,
+  error: { all },
+  failedError,
+  versionRange,
+  failedVersionRange,
+}) {
+  if (failedError === error) {
+    return
+  }
+
+  if (all.trim() !== '') {
+    stdout.write(`${all}\n`)
+  }
+
+  stderr.write(red(`Node ${versionRange} aborted\n`))
+
+  printVersionHeader(failedVersionRange)
+}
+
 /* eslint-enable max-lines */
