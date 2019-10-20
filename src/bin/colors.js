@@ -1,4 +1,4 @@
-import { stdout } from 'process'
+import { stdout, env } from 'process'
 import { WriteStream } from 'tty'
 
 const {
@@ -11,7 +11,7 @@ const {
 // We fix this by setting the `FORCE_COLOR` environment variable instead, which
 // is used for example by `stdout.hasColors()` and `chalk`.
 export const getColorOptions = function() {
-  if (!stdout.isTTY) {
+  if (!isInteractiveOutput()) {
     return {}
   }
 
@@ -20,7 +20,7 @@ export const getColorOptions = function() {
     return {}
   }
 
-  const colorDepth = stdout.getColorDepth()
+  const colorDepth = getColorDepth()
 
   // No need to do this change since current process already cannot show colors
   if (colorDepth === 1) {
@@ -29,6 +29,12 @@ export const getColorOptions = function() {
 
   const forceColor = COLOR_DEPTH_TO_FORCE[colorDepth]
   return { env: { FORCE_COLOR: forceColor } }
+}
+
+// We need to use an environment variable in tests since automated tests
+// cannot use an interactive TTY
+const isInteractiveOutput = function() {
+  return stdout.isTTY || env.TEST_TTY === 'true'
 }
 
 const COLOR_DEPTH_TO_FORCE = { '1': '0', '4': '1', '8': '2', '24': '3' }
