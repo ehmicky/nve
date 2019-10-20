@@ -13,26 +13,19 @@ each([runCliSerial, runCliParallel], ({ title }, run) => {
 })
 
 each(
-  [runCliSerial, runCliParallel],
-  [
-    { opts: '', minimum: 0, maximum: 5e3 },
-    { opts: '--continue', minimum: 5e3, maximum: 10e3 },
-  ],
-  ({ title }, run, { opts, minimum, maximum }) => {
-    test.serial(
-      `Does not run other processes on failures | ${title}`,
-      async t => {
-        const start = Date.now()
-        await runCli(
-          opts,
-          `${OLD_TEST_VERSION} ${TEST_VERSION}`,
-          'node -e Buffer.from("")&&setTimeout(()=>{},5e3)',
-        )
-        const duration = Date.now() - start
+  [{ opts: '', terminate: true }, { opts: '--continue', terminate: false }],
+  ({ title }, { opts, terminate }) => {
+    test.serial(`Terminate other processes on failures | ${title}`, async t => {
+      const { stdout } = await runCli(
+        `--parallel ${opts}`,
+        `${TEST_VERSION} ${OLD_TEST_VERSION}`,
+        `node -e process.on("SIGTERM",()=>{console.log("SIGTERM");process.exit()})
+setTimeout(()=>{Buffer.from("")},2e3)
+setTimeout(()=>{},1e4)`,
+        { all: true },
+      )
 
-        t.true(duration >= minimum)
-        t.true(duration <= maximum)
-      },
-    )
+      t.is(stdout.startsWith('SIGTERM'), terminate)
+    })
   },
 )
