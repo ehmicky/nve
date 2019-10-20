@@ -150,3 +150,16 @@ v${TEST_VERSION}
 v${TEST_VERSION}`,
   )
 })
+
+test('Prints headers in correct order | CLI runCliSerial', async t => {
+  const { all } = await runCliSerial('', TEST_VERSION, 'echo')
+
+  t.is(
+    all,
+    `<>  Node ${TEST_VERSION}
+
+
+
+ <>  Node ${TEST_VERSION}`,
+  )
+})
