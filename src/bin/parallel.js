@@ -1,15 +1,13 @@
 /* eslint-disable max-lines */
-import { stdout, stderr } from 'process'
+import { stdout } from 'process'
 import { promisify } from 'util'
-
-import { red } from 'chalk'
 
 import { runVersions } from '../main.js'
 
 import { getParallelStdinOptions } from './stdin.js'
 import { printVersionHeader } from './header.js'
 import { printVersions } from './dry.js'
-import { handleParallelError } from './error.js'
+import { handleParallelError, handleFastParallelError } from './error.js'
 import { writeProcessOutput } from './output.js'
 import { asyncIteratorAll } from './utils.js'
 
@@ -154,31 +152,7 @@ const handleProcessError = async function({
   // Ensure termination logic is triggered first
   await pSetTimeout(0)
 
-  const { failedError, failedVersionRange } = state
-
-  printAborted({ error, failedError, versionRange, failedVersionRange })
-
-  handleParallelError(failedError, failedVersionRange, state)
-
+  handleFastParallelError(error, versionRange, state)
   return true
 }
-
-const printAborted = function({
-  error,
-  error: { all },
-  failedError,
-  versionRange,
-  failedVersionRange,
-}) {
-  if (failedError === error) {
-    return
-  }
-
-  writeProcessOutput(all, stdout)
-
-  stderr.write(red(`Node ${versionRange} aborted\n`))
-
-  printVersionHeader(failedVersionRange)
-}
-
 /* eslint-enable max-lines */

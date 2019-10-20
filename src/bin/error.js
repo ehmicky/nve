@@ -3,6 +3,7 @@ import { stdout, stderr } from 'process'
 import { red } from 'chalk'
 
 import { writeProcessOutput } from './output.js'
+import { printVersionHeader } from './header.js'
 
 // Handle errors thrown by `execa()`
 // We forward the exit code reported by `execa()` using `error.exitCode`.
@@ -34,7 +35,32 @@ export const handleSerialError = function(error, versionRange, state) {
   handleMultipleError(error, versionRange, state)
 }
 
-// Handle errors thrown in parallel runs
+// Handle errors thrown in parallel runs without --continue
+export const handleFastParallelError = function(error, versionRange, state) {
+  printAborted(error, versionRange, state)
+  handleParallelError(state.failedError, state.failedVersionRange, state)
+}
+
+// When processes are run in parallel and one fails but is not the current one,
+// the current child process shows its current buffered output and a message
+// indicating it's been aborted.
+const printAborted = function(
+  error,
+  versionRange,
+  { failedError, failedVersionRange },
+) {
+  if (failedError === error) {
+    return
+  }
+
+  writeProcessOutput(error.all, stdout)
+
+  stderr.write(red(`Node ${versionRange} aborted\n`))
+
+  printVersionHeader(failedVersionRange)
+}
+
+// Handle errors thrown in parallel runs (with|without --continue)
 export const handleParallelError = function(error, versionRange, state) {
   writeProcessOutput(`${error.all}\n`, stdout)
   handleMultipleError(error, versionRange, state)
