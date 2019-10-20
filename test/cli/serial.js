@@ -13,7 +13,13 @@ test(`Forward exit code and output on late failure | runCliSerial`, async t => {
   t.is(exitCode, 1)
   t.true(
     all.startsWith(
-      `<>  Node ${TEST_VERSION}\n\n<Buffer >\n\n <>  Node ${OLD_TEST_VERSION}\n\n[eval]:1`,
+      `<>  Node ${TEST_VERSION}
+
+<Buffer >
+
+ <>  Node ${OLD_TEST_VERSION}
+
+[eval]:1`,
     ),
   )
 })
@@ -26,6 +32,14 @@ test(`--continue | runCliSerial`, async t => {
   )
 
   t.is(exitCode, 1)
-  t.true(all.startsWith(`<>  Node ${OLD_TEST_VERSION}\n\n[eval]:1`))
-  t.true(all.endsWith(`<>  Node ${TEST_VERSION}\n\n<Buffer >`))
+  t.true(
+    all.startsWith(`<>  Node ${OLD_TEST_VERSION}
+
+[eval]:1`),
+  )
+  t.true(
+    all.endsWith(`<>  Node ${TEST_VERSION}
+
+<Buffer >`),
+  )
 })

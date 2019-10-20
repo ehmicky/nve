@@ -15,7 +15,13 @@ each([runCliSerial, runCliParallel], ({ title }, run) => {
 
     t.is(
       all,
-      `<>  Node ${TEST_VERSION}\n\nv${TEST_VERSION}\n\n <>  Node ${TEST_VERSION}\n\nv${TEST_VERSION}`,
+      `<>  Node ${TEST_VERSION}
+
+v${TEST_VERSION}
+
+ <>  Node ${TEST_VERSION}
+
+v${TEST_VERSION}`,
     )
   })
 })
@@ -33,6 +39,12 @@ test.serial('Prints headers in correct order | runCliSerial', async t => {
 
   t.is(
     all,
-    `<>  Node ${TEST_VERSION}\n\ntest\n\n <>  Node ${TEST_VERSION}\n\ntest`,
+    `<>  Node ${TEST_VERSION}
+
+test
+
+ <>  Node ${TEST_VERSION}
+
+test`,
   )
 })

@@ -27,6 +27,8 @@ test('Prints Execa errors on stderr | runCliSerial', async t => {
 
   t.is(
     stderr,
-    `<>  Node ${TEST_VERSION}\n\nNode ${TEST_VERSION} failed with exit code 2`,
+    `<>  Node ${TEST_VERSION}
+
+Node ${TEST_VERSION} failed with exit code 2`,
   )
 })
