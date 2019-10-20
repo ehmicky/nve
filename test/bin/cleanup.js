@@ -19,13 +19,12 @@ each(
       const { stdout } = await runCli(
         `--parallel ${opts}`,
         `${TEST_VERSION} ${OLD_TEST_VERSION}`,
-        `node -e process.on("SIGTERM",()=>{console.log("SIGTERM");process.exit()})
-Buffer.from("")
-setTimeout(()=>{},5e3)`,
+        `node -e Buffer.from("")
+setTimeout(()=>{console.log("test")},5e3)`,
         { all: true },
       )
 
-      t.is(stdout.startsWith('SIGTERM'), terminate)
+      t.not(stdout.startsWith('test'), terminate)
     })
   },
 )
