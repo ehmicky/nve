@@ -81,12 +81,12 @@ const getCommandMessage = function(message, versionRange) {
 const COMMAND_REGEXP = /:.*/u
 
 export const handleTopError = function(
-  { exitCode = DEFAULT_EXIT_CODE, message, code },
+  { exitCode = DEFAULT_EXIT_CODE, message },
   yargs,
 ) {
   writeProcessOutput(message.trim(), stderr)
 
-  printHelp(message, code, yargs)
+  printHelp(message, yargs)
 
   return exitCode
 }
@@ -94,8 +94,8 @@ export const handleTopError = function(
 const DEFAULT_EXIT_CODE = 1
 
 // Print --help on common input syntax mistakes
-const printHelp = function(message, code, yargs) {
-  if (!shouldPrintHelp(message, code)) {
+const printHelp = function(message, yargs) {
+  if (!shouldPrintHelp(message)) {
     return
   }
 
@@ -103,6 +103,6 @@ const printHelp = function(message, code, yargs) {
   yargs.showHelp()
 }
 
-const shouldPrintHelp = function(message, code) {
-  return message.includes('Missing version') || code === 'ENOENT'
+const shouldPrintHelp = function(message) {
+  return message.includes('Missing version')
 }
