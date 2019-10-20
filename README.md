@@ -13,7 +13,7 @@ it:
 
 - can run [multiple Node.js versions](#examples-multiple-versions) at once
 - can be run [programmatically](#examples-programmatic)
-- is [7 times faster](#benchmarks)
+- is [10 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
 - can run the major release's latest minor/patch version automatically
 - works on Windows. No need to run as Administrator.
@@ -336,9 +336,9 @@ The [following benchmarks](benchmarks/main.js) compare the average time to run
 [`npx node`](https://github.com/aredridel/node-bin-gen/blob/master/node-bin-README.md#use-with-npx):
 
 ```
-nve:       140ms
-nvm exec: 1020ms
-npx node: 1437ms
+nve:       115ms
+nvm exec: 1010ms
+npx node: 1547ms
 ```
 
 # See also
