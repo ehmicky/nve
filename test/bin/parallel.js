@@ -31,13 +31,13 @@ test('No --continue | runCliParallel', async t => {
   )
 
   t.is(exitCode, 1)
+  t.true(stdout.startsWith('[eval]:1'))
   t.is(
     stderr,
     `<>  Node ${OLD_TEST_VERSION}
 
 Node ${OLD_TEST_VERSION} failed with exit code 1`,
   )
-  t.true(stdout.startsWith('[eval]:1'))
 })
 
 test('--continue | runCliParallel', async t => {
@@ -48,6 +48,8 @@ test('--continue | runCliParallel', async t => {
   )
 
   t.is(exitCode, 1)
+  t.true(stdout.endsWith('<Buffer >'))
+  t.true(stdout.startsWith('[eval]:1'))
   t.is(
     stderr,
     `<>  Node ${OLD_TEST_VERSION}
@@ -56,8 +58,6 @@ Node ${OLD_TEST_VERSION} failed with exit code 1
 
  <>  Node ${TEST_VERSION}`,
   )
-  t.true(stdout.startsWith('[eval]:1'))
-  t.true(stdout.endsWith('<Buffer >'))
 })
 
 test.serial(`Run in parallel | runCliParallel`, async t => {
