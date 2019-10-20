@@ -42,7 +42,7 @@ export const handleMultipleError = function({
 const COMMAND_REGEXP = /:.*/u
 
 export const handleTopError = function(
-  { exitCode = DEFAULT_EXIT_CODE, message, errno },
+  { exitCode = DEFAULT_EXIT_CODE, message, code },
   yargs,
 ) {
   const messageA = message.trim()
@@ -51,7 +51,7 @@ export const handleTopError = function(
     console.error(messageA)
   }
 
-  printHelp(message, errno, yargs)
+  printHelp(message, code, yargs)
 
   return exitCode
 }
@@ -59,8 +59,8 @@ export const handleTopError = function(
 const DEFAULT_EXIT_CODE = 1
 
 // Print --help on common input syntax mistakes
-const printHelp = function(message, errno, yargs) {
-  if (!shouldPrintHelp(message, errno)) {
+const printHelp = function(message, code, yargs) {
+  if (!shouldPrintHelp(message, code)) {
     return
   }
 
@@ -68,6 +68,6 @@ const printHelp = function(message, errno, yargs) {
   yargs.showHelp()
 }
 
-const shouldPrintHelp = function(message, errno) {
-  return message.includes('Missing version') || errno === 'ENOENT'
+const shouldPrintHelp = function(message, code) {
+  return message.includes('Missing version') || code === 'ENOENT'
 }
