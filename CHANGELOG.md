@@ -1,3 +1,12 @@
+# 3.5.0
+
+## Features
+
+- Add the
+  [`--continue` CLI flag](https://github.com/ehmicky/nve/blob/336d50edd7fd5f35c5c15f9b8da9f56d8ce748a9/README.md#--continue).
+  By default, when running multiple Node versions and one of those versions
+  fails, the others are aborted. This flag disables this.
+
 # 3.4.0
 
 ## Features
