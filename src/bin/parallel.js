@@ -2,7 +2,6 @@
 import { stdout } from 'process'
 import { promisify } from 'util'
 
-import asyncIteratorAll from 'async-iterator-all'
 import pMapSeries from 'p-map-series'
 
 import { runVersions } from '../main.js'
@@ -11,6 +10,7 @@ import { getParallelStdinOptions } from './stdin.js'
 import { printVersionHeader } from './header.js'
 import { printVersions } from './dry.js'
 import { handleParallelError } from './error.js'
+import { asyncIteratorAll } from './utils.js'
 
 const pSetTimeout = promisify(setTimeout)
 
