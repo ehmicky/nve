@@ -20,7 +20,7 @@ each(
         `--parallel ${opts}`,
         `${TEST_VERSION} ${OLD_TEST_VERSION}`,
         `node -e process.on("SIGTERM",()=>{console.log("SIGTERM");process.exit()})
-setTimeout(()=>{Buffer.from("")},2e3)
+Buffer.from("")
 setTimeout(()=>{},1e4)`,
         { all: true },
       )
