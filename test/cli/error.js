@@ -36,7 +36,7 @@ test(`Prints aborted message if late | runCliParallel`, async t => {
   const { stderr } = await runCli(
     '--parallel',
     `${TEST_VERSION} ${OLD_TEST_VERSION}`,
-    'node -p Buffer.from("")&&setTimeout(()=>{},1e9)',
+    'node -p Buffer.from("");setTimeout(()=>{},1e9)',
   )
 
   t.is(
@@ -55,7 +55,7 @@ test(`Prints no aborted message if early | runCliParallel`, async t => {
   const { stderr } = await runCli(
     '--parallel',
     `${OLD_TEST_VERSION} ${TEST_VERSION}`,
-    'node -p Buffer.from("")&&setTimeout(()=>{},1e9)',
+    'node -p Buffer.from("");setTimeout(()=>{},1e9)',
   )
 
   t.is(
