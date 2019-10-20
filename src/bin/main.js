@@ -6,7 +6,7 @@ import { parseInput } from './parse.js'
 import { runSingle } from './single.js'
 import { runSerial } from './serial.js'
 import { runParallel } from './parallel.js'
-import { handleTopError } from './error.js'
+import { handleFault } from './fault.js'
 
 // CLI that forwards its arguments but using a specific Node.js version
 const runCli = async function() {
@@ -30,7 +30,7 @@ const runCli = async function() {
     })
     exit(exitCode)
   } catch (error) {
-    handleTopError(error)
+    handleFault(error)
     exit(1)
   }
 }

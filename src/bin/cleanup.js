@@ -4,13 +4,14 @@
 // Also this does not apply when --continue is used.
 export const cleanupProcesses = async function(versions, continueOpt, state) {
   await Promise.all(
-    versions.map(({ childProcess, versionRange }) =>
+    versions.map(({ childProcess, versionRange }, index) =>
       cleanupProcess({
         childProcess,
         versionRange,
         versions,
         state,
         continueOpt,
+        index,
       }),
     ),
   )
@@ -22,11 +23,19 @@ const cleanupProcess = async function({
   versions,
   state,
   continueOpt,
+  index,
 }) {
   try {
     await childProcess
   } catch (error) {
-    terminateProcesses({ error, versions, versionRange, state, continueOpt })
+    terminateProcesses({
+      error,
+      versions,
+      versionRange,
+      state,
+      continueOpt,
+      index,
+    })
   }
 }
 
@@ -36,6 +45,7 @@ const terminateProcesses = function({
   versionRange,
   state,
   continueOpt,
+  index,
 }) {
   // We check the `continueOpt` after doing `await childProcess` so that later
   // failed child processes do not emit a `rejectionHandled` error when using
@@ -49,6 +59,8 @@ const terminateProcesses = function({
   state.failedError = error
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
   state.failedVersionRange = versionRange
+  // eslint-disable-next-line fp/no-mutation, no-param-reassign
+  state.failedIndex = index
 
   versions.forEach(terminateProcess)
 }

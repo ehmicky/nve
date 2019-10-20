@@ -1,9 +1,12 @@
 import { stdout, stderr } from 'process'
+import { promisify } from 'util'
 
 import { red } from 'chalk'
 
 import { writeProcessOutput } from './output.js'
 import { printVersionHeader } from './header.js'
+
+const pSetTimeout = promisify(setTimeout)
 
 // Handle errors thrown by `execa()`
 // We forward the exit code reported by `execa()` using `error.exitCode`.
@@ -35,25 +38,57 @@ export const handleSerialError = function(error, versionRange, state) {
   handleMultipleError(error, versionRange, state)
 }
 
+// Handle errors thrown in parallel runs.
+// We use different error handling logic depending on whether `--continue` is
+// used
+export const handleParallelError = async function({
+  error,
+  versionRange,
+  continueOpt,
+  state,
+  index,
+}) {
+  if (continueOpt) {
+    handleAnyParallelError({ error, versionRange, state, index })
+    return
+  }
+
+  // Ensure termination logic is triggered first
+  await pSetTimeout(0)
+
+  handleFastParallelError({ error, versionRange, state, index })
+}
+
 // Handle errors thrown in parallel runs without --continue
-export const handleFastParallelError = function(error, versionRange, state) {
-  printAborted(error, versionRange, state)
-  handleParallelError(state.failedError, state.failedVersionRange, state)
+const handleFastParallelError = function({
+  error,
+  versionRange,
+  state,
+  index,
+}) {
+  printAborted({ error, versionRange, state, index })
+  handleAnyParallelError({
+    error: state.failedError,
+    versionRange: state.failedVersionRange,
+    state,
+    index: state.failedIndex,
+  })
 }
 
 // When processes are run in parallel and one fails but is not the current one,
 // the current child process shows its current buffered output and a message
 // indicating it's been aborted.
-const printAborted = function(
+const printAborted = function({
   error,
   versionRange,
-  { failedError, failedVersionRange },
-) {
+  state: { failedError, failedVersionRange },
+  index,
+}) {
   if (failedError === error) {
     return
   }
 
-  writeProcessOutput(error.all, stdout)
+  writeProcessOutput(error.all, stdout, index)
 
   stderr.write(red(`Node ${versionRange} aborted\n`))
 
@@ -61,8 +96,8 @@ const printAborted = function(
 }
 
 // Handle errors thrown in parallel runs (with|without --continue)
-export const handleParallelError = function(error, versionRange, state) {
-  writeProcessOutput(`${error.all}\n`, stdout)
+const handleAnyParallelError = function({ error, versionRange, state, index }) {
+  writeProcessOutput(`${error.all}\n`, stdout, index)
   handleMultipleError(error, versionRange, state)
 }
 
@@ -97,34 +132,3 @@ const getCommandMessage = function(message, versionRange) {
 const COMMAND_REGEXP = /:.*/u
 
 const DEFAULT_EXIT_CODE = 1
-
-// Handle top-level errors not due to child process errors, such as input
-// validation errors, Node.js download errors and bugs.
-export const handleTopError = function({ message }) {
-  stderr.write(`${message}\n`)
-  printHelp(message)
-}
-
-// Print --help on common input syntax mistakes
-const printHelp = function(message) {
-  if (!shouldPrintHelp(message)) {
-    return
-  }
-
-  stderr.write(SHORT_USAGE)
-}
-
-const SHORT_USAGE = `Invalid input syntax. It should be:
-
-  nve [OPTIONS...] VERSION... [COMMAND] [ARGS...]
-
-Examples:
-
-  nve 8 npm test
-  nve 8 9 10 npm test
-  nve --no-progress 8 npm test
-`
-
-const shouldPrintHelp = function(message) {
-  return message.includes('Missing version')
-}

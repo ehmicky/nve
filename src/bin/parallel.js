@@ -1,5 +1,4 @@
 import { stdout } from 'process'
-import { promisify } from 'util'
 
 import { runVersions } from '../main.js'
 
@@ -8,12 +7,9 @@ import { getColorOptions } from './colors.js'
 import { printVersionHeader } from './header.js'
 import { printVersions } from './dry.js'
 import { cleanupProcesses } from './cleanup.js'
-import { handleParallelError, handleFastParallelError } from './error.js'
+import { handleParallelError } from './error.js'
 import { writeProcessOutput } from './output.js'
-// eslint-disable-next-line import/max-dependencies
 import { asyncIteratorAll } from './utils.js'
-
-const pSetTimeout = promisify(setTimeout)
 
 // Run multiple Node versions in parallel
 export const runParallel = async function({
@@ -60,6 +56,9 @@ export const runParallel = async function({
 // Print child processes in serial order, even though they are running in
 // parallel in the background.
 const runProcesses = async function(versions, continueOpt, state) {
+  // eslint-disable-next-line fp/no-let
+  let index = 0
+
   // eslint-disable-next-line fp/no-loops
   for await (const { childProcess, versionRange } of versions) {
     const shouldStop = await runProcess({
@@ -67,6 +66,7 @@ const runProcesses = async function(versions, continueOpt, state) {
       versionRange,
       continueOpt,
       state,
+      index,
     })
 
     // If the `continue` option is `false` (default), we stop execution.
@@ -76,6 +76,9 @@ const runProcesses = async function(versions, continueOpt, state) {
     if (shouldStop) {
       return
     }
+
+    // eslint-disable-next-line fp/no-mutation
+    index += 1
   }
 }
 
@@ -84,33 +87,28 @@ const runProcess = async function({
   versionRange,
   continueOpt,
   state,
+  index,
 }) {
   printVersionHeader(versionRange)
 
+  // We stream the first child process output because it is more
+  // developer-friendly. However the next ones cannot be streamed since they
+  // start in parallel
+  if (index === 0) {
+    childProcess.all.pipe(stdout)
+  }
+
   try {
     const { all } = await childProcess
-    writeProcessOutput(all, stdout)
+    writeProcessOutput(all, stdout, index)
   } catch (error) {
-    await handleProcessError({ error, versionRange, continueOpt, state })
+    await handleParallelError({
+      error,
+      versionRange,
+      continueOpt,
+      state,
+      index,
+    })
     return !continueOpt
   }
-}
-
-// We use different error handling logic depending on whether `--continue` is
-// used
-const handleProcessError = async function({
-  error,
-  versionRange,
-  continueOpt,
-  state,
-}) {
-  if (continueOpt) {
-    handleParallelError(error, versionRange, state)
-    return
-  }
-
-  // Ensure termination logic is triggered first
-  await pSetTimeout(0)
-
-  handleFastParallelError(error, versionRange, state)
 }
