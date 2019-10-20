@@ -1,5 +1,6 @@
 import { runVersion } from '../main.js'
 
+import { getSingleStdinOptions } from './stdin.js'
 import { printVersion } from './dry.js'
 import { handleSingleError } from './error.js'
 
@@ -10,13 +11,20 @@ export const runSingle = async function({
   args,
   opts,
 }) {
+  const stdinOptions = getSingleStdinOptions()
   const { childProcess, version } = await runVersion(
     versionRange,
     command,
     args,
     {
       ...opts,
-      spawnOptions: { ...opts.spawnOptions, stdio: 'inherit', buffer: false },
+      spawnOptions: {
+        ...opts.spawnOptions,
+        ...stdinOptions,
+        stdout: 'inherit',
+        stderr: 'inherit',
+        buffer: false,
+      },
     },
   )
 

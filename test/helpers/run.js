@@ -29,7 +29,7 @@ export const runCli = async function(opts, versionRange, args, execaOpts) {
   const binPath = await BIN_PATH
   const { exitCode, stdout, stderr, all } = await execa.command(
     `${binPath} --no-progress ${opts} ${versionRange} ${args}`,
-    { reject: false, all: true, ...execaOpts },
+    { reject: false, all: true, stdin: 'ignore', ...execaOpts },
   )
   const stdoutA = normalizeOutput(stdout)
   const stderrA = normalizeOutput(stderr)

@@ -1,5 +1,6 @@
 import { runVersions } from '../main.js'
 
+import { getSerialStdinOptions } from './stdin.js'
 import { printHeader } from './header.js'
 import { printVersions } from './dry.js'
 import { handleMultipleError } from './error.js'
@@ -11,9 +12,16 @@ export const runSerial = async function({
   args,
   opts,
 }) {
+  const stdinOptions = await getSerialStdinOptions()
   const iterable = runVersions(versionRanges, command, args, {
     ...opts,
-    spawnOptions: { ...opts.spawnOptions, stdio: 'inherit', buffer: false },
+    spawnOptions: {
+      ...opts.spawnOptions,
+      ...stdinOptions,
+      stdout: 'inherit',
+      stderr: 'inherit',
+      buffer: false,
+    },
   })
 
   if (command === undefined) {
