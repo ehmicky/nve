@@ -134,7 +134,8 @@ const runProcess = async function({
     const { all } = await childProcess
     writeProcessOutput(all, stdout)
   } catch (error) {
-    return handleProcessError({ error, versionRange, continueOpt, state })
+    await handleProcessError({ error, versionRange, continueOpt, state })
+    return !continueOpt
   }
 }
 
@@ -146,13 +147,12 @@ const handleProcessError = async function({
 }) {
   if (continueOpt) {
     handleParallelError(error, versionRange, state)
-    return false
+    return
   }
 
   // Ensure termination logic is triggered first
   await pSetTimeout(0)
 
   handleFastParallelError(error, versionRange, state)
-  return true
 }
 /* eslint-enable max-lines */
