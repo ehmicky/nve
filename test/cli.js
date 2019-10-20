@@ -5,7 +5,7 @@ import { each } from 'test-each'
 import readPkgUp from 'read-pkg-up'
 import isCi from 'is-ci'
 
-import { TEST_VERSION } from './helpers/versions.js'
+import { TEST_VERSION, OLD_TEST_VERSION } from './helpers/versions.js'
 import { runCli, runCliSerial } from './helpers/run.js'
 
 each([runCli, runCliSerial], ({ title }, run) => {
@@ -161,5 +161,24 @@ test('Prints headers in correct order | CLI runCliSerial', async t => {
 
 
  <>  Node ${TEST_VERSION}`,
+  )
+})
+
+test(`Forward exit code and output on late failure | CLI runCliSerial`, async t => {
+  const { exitCode, all } = await runCli(
+    '',
+    `${TEST_VERSION} ${OLD_TEST_VERSION}`,
+    'node -p Buffer.from("")',
+  )
+
+  t.is(exitCode, 1)
+  t.true(
+    all.startsWith(`<>  Node ${TEST_VERSION}
+
+<Buffer >
+
+ <>  Node ${OLD_TEST_VERSION}
+
+[eval]:1`),
   )
 })
