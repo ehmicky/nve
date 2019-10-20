@@ -1,5 +1,4 @@
 import test from 'ava'
-import { each } from 'test-each'
 
 import { TEST_VERSION, OLD_TEST_VERSION } from '../helpers/versions.js'
 import { runCli, runCliSerial, runCliParallel } from '../helpers/run.js'
@@ -44,19 +43,14 @@ Node ${OLD_TEST_VERSION} failed with exit code 1
   t.true(stdout.endsWith('<Buffer >'))
 })
 
-each(
-  [
-    { run: runCliSerial, minimum: 2e3, maximum: 4e3 },
-    { run: runCliParallel, minimum: 1e3, maximum: 2e3 },
-  ],
-  ({ title }, { run, minimum, maximum }) => {
-    test.serial(`Run in parallel/serial | ${title}`, async t => {
-      const start = Date.now()
-      await run('', TEST_VERSION, 'node -e setTimeout(()=>{},1e3)')
-      const duration = Date.now() - start
+test.serial(`Run in parallel | runCliParallel`, async t => {
+  const startSerial = Date.now()
+  await runCliSerial('', TEST_VERSION, 'node -e setTimeout(()=>{},1e3)')
+  const durationSerial = Date.now() - startSerial
 
-      t.true(duration >= minimum)
-      t.true(duration <= maximum)
-    })
-  },
-)
+  const startParallel = Date.now()
+  await runCliParallel('', TEST_VERSION, 'node -e setTimeout(()=>{},1e3)')
+  const durationParallel = Date.now() - startParallel
+
+  t.true(durationSerial >= durationParallel)
+})
