@@ -12,7 +12,7 @@ each([runCli, runCliSerial], ({ title }, run) => {
   // This might be fixed with nyc@15
   // See https://github.com/istanbuljs/spawn-wrap/issues/108
   if (platform !== 'darwin' || !isCi) {
-    test(`Can run in shell mode | CLI ${title}`, async t => {
+    test(`Can run in shell mode | ${title}`, async t => {
       const { exitCode } = await run(
         '--shell',
         TEST_VERSION,

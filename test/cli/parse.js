@@ -14,7 +14,7 @@ each(
     ['', TEST_VERSION, 'invalid'],
   ],
   ({ title }, [options, versionRange, command]) => {
-    test(`Invalid input | CLI ${title}`, async t => {
+    test(`Invalid input | ${title}`, async t => {
       const { exitCode, stderr } = await runCli(options, versionRange, command)
 
       t.is(exitCode, 1)

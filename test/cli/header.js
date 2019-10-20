@@ -4,7 +4,7 @@ import hasAnsi from 'has-ansi'
 import { TEST_VERSION } from '../helpers/versions.js'
 import { runCliSerial } from '../helpers/run.js'
 
-test('Prints headers | CLI runCliSerial', async t => {
+test('Prints headers | runCliSerial', async t => {
   const { all } = await runCliSerial('', TEST_VERSION, 'node --version')
 
   t.is(
@@ -13,7 +13,7 @@ test('Prints headers | CLI runCliSerial', async t => {
   )
 })
 
-test('Prints headers in colors | CLI runCliSerial', async t => {
+test('Prints headers in colors | runCliSerial', async t => {
   const { stderr } = await runCliSerial('', TEST_VERSION, 'node --version', {
     env: { FORCE_COLOR: '1' },
   })
@@ -21,7 +21,7 @@ test('Prints headers in colors | CLI runCliSerial', async t => {
   t.true(hasAnsi(stderr))
 })
 
-test('Prints headers in correct order | CLI runCliSerial', async t => {
+test('Prints headers in correct order | runCliSerial', async t => {
   const { all } = await runCliSerial('', TEST_VERSION, 'echo test')
 
   t.is(

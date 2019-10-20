@@ -5,13 +5,13 @@ import readPkgUp from 'read-pkg-up'
 import { TEST_VERSION } from '../helpers/versions.js'
 import { runCli, runCliSerial } from '../helpers/run.js'
 
-test('--help | CLI', async t => {
+test('--help', async t => {
   const { stdout } = await runCli('', '', '--help')
 
   t.true(stdout.includes('Examples'))
 })
 
-test('--version | CLI', async t => {
+test('--version', async t => {
   const [
     { stdout },
     {
@@ -23,20 +23,20 @@ test('--version | CLI', async t => {
 })
 
 each([runCli, runCliSerial], ({ title }, run) => {
-  test(`node --help | CLI ${title}`, async t => {
+  test(`node --help | ${title}`, async t => {
     const { stdout } = await run('', TEST_VERSION, 'node --help')
 
     t.true(stdout.includes('Usage: node'))
   })
 })
 
-test('node --version | CLI runCli', async t => {
+test('node --version | runCli', async t => {
   const { stdout } = await runCli('', TEST_VERSION, 'node --version')
 
   t.is(stdout, `v${TEST_VERSION}`)
 })
 
-test('node --version | CLI runCliSerial', async t => {
+test('node --version | runCliSerial', async t => {
   const { stdout } = await runCliSerial('', TEST_VERSION, 'node --version')
 
   t.is(stdout, `v${TEST_VERSION}\nv${TEST_VERSION}`)
