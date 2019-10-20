@@ -5,11 +5,6 @@ import hasAnsi from 'has-ansi'
 import { TEST_VERSION } from '../helpers/versions.js'
 import { runCliSerial, runCliParallel } from '../helpers/run.js'
 
-// When calling several `nve --parallel` in parallel, their output is sometimes
-// duplicated. This is fixed by using stdout|stderr instead of `all`.
-// This bug is not related to `nve` but to some bug inside `execa` `all` option
-// (based on the `merge-stream` package).
-
 each([runCliSerial, runCliParallel], ({ title }, run) => {
   test(`Prints headers | ${title}`, async t => {
     const { stdout, stderr } = await run('', TEST_VERSION, 'node --version')

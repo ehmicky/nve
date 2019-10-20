@@ -34,17 +34,20 @@ export const runCliParallel = function(opts, versionRange, args, execaOpts) {
   )
 }
 
+// When calling several `nve` in parallel, their output is sometimes duplicated
+// in `execa.all`. This bug is not related to `nve` but to some bug inside
+// `execa` (based on the `merge-stream` package).
+// So we don't use `execa.all`
 // eslint-disable-next-line max-params
 export const runCli = async function(opts, versionRange, args, execaOpts) {
   const binPath = await BIN_PATH
-  const { exitCode, stdout, stderr, all } = await execa.command(
+  const { exitCode, stdout, stderr } = await execa.command(
     `${binPath} --no-progress ${opts} ${versionRange} ${args}`,
-    { reject: false, all: true, stdin: 'ignore', ...execaOpts },
+    { reject: false, stdin: 'ignore', ...execaOpts },
   )
   const stdoutA = normalizeOutput(stdout)
   const stderrA = normalizeOutput(stderr)
-  const allA = normalizeOutput(all)
-  return { exitCode, stdout: stdoutA, stderr: stderrA, all: allA }
+  return { exitCode, stdout: stdoutA, stderr: stderrA }
 }
 
 const normalizeOutput = function(output) {
