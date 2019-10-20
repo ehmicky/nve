@@ -9,14 +9,14 @@ export const parseInput = function(yargs) {
   const input = argv.slice(2)
 
   const { versionRanges, command, args, opts } = parseArgs(input)
-  const { opts: optsA, continueOpt } = parseOpts(opts, yargs)
+  const { opts: optsA, continueOpt, parallel } = parseOpts(opts, yargs)
 
   // We do this after options parsing in case --help or --version was passed
   if (versionRanges.length === 0) {
     throw new Error('Missing version.')
   }
 
-  return { versionRanges, command, args, opts: optsA, continueOpt }
+  return { versionRanges, command, args, opts: optsA, continueOpt, parallel }
 }
 
 const parseArgs = function(input) {
