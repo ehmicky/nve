@@ -37,12 +37,6 @@ each([runCli, runCliSerial], ({ title }, run) => {
     t.true(stderr.includes('invalidBinary'))
   })
 
-  test(`CLI flags | CLI ${title}`, async t => {
-    const { exitCode } = await run('', TEST_VERSION, 'node --version')
-
-    t.is(exitCode, 0)
-  })
-
   // This does not work with nyc on MacOS
   // This might be fixed with nyc@15
   // See https://github.com/istanbuljs/spawn-wrap/issues/108
@@ -76,10 +70,23 @@ each(
   },
 )
 
-test('Does not print Execa errors on stderr | CLI', async t => {
+test('Does not print Execa errors on stderr | CLI runCli', async t => {
   const { stderr } = await runCli('', TEST_VERSION, 'node -e process.exit(2)')
 
   t.is(stderr, '')
+})
+
+test('Prints Execa errors on stderr | CLI runMany', async t => {
+  const { stderr } = await runCliSerial(
+    '',
+    TEST_VERSION,
+    'node -e process.exit(2)',
+  )
+
+  t.is(
+    stderr,
+    `<>  Node ${TEST_VERSION}\n\nNode ${TEST_VERSION} failed with exit code 2`,
+  )
 })
 
 test('No commands | CLI', async t => {

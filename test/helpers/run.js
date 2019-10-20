@@ -24,8 +24,18 @@ export const runCliSerial = function(opts, versionRange, args) {
 
 export const runCli = async function(opts, versionRange, args) {
   const binPath = await BIN_PATH
-  return execa.command(
+  const { exitCode, stdout, stderr } = await execa.command(
     `${binPath} --no-progress ${opts} ${versionRange} ${args}`,
     { reject: false },
   )
+  const stdoutA = normalizeOutput(stdout)
+  const stderrA = normalizeOutput(stderr)
+  return { exitCode, stdout: stdoutA, stderr: stderrA }
+}
+
+const normalizeOutput = function(output) {
+  return output
+    .trim()
+    .replace(/\u2B22/gu, '<>')
+    .replace(/\u2666/gu, '<>')
 }
