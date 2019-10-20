@@ -151,12 +151,7 @@ const handleProcessError = async function({
 
   const { failedError, failedVersionRange } = state
 
-  printAborted({
-    error,
-    failedError,
-    versionRange,
-    failedVersionRange,
-  })
+  printAborted({ error, failedError, versionRange, failedVersionRange })
 
   handleParallelError({ error: failedError, versionRange: failedVersionRange })
 
