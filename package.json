@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "core-js": "^3.3.2",
+    "core-js": "^3.3.3",
     "execa": "^3.2.0",
     "figures": "^3.1.0",
     "filter-obj": "^2.0.1",
