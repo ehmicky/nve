@@ -65,3 +65,18 @@ test(`Prints no aborted message if early | runCliParallel`, async t => {
 Node ${OLD_TEST_VERSION} failed with exit code 1`,
   )
 })
+
+test(`Write buffered output | runCliParallel`, async t => {
+  const { stdout } = await runCli(
+    '--parallel',
+    `${TEST_VERSION} ${OLD_TEST_VERSION}`,
+    `node -e console.log("test")
+setTimeout(()=>{Buffer.from("")},0)
+setTimeout(()=>{},1e9)`,
+  )
+
+  t.true(
+    stdout.startsWith(`test
+test`),
+  )
+})
