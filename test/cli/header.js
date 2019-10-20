@@ -6,38 +6,42 @@ import { TEST_VERSION } from '../helpers/versions.js'
 import { runCliSerial, runCliParallel } from '../helpers/run.js'
 
 // When calling several `nve --parallel` in parallel, their output is sometimes
-// duplicated. This is fixed by running them serially.
+// duplicated. This is fixed by using stdout|stderr instead of `all`.
 // This bug is not related to `nve` but to some bug inside `execa` `all` option
 // (based on the `merge-stream` package).
 
 each([runCliSerial, runCliParallel], ({ title }, run) => {
-  test.serial(`Prints headers | ${title}`, async t => {
-    const { all } = await run('', TEST_VERSION, 'node --version')
+  test(`Prints headers | ${title}`, async t => {
+    const { stdout, stderr } = await run('', TEST_VERSION, 'node --version')
 
     t.is(
-      all,
+      stdout,
+      `v${TEST_VERSION}
+v${TEST_VERSION}`,
+    )
+    t.is(
+      stderr,
       `<>  Node ${TEST_VERSION}
 
-v${TEST_VERSION}
 
- <>  Node ${TEST_VERSION}
-
-v${TEST_VERSION}`,
+ <>  Node ${TEST_VERSION}`,
     )
   })
 
-  test.serial(`Prints headers in correct order | ${title}`, async t => {
-    const { all } = await run('', TEST_VERSION, 'echo test')
+  test(`Prints headers in correct order with fast commands | ${title}`, async t => {
+    const { stdout, stderr } = await run('', TEST_VERSION, 'echo test')
 
     t.is(
-      all,
+      stdout,
+      `test
+test`,
+    )
+    t.is(
+      stderr,
       `<>  Node ${TEST_VERSION}
 
-test
 
- <>  Node ${TEST_VERSION}
-
-test`,
+ <>  Node ${TEST_VERSION}`,
     )
   })
 
