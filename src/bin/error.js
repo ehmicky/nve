@@ -75,6 +75,8 @@ const getCommandMessage = function(message, versionRange) {
 // Remove the command path and arguments from the error message
 const COMMAND_REGEXP = /:.*/u
 
+// Handle top-level errors not due to child process errors, such as input
+// validation errors, Node.js download errors and bugs.
 export const handleTopError = function({ message }, yargs) {
   stderr.write(`${message}\n`)
   printHelp(message, yargs)
