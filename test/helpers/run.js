@@ -18,7 +18,14 @@ export const runVersionMany = async function(
   return value
 }
 
-export const runCli = async function(args) {
+export const runCliSerial = function(opts, versionRange, args) {
+  return runCli(opts, `${versionRange} ${versionRange}`, args)
+}
+
+export const runCli = async function(opts, versionRange, args) {
   const binPath = await BIN_PATH
-  return execa.command(`${binPath} --no-progress ${args}`, { reject: false })
+  return execa.command(
+    `${binPath} --no-progress ${opts} ${versionRange} ${args}`,
+    { reject: false },
+  )
 }
