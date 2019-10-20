@@ -23,7 +23,8 @@ export const handleSingleError = function({
   return error
 }
 
-// If several versions were specified, `nve` is more explicit about failures.
+// If several serial versions were specified, `nve` is more explicit about
+// failures.
 // If the `continue` option is `false` (default), we stop execution.
 // Otherwise, we continue execution but we print the error message and use the
 // last non-0 exit code.
