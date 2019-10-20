@@ -1,6 +1,6 @@
 import { runVersion } from '../main.js'
 
-import { printVersion } from './print.js'
+import { printVersion } from './dry.js'
 import { handleSingleError } from './error.js'
 
 // Run a single Node version

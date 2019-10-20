@@ -1,7 +1,7 @@
 import { runVersions } from '../main.js'
 
 import { printHeader } from './header.js'
-import { printVersions } from './print.js'
+import { printVersions } from './dry.js'
 import { handleMultipleError } from './error.js'
 
 // Run multiple Node versions serially
