@@ -21,6 +21,15 @@ const CONFIG = {
     describe: `Run command inside a shell (such as Bash or cmd.exe).
 Default: false`,
   },
+  parallel: {
+    alias: 'p',
+    boolean: true,
+    describe: `When running multiple Node versions, run all of them at the same time.
+This is faster. However this does not work if the command:
+  - requires some interactive CLI input (for example using a prompt)
+  - is not concurrency-safe
+Default: false`,
+  },
   continue: {
     alias: 'c',
     boolean: true,
