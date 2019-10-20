@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { stdout } from 'process'
 import { promisify } from 'util'
 
@@ -150,3 +151,4 @@ const handleProcessError = async function({
 
   handleParallelError({ error, versionRange })
 }
+/* eslint-enable max-lines */
