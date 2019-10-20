@@ -49,6 +49,8 @@ export const runParallel = async function({
     cleanupProcesses(versions, continueOpt, state),
     runProcesses(versions, continueOpt, state),
   ])
+
+  return state.exitCode
 }
 
 const cleanupProcesses = async function(versions, continueOpt, state) {
@@ -142,7 +144,7 @@ const handleProcessError = async function({
   state,
 }) {
   if (continueOpt) {
-    handleParallelError({ error, versionRange })
+    handleParallelError({ error, versionRange, state })
     return false
   }
 
@@ -153,7 +155,11 @@ const handleProcessError = async function({
 
   printAborted({ error, failedError, versionRange, failedVersionRange })
 
-  handleParallelError({ error: failedError, versionRange: failedVersionRange })
+  handleParallelError({
+    error: failedError,
+    versionRange: failedVersionRange,
+    state,
+  })
 
   return true
 }

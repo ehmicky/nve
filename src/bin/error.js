@@ -48,19 +48,25 @@ export const handleSerialError = function({
   }
 
   stderr.write(`${commandMessage}\n`)
+
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
   state.exitCode = exitCode
 }
 
-// If several parallel versions were specified
+// If several parallel versions were specified, `nve` is also more explicit
+// about failures.
 export const handleParallelError = function({
-  error: { message, all },
+  error: { message, exitCode = DEFAULT_EXIT_CODE, all },
   versionRange,
+  state,
 }) {
   writeProcessOutput(`${all}\n`, stdout)
 
   const commandMessage = getCommandMessage(message, versionRange)
   stderr.write(`${commandMessage}\n`)
+
+  // eslint-disable-next-line fp/no-mutation, no-param-reassign
+  state.exitCode = exitCode
 }
 
 const getCommandMessage = function(message, versionRange) {
