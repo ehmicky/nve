@@ -3,9 +3,9 @@ import { ChildProcess } from 'child_process'
 import test from 'ava'
 import { each } from 'test-each'
 
-import { runVersion } from '../src/main.js'
+import { runVersion, runVersions } from '../src/main.js'
 
-import { TEST_VERSION } from './helpers/versions.js'
+import { TEST_VERSION, SECOND_TEST_VERSION } from './helpers/versions.js'
 import { runVersionMany } from './helpers/run.js'
 
 each([runVersion, runVersionMany], ({ title }, run) => {
@@ -64,4 +64,39 @@ each([runVersion, runVersionMany], ({ title }, run) => {
 
     t.true(preferLocal)
   })
+})
+
+// eslint-disable-next-line max-statements
+test('Can iterate | runVersionMany', async t => {
+  const iterator = runVersions(
+    [`v${TEST_VERSION}`, `v${SECOND_TEST_VERSION}`],
+    'node',
+    ['--version'],
+  )
+
+  const { value } = await iterator.next()
+
+  const { exitCode, stdout } = await value.childProcess
+  t.is(exitCode, 0)
+  t.is(stdout, `v${TEST_VERSION}`)
+  t.is(value.version, TEST_VERSION)
+  t.is(value.versionRange, `v${TEST_VERSION}`)
+  t.not(value.command, 'node')
+  // eslint-disable-next-line ava/max-asserts
+  t.deepEqual(value.args, ['--version'])
+  t.true(value.spawnOptions.preferLocal)
+
+  const { value: valueTwo } = await iterator.next()
+
+  const {
+    exitCode: exitCodeTwo,
+    stdout: stdoutTwo,
+  } = await valueTwo.childProcess
+  t.is(exitCodeTwo, 0)
+  t.is(stdoutTwo, `v${SECOND_TEST_VERSION}`)
+  t.is(valueTwo.version, SECOND_TEST_VERSION)
+  t.is(valueTwo.versionRange, `v${SECOND_TEST_VERSION}`)
+  t.not(valueTwo.command, 'node')
+  t.deepEqual(valueTwo.args, ['--version'])
+  t.true(valueTwo.spawnOptions.preferLocal)
 })
