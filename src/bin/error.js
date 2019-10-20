@@ -19,7 +19,8 @@ import { writeProcessOutput } from './output.js'
 // those are not application errors.
 // Execa reports the last three ones differently, using `error.originalMessage`.
 export const handleSingleError = function({
-  error: { originalMessage, exitCode = DEFAULT_EXIT_CODE },
+  originalMessage,
+  exitCode = DEFAULT_EXIT_CODE,
 }) {
   if (originalMessage !== undefined) {
     stderr.write(`${originalMessage}\n`)

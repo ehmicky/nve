@@ -34,6 +34,6 @@ export const runSingle = async function({
   try {
     await childProcess
   } catch (error) {
-    return handleSingleError({ error })
+    return handleSingleError(error)
   }
 }
