@@ -2,9 +2,9 @@ import test from 'ava'
 import { each } from 'test-each'
 
 import { TEST_VERSION } from '../helpers/versions.js'
-import { runCli, runCliSerial } from '../helpers/run.js'
+import { runCli, runCliSerial, runCliParallel } from '../helpers/run.js'
 
-each([runCli, runCliSerial], ({ title }, run) => {
+each([runCli, runCliSerial, runCliParallel], ({ title }, run) => {
   test(`Print non-Execa errors on stderr | ${title}`, async t => {
     const { stderr } = await run('', TEST_VERSION, 'invalidBinary')
 
@@ -18,17 +18,16 @@ test('Does not print Execa errors on stderr | runCli', async t => {
   t.is(stderr, '')
 })
 
-test('Prints Execa errors on stderr | runCliSerial', async t => {
-  const { stderr } = await runCliSerial(
-    '',
-    TEST_VERSION,
-    'node -e process.exit(2)',
-  )
+each([runCliSerial, runCliParallel], ({ title }, run) => {
+  test(`Prints Execa errors on stderr | ${title}`, async t => {
+    const { stderr } = await run('', TEST_VERSION, 'node -e process.exit(2)')
 
-  t.is(
-    stderr,
-    `<>  Node ${TEST_VERSION}
+    t.true(
+      stderr.endsWith(
+        `<>  Node ${TEST_VERSION}
 
 Node ${TEST_VERSION} failed with exit code 2`,
-  )
+      ),
+    )
+  })
 })
