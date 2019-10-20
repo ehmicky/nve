@@ -9,13 +9,7 @@ test('Prints headers | CLI runCliSerial', async t => {
 
   t.is(
     all,
-    `<>  Node ${TEST_VERSION}
-
-v${TEST_VERSION}
-
- <>  Node ${TEST_VERSION}
-
-v${TEST_VERSION}`,
+    `<>  Node ${TEST_VERSION}\n\nv${TEST_VERSION}\n\n <>  Node ${TEST_VERSION}\n\nv${TEST_VERSION}`,
   )
 })
 
@@ -30,12 +24,5 @@ test('Prints headers in colors | CLI runCliSerial', async t => {
 test('Prints headers in correct order | CLI runCliSerial', async t => {
   const { all } = await runCliSerial('', TEST_VERSION, 'echo')
 
-  t.is(
-    all,
-    `<>  Node ${TEST_VERSION}
-
-
-
- <>  Node ${TEST_VERSION}`,
-  )
+  t.is(all, `<>  Node ${TEST_VERSION}\n\n\n\n <>  Node ${TEST_VERSION}`)
 })
