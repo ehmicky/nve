@@ -1,3 +1,15 @@
+# 5.0.0
+
+## Breaking changes
+
+- The programmatic API has been updated. Please refer to its new
+  [documentation](https://github.com/ehmicky/nve/blob/fb764f9c205c0b92c594d406b28386561aec019d/README.md#programmatic).
+
+## Features
+
+- Use a progress bar instead of a spinner with the
+  [`progress` CLI flag](https://github.com/ehmicky/nve/blob/fb764f9c205c0b92c594d406b28386561aec019d/README.md#--progress).
+
 # 4.0.1
 
 ## Internal
