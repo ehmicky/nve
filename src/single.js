@@ -1,4 +1,4 @@
-import nvexeca from '../main.js'
+import nvexeca from 'nvexeca'
 
 import { getSingleStdinOptions } from './stdin.js'
 import { printVersion } from './dry.js'

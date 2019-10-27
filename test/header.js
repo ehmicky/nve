@@ -2,10 +2,10 @@ import test from 'ava'
 import { each } from 'test-each'
 import hasAnsi from 'has-ansi'
 
-import { TEST_VERSION } from '../helpers/versions.js'
-import { runCliSerial, runCliParallel } from '../helpers/run.js'
+import { TEST_VERSION } from './helpers/versions.js'
+import { runSerial, runParallel } from './helpers/run.js'
 
-each([runCliSerial, runCliParallel], ({ title }, run) => {
+each([runSerial, runParallel], ({ title }, run) => {
   test(`Prints headers | ${title}`, async t => {
     const { stdout, stderr } = await run('', TEST_VERSION, 'node --version')
 

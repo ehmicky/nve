@@ -1,14 +1,14 @@
 import test from 'ava'
 import { each } from 'test-each'
 
-import { TEST_VERSION } from '../helpers/versions.js'
-import { runCli, runCliSerial, runCliParallel } from '../helpers/run.js'
+import { TEST_VERSION } from './helpers/versions.js'
+import { runCli, runSerial, runParallel } from './helpers/run.js'
 
 each(
   [
     { run: runCli, output: 'test' },
-    { run: runCliSerial, output: 'test\ntest' },
-    { run: runCliParallel, output: 'test\ntest' },
+    { run: runSerial, output: 'test\ntest' },
+    { run: runParallel, output: 'test\ntest' },
   ],
   ({ title }, { run, output }) => {
     test(`stdin | ${title}`, async t => {

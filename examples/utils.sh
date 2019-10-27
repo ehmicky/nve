@@ -4,7 +4,7 @@
 dir="$(dirname "$BASH_SOURCE")"
 projectRoot="$(realpath "$dir/..")"
 binaryName="$(basename "$projectRoot")"
-pathToBinary="build/src/bin/main.js"
+pathToBinary="build/src/main.js"
 
 cd "$dir"
 

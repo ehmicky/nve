@@ -1,9 +1,9 @@
 import test from 'ava'
 
-import { TEST_VERSION, OLD_TEST_VERSION } from '../helpers/versions.js'
-import { runCli } from '../helpers/run.js'
+import { TEST_VERSION, OLD_TEST_VERSION } from './helpers/versions.js'
+import { runCli } from './helpers/run.js'
 
-test(`Forward exit code and output on late failure | runCliSerial`, async t => {
+test(`Forward exit code and output on late failure | runSerial`, async t => {
   const { exitCode, stdout, stderr } = await runCli(
     '',
     `${TEST_VERSION} ${OLD_TEST_VERSION}`,
@@ -24,7 +24,7 @@ test(`Forward exit code and output on late failure | runCliSerial`, async t => {
   )
 })
 
-test(`--continue | runCliSerial`, async t => {
+test(`--continue | runSerial`, async t => {
   const { exitCode, stdout, stderr } = await runCli(
     '--continue',
     `${OLD_TEST_VERSION} ${TEST_VERSION}`,

@@ -1,6 +1,5 @@
 import execa from 'execa'
-
-import nvexeca from '../main.js'
+import nvexeca from 'nvexeca'
 
 import { getSerialStdinOptions } from './stdin.js'
 import { printVersionHeader } from './header.js'

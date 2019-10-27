@@ -2,8 +2,8 @@ import test from 'ava'
 import { each } from 'test-each'
 import readPkgUp from 'read-pkg-up'
 
-import { TEST_VERSION } from '../helpers/versions.js'
-import { runCli, runCliSerial, runCliParallel } from '../helpers/run.js'
+import { TEST_VERSION } from './helpers/versions.js'
+import { runCli, runSerial, runParallel } from './helpers/run.js'
 
 test('--help', async t => {
   const { stdout } = await runCli('', '', '--help')
@@ -22,7 +22,7 @@ test('--version', async t => {
   t.is(stdout, version)
 })
 
-each([runCli, runCliSerial, runCliParallel], ({ title }, run) => {
+each([runCli, runSerial, runParallel], ({ title }, run) => {
   test(`node --help | ${title}`, async t => {
     const { stdout } = await run('', TEST_VERSION, 'node --help')
 
@@ -36,8 +36,8 @@ test('node --version | runCli', async t => {
   t.is(stdout, `v${TEST_VERSION}`)
 })
 
-test('node --version | runCliSerial', async t => {
-  const { stdout } = await runCliSerial('', TEST_VERSION, 'node --version')
+test('node --version | runSerial', async t => {
+  const { stdout } = await runSerial('', TEST_VERSION, 'node --version')
 
   t.is(stdout, `v${TEST_VERSION}\nv${TEST_VERSION}`)
 })

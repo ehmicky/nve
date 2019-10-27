@@ -1,10 +1,10 @@
 import test from 'ava'
 import { each } from 'test-each'
 
-import { OLD_TEST_VERSION, TEST_VERSION } from '../helpers/versions.js'
-import { runCli, runCliSerial, runCliParallel } from '../helpers/run.js'
+import { OLD_TEST_VERSION, TEST_VERSION } from './helpers/versions.js'
+import { runCli, runSerial, runParallel } from './helpers/run.js'
 
-each([runCliSerial, runCliParallel], ({ title }, run) => {
+each([runSerial, runParallel], ({ title }, run) => {
   test(`Works with early failures | ${title}`, async t => {
     const { exitCode } = await run('', TEST_VERSION, 'invalid')
 

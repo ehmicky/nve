@@ -12,7 +12,7 @@ Unlike [`nvm exec`](https://github.com/nvm-sh/nvm/blob/master/README.md#usage)
 it:
 
 - can run [multiple Node.js versions](#examples-multiple-versions) at once
-- can be run [programmatically](#examples-programmatic)
+- can be run [programmatically](https://github.com/ehmicky/nvexeca)
 - is [10 times faster](#benchmarks)
 - does not need a separate installation step for each Node version
 - can run the major release's latest minor/patch version automatically
@@ -29,7 +29,7 @@ or shell session**, please use [`nvm`](https://github.com/nvm-sh/nvm),
 [`n`](https://github.com/tj/n) or [`nvs`](https://github.com/jasongin/nvs)
 instead.
 
-# Examples (CLI)
+# Examples
 
 ```bash
 # Same as `node` but with Node 12
@@ -67,9 +67,6 @@ $ nve --shell 8 "npm run build && npm test"
 
 # Cache Node 8 download without executing any command
 $ nve 8
-
-# Cache multiple Node downloads
-$ nve 12 10 8
 ```
 
 # Examples (multiple versions)
@@ -98,23 +95,9 @@ $ nve --continue 12 10 8 npm test
 
 # Run all versions in parallel
 $ nve --parallel 12 10 8 npm test
-```
 
-# Examples (programmatic)
-
-<!-- Remove 'eslint-skip' once estree supports top-level await -->
-<!-- eslint-skip -->
-
-```js
-const nve = require('nve')
-
-const { childProcess, versionRange, version } = await nve('8', 'node', [
-  '--version',
-])
-console.log(`Node ${versionRange} (${version})`) // Node 8 (8.16.1)
-const { exitCode, stdout, stderr } = await childProcess
-console.log(`Exit code: ${exitCode}`) // 0
-console.log(stdout) // v8.16.1
+# Cache multiple Node downloads
+$ nve 12 10 8
 ```
 
 # Demo
@@ -134,8 +117,6 @@ npm install -g nve
 use any Node version (providing it is compatible with it).
 
 # Usage
-
-## CLI
 
 ```bash
 nve [OPTIONS...] VERSION... [COMMAND] [ARGS...]
@@ -202,13 +183,14 @@ nve --shell 8 "npm run build && npm test"
 ```
 
 Please note that shell-specific features such as globbing, environment variables
-or `$VARIABLE` expansion work even without `--shell`.
+or `$VARIABLE` expansion work even without `--shell`. This is because those are
+interpreted by the shell before `nve` is called.
 
 ### --progress
 
 _Type_: `boolean`<br>_Default_: `true`
 
-Whether to show a progress bar when the Node binary is downloading.
+Whether to show a progress bar while the Node binary is downloading.
 
 ### --mirror
 
@@ -231,108 +213,6 @@ If your code is using native modules, `nve` works providing:
 Otherwise the following error message is shown:
 `Error: The module was compiled against a different Node.js version`.
 
-## Programmatic
-
-### nve(versionRange, command, args?, options?)
-
-_versionRange_: `string`<br> _command_: `string`<br>_args_: `string[]?`<br>
-_options_: `object?`<br>_Return value_: `Promise<object>`
-
-`command` is the file or command to execute. `args` are the arguments passed to
-it.
-
-#### Options
-
-_Type_: `object`
-
-All Execa options are available. Please refer to Execa for the list of
-[possible options](https://github.com/sindresorhus/execa#options).
-
-The
-[`preferLocal` option](https://github.com/sindresorhus/execa/blob/master/readme.md#preferlocal)
-is always `true`.
-
-The following options are also available.
-
-##### dry
-
-_Type_: `boolean`<br>_Default_: `false`
-
-Do not execute the command. This can be used to cache the initial Node.js binary
-download
-
-##### progress
-
-Like the [`--progress` CLI option](#--progress). Defaults to `false`.
-
-##### mirror
-
-Like the [`--mirror` CLI option](#--mirror).
-
-#### Return value
-
-_Type_: `Promise<object>`
-
-##### childProcess
-
-_Type_:
-[`execaResult?`](https://github.com/sindresorhus/execa#execafile-arguments-options)
-
-[`childProcess` instance](https://nodejs.org/api/child_process.html#child_process_class_childprocess).
-It is also a `Promise` resolving or rejecting with a
-[`childProcessResult`](https://github.com/sindresorhus/execa#childProcessResult).
-
-This is `undefined` when the [`dry`](#dry) option is `true`.
-
-##### versionRange
-
-_Type_: `string`
-
-Node.js version passed as input, such as `"v10"`.
-
-##### version
-
-_Type_: `string`
-
-Normalized Node.js version. For example if `"v10"` was passed as input,
-`version` will be `"10.17.0"`.
-
-##### command
-
-_Type_: `string`
-
-File or command that was executed.
-
-##### args
-
-_Type_: `string[]`
-
-Arguments that were passed to the `command`.
-
-##### execaOptions
-
-_Type_: `object`
-
-[Options](https://github.com/sindresorhus/execa#options) that were passed to
-[Execa](https://github.com/sindresorhus/execa).
-
-#### Example
-
-<!-- Remove 'eslint-skip' once estree supports top-level await -->
-<!-- eslint-skip -->
-
-```js
-const nve = require('nve')
-
-const { childProcess, versionRange, version } = await nve(
-  '8',
-  'command',
-  ['--version'],
-  options,
-)
-const { exitCode, stdout, stderr } = await childProcess
-```
-
 # Benchmarks
 
 The [following benchmarks](benchmarks/main.js) compare the average time to run
@@ -347,6 +227,8 @@ npx node: 1547ms
 
 # See also
 
+- [`nvexeca`](https://github.com/ehmicky/nvexeca): Like `nve` but programmatic
+  (from Node.js)
 - [`execa`](https://github.com/sindresorhus/execa): Process execution for humans
 - [`get-node`](https://github.com/ehmicky/get-node): Download Node.js
 - [`normalize-node-version`](https://github.com/ehmicky/normalize-node-version):

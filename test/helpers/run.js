@@ -5,12 +5,12 @@ import { nodejs } from 'figures'
 const BIN_PATH = getBinPath()
 
 // eslint-disable-next-line max-params
-export const runCliSerial = function(opts, versionRange, args, execaOpts) {
+export const runSerial = function(opts, versionRange, args, execaOpts) {
   return runCli(opts, `${versionRange} ${versionRange}`, args, execaOpts)
 }
 
 // eslint-disable-next-line max-params
-export const runCliParallel = function(opts, versionRange, args, execaOpts) {
+export const runParallel = function(opts, versionRange, args, execaOpts) {
   return runCli(
     `${opts} --parallel`,
     `${versionRange} ${versionRange}`,
@@ -35,13 +35,11 @@ export const runCli = async function(opts, versionRange, args, execaOpts) {
   return { exitCode, stdout: stdoutA, stderr: stderrA }
 }
 
+// Normalize Windows specifics
 const normalizeOutput = function(output) {
-  return (
-    output
-      // Windows specifics
-      .replace(/\r\n/gu, '\n')
-      .replace(/cmd "test"/gu, 'test')
-      .trim()
-      .replace(new RegExp(nodejs, 'gu'), '<>')
-  )
+  return output
+    .replace(/\r\n/gu, '\n')
+    .replace(/cmd "test"/gu, 'test')
+    .trim()
+    .replace(new RegExp(nodejs, 'gu'), '<>')
 }

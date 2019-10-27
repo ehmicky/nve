@@ -1,7 +1,7 @@
 import test from 'ava'
 import { each } from 'test-each'
 
-import { runCli } from '../helpers/run.js'
+import { runCli } from './helpers/run.js'
 
 each(
   [

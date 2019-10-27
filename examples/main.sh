@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Demo of the CLI usage.
+# `nve` demo.
 # This file can be directly run
 #   npm install nve
 #   bash node_modules/nve/examples/main.sh

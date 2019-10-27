@@ -1,69 +1,29 @@
-import { ChildProcess } from 'child_process'
-
 import test from 'ava'
+import { each } from 'test-each'
 
-import nvexeca from '../src/main.js'
-
+import { runCli, runSerial, runParallel } from './helpers/run.js'
 import { TEST_VERSION } from './helpers/versions.js'
 
-test('Return normalized Node.js version', async t => {
-  const { version } = await nvexeca(`v${TEST_VERSION}`, 'node', ['--version'])
+each([runCli, runSerial, runParallel], ({ title }, run) => {
+  test(`Forward exit code on success | ${title}`, async t => {
+    const { exitCode } = await run('', TEST_VERSION, 'node --version')
 
-  t.is(version, TEST_VERSION)
-})
+    t.is(exitCode, 0)
+  })
 
-test('Return non-normalized Node.js version', async t => {
-  const { versionRange } = await nvexeca(`v${TEST_VERSION}`, 'node', [
-    '--version',
-  ])
+  test(`Forward exit code on failure | ${title}`, async t => {
+    const { exitCode } = await run('', TEST_VERSION, 'node -e process.exit(2)')
 
-  t.is(versionRange, `v${TEST_VERSION}`)
-})
+    t.is(exitCode, 2)
+  })
 
-test('Can omit arguments but specify options', async t => {
-  const { version } = await nvexeca(`v${TEST_VERSION}`, 'echo', {})
+  test(`Default exit code to 1 | ${title}`, async t => {
+    const { exitCode } = await run(
+      '',
+      TEST_VERSION,
+      'node -e process.kill(process.pid)',
+    )
 
-  t.is(version, TEST_VERSION)
-})
-
-test('Can omit both arguments and options', async t => {
-  const { version } = await nvexeca(`v${TEST_VERSION}`, 'echo')
-
-  t.is(version, TEST_VERSION)
-})
-
-test('Returns the modified command', async t => {
-  const { command } = await nvexeca(TEST_VERSION, 'node', ['--version'])
-
-  t.not(command, 'node')
-})
-
-test('Returns the modified args', async t => {
-  const { args } = await nvexeca(TEST_VERSION, 'node', ['--version'])
-
-  t.deepEqual(args, ['--version'])
-})
-
-test('Returns the Execa options', async t => {
-  const {
-    execaOptions: { preferLocal },
-  } = await nvexeca(TEST_VERSION, 'node', ['--version'])
-
-  t.true(preferLocal)
-})
-
-test('Forward child process', async t => {
-  const { childProcess } = await nvexeca(TEST_VERSION, 'node', ['-p', '"test"'])
-
-  t.true(childProcess instanceof ChildProcess)
-
-  const { exitCode, stdout } = await childProcess
-  t.is(exitCode, 0)
-  t.is(stdout, 'test')
-})
-
-test('Dry mode', async t => {
-  const { childProcess } = await nvexeca(TEST_VERSION, 'node', { dry: true })
-
-  t.is(childProcess, undefined)
+    t.is(exitCode, 1)
+  })
 })

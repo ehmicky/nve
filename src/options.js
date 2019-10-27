@@ -1,49 +1,24 @@
-import { validate } from 'jest-validate'
 import filterObj from 'filter-obj'
-import isPlainObj from 'is-plain-obj'
 
-import { validateBasic } from './validate.js'
-
-// Validate input parameters and assign default values.
-export const getOpts = function({ versionRange, command, args, opts }) {
-  const { args: argsA, opts: optsA } = parseBasic({ args, opts })
-
-  validateBasic({ versionRange, command, args: argsA, opts: optsA })
-
-  const { dry, progress, mirror, ...execaOptions } = optsA
-  const optsB = { dry, progress, mirror }
-
-  validate(optsB, { exampleConfig: EXAMPLE_OPTS })
-
-  const optsC = filterObj(optsB, isDefined)
-  const optsD = { ...DEFAULT_OPTS, ...optsC }
-  return { args: argsA, opts: optsD, execaOptions }
+// Parse nve --options using yargs, and assign default values
+export const parseOpts = function(opts, yargs) {
+  const optsA = yargs.parse(opts)
+  const optsB = filterObj(optsA, isUserOpt)
+  const optsC = { ...DEFAULT_CLI_OPTS, ...optsB }
+  const { continue: continueOpt, parallel, ...optsD } = optsC
+  return { opts: optsD, continueOpt, parallel }
 }
 
-// `args` and `opts` are both optional
-const parseBasic = function({
-  args: oArgs,
-  opts: oOpts,
-  args = [],
-  opts = {},
-}) {
-  if (oOpts === undefined && isPlainObj(oArgs)) {
-    return { args: [], opts: oArgs }
-  }
-
-  return { args, opts }
+// Remove `yargs`-specific options, shortcuts and dash-cased
+const isUserOpt = function(key, value) {
+  return (
+    value !== undefined &&
+    !INTERNAL_KEYS.includes(key) &&
+    key.length !== 1 &&
+    !key.includes('-')
+  )
 }
 
-const isDefined = function(key, value) {
-  return value !== undefined
-}
+const INTERNAL_KEYS = ['help', 'version', '_', '$0']
 
-const DEFAULT_OPTS = {
-  progress: false,
-  dry: false,
-}
-
-const EXAMPLE_OPTS = {
-  ...DEFAULT_OPTS,
-  mirror: 'https://nodejs.org/dist',
-}
+const DEFAULT_CLI_OPTS = { progress: true, continue: false, parallel: false }

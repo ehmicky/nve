@@ -2,8 +2,7 @@
 import { stdout } from 'process'
 
 import execa from 'execa'
-
-import nvexeca from '../main.js'
+import nvexeca from 'nvexeca'
 
 import { getParallelStdinOptions } from './stdin.js'
 import { getColorOptions } from './colors.js'

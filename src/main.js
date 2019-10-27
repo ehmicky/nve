@@ -1,51 +1,57 @@
-import getNode from 'get-node'
-import execa from 'execa'
+#!/usr/bin/env node
+import { exit } from 'process'
 
-import { getOpts } from './options.js'
-import { getCommand, getExecaOptions } from './spawn.js'
+import { defineCli } from './top.js'
+import { parseInput } from './parse.js'
+import { runSingle } from './single.js'
+import { runSerial } from './serial.js'
+import { runParallel } from './parallel.js'
+import { handleFault } from './fault.js'
 
-// Forwards command to another node instance of a specific `versionRange`
-// eslint-disable-next-line max-params
-const nvexeca = async function(versionRange, command, args, opts) {
-  const {
-    args: argsA,
-    opts: { dry, progress, mirror },
-    execaOptions,
-  } = getOpts({ versionRange, command, args, opts })
-
-  const { path: nodePath, version } = await getNode(versionRange, {
-    progress,
-    mirror,
-  })
-
-  const commandA = getCommand(command, nodePath, execaOptions)
-  const execaOptionsA = getExecaOptions(execaOptions, nodePath)
-
-  const childProcess = startProcess({
-    command: commandA,
-    args: argsA,
-    execaOptions: execaOptionsA,
-    dry,
-  })
-
-  return {
-    childProcess,
-    version,
-    versionRange,
-    command: commandA,
-    args: argsA,
-    execaOptions: execaOptionsA,
+// CLI that forwards its arguments but using a specific Node.js version
+const runCli = async function() {
+  try {
+    const yargs = defineCli()
+    const {
+      versionRanges,
+      command,
+      args,
+      opts,
+      continueOpt,
+      parallel,
+    } = parseInput(yargs)
+    const exitCode = await runMain({
+      versionRanges,
+      command,
+      args,
+      opts,
+      continueOpt,
+      parallel,
+    })
+    exit(exitCode)
+  } catch (error) {
+    handleFault(error)
+    exit(1)
   }
 }
 
-const startProcess = function({ command, args, execaOptions, dry }) {
-  if (dry) {
-    return
+const runMain = function({
+  versionRanges,
+  command,
+  args,
+  opts,
+  continueOpt,
+  parallel,
+}) {
+  if (versionRanges.length === 1) {
+    return runSingle({ versionRanges, command, args, opts })
   }
 
-  return execa(command, args, execaOptions)
+  if (parallel) {
+    return runParallel({ versionRanges, command, args, opts, continueOpt })
+  }
+
+  return runSerial({ versionRanges, command, args, opts, continueOpt })
 }
 
-// We do not use `export default` because Babel transpiles it in a way that
-// requires CommonJS users to `require(...).default` instead of `require(...)`.
-module.exports = nvexeca
+runCli()
