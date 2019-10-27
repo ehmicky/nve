@@ -67,14 +67,12 @@ Node ${OLD_TEST_VERSION} failed with exit code 1`,
 })
 
 test(`Write buffered output | runCliParallel`, async t => {
-  const { stdout } = await runCli(
-    '--parallel',
-    `${TEST_VERSION} ${OLD_TEST_VERSION}`,
-    `node -e console.log(process.version)
-setTimeout(()=>{Buffer.from("")},1e3)
-setTimeout(()=>{},1e9)`,
+  const { stdout } = await runCliParallel(
+    '',
+    TEST_VERSION,
+    `node -e console.log('test')
+Buffer.from("")`,
   )
 
-  t.true(stdout.includes(TEST_VERSION))
-  t.true(stdout.includes(OLD_TEST_VERSION))
+  t.true(stdout.includes('test'))
 })
