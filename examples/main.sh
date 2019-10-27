@@ -41,6 +41,7 @@ nve --mirror=https://npm.taobao.org/mirrors/node 8 node --version
 
 # Chaining commands without a shell
 nve 8 node --version && nve 8 node file.js
+
 # Chaining commands with a shell
 nve --shell 8 "node --version && node file.js"
 

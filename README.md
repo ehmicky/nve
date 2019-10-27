@@ -61,6 +61,7 @@ $ nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test
 
 # Chaining commands without a shell
 $ nve 8 npm run build && nve 8 npm test
+
 # Chaining commands with a shell
 $ nve --shell 8 "npm run build && npm test"
 
