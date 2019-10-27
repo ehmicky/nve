@@ -1,4 +1,6 @@
-import { runVersions } from '../main.js'
+import execa from 'execa'
+
+import { dryRunVersion } from '../main.js'
 
 import { getSerialStdinOptions } from './stdin.js'
 import { printHeader } from './header.js'
@@ -30,16 +32,20 @@ export const runSerial = async function({
     return printVersions(versionRanges, args, optsA)
   }
 
-  const iterable = runVersions(versionRanges, command, args, optsA)
+  const versions = await Promise.all(
+    versionRanges.map(versionRange =>
+      dryRunVersion(versionRange, command, args, optsA),
+    ),
+  )
 
   const state = { index: 0 }
-  await runProcesses({ versionRanges, iterable, state, continueOpt })
+  await runProcesses({ versionRanges, versions, state, continueOpt })
   return state.exitCode
 }
 
 const runProcesses = async function({
   versionRanges,
-  iterable,
+  versions,
   state,
   continueOpt,
 }) {
@@ -49,10 +55,13 @@ const runProcesses = async function({
   printHeader({ versionRanges, state })
 
   // eslint-disable-next-line fp/no-loops
-  for await (const { childProcess, versionRange } of iterable) {
+  for (const { versionRange, command, args, execaOptions } of versions) {
+    // eslint-disable-next-line no-await-in-loop
     const shouldStop = await runProcess({
-      childProcess,
       versionRange,
+      command,
+      args,
+      execaOptions,
       state,
       continueOpt,
     })
@@ -70,13 +79,15 @@ const runProcesses = async function({
 }
 
 const runProcess = async function({
-  childProcess,
   versionRange,
+  command,
+  args,
+  execaOptions,
   state,
   continueOpt,
 }) {
   try {
-    await childProcess
+    await execa(command, args, execaOptions)
   } catch (error) {
     handleSerialError(error, versionRange, state)
     return !continueOpt
