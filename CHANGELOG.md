@@ -1,3 +1,15 @@
+# 4.0.0
+
+## Features
+
+- To perform a dry run programatically, `command: undefined` cannot be used with
+  [`runVersion()`](https://github.com/ehmicky/nve/blob/fb764f9c205c0b92c594d406b28386561aec019d/README.md#runversionversionrange-command-args-options)
+  or
+  [`runVersions`](https://github.com/ehmicky/nve/blob/fb764f9c205c0b92c594d406b28386561aec019d/README.md#runversionsversionranges-command-args-options).
+  A new method
+  [`dryRunVersion()`](https://github.com/ehmicky/nve/blob/fb764f9c205c0b92c594d406b28386561aec019d/README.md#dryrunversionversionrange-command-args-options)
+  should be used instead.
+
 # 3.6.0
 
 ## Features
