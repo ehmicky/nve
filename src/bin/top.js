@@ -38,7 +38,7 @@ Default: false`,
   },
   progress: {
     boolean: true,
-    describe: `Show a loading spinner.
+    describe: `Show a progress bar.
 Default: true`,
   },
   mirror: {
