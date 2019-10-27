@@ -1,6 +1,8 @@
 import { stdout } from 'process'
 
-import { runVersions } from '../main.js'
+import execa from 'execa'
+
+import { dryRunVersion } from '../main.js'
 
 import { getParallelStdinOptions } from './stdin.js'
 import { getColorOptions } from './colors.js'
@@ -9,7 +11,6 @@ import { printVersions } from './dry.js'
 import { cleanupProcesses } from './cleanup.js'
 import { handleParallelError } from './error.js'
 import { writeProcessOutput } from './output.js'
-import { asyncIteratorAll } from './utils.js'
 
 // Run multiple Node versions in parallel
 export const runParallel = async function({
@@ -40,10 +41,12 @@ export const runParallel = async function({
     return printVersions(versionRanges, args, optsA)
   }
 
-  const iterable = runVersions(versionRanges, command, args, optsA)
-
-  // Start all child processes in parallel, but do not await them yet
-  const versions = await asyncIteratorAll(iterable)
+  const versions = await startProcesses({
+    versionRanges,
+    command,
+    args,
+    opts: optsA,
+  })
 
   const state = {}
   await Promise.all([
@@ -52,6 +55,30 @@ export const runParallel = async function({
   ])
 
   return state.exitCode
+}
+
+// We start child processes in parallel.
+// We make a dry run first to ensure Node.js downloads happens before any
+// child process.
+const startProcesses = async function({ versionRanges, command, args, opts }) {
+  const versions = await Promise.all(
+    versionRanges.map(versionRange =>
+      dryRunVersion(versionRange, command, args, opts),
+    ),
+  )
+  const versionsA = versions.map(startProcess)
+  return versionsA
+}
+
+const startProcess = function({
+  version,
+  versionRange,
+  command,
+  args,
+  execaOptions,
+}) {
+  const childProcess = execa(command, args, execaOptions)
+  return { childProcess, version, versionRange, command, args, execaOptions }
 }
 
 // Print child processes in serial order, even though they are running in
