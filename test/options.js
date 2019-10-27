@@ -1,7 +1,7 @@
 import test from 'ava'
 import { each } from 'test-each'
 
-import { runVersion } from '../src/main.js'
+import nvexeca from '../src/main.js'
 
 import { TEST_VERSION } from './helpers/versions.js'
 
@@ -20,7 +20,7 @@ each(
   ],
   ({ title }, [versionRange, command, args, opts]) => {
     test(`Invalid arguments | programmatic ${title}`, async t => {
-      await t.throwsAsync(runVersion(versionRange, command, args, opts))
+      await t.throwsAsync(nvexeca(versionRange, command, args, opts))
     })
   },
 )

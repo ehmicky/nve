@@ -10,14 +10,12 @@
 // Ignore the following line: this is only needed for internal purposes.
 require('./utils.js')
 
-const { runVersion } = require('nve')
+const nve = require('nve')
 
 const run = async function() {
-  const { childProcess, versionRange, version } = await runVersion(
-    '8',
-    'node',
-    ['--version'],
-  )
+  const { childProcess, versionRange, version } = await nve('8', 'node', [
+    '--version',
+  ])
   console.log(`Node ${versionRange} (${version})`) // Node 8 (8.16.1)
   const { exitCode, stdout, stderr } = await childProcess
   console.log(`Exit code: ${exitCode}`) // Exit code: 0

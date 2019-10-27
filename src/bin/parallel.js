@@ -2,7 +2,7 @@ import { stdout } from 'process'
 
 import execa from 'execa'
 
-import { runVersion } from '../main.js'
+import nvexeca from '../main.js'
 
 import { getParallelStdinOptions } from './stdin.js'
 import { getColorOptions } from './colors.js'
@@ -64,7 +64,7 @@ export const runParallel = async function({
 const startProcesses = async function({ versionRanges, command, args, opts }) {
   const versions = await Promise.all(
     versionRanges.map(versionRange =>
-      runVersion(versionRange, command, args, opts),
+      nvexeca(versionRange, command, args, opts),
     ),
   )
   const versionsA = versions.map(startProcess)

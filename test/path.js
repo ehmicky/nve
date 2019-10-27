@@ -8,7 +8,7 @@ import execa from 'execa'
 import isCi from 'is-ci'
 import pathKey from 'path-key'
 
-import { runVersion } from '../src/main.js'
+import nvexeca from '../src/main.js'
 
 import { HELPER_VERSION, TEST_VERSION } from './helpers/versions.js'
 
@@ -30,7 +30,7 @@ if (platform !== 'win32' || !isCi) {
     [{}, { [pathKey()]: undefined }],
     ({ title }, args, env) => {
       test(`Works with child processes | ${title}`, async t => {
-        const { childProcess } = await runVersion(
+        const { childProcess } = await nvexeca(
           HELPER_VERSION,
           'node',
           [FORK_FILE, ...args],
@@ -44,7 +44,7 @@ if (platform !== 'win32' || !isCi) {
   )
 
   test.serial('Works with nyc as child', async t => {
-    const { childProcess } = await runVersion(HELPER_VERSION, 'nyc', [
+    const { childProcess } = await nvexeca(HELPER_VERSION, 'nyc', [
       '--silent',
       '--',
       'node',
@@ -73,7 +73,7 @@ test('Works with nyc as parent with node command', async t => {
 test('Does not change process.execPath', async t => {
   // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
   const { execPath } = process
-  await runVersion(TEST_VERSION, 'node', ['--version'])
+  await nvexeca(TEST_VERSION, 'node', ['--version'])
 
   // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
   t.is(process.execPath, execPath)

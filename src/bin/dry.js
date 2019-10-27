@@ -1,6 +1,6 @@
 import { stdout } from 'process'
 
-import { runVersion } from '../main.js'
+import nvexeca from '../main.js'
 
 // When `command` is `undefined`, we only print the normalized Node.js version
 export const printVersions = async function(versionRanges, args, opts) {
@@ -12,7 +12,7 @@ export const printVersions = async function(versionRanges, args, opts) {
 }
 
 export const printVersion = async function(versionRange, args, opts) {
-  const { version } = await runVersion(versionRange, '', args, {
+  const { version } = await nvexeca(versionRange, '', args, {
     ...opts,
     dry: true,
   })

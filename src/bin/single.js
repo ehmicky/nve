@@ -1,4 +1,4 @@
-import { runVersion } from '../main.js'
+import nvexeca from '../main.js'
 
 import { getSingleStdinOptions } from './stdin.js'
 import { printVersion } from './dry.js'
@@ -28,7 +28,7 @@ export const runSingle = async function({
     return printVersion(versionRange, args, optsA)
   }
 
-  const { childProcess } = await runVersion(versionRange, command, args, optsA)
+  const { childProcess } = await nvexeca(versionRange, command, args, optsA)
 
   try {
     await childProcess

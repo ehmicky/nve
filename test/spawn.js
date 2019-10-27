@@ -5,7 +5,7 @@ import { each } from 'test-each'
 import pathKey from 'path-key'
 import isCi from 'is-ci'
 
-import { runVersion } from '../src/main.js'
+import nvexeca from '../src/main.js'
 
 import { TEST_VERSION, HELPER_VERSION } from './helpers/versions.js'
 
@@ -18,7 +18,7 @@ each(
   ],
   ({ title }, { stdio, output }) => {
     test(`Can use stdio | ${title}`, async t => {
-      const { childProcess } = await runVersion(
+      const { childProcess } = await nvexeca(
         TEST_VERSION,
         'node',
         ['--version'],
@@ -32,9 +32,7 @@ each(
 )
 
 test('Can fire global binaries', async t => {
-  const { childProcess } = await runVersion(HELPER_VERSION, 'npm', [
-    '--version',
-  ])
+  const { childProcess } = await nvexeca(HELPER_VERSION, 'npm', ['--version'])
   const { stdout } = await childProcess
 
   t.true(stdout !== '')
@@ -73,7 +71,7 @@ if (platform !== 'win32' || !isCi) {
 // See https://github.com/istanbuljs/spawn-wrap/issues/108
 if (platform !== 'darwin' || !isCi) {
   test('Can run in shell mode', async t => {
-    const { childProcess } = await runVersion(
+    const { childProcess } = await nvexeca(
       TEST_VERSION,
       'node --version && node --version',
       [],
@@ -90,7 +88,7 @@ if (platform !== 'darwin' || !isCi) {
 }
 
 const runWithoutPath = function(execaOptions) {
-  return runVersion(HELPER_VERSION, 'ava', ['--version'], {
+  return nvexeca(HELPER_VERSION, 'ava', ['--version'], {
     execaOptions: { env: { [pathKey()]: '' }, ...execaOptions },
   })
 }

@@ -106,9 +106,9 @@ $ nve --parallel 12 10 8 npm test
 <!-- eslint-skip -->
 
 ```js
-const { runVersion } = require('nve')
+const nve = require('nve')
 
-const { childProcess, versionRange, version } = await runVersion('8', 'node', [
+const { childProcess, versionRange, version } = await nve('8', 'node', [
   '--version',
 ])
 console.log(`Node ${versionRange} (${version})`) // Node 8 (8.16.1)
@@ -233,7 +233,7 @@ Otherwise the following error message is shown:
 
 ## Programmatic
 
-### runVersion(versionRange, command, args?, options?)
+### nve(versionRange, command, args?, options?)
 
 _versionRange_: `string`<br> _command_: `string`<br>_args_: `string[]?`<br>
 _options_: `object?`<br>_Return value_: `Promise<object>`
@@ -322,9 +322,9 @@ _Type_: `object`
 <!-- eslint-skip -->
 
 ```js
-const { runVersion } = require('nve')
+const nve = require('nve')
 
-const { childProcess, versionRange, version } = await runVersion(
+const { childProcess, versionRange, version } = await nve(
   '8',
   'command',
   ['--version'],

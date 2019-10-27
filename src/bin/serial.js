@@ -1,6 +1,6 @@
 import execa from 'execa'
 
-import { runVersion } from '../main.js'
+import nvexeca from '../main.js'
 
 import { getSerialStdinOptions } from './stdin.js'
 import { printVersionHeader } from './header.js'
@@ -35,7 +35,7 @@ export const runSerial = async function({
 
   const versions = await Promise.all(
     versionRanges.map(versionRange =>
-      runVersion(versionRange, command, args, optsA),
+      nvexeca(versionRange, command, args, optsA),
     ),
   )
 
