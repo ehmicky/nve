@@ -243,16 +243,16 @@ it.
 
 #### Options
 
-##### execaOptions
+_Type_: `object`
 
-_Type_: `object`<br>_Default_: `{}`
-
-Options passed to Execa. Please refer to Execa for the list of
-[available options](https://github.com/sindresorhus/execa#options).
+All Execa options are available. Please refer to Execa for the list of
+[possible options](https://github.com/sindresorhus/execa#options).
 
 The
 [`preferLocal` option](https://github.com/sindresorhus/execa/blob/master/readme.md#preferlocal)
 is always `true`.
+
+The following options are also available.
 
 ##### dry
 

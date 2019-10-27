@@ -14,14 +14,11 @@ export const runSingle = async function({
   const stdinOptions = getSingleStdinOptions()
   const optsA = {
     ...opts,
-    execaOptions: {
-      ...opts.execaOptions,
-      ...stdinOptions,
-      stdout: 'inherit',
-      stderr: 'inherit',
-      buffer: false,
-      reject: true,
-    },
+    ...stdinOptions,
+    stdout: 'inherit',
+    stderr: 'inherit',
+    buffer: false,
+    reject: true,
   }
 
   if (command === undefined) {

@@ -9,10 +9,14 @@ import { getCommand, getExecaOptions } from './spawn.js'
 const nvexeca = async function(versionRange, command, args, opts) {
   const {
     args: argsA,
-    opts: { execaOptions, dry, ...optsA },
+    opts: { dry, progress, mirror },
+    execaOptions,
   } = getOpts({ versionRange, command, args, opts })
 
-  const { path: nodePath, version } = await getNode(versionRange, optsA)
+  const { path: nodePath, version } = await getNode(versionRange, {
+    progress,
+    mirror,
+  })
 
   const commandA = getCommand(command, nodePath, execaOptions)
   const execaOptionsA = getExecaOptions(execaOptions, nodePath)

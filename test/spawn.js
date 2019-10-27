@@ -22,7 +22,7 @@ each(
         TEST_VERSION,
         'node',
         ['--version'],
-        { execaOptions: { stdio } },
+        { stdio },
       )
       const { stdout } = await childProcess
 
@@ -75,7 +75,7 @@ if (platform !== 'darwin' || !isCi) {
       TEST_VERSION,
       'node --version && node --version',
       [],
-      { execaOptions: { shell: true } },
+      { shell: true },
     )
     const { exitCode } = await childProcess
 
@@ -89,6 +89,7 @@ if (platform !== 'darwin' || !isCi) {
 
 const runWithoutPath = function(execaOptions) {
   return nvexeca(HELPER_VERSION, 'ava', ['--version'], {
-    execaOptions: { env: { [pathKey()]: '' }, ...execaOptions },
+    env: { [pathKey()]: '' },
+    ...execaOptions,
   })
 }

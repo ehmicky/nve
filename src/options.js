@@ -9,18 +9,15 @@ export const getOpts = function({ versionRange, command, args, opts }) {
   const { args: argsA, opts: optsA } = parseBasic({ args, opts })
 
   validateBasic({ versionRange, command, args: argsA, opts: optsA })
-  validate(optsA, {
-    exampleConfig: EXAMPLE_OPTS,
-    recursiveBlacklist: ['execaOptions'],
-  })
 
-  const optsB = filterObj(optsA, isDefined)
-  const optsC = {
-    ...DEFAULT_OPTS,
-    ...optsB,
-    execaOptions: { ...DEFAULT_OPTS.execaOptions, ...optsB.execaOptions },
-  }
-  return { args: argsA, opts: optsC }
+  const { dry, progress, mirror, ...execaOptions } = optsA
+  const optsB = { dry, progress, mirror }
+
+  validate(optsB, { exampleConfig: EXAMPLE_OPTS })
+
+  const optsC = filterObj(optsB, isDefined)
+  const optsD = { ...DEFAULT_OPTS, ...optsC }
+  return { args: argsA, opts: optsD, execaOptions }
 }
 
 // `args` and `opts` are both optional
@@ -42,13 +39,11 @@ const isDefined = function(key, value) {
 }
 
 const DEFAULT_OPTS = {
-  execaOptions: {},
   progress: false,
   dry: false,
 }
 
 const EXAMPLE_OPTS = {
   ...DEFAULT_OPTS,
-  execaOptions: { stdio: 'inherit' },
   mirror: 'https://nodejs.org/dist',
 }

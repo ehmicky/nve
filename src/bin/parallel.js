@@ -25,17 +25,14 @@ export const runParallel = async function({
   const optsA = {
     ...opts,
     dry: true,
-    execaOptions: {
-      ...opts.execaOptions,
-      ...stdinOptions,
-      ...colorOptions,
-      stdout: 'pipe',
-      stderr: 'pipe',
-      buffer: true,
-      all: true,
-      stripFinalNewline: true,
-      reject: true,
-    },
+    ...stdinOptions,
+    ...colorOptions,
+    stdout: 'pipe',
+    stderr: 'pipe',
+    buffer: true,
+    all: true,
+    stripFinalNewline: true,
+    reject: true,
   }
 
   if (command === undefined) {
@@ -71,15 +68,9 @@ const startProcesses = async function({ versionRanges, command, args, opts }) {
   return versionsA
 }
 
-const startProcess = function({
-  version,
-  versionRange,
-  command,
-  args,
-  execaOptions,
-}) {
+const startProcess = function({ versionRange, command, args, execaOptions }) {
   const childProcess = execa(command, args, execaOptions)
-  return { childProcess, version, versionRange, command, args, execaOptions }
+  return { childProcess, versionRange }
 }
 
 // Print child processes in serial order, even though they are running in

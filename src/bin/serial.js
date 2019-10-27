@@ -19,14 +19,11 @@ export const runSerial = async function({
   const optsA = {
     ...opts,
     dry: true,
-    execaOptions: {
-      ...opts.execaOptions,
-      ...stdinOptions,
-      stdout: 'inherit',
-      stderr: 'inherit',
-      reject: true,
-      buffer: false,
-    },
+    ...stdinOptions,
+    stdout: 'inherit',
+    stderr: 'inherit',
+    reject: true,
+    buffer: false,
   }
 
   if (command === undefined) {
