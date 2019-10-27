@@ -1,6 +1,6 @@
 {
   "name": "nve",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "main": "build/src/main.js",
   "files": [
     "build/src",
