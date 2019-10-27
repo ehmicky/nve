@@ -68,7 +68,7 @@
   "devDependencies": {
     "@ehmicky/dev-tasks": "^0.30.50",
     "ava": "^2.4.0",
-    "get-bin-path": "^3.0.0",
+    "get-bin-path": "^4.0.0",
     "gulp": "^4.0.2",
     "has-ansi": "^4.0.0",
     "husky": "^3.0.9",
