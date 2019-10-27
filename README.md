@@ -208,7 +208,7 @@ or `$VARIABLE` expansion work even without `--shell`.
 
 _Type_: `boolean`<br>_Default_: `true`
 
-Whether to show a progress spinner when the Node binary is downloading.
+Whether to show a progress bar when the Node binary is downloading.
 
 ### --mirror
 
