@@ -55,12 +55,12 @@ const terminateProcesses = function({
   }
 
   // Remember which child process failed so that we can print it later
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  state.failedError = error
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  state.failedVersionRange = versionRange
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  state.failedIndex = index
+  // eslint-disable-next-line fp/no-mutating-assign
+  Object.assign(state, {
+    failedError: error,
+    failedVersionRange: versionRange,
+    failedIndex: index,
+  })
 
   versions.forEach(terminateProcess)
 }
