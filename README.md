@@ -74,6 +74,7 @@ $ nve 12 10 8
 # Examples (multiple versions)
 
 ```bash
+# Run multiple versions
 $ nve 12 10 8 npm test
 
  ⬢  Node 12
@@ -93,6 +94,9 @@ $ nve 12 10 8 npm test
 
 # Do not abort on the first version that fails
 $ nve --continue 12 10 8 npm test
+
+# Run all versions in parallel
+$ nve --parallel 12 10 8 npm test
 ```
 
 # Examples (programmatic)
@@ -173,6 +177,23 @@ executing any commands.
 
 ## Options
 
+### --continue
+
+_Alias_: `-c`<br> _Type_: `boolean`<br>_Default_: `false`
+
+By default, when running multiple Node versions and one of those versions fails,
+the others are aborted. This option disables this.
+
+### --parallel
+
+_Alias_: `-p`<br> _Type_: `boolean`<br>_Default_: `false`
+
+When running multiple Node versions, run all of them at the same time. This is
+faster. However this does not work if the command:
+
+- requires some interactive CLI input (for example using a prompt)
+- is not concurrency-safe
+
 ### --shell
 
 _Alias_: `-s`<br> _Type_: `boolean`<br>_Default_: `false`
@@ -193,13 +214,6 @@ nve --shell 8 "npm run build && npm test"
 
 Please note that shell-specific features such as globbing, environment variables
 or `$VARIABLE` expansion work even without `--shell`.
-
-### --continue
-
-_Alias_: `-c`<br> _Type_: `boolean`<br>_Default_: `false`
-
-By default, when running multiple Node versions and one of those versions fails,
-the others are aborted. This option disables this.
 
 ### --progress
 

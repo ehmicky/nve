@@ -24,6 +24,9 @@ nve 12 10 8 node --version
 # Do not abort on the first version that fails
 nve --continue 12 10 8 node --version
 
+# Run all versions in parallel
+nve --parallel 12 10 8 node --version
+
 # Run a specific version
 nve 8.10.0 node --version
 
