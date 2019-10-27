@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { stdout } from 'process'
 
 import execa from 'execa'
@@ -17,8 +18,8 @@ export const runParallel = async function({
   versionRanges,
   command,
   args,
-  opts,
   continueOpt,
+  opts,
 }) {
   if (command === undefined) {
     return printVersions(versionRanges, opts)
@@ -132,3 +133,4 @@ const runProcess = async function({
     return !continueOpt
   }
 }
+/* eslint-enable max-lines */
