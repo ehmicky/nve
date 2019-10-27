@@ -22,13 +22,13 @@ const isUserOpt = function(key, value) {
 
 const INTERNAL_KEYS = ['help', 'version', '_', '$0']
 
-// `--shell` CLI flag is `spawnOptions.shell`
+// `--shell` CLI flag is `execaOptions.shell`
 const handleSpawnOpts = function({ shell, ...opts }) {
   if (shell === undefined) {
     return opts
   }
 
-  return { ...opts, spawnOptions: { shell } }
+  return { ...opts, execaOptions: { shell } }
 }
 
 const DEFAULT_CLI_OPTS = { progress: true, continue: false, parallel: false }

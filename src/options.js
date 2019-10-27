@@ -11,14 +11,14 @@ export const getOpts = function({ versionRange, command, args, opts }) {
   validateBasic({ versionRange, command, args: argsA, opts: optsA })
   validate(optsA, {
     exampleConfig: EXAMPLE_OPTS,
-    recursiveBlacklist: ['spawnOptions'],
+    recursiveBlacklist: ['execaOptions'],
   })
 
   const optsB = filterObj(optsA, isDefined)
   const optsC = {
     ...DEFAULT_OPTS,
     ...optsB,
-    spawnOptions: { ...DEFAULT_OPTS.spawnOptions, ...optsB.spawnOptions },
+    execaOptions: { ...DEFAULT_OPTS.execaOptions, ...optsB.execaOptions },
   }
   return { args: argsA, opts: optsC }
 }
@@ -42,12 +42,12 @@ const isDefined = function(key, value) {
 }
 
 const DEFAULT_OPTS = {
-  spawnOptions: {},
+  execaOptions: {},
   progress: false,
 }
 
 const EXAMPLE_OPTS = {
   ...DEFAULT_OPTS,
-  spawnOptions: { stdio: 'inherit' },
+  execaOptions: { stdio: 'inherit' },
   mirror: 'https://nodejs.org/dist',
 }

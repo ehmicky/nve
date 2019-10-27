@@ -23,8 +23,8 @@ export const runParallel = async function({
   const colorOptions = getColorOptions()
   const optsA = {
     ...opts,
-    spawnOptions: {
-      ...opts.spawnOptions,
+    execaOptions: {
+      ...opts.execaOptions,
       ...stdinOptions,
       ...colorOptions,
       stdout: 'pipe',

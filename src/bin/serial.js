@@ -16,8 +16,8 @@ export const runSerial = async function({
   const stdinOptions = await getSerialStdinOptions()
   const optsA = {
     ...opts,
-    spawnOptions: {
-      ...opts.spawnOptions,
+    execaOptions: {
+      ...opts.execaOptions,
       ...stdinOptions,
       stdout: 'inherit',
       stderr: 'inherit',

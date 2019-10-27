@@ -3,7 +3,7 @@ import execa from 'execa'
 
 import { getOpts } from './options.js'
 import { validateRanges } from './validate.js'
-import { getCommand, getSpawnOptions } from './spawn.js'
+import { getCommand, getExecaOptions } from './spawn.js'
 
 // Forwards command to another node instance of a specific `versionRange`
 // eslint-disable-next-line max-params
@@ -13,17 +13,17 @@ export const runVersion = async function(versionRange, command, args, opts) {
     versionRange: versionRangeA,
     command: commandA,
     args: argsA,
-    spawnOptions,
+    execaOptions,
   } = await dryRunVersion(versionRange, command, args, opts)
 
-  const childProcess = execa(commandA, argsA, spawnOptions)
+  const childProcess = execa(commandA, argsA, execaOptions)
   return {
     childProcess,
     version,
     versionRange: versionRangeA,
     command: commandA,
     args: argsA,
-    spawnOptions,
+    execaOptions,
   }
 }
 
@@ -45,16 +45,16 @@ export const runVersions = async function*(versionRanges, command, args, opts) {
     versionRange,
     command: commandA,
     args: argsA,
-    spawnOptions,
+    execaOptions,
   } of nodes) {
-    const childProcess = execa(commandA, argsA, spawnOptions)
+    const childProcess = execa(commandA, argsA, execaOptions)
     yield {
       childProcess,
       version,
       versionRange,
       command: commandA,
       args: argsA,
-      spawnOptions,
+      execaOptions,
     }
   }
 }
@@ -64,19 +64,19 @@ export const runVersions = async function*(versionRanges, command, args, opts) {
 export const dryRunVersion = async function(versionRange, command, args, opts) {
   const {
     args: argsA,
-    opts: { spawnOptions, ...optsA },
+    opts: { execaOptions, ...optsA },
   } = getOpts({ versionRange, command, args, opts })
 
   const { path: nodePath, version } = await getNode(versionRange, optsA)
 
-  const commandA = getCommand(command, nodePath, spawnOptions)
-  const spawnOptionsA = getSpawnOptions(spawnOptions, nodePath)
+  const commandA = getCommand(command, nodePath, execaOptions)
+  const execaOptionsA = getExecaOptions(execaOptions, nodePath)
 
   return {
     version,
     versionRange,
     command: commandA,
     args: argsA,
-    spawnOptions: spawnOptionsA,
+    execaOptions: execaOptionsA,
   }
 }

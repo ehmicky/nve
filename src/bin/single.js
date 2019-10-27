@@ -14,8 +14,8 @@ export const runSingle = async function({
   const stdinOptions = getSingleStdinOptions()
   const optsA = {
     ...opts,
-    spawnOptions: {
-      ...opts.spawnOptions,
+    execaOptions: {
+      ...opts.execaOptions,
       ...stdinOptions,
       stdout: 'inherit',
       stderr: 'inherit',

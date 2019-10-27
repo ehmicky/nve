@@ -47,9 +47,9 @@ each([runVersion, runVersionMany, dryRunVersion], ({ title }, run) => {
     t.deepEqual(args, ['--version'])
   })
 
-  test(`Returns the spawn options | ${title}`, async t => {
+  test(`Returns the Execa options | ${title}`, async t => {
     const {
-      spawnOptions: { preferLocal },
+      execaOptions: { preferLocal },
     } = await run(TEST_VERSION, 'node', ['--version'])
 
     t.true(preferLocal)

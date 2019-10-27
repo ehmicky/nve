@@ -21,7 +21,7 @@ each(
   ({ title }, { stdio, output }, run) => {
     test(`Can use stdio | ${title}`, async t => {
       const { childProcess } = await run(TEST_VERSION, 'node', ['--version'], {
-        spawnOptions: { stdio },
+        execaOptions: { stdio },
       })
       const { stdout } = await childProcess
 
@@ -79,7 +79,7 @@ each([runVersion, runVersionMany], ({ title }, run) => {
         TEST_VERSION,
         'node --version && node --version',
         [],
-        { spawnOptions: { shell: true } },
+        { execaOptions: { shell: true } },
       )
       const { exitCode } = await childProcess
 
@@ -92,8 +92,8 @@ each([runVersion, runVersionMany], ({ title }, run) => {
   }
 })
 
-const runWithoutPath = function(run, spawnOptions) {
+const runWithoutPath = function(run, execaOptions) {
   return run(HELPER_VERSION, 'ava', ['--version'], {
-    spawnOptions: { env: { [pathKey()]: '' }, ...spawnOptions },
+    execaOptions: { env: { [pathKey()]: '' }, ...execaOptions },
   })
 }

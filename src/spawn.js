@@ -37,6 +37,6 @@ export const getCommand = function(command, nodePath, { shell }) {
 //  - binaries work, even on Windows
 // We use `execa` `execPath` for this.
 // This option requires `preferLocal: true`
-export const getSpawnOptions = function(spawnOptions, nodePath) {
-  return { ...spawnOptions, execPath: nodePath, preferLocal: true }
+export const getExecaOptions = function(execaOptions, nodePath) {
+  return { ...execaOptions, execPath: nodePath, preferLocal: true }
 }

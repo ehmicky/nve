@@ -269,7 +269,7 @@ Like the [`--progress` CLI option](#--progress). Defaults to `false`.
 
 Like the [`--mirror` CLI option](#--mirror).
 
-##### spawnOptions
+##### execaOptions
 
 _Type_: `object`<br>_Default_: `{}`
 
@@ -318,7 +318,7 @@ _Type_: `string[]`
 
 Arguments that were passed to the `command`.
 
-##### spawnOptions
+##### execaOptions
 
 _Type_: `object`
 

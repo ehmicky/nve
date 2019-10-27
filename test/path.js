@@ -38,7 +38,7 @@ if (platform !== 'win32' || !isCi) {
           HELPER_VERSION,
           'node',
           [FORK_FILE, ...args],
-          { spawnOptions: { env } },
+          { execaOptions: { env } },
         )
         const { stdout } = await childProcess
 
