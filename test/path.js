@@ -48,7 +48,7 @@ if (platform !== 'win32' || !isCi) {
   )
 
   each([runVersion, runVersionMany], ({ title }, run) => {
-    test(`Works with nyc as child | ${title}`, async t => {
+    test.serial(`Works with nyc as child | ${title}`, async t => {
       const { childProcess } = await run(HELPER_VERSION, 'nyc', [
         '--silent',
         '--',
