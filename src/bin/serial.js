@@ -1,6 +1,6 @@
 import execa from 'execa'
 
-import { dryRunVersion } from '../main.js'
+import { runVersion } from '../main.js'
 
 import { getSerialStdinOptions } from './stdin.js'
 import { printVersionHeader } from './header.js'
@@ -18,6 +18,7 @@ export const runSerial = async function({
   const stdinOptions = await getSerialStdinOptions()
   const optsA = {
     ...opts,
+    dry: true,
     execaOptions: {
       ...opts.execaOptions,
       ...stdinOptions,
@@ -34,7 +35,7 @@ export const runSerial = async function({
 
   const versions = await Promise.all(
     versionRanges.map(versionRange =>
-      dryRunVersion(versionRange, command, args, optsA),
+      runVersion(versionRange, command, args, optsA),
     ),
   )
 

@@ -243,14 +243,6 @@ it.
 
 #### Options
 
-##### progress
-
-Like the [`--progress` CLI option](#--progress). Defaults to `false`.
-
-##### mirror
-
-Like the [`--mirror` CLI option](#--mirror).
-
 ##### execaOptions
 
 _Type_: `object`<br>_Default_: `{}`
@@ -262,6 +254,21 @@ The
 [`preferLocal` option](https://github.com/sindresorhus/execa/blob/master/readme.md#preferlocal)
 is always `true`.
 
+##### dry
+
+_Type_: `boolean`<br>_Default_: `false`
+
+Do not execute the command. This can be used to cache the initial Node.js binary
+download
+
+##### progress
+
+Like the [`--progress` CLI option](#--progress). Defaults to `false`.
+
+##### mirror
+
+Like the [`--mirror` CLI option](#--mirror).
+
 #### Return value
 
 _Type_: `Promise<object>`
@@ -269,11 +276,13 @@ _Type_: `Promise<object>`
 ##### childProcess
 
 _Type_:
-[`execaResult`](https://github.com/sindresorhus/execa#execafile-arguments-options)
+[`execaResult?`](https://github.com/sindresorhus/execa#execafile-arguments-options)
 
 [`childProcess` instance](https://nodejs.org/api/child_process.html#child_process_class_childprocess).
 It is also a `Promise` resolving or rejecting with a
 [`childProcessResult`](https://github.com/sindresorhus/execa#childProcessResult).
+
+This is `undefined` when the [`dry`](#dry) option is `true`.
 
 ##### versionRange
 
@@ -322,35 +331,6 @@ const { childProcess, versionRange, version } = await runVersion(
   options,
 )
 const { exitCode, stdout, stderr } = await childProcess
-```
-
-### dryRunVersion(versionRange, command, args?, options?)
-
-_versionRanges_: `string`<br> _command_: `string`<br>_args_: `string[]?`<br>
-_options_: `object?`<br>_Return value_: `Promise<object>`
-
-This is the same as
-[`runVersion()`](#runversionversionrange-command-args-options) except the
-command is not executed. The return value is the same except `childProcess` is
-not defined.
-
-This can be used to cache the initial Node.js binary download.
-
-#### Example
-
-<!-- Remove 'eslint-skip' once estree supports top-level await -->
-<!-- eslint-skip -->
-
-```js
-const { dryRunVersion } = require('nve')
-
-const { versionRange, version } = await dryRunVersion(
-  '8',
-  'command',
-  ['--version'],
-  options,
-)
-console.log(`Node ${versionRange} (${version})`) // Node 8 (8.16.1)
 ```
 
 # Benchmarks

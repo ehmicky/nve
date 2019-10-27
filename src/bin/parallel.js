@@ -2,7 +2,7 @@ import { stdout } from 'process'
 
 import execa from 'execa'
 
-import { dryRunVersion } from '../main.js'
+import { runVersion } from '../main.js'
 
 import { getParallelStdinOptions } from './stdin.js'
 import { getColorOptions } from './colors.js'
@@ -24,6 +24,7 @@ export const runParallel = async function({
   const colorOptions = getColorOptions()
   const optsA = {
     ...opts,
+    dry: true,
     execaOptions: {
       ...opts.execaOptions,
       ...stdinOptions,
@@ -63,7 +64,7 @@ export const runParallel = async function({
 const startProcesses = async function({ versionRanges, command, args, opts }) {
   const versions = await Promise.all(
     versionRanges.map(versionRange =>
-      dryRunVersion(versionRange, command, args, opts),
+      runVersion(versionRange, command, args, opts),
     ),
   )
   const versionsA = versions.map(startProcess)

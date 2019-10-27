@@ -1,6 +1,6 @@
 import { stdout } from 'process'
 
-import { dryRunVersion } from '../main.js'
+import { runVersion } from '../main.js'
 
 // When `command` is `undefined`, we only print the normalized Node.js version
 export const printVersions = async function(versionRanges, args, opts) {
@@ -12,6 +12,9 @@ export const printVersions = async function(versionRanges, args, opts) {
 }
 
 export const printVersion = async function(versionRange, args, opts) {
-  const { version } = await dryRunVersion(versionRange, '', args, opts)
+  const { version } = await runVersion(versionRange, '', args, {
+    ...opts,
+    dry: true,
+  })
   stdout.write(`${version}\n`)
 }

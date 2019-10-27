@@ -44,6 +44,7 @@ const isDefined = function(key, value) {
 const DEFAULT_OPTS = {
   execaOptions: {},
   progress: false,
+  dry: false,
 }
 
 const EXAMPLE_OPTS = {
