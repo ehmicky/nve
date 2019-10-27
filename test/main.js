@@ -34,9 +34,7 @@ each([runVersion, runVersionMany, dryRunVersion], ({ title }, run) => {
 
     t.is(version, TEST_VERSION)
   })
-})
 
-each([dryRunVersion], ({ title }, run) => {
   test(`Returns the modified command | ${title}`, async t => {
     const { command } = await run(TEST_VERSION, 'node', ['--version'])
 

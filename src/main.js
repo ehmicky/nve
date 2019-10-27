@@ -17,7 +17,14 @@ export const runVersion = async function(versionRange, command, args, opts) {
   } = await dryRunVersion(versionRange, command, args, opts)
 
   const childProcess = execa(commandA, argsA, spawnOptions)
-  return { childProcess, version, versionRange: versionRangeA }
+  return {
+    childProcess,
+    version,
+    versionRange: versionRangeA,
+    command: commandA,
+    args: argsA,
+    spawnOptions,
+  }
 }
 
 // Same as `runVersion()` but for several versions at once
@@ -41,7 +48,14 @@ export const runVersions = async function*(versionRanges, command, args, opts) {
     spawnOptions,
   } of nodes) {
     const childProcess = execa(commandA, argsA, spawnOptions)
-    yield { childProcess, version, versionRange }
+    yield {
+      childProcess,
+      version,
+      versionRange,
+      command: commandA,
+      args: argsA,
+      spawnOptions,
+    }
   }
 }
 

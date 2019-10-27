@@ -306,6 +306,25 @@ _Type_: `string`
 Normalized Node.js version. For example if `"v10"` was passed as input,
 `version` will be `"10.17.0"`.
 
+##### command
+
+_Type_: `string`
+
+File or command that was executed.
+
+##### args
+
+_Type_: `string[]`
+
+Arguments that were passed to the `command`.
+
+##### spawnOptions
+
+_Type_: `object`
+
+[Options](https://github.com/sindresorhus/execa#options) that were passed to
+[Execa](https://github.com/sindresorhus/execa).
+
 #### Example
 
 <!-- Remove 'eslint-skip' once estree supports top-level await -->
