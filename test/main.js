@@ -22,6 +22,18 @@ each([runVersion, runVersionMany, dryRunVersion], ({ title }, run) => {
 
     t.is(versionRange, `v${TEST_VERSION}`)
   })
+
+  test(`Can omit arguments but specify options | ${title}`, async t => {
+    const { version } = await run(`v${TEST_VERSION}`, 'echo', {})
+
+    t.is(version, TEST_VERSION)
+  })
+
+  test(`Can omit both arguments and options | ${title}`, async t => {
+    const { version } = await run(`v${TEST_VERSION}`, 'echo')
+
+    t.is(version, TEST_VERSION)
+  })
 })
 
 each([dryRunVersion], ({ title }, run) => {

@@ -47,18 +47,11 @@ export const runVersions = async function*(versionRanges, command, args, opts) {
 
 // Same as `runVersion()` but does not execute the command
 // eslint-disable-next-line max-params
-export const dryRunVersion = async function(
-  versionRange,
-  command,
-  args = [],
-  opts = {},
-) {
-  const { spawnOptions, ...optsA } = getOpts({
-    versionRange,
-    command,
-    args,
-    opts,
-  })
+export const dryRunVersion = async function(versionRange, command, args, opts) {
+  const {
+    args: argsA,
+    opts: { spawnOptions, ...optsA },
+  } = getOpts({ versionRange, command, args, opts })
 
   const { path: nodePath, version } = await getNode(versionRange, optsA)
 
@@ -69,7 +62,7 @@ export const dryRunVersion = async function(
     version,
     versionRange,
     command: commandA,
-    args,
+    args: argsA,
     spawnOptions: spawnOptionsA,
   }
 }
