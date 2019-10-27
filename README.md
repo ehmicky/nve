@@ -396,6 +396,7 @@ npx node: 1547ms
 
 # See also
 
+- [`execa`](https://github.com/sindresorhus/execa): Process execution for humans
 - [`get-node`](https://github.com/ehmicky/get-node): Download Node.js
 - [`normalize-node-version`](https://github.com/ehmicky/normalize-node-version):
   Normalize and validate Node.js versions
@@ -403,7 +404,8 @@ npx node: 1547ms
   available Node.js versions
 - [`fetch-node-website`](https://github.com/ehmicky/fetch-node-website): Fetch
   releases on nodejs.org
-- [`execa`](https://github.com/sindresorhus/execa): Process execution for humans
+- [`global-cache-dir`](https://github.com/ehmicky/global-cache-dir): Get the
+  global cache directory
 
 # Support
 
