@@ -3,22 +3,12 @@ import { ChildProcess } from 'child_process'
 import test from 'ava'
 import { each } from 'test-each'
 
-import { runVersion, runVersions } from '../src/main.js'
+import { runVersion, runVersions, dryRunVersion } from '../src/main.js'
 
 import { TEST_VERSION, SECOND_TEST_VERSION } from './helpers/versions.js'
 import { runVersionMany } from './helpers/run.js'
 
-each([runVersion, runVersionMany], ({ title }, run) => {
-  test(`Forward child process | ${title}`, async t => {
-    const { childProcess } = await run(TEST_VERSION, 'node', ['-p', '"test"'])
-
-    t.true(childProcess instanceof ChildProcess)
-
-    const { exitCode, stdout } = await childProcess
-    t.is(exitCode, 0)
-    t.is(stdout, 'test')
-  })
-
+each([runVersion, runVersionMany, dryRunVersion], ({ title }, run) => {
   test(`Return normalized Node.js version | ${title}`, async t => {
     const { version } = await run(`v${TEST_VERSION}`, 'node', ['--version'])
 
@@ -32,23 +22,13 @@ each([runVersion, runVersionMany], ({ title }, run) => {
 
     t.is(versionRange, `v${TEST_VERSION}`)
   })
+})
 
-  test(`Can omit command | ${title}`, async t => {
-    const { version } = await run(TEST_VERSION)
-
-    t.is(version, TEST_VERSION)
-  })
-
+each([dryRunVersion], ({ title }, run) => {
   test(`Returns the modified command | ${title}`, async t => {
     const { command } = await run(TEST_VERSION, 'node', ['--version'])
 
     t.not(command, 'node')
-  })
-
-  test(`Returns the modified command even if undefined | ${title}`, async t => {
-    const { command } = await run(TEST_VERSION)
-
-    t.is(command, undefined)
   })
 
   test(`Returns the modified args | ${title}`, async t => {
@@ -63,6 +43,18 @@ each([runVersion, runVersionMany], ({ title }, run) => {
     } = await run(TEST_VERSION, 'node', ['--version'])
 
     t.true(preferLocal)
+  })
+})
+
+each([runVersion, runVersionMany], ({ title }, run) => {
+  test(`Forward child process | ${title}`, async t => {
+    const { childProcess } = await run(TEST_VERSION, 'node', ['-p', '"test"'])
+
+    t.true(childProcess instanceof ChildProcess)
+
+    const { exitCode, stdout } = await childProcess
+    t.is(exitCode, 0)
+    t.is(stdout, 'test')
   })
 })
 
@@ -81,10 +73,6 @@ test('Can iterate | runVersionMany', async t => {
   t.is(stdout, `v${TEST_VERSION}`)
   t.is(value.version, TEST_VERSION)
   t.is(value.versionRange, `v${TEST_VERSION}`)
-  t.not(value.command, 'node')
-  // eslint-disable-next-line ava/max-asserts
-  t.deepEqual(value.args, ['--version'])
-  t.true(value.spawnOptions.preferLocal)
 
   const { value: valueTwo } = await iterator.next()
 
@@ -93,10 +81,8 @@ test('Can iterate | runVersionMany', async t => {
     stdout: stdoutTwo,
   } = await valueTwo.childProcess
   t.is(exitCodeTwo, 0)
+  // eslint-disable-next-line ava/max-asserts
   t.is(stdoutTwo, `v${SECOND_TEST_VERSION}`)
   t.is(valueTwo.version, SECOND_TEST_VERSION)
   t.is(valueTwo.versionRange, `v${SECOND_TEST_VERSION}`)
-  t.not(valueTwo.command, 'node')
-  t.deepEqual(valueTwo.args, ['--version'])
-  t.true(valueTwo.spawnOptions.preferLocal)
 })

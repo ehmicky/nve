@@ -6,22 +6,14 @@ export const validateRanges = function(versionRanges) {
   if (!Array.isArray(versionRanges)) {
     throw new TypeError('Versions are missing')
   }
-
-  versionRanges.forEach(validateRange)
-}
-
-export const validateRange = function(versionRange) {
-  if (typeof versionRange !== 'string') {
-    throw new TypeError(`Invalid version: ${versionRange}`)
-  }
 }
 
 // Validate input parameters
-export const validateBasic = function({ command, args, opts }) {
-  if (!isValidCommand(command)) {
-    throw new TypeError(
-      `Second argument must be a command or undefined: ${command}`,
-    )
+export const validateBasic = function({ versionRange, command, args, opts }) {
+  validateRange(versionRange)
+
+  if (typeof command !== 'string') {
+    throw new TypeError(`Second argument must be a command: ${command}`)
   }
 
   if (!isStringArray(args)) {
@@ -33,8 +25,10 @@ export const validateBasic = function({ command, args, opts }) {
   }
 }
 
-const isValidCommand = function(command) {
-  return typeof command === 'string' || command === undefined
+const validateRange = function(versionRange) {
+  if (typeof versionRange !== 'string') {
+    throw new TypeError(`Invalid version: ${versionRange}`)
+  }
 }
 
 const isStringArray = function(args) {

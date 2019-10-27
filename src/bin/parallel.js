@@ -21,30 +21,31 @@ export const runParallel = async function({
 }) {
   const stdinOptions = await getParallelStdinOptions()
   const colorOptions = getColorOptions()
-  const spawnOptions = {
-    ...opts.spawnOptions,
-    ...stdinOptions,
-    ...colorOptions,
-    stdout: 'pipe',
-    stderr: 'pipe',
-    buffer: true,
-    all: true,
-    stripFinalNewline: true,
-    reject: true,
-  }
-  const iterable = runVersions(versionRanges, command, args, {
+  const optsA = {
     ...opts,
-    spawnOptions,
-  })
+    spawnOptions: {
+      ...opts.spawnOptions,
+      ...stdinOptions,
+      ...colorOptions,
+      stdout: 'pipe',
+      stderr: 'pipe',
+      buffer: true,
+      all: true,
+      stripFinalNewline: true,
+      reject: true,
+    },
+  }
 
   if (command === undefined) {
-    return printVersions(iterable)
+    return printVersions(versionRanges, args, optsA)
   }
 
-  const state = {}
+  const iterable = runVersions(versionRanges, command, args, optsA)
+
   // Start all child processes in parallel, but do not await them yet
   const versions = await asyncIteratorAll(iterable)
 
+  const state = {}
   await Promise.all([
     cleanupProcesses(versions, continueOpt, state),
     runProcesses(versions, continueOpt, state),

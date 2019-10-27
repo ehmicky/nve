@@ -12,25 +12,23 @@ export const runSingle = async function({
   opts,
 }) {
   const stdinOptions = getSingleStdinOptions()
-  const spawnOptions = {
-    ...opts.spawnOptions,
-    ...stdinOptions,
-    stdout: 'inherit',
-    stderr: 'inherit',
-    buffer: false,
-    reject: true,
+  const optsA = {
+    ...opts,
+    spawnOptions: {
+      ...opts.spawnOptions,
+      ...stdinOptions,
+      stdout: 'inherit',
+      stderr: 'inherit',
+      buffer: false,
+      reject: true,
+    },
   }
-  const { childProcess, version } = await runVersion(
-    versionRange,
-    command,
-    args,
-    { ...opts, spawnOptions },
-  )
 
   if (command === undefined) {
-    printVersion(version)
-    return
+    return printVersion(versionRange, args, optsA)
   }
+
+  const { childProcess } = await runVersion(versionRange, command, args, optsA)
 
   try {
     await childProcess

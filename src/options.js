@@ -4,8 +4,8 @@ import filterObj from 'filter-obj'
 import { validateBasic } from './validate.js'
 
 // Validate input parameters and assign default values.
-export const getOpts = function({ command, args, opts }) {
-  validateBasic({ command, args, opts })
+export const getOpts = function({ versionRange, command, args, opts }) {
+  validateBasic({ versionRange, command, args, opts })
   validate(opts, {
     exampleConfig: EXAMPLE_OPTS,
     recursiveBlacklist: ['spawnOptions'],

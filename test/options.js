@@ -1,7 +1,7 @@
 import test from 'ava'
 import { each } from 'test-each'
 
-import { runVersion, runVersions } from '../src/main.js'
+import { runVersion, runVersions, dryRunVersion } from '../src/main.js'
 
 import { TEST_VERSION } from './helpers/versions.js'
 import { runVersionMany } from './helpers/run.js'
@@ -9,6 +9,7 @@ import { runVersionMany } from './helpers/run.js'
 each(
   [
     [],
+    [TEST_VERSION],
     [TEST_VERSION, true],
     [TEST_VERSION, 'node', true],
     [TEST_VERSION, 'node', [true]],
@@ -18,7 +19,7 @@ each(
     [TEST_VERSION, 'node', [], { mirror: true }],
     ['invalid_version', 'node'],
   ],
-  [runVersion, runVersionMany],
+  [runVersion, runVersionMany, dryRunVersion],
   ({ title }, [versionRange, command, args, opts], run) => {
     test(`Invalid arguments | programmatic ${title}`, async t => {
       await t.throwsAsync(run(versionRange, command, args, opts))
