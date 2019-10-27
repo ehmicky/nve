@@ -20,6 +20,10 @@ export const runParallel = async function({
   opts,
   continueOpt,
 }) {
+  if (command === undefined) {
+    return printVersions(versionRanges, opts)
+  }
+
   const stdinOptions = await getParallelStdinOptions()
   const colorOptions = getColorOptions()
   const optsA = {
@@ -33,10 +37,6 @@ export const runParallel = async function({
     all: true,
     stripFinalNewline: true,
     reject: true,
-  }
-
-  if (command === undefined) {
-    return printVersions(versionRanges, args, optsA)
   }
 
   const versions = await startProcesses({

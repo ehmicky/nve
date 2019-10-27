@@ -15,6 +15,10 @@ export const runSerial = async function({
   opts,
   continueOpt,
 }) {
+  if (command === undefined) {
+    return printVersions(versionRanges, opts)
+  }
+
   const stdinOptions = await getSerialStdinOptions()
   const optsA = {
     ...opts,
@@ -24,10 +28,6 @@ export const runSerial = async function({
     stderr: 'inherit',
     reject: true,
     buffer: false,
-  }
-
-  if (command === undefined) {
-    return printVersions(versionRanges, args, optsA)
   }
 
   const versions = await Promise.all(

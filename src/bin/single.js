@@ -11,6 +11,10 @@ export const runSingle = async function({
   args,
   opts,
 }) {
+  if (command === undefined) {
+    return printVersion(versionRange, opts)
+  }
+
   const stdinOptions = getSingleStdinOptions()
   const optsA = {
     ...opts,
@@ -19,10 +23,6 @@ export const runSingle = async function({
     stderr: 'inherit',
     buffer: false,
     reject: true,
-  }
-
-  if (command === undefined) {
-    return printVersion(versionRange, args, optsA)
   }
 
   const { childProcess } = await nvexeca(versionRange, command, args, optsA)
