@@ -3,6 +3,7 @@ import { promisify } from 'util'
 
 import { red } from 'chalk'
 
+import { printInvalidCommand } from './fault.js'
 import { writeProcessOutput } from './output.js'
 import { printVersionHeader } from './header.js'
 
@@ -25,10 +26,13 @@ const pSetTimeout = promisify(setTimeout)
 export const handleSingleError = function({
   originalMessage,
   exitCode = DEFAULT_EXIT_CODE,
+  ...error
 }) {
   if (originalMessage !== undefined) {
     stderr.write(`${originalMessage}\n`)
   }
+
+  printInvalidCommand({ ...error, exitCode })
 
   return exitCode
 }
@@ -109,12 +113,14 @@ const handleAnyParallelError = function({ error, versionRange, state, index }) {
 //  - with parallel runs without --continue, this is the first failed child
 //    process
 const handleMultipleError = function(
-  { message, exitCode = DEFAULT_EXIT_CODE },
+  { message, exitCode = DEFAULT_EXIT_CODE, ...error },
   versionRange,
   state,
 ) {
   const commandMessage = getCommandMessage(message, versionRange)
   stderr.write(`${commandMessage}\n`)
+
+  printInvalidCommand({ ...error, exitCode })
 
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
   state.exitCode = exitCode

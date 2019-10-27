@@ -1,6 +1,7 @@
 import test from 'ava'
 import { each } from 'test-each'
 
+import { TEST_VERSION } from '../helpers/versions.js'
 import { runCli } from '../helpers/run.js'
 
 each(
@@ -14,13 +15,14 @@ each(
       versionRange: 'invalid_version',
       command: 'node --version',
     },
-    { options: '', versionRange: '0.0.0', command: 'node --version' },
+    { options: '', versionRange: TEST_VERSION, command: 'invalid' },
+    { options: '--shell', versionRange: TEST_VERSION, command: 'invalid' },
   ],
   ({ title }, { options, versionRange, command }) => {
-    test(`Invalid input with help | ${title}`, async t => {
-      const { exitCode } = await runCli(options, versionRange, command)
+    test(`Invalid input message | ${title}`, async t => {
+      const { stderr } = await runCli(options, versionRange, command)
 
-      t.is(exitCode, 1)
+      t.true(stderr.includes('Invalid input'))
     })
   },
 )

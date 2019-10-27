@@ -16,17 +16,37 @@ const printHelp = function(message) {
   stderr.write(SHORT_USAGE)
 }
 
-const SHORT_USAGE = `Invalid input syntax. It should be:
+const shouldPrintHelp = function(message) {
+  return message.includes('Missing version')
+}
+
+// Print --help when command is not found, usually indicating input syntax
+// mistake
+export const printInvalidCommand = function(error) {
+  if (!isInvalidComment(error)) {
+    return
+  }
+
+  stderr.write(SHORT_USAGE)
+}
+
+const isInvalidComment = function({ code, exitCode }) {
+  return code === 'ENOENT' || exitCode === BASH_COMMAND_CODE
+}
+
+// This is only valid for Bash, so might give false positives for other programs
+// that use that exit code
+const BASH_COMMAND_CODE = 127
+
+const SHORT_USAGE = `
+Invalid input syntax. It should be:
 
   nve [OPTIONS...] VERSION... [COMMAND] [ARGS...]
 
 Examples:
 
+  nve 8 node file.js
   nve 8 npm test
   nve 8 9 10 npm test
   nve --no-progress 8 npm test
 `
-
-const shouldPrintHelp = function(message) {
-  return message.includes('Missing version')
-}
