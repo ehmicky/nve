@@ -1,3 +1,13 @@
+# 3.6.0
+
+## Features
+
+- Add the
+  [`--parallel` CLI flag](https://github.com/ehmicky/nve/blob/8dcfbfc68180fcf56ab4af70893b81346de07f0b/README.md#--parallel).
+  This allows running multiple Node versions in parallel (at the same time)
+  which is faster.
+- Improve error messages
+
 # 3.5.0
 
 ## Features
