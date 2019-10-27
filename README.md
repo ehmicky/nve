@@ -108,8 +108,10 @@ $ nve --parallel 12 10 8 npm test
 ```js
 const { runVersion } = require('nve')
 
-const { childProcess, version } = await runVersion('8', 'node', ['--version'])
-console.log(`Node ${version}`) // Node 8.16.1
+const { childProcess, versionRange, version } = await runVersion('8', 'node', [
+  '--version',
+])
+console.log(`Node ${versionRange} (${version})`) // Node 8 (8.16.1)
 const { exitCode, stdout, stderr } = await childProcess
 console.log(`Exit code: ${exitCode}`) // 0
 console.log(stdout) // v8.16.1
@@ -121,8 +123,12 @@ console.log(stdout) // v8.16.1
 ```js
 const { runVersions } = require('nve')
 
-for await (const {childProcess, version} of runVersions(['8', '10', '12'], 'node', ['--version'])) {
-  console.log(`Node ${version}`)
+for await (const { childProcess, versionRange, version } of runVersions(
+  ['8', '10', '12'],
+  'node',
+  ['--version'],
+)) {
+  console.log(`Node ${versionRange} (${version})`)
   const { exitCode, stdout, stderr } = await childProcess
   console.log(`Exit code: ${exitCode}`)
   console.log(stdout)
@@ -245,13 +251,13 @@ Otherwise the following error message is shown:
 
 ## Programmatic
 
-### runVersion(versionRange, command?, args?, options?)
+### runVersion(versionRange, command, args?, options?)
 
-_versionRange_: `string`<br> _command_: `string`<br>_args_: `string[]`<br>
-_options_: `object`<br>_Return value_: `Promise<object>`
+_versionRange_: `string`<br> _command_: `string`<br>_args_: `string[]?`<br>
+_options_: `object?`<br>_Return value_: `Promise<object>`
 
-`command` and `args` are the same as in
-[`execa(command, args, options)`](https://github.com/sindresorhus/execa#execafile-arguments-options)
+`command` is the file or command to execute. `args` are the arguments passed to
+it.
 
 #### Options
 
@@ -267,8 +273,8 @@ Like the [`--mirror` CLI option](#--mirror).
 
 _Type_: `object`<br>_Default_: `{}`
 
-Options passed to
-[`execa(command, args, options)`](https://github.com/sindresorhus/execa#options)
+Options passed to Execa. Please refer to Execa for the list of
+[available options](https://github.com/sindresorhus/execa#options).
 
 The
 [`preferLocal` option](https://github.com/sindresorhus/execa/blob/master/readme.md#preferlocal)
@@ -281,21 +287,24 @@ _Type_: `Promise<object>`
 ##### childProcess
 
 _Type_:
-[`execaResult?`](https://github.com/sindresorhus/execa#execafile-arguments-options)
+[`execaResult`](https://github.com/sindresorhus/execa#execafile-arguments-options)
 
 [`childProcess` instance](https://nodejs.org/api/child_process.html#child_process_class_childprocess).
 It is also a `Promise` resolving or rejecting with a
 [`childProcessResult`](https://github.com/sindresorhus/execa#childProcessResult).
 
-This is `undefined` when
-[`command`](#runversionversionrange-command-args-options) is `undefined`.
+##### versionRange
+
+_Type_: `string`
+
+Node.js version passed as input, such as `"v10"`.
 
 ##### version
 
 _Type_: `string`
 
-Normalized Node.js version. For example if `v8` was passed as input, `version`
-will be `"8.16.1"`.
+Normalized Node.js version. For example if `"v10"` was passed as input,
+`version` will be `"10.17.0"`.
 
 #### Example
 
@@ -305,7 +314,7 @@ will be `"8.16.1"`.
 ```js
 const { runVersion } = require('nve')
 
-const { childProcess, version } = await runVersion(
+const { childProcess, versionRange, version } = await runVersion(
   '8',
   'command',
   ['--version'],
@@ -314,10 +323,10 @@ const { childProcess, version } = await runVersion(
 const { exitCode, stdout, stderr } = await childProcess
 ```
 
-### runVersions(versionRanges, command?, args?, options?)
+### runVersions(versionRanges, command, args?, options?)
 
-_versionRanges_: `string[]`<br> _command_: `string`<br>_args_: `string[]`<br>
-_options_: `object`<br>_Return value_: `AsyncIterable<object>`
+_versionRanges_: `string[]`<br> _command_: `string`<br>_args_: `string[]?`<br>
+_options_: `object?`<br>_Return value_: `AsyncIterable<object>`
 
 This is the same as
 [`runVersion()`](#runversionversionrange-command-args-options) but executing
@@ -334,7 +343,7 @@ This returns
 ```js
 const { runVersions } = require('nve')
 
-for await (const { childProcess, version } of runVersions(
+for await (const { childProcess, versionRange, version } of runVersions(
   ['8', '10', '12'],
   'command',
   ['--version'],
@@ -342,6 +351,35 @@ for await (const { childProcess, version } of runVersions(
 )) {
   const { exitCode, stdout, stderr } = await childProcess
 }
+```
+
+### dryRunVersion(versionRange, command, args?, options?)
+
+_versionRanges_: `string`<br> _command_: `string`<br>_args_: `string[]?`<br>
+_options_: `object?`<br>_Return value_: `Promise<object>`
+
+This is the same as
+[`runVersion()`](#runversionversionrange-command-args-options) except the
+command is not executed. The return value is the same except `childProcess` is
+not defined.
+
+This can be used to cache the initial Node.js binary download.
+
+#### Example
+
+<!-- Remove 'eslint-skip' once estree supports top-level await -->
+<!-- eslint-skip -->
+
+```js
+const { dryRunVersion } = require('nve')
+
+const { versionRange, version } = await dryRunVersion(
+  '8',
+  'command',
+  ['--version'],
+  options,
+)
+console.log(`Node ${versionRange} (${version})`) // Node 8 (8.16.1)
 ```
 
 # Benchmarks
