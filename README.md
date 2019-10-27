@@ -117,24 +117,6 @@ console.log(`Exit code: ${exitCode}`) // 0
 console.log(stdout) // v8.16.1
 ```
 
-<!-- Remove 'eslint-skip' once estree supports top-level await -->
-<!-- eslint-skip -->
-
-```js
-const { runVersions } = require('nve')
-
-for await (const { childProcess, versionRange, version } of runVersions(
-  ['8', '10', '12'],
-  'node',
-  ['--version'],
-)) {
-  console.log(`Node ${versionRange} (${version})`)
-  const { exitCode, stdout, stderr } = await childProcess
-  console.log(`Exit code: ${exitCode}`)
-  console.log(stdout)
-}
-```
-
 # Demo
 
 You can try this library:
@@ -340,36 +322,6 @@ const { childProcess, versionRange, version } = await runVersion(
   options,
 )
 const { exitCode, stdout, stderr } = await childProcess
-```
-
-### runVersions(versionRanges, command, args?, options?)
-
-_versionRanges_: `string[]`<br> _command_: `string`<br>_args_: `string[]?`<br>
-_options_: `object?`<br>_Return value_: `AsyncIterable<object>`
-
-This is the same as
-[`runVersion()`](#runversionversionrange-command-args-options) but executing
-multiple versions at once.
-
-This returns
-[an async iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of).
-
-#### Example
-
-<!-- Remove 'eslint-skip' once estree supports top-level await -->
-<!-- eslint-skip -->
-
-```js
-const { runVersions } = require('nve')
-
-for await (const { childProcess, versionRange, version } of runVersions(
-  ['8', '10', '12'],
-  'command',
-  ['--version'],
-  options,
-)) {
-  const { exitCode, stdout, stderr } = await childProcess
-}
 ```
 
 ### dryRunVersion(versionRange, command, args?, options?)

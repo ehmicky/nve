@@ -11,8 +11,6 @@ import pathKey from 'path-key'
 import { runVersion } from '../src/main.js'
 
 import { HELPER_VERSION, TEST_VERSION } from './helpers/versions.js'
-// eslint-disable-next-line import/max-dependencies
-import { runVersionMany } from './helpers/run.js'
 
 const FORK_FILE = normalize(`${__dirname}/helpers/fork.js`)
 const BIN_PATH = getBinPathSync()
@@ -30,11 +28,9 @@ if (platform !== 'win32' || !isCi) {
       ['node', BIN_PATH, HELPER_VERSION, 'node', '--version'],
     ],
     [{}, { [pathKey()]: undefined }],
-    [runVersion, runVersionMany],
-    // eslint-disable-next-line max-params
-    ({ title }, args, env, run) => {
+    ({ title }, args, env) => {
       test(`Works with child processes | ${title}`, async t => {
-        const { childProcess } = await run(
+        const { childProcess } = await runVersion(
           HELPER_VERSION,
           'node',
           [FORK_FILE, ...args],
@@ -47,18 +43,16 @@ if (platform !== 'win32' || !isCi) {
     },
   )
 
-  each([runVersion, runVersionMany], ({ title }, run) => {
-    test.serial(`Works with nyc as child | ${title}`, async t => {
-      const { childProcess } = await run(HELPER_VERSION, 'nyc', [
-        '--silent',
-        '--',
-        'node',
-        '--version',
-      ])
-      const { stdout } = await childProcess
+  test.serial('Works with nyc as child', async t => {
+    const { childProcess } = await runVersion(HELPER_VERSION, 'nyc', [
+      '--silent',
+      '--',
+      'node',
+      '--version',
+    ])
+    const { stdout } = await childProcess
 
-      t.is(stdout, `v${HELPER_VERSION}`)
-    })
+    t.is(stdout, `v${HELPER_VERSION}`)
   })
 }
 
@@ -76,13 +70,11 @@ test('Works with nyc as parent with node command', async t => {
   t.is(stdout, `v${HELPER_VERSION}`)
 })
 
-each([runVersion, runVersionMany], ({ title }, run) => {
-  test(`Does not change process.execPath | ${title}`, async t => {
-    // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
-    const { execPath } = process
-    await run(TEST_VERSION, 'node', ['--version'])
+test('Does not change process.execPath', async t => {
+  // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
+  const { execPath } = process
+  await runVersion(TEST_VERSION, 'node', ['--version'])
 
-    // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
-    t.is(process.execPath, execPath)
-  })
+  // eslint-disable-next-line no-restricted-globals, node/prefer-global/process
+  t.is(process.execPath, execPath)
 })

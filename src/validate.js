@@ -1,13 +1,5 @@
 import isPlainObj from 'is-plain-obj'
 
-// Validate `versionRange` and `versionRanges`. They can start with `v` or not.
-// Further validation is done by `get-node`.
-export const validateRanges = function(versionRanges) {
-  if (!Array.isArray(versionRanges)) {
-    throw new TypeError('Versions are missing')
-  }
-}
-
 // Validate input parameters
 export const validateBasic = function({ versionRange, command, args, opts }) {
   validateRange(versionRange)

@@ -10,11 +10,10 @@
 // Ignore the following line: this is only needed for internal purposes.
 require('./utils.js')
 
-const { runVersion, runVersions, dryRunVersion } = require('nve')
+const { runVersion, dryRunVersion } = require('nve')
 
 const run = async function() {
   await runSingleVersion()
-  await runMultipleVersions()
   await runDry()
 }
 
@@ -29,21 +28,6 @@ const runSingleVersion = async function() {
   console.log(`Exit code: ${exitCode}`) // Exit code: 0
   console.log(stdout) // v8.16.1
   console.log(stderr) // empty
-}
-
-const runMultipleVersions = async function() {
-  // eslint-disable-next-line fp/no-loops
-  for await (const { childProcess, versionRange, version } of runVersions(
-    ['8', '10', '12'],
-    'node',
-    ['--version'],
-  )) {
-    console.log(`Node ${versionRange} (${version})`)
-    const { exitCode, stdout, stderr } = await childProcess
-    console.log(`Exit code: ${exitCode}`)
-    console.log(stdout)
-    console.log(stderr)
-  }
 }
 
 const runDry = async function() {
