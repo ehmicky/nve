@@ -3,7 +3,7 @@ import execa from 'execa'
 import { dryRunVersion } from '../main.js'
 
 import { getSerialStdinOptions } from './stdin.js'
-import { printHeader } from './header.js'
+import { printVersionHeader } from './header.js'
 import { printVersions } from './dry.js'
 import { handleSerialError } from './error.js'
 
@@ -38,24 +38,16 @@ export const runSerial = async function({
     ),
   )
 
-  const state = { index: 0 }
-  await runProcesses({ versionRanges, versions, state, continueOpt })
+  const state = {}
+  await runProcesses({ versions, state, continueOpt })
   return state.exitCode
 }
 
-const runProcesses = async function({
-  versionRanges,
-  versions,
-  state,
-  continueOpt,
-}) {
-  // When spawning a child process with stdout|stderr `inherit`, it might
-  // print to it synchronously (e.g. when spawning `echo ...`). The header
-  // must be printed first so we must resort to doing it like this.
-  printHeader({ versionRanges, state })
-
+const runProcesses = async function({ versions, state, continueOpt }) {
   // eslint-disable-next-line fp/no-loops
   for (const { versionRange, command, args, execaOptions } of versions) {
+    printVersionHeader(versionRange)
+
     // eslint-disable-next-line no-await-in-loop
     const shouldStop = await runProcess({
       versionRange,
@@ -73,8 +65,6 @@ const runProcesses = async function({
     if (shouldStop) {
       return
     }
-
-    printHeader({ versionRanges, state })
   }
 }
 
