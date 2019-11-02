@@ -1,5 +1,5 @@
 language: node_js
-node_js: '12'
+node_js: '13'
 dist: bionic
 # When pushing a tagged commit, Travis adds two builds: one with the tag, one
 # without. We only want to build the one with the tag, because it's the one
@@ -13,7 +13,7 @@ jobs:
     - os: windows
     - os: osx
     - node_js: '8.12.0'
-    - node_js: '12'
+    - node_js: '13'
     # Test coverage check must happen after tests for the whole matrix have
     # been performed, so we get the merged coverage map
     - stage: Coverage check
