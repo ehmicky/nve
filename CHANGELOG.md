@@ -1,3 +1,11 @@
+# 7.1.0
+
+## Features
+
+- Ensure Node.js binaries are not corrupted by checking their
+  [checksums](https://github.com/nodejs/node#verifying-binaries)
+- Use cache when offline (no network connection)
+
 # 7.0.0
 
 ## Breaking changes
