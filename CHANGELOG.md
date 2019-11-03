@@ -1,3 +1,9 @@
+# 6.1.0
+
+## Dependencies
+
+- Upgrade `nvexeca` to `1.1.0`
+
 # 6.0.0
 
 ## Breaking changes
