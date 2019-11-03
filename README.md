@@ -34,7 +34,7 @@ instead.
 ```bash
 # Same as `node` but with Node 12
 $ nve 12 node
-Welcome to Node.js v12.11.1.
+Welcome to Node.js v12.13.0.
 Type ".help" for more information.
 > .exit
 
@@ -65,8 +65,8 @@ $ nve 8 npm run build && nve 8 npm test
 # Chaining commands with a shell
 $ nve --shell 8 "npm run build && npm test"
 
-# Cache Node 8 download without executing any command
-$ nve 8
+# Cache Node 8 download
+$ nve 8 node --version
 ```
 
 # Examples (multiple versions)
@@ -97,7 +97,25 @@ $ nve --continue 12 10 8 npm test
 $ nve --parallel 12 10 8 npm test
 
 # Cache multiple Node downloads
+$ nve 12 10 8 node --version
+```
+
+# Examples (list versions)
+
+```bash
+# Prints latest Node.js version. Make sure you use quotes.
+$ nve "*"
+13.1.0
+
+# Prints latest Node.js 8 version
+$ nve 8
+8.16.2
+
+# Prints latest Node.js 12, 10 and 8 versions
 $ nve 12 10 8
+12.13.0
+10.17.0
+8.16.2
 ```
 
 # Demo
