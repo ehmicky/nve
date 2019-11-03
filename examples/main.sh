@@ -45,8 +45,17 @@ nve 8 node --version && nve 8 node file.js
 # Chaining commands with a shell
 nve --shell 8 "node --version && node file.js"
 
-# Cache Node 8 download without executing any command
-nve 8
+# Cache Node 8 download
+nve 8 node --version
 
 # Cache multiple Node downloads
+nve 12 10 8 node --version
+
+# Prints latest Node.js version. Make sure you use quotes.
+nve "*"
+
+# Prints latest Node.js 8 version
+nve 8
+
+# Prints latest Node.js 12, 10 and 8 versions
 nve 12 10 8
