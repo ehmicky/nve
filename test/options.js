@@ -8,10 +8,10 @@ import { TEST_VERSION } from './helpers/versions.js'
 import { runCli, runSerial, runParallel } from './helpers/run.js'
 
 each([runCli, runSerial, runParallel], ({ title }, run) => {
-  // This test does not work with nyc on MacOS
+  // This test does not work with nyc on MacOS and Windows
   // This might be fixed with nyc@15
   // See https://github.com/istanbuljs/spawn-wrap/issues/108
-  if (platform !== 'darwin' || !isCi) {
+  if (platform === 'windows' || !isCi) {
     test(`Can run in shell mode | ${title}`, async t => {
       const { exitCode } = await run(
         '--shell',
