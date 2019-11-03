@@ -1,3 +1,10 @@
+# 6.0.0
+
+## Breaking changes
+
+- The programmatic API has been moved to a separate repository and npm package
+  [`nvexeca`](https://github.com/ehmicky/nvexeca) with fewer dependencies.
+
 # 5.0.0
 
 ## Breaking changes
