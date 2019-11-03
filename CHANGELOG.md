@@ -5,6 +5,11 @@
 - Improve the internal directory structure used to cache the Node.js binary
 - Cleanup temporary files when Node.js download fails
 
+## Bug fixes
+
+- Executing `npm`, `yarn` and `pnpm` was not working properly, for example when
+  doing global installs (`npm i -g ...`).
+
 # 7.2.0
 
 ## Features
