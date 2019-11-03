@@ -1,6 +1,6 @@
 {
   "name": "nve",
-  "version": "7.1.0",
+  "version": "7.2.0",
   "files": [
     "build/src",
     "examples",
