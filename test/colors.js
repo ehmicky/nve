@@ -4,7 +4,7 @@ import test from 'ava'
 import { each } from 'test-each'
 import hasAnsi from 'has-ansi'
 
-import { TEST_VERSION } from './helpers/versions.js'
+import { HELPER_VERSION } from './helpers/versions.js'
 import { runParallel } from './helpers/run.js'
 
 each(
@@ -17,7 +17,7 @@ each(
     test(`Colors with interactive TTY | runParallel ${title}`, async t => {
       const { stdout } = await runParallel(
         '',
-        TEST_VERSION,
+        HELPER_VERSION,
         'node -p require("chalk").red("test")',
         { env },
       )
