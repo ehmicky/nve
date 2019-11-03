@@ -159,13 +159,6 @@ is [only compatible with Node `>=6`](https://github.com/npm/cli#important).
 
 Both global and local binaries can be executed.
 
-The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
-under the hood. This initially takes few seconds. However subsequent runs are
-[almost instantaneous](#benchmarks).
-
-`COMMAND` can be omitted in order to cache that initial download without
-executing any commands.
-
 ## Options
 
 ### --continue
@@ -222,6 +215,32 @@ Base URL to retrieve Node binaries. Can be overridden (for example
 
 The following environment variables can also be used: `NODE_MIRROR`,
 `NVM_NODEJS_ORG_MIRROR`, `N_NODE_MIRROR` or `NODIST_NODE_MIRROR`.
+
+## Initial download
+
+The first time `nve` is run with a new `VERSION`, the Node binary is downloaded
+under the hood. This initially takes few seconds. However subsequent runs are
+[almost instantaneous](#benchmarks).
+
+`COMMAND` can be omitted in order to cache that initial download without
+executing any commands.
+
+## Difference with nvm
+
+`nve` is meant for one-off command execution. Examples include:
+
+- running tests with an older Node.js version
+- checking if an older Node.js version supports a specific syntax or feature
+- benchmarking different Node.js versions
+- [programmatic usage or child processes](https://github.com/ehmicky/nvexeca)
+
+Tools like [`nvm`](https://github.com/nvm-sh/nvm),
+[`nvm-windows`](https://github.com/coreybutler/nvm-windows),
+[`n`](https://github.com/tj/n) or [`nvs`](https://github.com/jasongin/nvs) are
+meant to execute a specific Node.js version for an entire machine, project or
+shell session.
+
+`nve` can (and probably should) be used alongside those tools.
 
 ## Native modules
 
