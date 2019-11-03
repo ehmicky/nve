@@ -218,7 +218,7 @@ Otherwise the following error message is shown:
 
 # Benchmarks
 
-The [following benchmarks](benchmarks/main.js) compare the average time to run
+The [following benchmarks](benchmarks/main.yml) compare the average time to run
 `nve`, [`nvm exec`](https://github.com/nvm-sh/nvm) and
 [`npx node`](https://github.com/aredridel/node-bin-gen/blob/master/node-bin-README.md#use-with-npx):
 
