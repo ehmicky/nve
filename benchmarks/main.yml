@@ -1,6 +1,6 @@
 tasks:
   - id: nve
-    main: ./src/main.js 6.0.0 node --version
+    main: ./src/bin.js 6.0.0 node --version
   - id: nvm
     title: nvm exec
     main: bash -i -c nvm\ exec\ 6.0.0\ node\ --version

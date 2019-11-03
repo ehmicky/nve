@@ -7,7 +7,7 @@
     "!~"
   ],
   "bin": {
-    "nve": "build/src/main.js"
+    "nve": "build/src/bin.js"
   },
   "scripts": {
     "test": "gulp test"
