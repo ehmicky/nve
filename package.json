@@ -58,7 +58,7 @@
     "figures": "^3.1.0",
     "filter-obj": "^2.0.1",
     "get-stdin": "^7.0.0",
-    "normalize-node-version": "^6.0.0",
+    "normalize-node-version": "^6.1.0",
     "nvexeca": "^1.2.0",
     "semver": "^6.3.0",
     "yargs": "^14.2.0"
