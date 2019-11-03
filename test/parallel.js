@@ -62,7 +62,10 @@ Node ${OLD_TEST_VERSION} failed with exit code 1
 })
 
 each(
-  [{ run: runSerial, parallel: false }, { run: runParallel, parallel: true }],
+  [
+    { run: runSerial, parallel: false },
+    { run: runParallel, parallel: true },
+  ],
   ({ title }, { run, parallel }) => {
     test(`Run in parallel/serial | ${title}`, async t => {
       const { stdout } = await run(
