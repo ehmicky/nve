@@ -1,3 +1,16 @@
+# 7.0.0
+
+## Breaking changes
+
+- When `nve` is run without any command, it prints the available Node.js
+  version. If you also want to cache the initial Node.js binary download, you
+  must now use `nve VERSION node --version` instead of `nve VERSION`.
+
+## Features
+
+- Make Node.js binary download twice faster on Linux and MacOS
+- Improve error messages
+
 # 6.1.2
 
 ## Dependencies
