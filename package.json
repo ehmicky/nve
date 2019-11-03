@@ -52,7 +52,7 @@
     "test": "test"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "core-js": "^3.4.0",
     "execa": "^3.2.0",
     "figures": "^3.1.0",
