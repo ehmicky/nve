@@ -1,3 +1,9 @@
+# 7.2.0
+
+## Features
+
+- Improve the appearance of the progress bar
+
 # 7.1.0
 
 ## Features
