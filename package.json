@@ -64,7 +64,7 @@
     "yargs": "^14.2.0"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^0.30.52",
+    "@ehmicky/dev-tasks": "^0.30.53",
     "ava": "^2.4.0",
     "get-bin-path": "^4.0.0",
     "gulp": "^4.0.2",
