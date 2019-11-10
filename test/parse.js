@@ -5,13 +5,13 @@ import { runCli } from './helpers/run.js'
 
 each(
   [
-    { options: '', versionRange: '', command: '' },
-    { options: '', versionRange: 'invalid_version', command: 'node --version' },
-    { options: '', versionRange: '0.0.0', command: 'node --version' },
+    { versionRange: '', command: '' },
+    { versionRange: 'invalid_version', command: 'node --version' },
+    { versionRange: '0.0.0', command: 'node --version' },
   ],
-  ({ title }, { options, versionRange, command }) => {
+  ({ title }, { versionRange, command }) => {
     test(`Invalid input with help | ${title}`, async t => {
-      const { exitCode } = await runCli(options, versionRange, command)
+      const { exitCode } = await runCli('', versionRange, command)
 
       t.is(exitCode, 1)
     })
