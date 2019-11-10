@@ -1,3 +1,9 @@
+# 8.0.1
+
+## Bug fixes
+
+- Fix executing binaries by specifying their file paths on Windows
+
 # 8.0.0
 
 ## Breaking changes
