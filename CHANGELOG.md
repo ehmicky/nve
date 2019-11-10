@@ -1,3 +1,9 @@
+# 7.3.1
+
+## Bug fixes
+
+- Fix executing `yarn`.
+
 # 7.3.0
 
 ## Features
