@@ -1,5 +1,7 @@
 import { stderr } from 'process'
 
+import { red } from 'chalk'
+
 // Handle top-level errors not due to child process errors, such as input
 // validation errors, Node.js download errors and bugs.
 export const handleFault = function({ message }) {
@@ -39,7 +41,9 @@ const isInvalidComment = function({ code, exitCode }) {
 const BASH_COMMAND_CODE = 127
 
 const SHORT_USAGE = `
-Invalid input syntax. It should be:
+${red('Invalid input syntax.')}
+
+It should be:
 
   nve [OPTIONS...] VERSION... [COMMAND] [ARGS...]
 
