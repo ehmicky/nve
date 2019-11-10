@@ -61,7 +61,7 @@
     "normalize-node-version": "^6.1.1",
     "nvexeca": "^1.5.3",
     "semver": "^6.3.0",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.1"
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^0.30.55",
