@@ -1,3 +1,11 @@
+# 8.0.0
+
+## Breaking changes
+
+- Remove the `--shell` CLI flag. Since `nve` already runs in a shell, this flag
+  is not needed. Shell-specific features (such as variables, globbing, etc.)
+  work as expected since those are performed before `nve` is called.
+
 # 7.3.1
 
 ## Bug fixes

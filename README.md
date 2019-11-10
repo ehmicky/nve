@@ -59,11 +59,8 @@ $ nve "<8" npm test
 # Use a different mirror for the Node binaries
 $ nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test
 
-# Chaining commands without a shell
+# Chaining commands
 $ nve 8 npm run build && nve 8 npm test
-
-# Chaining commands with a shell
-$ nve --shell 8 "npm run build && npm test"
 
 # Cache Node 8 download
 $ nve 8 node --version
@@ -181,30 +178,6 @@ faster. However this does not work if the command:
 
 - requires some interactive CLI input (for example using a prompt)
 - is not concurrency-safe
-
-### --shell
-
-_Alias_: `-s`\
-_Type_: `boolean`\
-_Default_: `false`
-
-When using shell-specific chaining or structures such as `&&` or `||`, `nve`
-should be repeated.
-
-```
-nve 8 npm run build && nve 8 npm test
-```
-
-Although [not recommended](https://github.com/sindresorhus/execa#shell),
-`--shell` can achieve the same result by running the command inside a shell.
-
-```
-nve --shell 8 "npm run build && npm test"
-```
-
-Please note that shell-specific features such as globbing, environment variables
-or `$VARIABLE` expansion work even without `--shell`. This is because those are
-interpreted by the shell before `nve` is called.
 
 ### --progress
 

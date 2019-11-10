@@ -39,11 +39,8 @@ nve "<8" node --version
 print "Use a different mirror for the Node binaries"
 nve --mirror=https://npm.taobao.org/mirrors/node 8 node --version
 
-print "Chaining commands without a shell"
+print "Chaining commands"
 nve 8 node --version && nve 8 node file.js
-
-print "Chaining commands with a shell"
-nve --shell 8 "node --version && node file.js"
 
 print "Cache Node 8 download"
 nve 8 node --version

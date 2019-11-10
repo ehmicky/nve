@@ -15,12 +15,6 @@ const addExample = function(yargsA, [example, description]) {
 }
 
 const CONFIG = {
-  shell: {
-    alias: 's',
-    boolean: true,
-    describe: `Run command inside a shell (such as Bash or cmd.exe).
-Default: false`,
-  },
   parallel: {
     alias: 'p',
     boolean: true,
@@ -75,11 +69,7 @@ const EXAMPLES = [
     `nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test`,
     'Use a different mirror for the Node binaries',
   ],
-  ['nve 8 npm run build && nve 8 npm test', 'Chaining command without a shell'],
-  [
-    'nve --shell 8 "npm run build && npm test"',
-    'Chaining command with a shell',
-  ],
+  ['nve 8 npm run build && nve 8 npm test', 'Chaining command'],
   ['nve 8', 'Cache Node 8 download without executing any command'],
   ['nve 12 10 8', 'Cache multiple Node downloads'],
 ]
