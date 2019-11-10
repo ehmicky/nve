@@ -163,14 +163,18 @@ Both global and local binaries can be executed.
 
 ### --continue
 
-_Alias_: `-c`<br> _Type_: `boolean`<br>_Default_: `false`
+_Alias_: `-c`\
+_Type_: `boolean`\
+_Default_: `false`
 
 By default, when running multiple Node versions and one of those versions fails,
 the others are aborted. This option disables this.
 
 ### --parallel
 
-_Alias_: `-p`<br> _Type_: `boolean`<br>_Default_: `false`
+_Alias_: `-p`\
+_Type_: `boolean`\
+_Default_: `false`
 
 When running multiple Node versions, run all of them at the same time. This is
 faster. However this does not work if the command:
@@ -180,7 +184,9 @@ faster. However this does not work if the command:
 
 ### --shell
 
-_Alias_: `-s`<br> _Type_: `boolean`<br>_Default_: `false`
+_Alias_: `-s`\
+_Type_: `boolean`\
+_Default_: `false`
 
 When using shell-specific chaining or structures such as `&&` or `||`, `nve`
 should be repeated.
@@ -202,13 +208,16 @@ interpreted by the shell before `nve` is called.
 
 ### --progress
 
-_Type_: `boolean`<br>_Default_: `true`
+_Type_: `boolean`\
+_Default_: `true`
 
 Whether to show a progress bar while the Node binary is downloading.
 
 ### --mirror
 
-_Alias_: `-m`<br>_Type_: `string`<br>_Default_: `https://nodejs.org/dist`
+_Alias_: `-m`\
+_Type_: `string`\
+_Default_: `https://nodejs.org/dist`
 
 Base URL to retrieve Node binaries. Can be overridden (for example
 `https://npm.taobao.org/mirrors/node`).
