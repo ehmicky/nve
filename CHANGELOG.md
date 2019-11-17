@@ -1,3 +1,9 @@
+# 8.0.3
+
+## Bug fixes
+
+- Fix running `npm` or `npx` binaries on Windows
+
 # 8.0.2
 
 ## Bug fixes
