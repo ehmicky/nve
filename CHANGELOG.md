@@ -1,3 +1,9 @@
+# 8.1.0
+
+## Features
+
+- Warn when a new version is available
+
 # 8.0.3
 
 ## Bug fixes
