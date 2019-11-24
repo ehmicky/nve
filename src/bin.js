@@ -41,12 +41,9 @@ const runCli = async function() {
 }
 
 const checkUpdate = async function() {
-  if (env.NODE_ENV === 'test') {
-    return
-  }
-
   const { packageJson } = await readPkgUp({ cwd: __dirname, normalize: false })
-  UpdateNotifier({ pkg: packageJson }).notify()
+  const disabled = env.NODE_ENV === 'test'
+  UpdateNotifier({ pkg: packageJson, disabled }).notify()
 }
 
 const runMain = function({
