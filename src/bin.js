@@ -1,5 +1,8 @@
 #!/usr/bin/env node
-import { exit } from 'process'
+import { exit, env } from 'process'
+
+import UpdateNotifier from 'update-notifier'
+import readPkgUp from 'read-pkg-up'
 
 import { defineCli } from './top.js'
 import { parseInput } from './parse.js'
@@ -11,6 +14,8 @@ import { handleFault } from './fault.js'
 // CLI that forwards its arguments but using a specific Node.js version
 const runCli = async function() {
   try {
+    await checkUpdate()
+
     const yargs = defineCli()
     const {
       versionRanges,
@@ -33,6 +38,15 @@ const runCli = async function() {
     handleFault(error)
     exit(1)
   }
+}
+
+const checkUpdate = async function() {
+  if (env.NODE_ENV === 'test') {
+    return
+  }
+
+  const { packageJson } = await readPkgUp({ cwd: __dirname, normalize: false })
+  UpdateNotifier({ pkg: packageJson }).notify()
 }
 
 const runMain = function({
