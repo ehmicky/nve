@@ -60,7 +60,7 @@
     "get-stdin": "^7.0.0",
     "normalize-node-version": "^6.1.2",
     "nvexeca": "^1.7.0",
-    "read-pkg-up": "^7.0.0",
+    "read-pkg-up": "^7.0.1",
     "semver": "^6.3.0",
     "update-notifier": "^3.0.1",
     "yargs": "^15.0.2"
