@@ -1,5 +1,3 @@
-import { version } from 'process'
-
 import test from 'ava'
 import { each } from 'test-each'
 import hasAnsi from 'has-ansi'
@@ -22,9 +20,7 @@ each(
         { env },
       )
 
-      // TODO: remove after dropping support for Node 8/9
-      const colorsA = colors && !version.startsWith('v8.')
-      t.is(hasAnsi(stdout), colorsA)
+      t.is(hasAnsi(stdout), colors)
     })
   },
 )
