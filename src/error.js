@@ -113,11 +113,11 @@ const handleAnyParallelError = function({ error, versionRange, state, index }) {
 //  - with parallel runs without --continue, this is the first failed child
 //    process
 const handleMultipleError = function(
-  { message, exitCode = DEFAULT_EXIT_CODE, ...error },
+  { shortMessage, exitCode = DEFAULT_EXIT_CODE, ...error },
   versionRange,
   state,
 ) {
-  const commandMessage = getCommandMessage(message, versionRange)
+  const commandMessage = getCommandMessage(shortMessage, versionRange)
   stderr.write(`${commandMessage}\n`)
 
   printInvalidCommand({ ...error, exitCode })
@@ -126,9 +126,9 @@ const handleMultipleError = function(
   state.exitCode = exitCode
 }
 
-const getCommandMessage = function(message, versionRange) {
+const getCommandMessage = function(shortMessage, versionRange) {
   return red(
-    message
+    shortMessage
       .replace(COMMAND_REGEXP, '')
       .replace('Command', `Node ${versionRange}`),
   )
