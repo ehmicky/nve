@@ -15,11 +15,6 @@ export const getColorOptions = function() {
     return {}
   }
 
-  // TODO: remove after dropping support for Node 8/9
-  if (getColorDepth === undefined) {
-    return {}
-  }
-
   const colorDepth = getColorDepth()
 
   // No need to do this change since current process already cannot show colors
