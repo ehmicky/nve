@@ -128,7 +128,7 @@ You can try this library:
 npm install -g nve
 ```
 
-`node >=8.12.0` must be globally installed. However the command run by `nve` can
+`node >=10.17.0` must be globally installed. However the command run by `nve` can
 use any Node version (providing it is compatible with it).
 
 To use this programmatically (from Node.js) instead, please check

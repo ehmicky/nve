@@ -12,7 +12,7 @@ jobs:
     # We do not run each possible combination to make CI faster.
     - os: windows
     - os: osx
-    - node_js: '8.12.0'
+    - node_js: '10.17.0'
     - node_js: '13'
     # Test coverage check must happen after tests for the whole matrix have
     # been performed, so we get the merged coverage map
