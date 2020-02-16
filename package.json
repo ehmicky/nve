@@ -62,7 +62,7 @@
     "nvexeca": "^2.0.0",
     "read-pkg-up": "^7.0.1",
     "semver": "^7.1.3",
-    "update-notifier": "^4.0.0",
+    "update-notifier": "^4.1.0",
     "yargs": "^15.1.0"
   },
   "devDependencies": {
