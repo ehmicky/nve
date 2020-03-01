@@ -44,6 +44,14 @@ Can be customized (for example "https://npm.taobao.org/mirrors/node").
 
 The following environment variables can also be used: NODE_MIRROR, NVM_NODEJS_ORG_MIRROR, N_NODE_MIRROR or NODIST_NODE_MIRROR.`,
   },
+  arch: {
+    alias: 'a',
+    string: true,
+    requiresArg: true,
+    describe: `Node.js binary's CPU architecture. This is useful for example when you're on x64 but would like to run Node.js x32.
+All the values from process.arch are allowed except mips and mipsel.
+Default: process.arch`,
+  },
 }
 
 const USAGE = `$0 [OPTIONS...] VERSION... [COMMAND] [ARGS...]
