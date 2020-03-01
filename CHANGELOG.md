@@ -1,3 +1,10 @@
+# 9.1.1
+
+## Bug fixes
+
+- Fix
+  [`arch` option](https://github.com/ehmicky/nve/blob/master/README.md#--arch)
+
 # 9.1.0
 
 ## Features
