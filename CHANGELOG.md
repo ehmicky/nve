@@ -1,3 +1,11 @@
+# 9.1.0
+
+## Features
+
+- Add
+  [`arch` option](https://github.com/ehmicky/nve/blob/master/README.md#--arch)
+  to specify the CPU architecture.
+
 # 9.0.0
 
 ## Breaking changes
