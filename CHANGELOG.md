@@ -1,3 +1,9 @@
+# 9.1.2
+
+## Bug fixes
+
+- Fix terminal color changing on Windows
+
 # 9.1.1
 
 ## Bug fixes
