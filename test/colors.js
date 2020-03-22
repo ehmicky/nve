@@ -12,7 +12,7 @@ each(
     { env: { TEST_TTY: 'true', TERM: 'dumb' }, colors: false },
   ],
   ({ title }, { env, colors }) => {
-    test(`Colors with interactive TTY | runParallel ${title}`, async t => {
+    test(`Colors with interactive TTY | runParallel ${title}`, async (t) => {
       const { stdout } = await runParallel(
         '',
         HELPER_VERSION,

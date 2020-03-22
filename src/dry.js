@@ -3,14 +3,14 @@ import { stdout } from 'process'
 import normalizeNodeVersion from 'normalize-node-version'
 
 // When `command` is `undefined`, we only print the normalized Node.js version
-export const printVersions = async function(versionRanges, opts) {
+export const printVersions = async function (versionRanges, opts) {
   const versions = await Promise.all(
-    versionRanges.map(versionRange => getVersion(versionRange, opts)),
+    versionRanges.map((versionRange) => getVersion(versionRange, opts)),
   )
   versions.forEach(writeVersion)
 }
 
-export const printVersion = async function(versionRange, opts) {
+export const printVersion = async function (versionRange, opts) {
   const version = await getVersion(versionRange, opts)
   writeVersion(version)
 }
@@ -19,10 +19,10 @@ export const printVersion = async function(versionRange, opts) {
 // This is because dry-mode is meant to show available Node.js versions.
 // However non-dry mode uses cache, i.e. new Node.js releases might take up to
 // one hour to be used.
-const getVersion = function(versionRange, opts) {
+const getVersion = function (versionRange, opts) {
   return normalizeNodeVersion(versionRange, { ...opts, cache: false })
 }
 
-const writeVersion = function(version) {
+const writeVersion = function (version) {
   stdout.write(`${version}\n`)
 }

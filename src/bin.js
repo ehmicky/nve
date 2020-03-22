@@ -12,7 +12,7 @@ import { runParallel } from './parallel.js'
 import { handleFault } from './fault.js'
 
 // CLI that forwards its arguments but using a specific Node.js version
-const runCli = async function() {
+const runCli = async function () {
   try {
     await checkUpdate()
 
@@ -40,12 +40,12 @@ const runCli = async function() {
   }
 }
 
-const checkUpdate = async function() {
+const checkUpdate = async function () {
   const { packageJson } = await readPkgUp({ cwd: __dirname, normalize: false })
   UpdateNotifier({ pkg: packageJson }).notify()
 }
 
-const runMain = function({
+const runMain = function ({
   versionRanges,
   command,
   args,

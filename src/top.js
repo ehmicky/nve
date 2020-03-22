@@ -1,16 +1,11 @@
 import yargs from 'yargs'
 
-export const defineCli = function() {
+export const defineCli = function () {
   const yargsA = EXAMPLES.reduce(addExample, yargs)
-  return yargsA
-    .options(CONFIG)
-    .usage(USAGE)
-    .help()
-    .version()
-    .strict()
+  return yargsA.options(CONFIG).usage(USAGE).help().version().strict()
 }
 
-const addExample = function(yargsA, [example, description]) {
+const addExample = function (yargsA, [example, description]) {
   return yargsA.example(example, description)
 }
 

@@ -4,13 +4,13 @@ import { red } from 'chalk'
 
 // Handle top-level errors not due to child process errors, such as input
 // validation errors, Node.js download errors and bugs.
-export const handleFault = function({ message }) {
+export const handleFault = function ({ message }) {
   stderr.write(`${message}\n`)
   printHelp(message)
 }
 
 // Print --help on common input syntax mistakes
-const printHelp = function(message) {
+const printHelp = function (message) {
   if (!shouldPrintHelp(message)) {
     return
   }
@@ -18,13 +18,13 @@ const printHelp = function(message) {
   stderr.write(SHORT_USAGE)
 }
 
-const shouldPrintHelp = function(message) {
+const shouldPrintHelp = function (message) {
   return message.includes('Missing version')
 }
 
 // Print --help when command is not found, usually indicating input syntax
 // mistake
-export const printInvalidCommand = function(error) {
+export const printInvalidCommand = function (error) {
   if (!isInvalidComment(error)) {
     return
   }
@@ -32,7 +32,7 @@ export const printInvalidCommand = function(error) {
   stderr.write(SHORT_USAGE)
 }
 
-const isInvalidComment = function({ code, exitCode }) {
+const isInvalidComment = function ({ code, exitCode }) {
   return code === 'ENOENT' || exitCode === BASH_COMMAND_CODE
 }
 

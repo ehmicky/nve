@@ -10,7 +10,7 @@ const {
 // order. However colors usually depends on `stdout.isTTY`.
 // We fix this by setting the `FORCE_COLOR` environment variable instead, which
 // is used for example by `stdout.hasColors()` and `chalk`.
-export const getColorOptions = function() {
+export const getColorOptions = function () {
   if (!isInteractiveOutput()) {
     return {}
   }
@@ -28,7 +28,7 @@ export const getColorOptions = function() {
 
 // We need to use an environment variable in tests since automated tests
 // cannot use an interactive TTY
-const isInteractiveOutput = function() {
+const isInteractiveOutput = function () {
   return stdout.isTTY || env.TEST_TTY === 'true'
 }
 

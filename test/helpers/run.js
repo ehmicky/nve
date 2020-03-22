@@ -5,12 +5,12 @@ import { nodejs } from 'figures'
 const BIN_PATH = getBinPath()
 
 // eslint-disable-next-line max-params
-export const runSerial = function(opts, versionRange, args, execaOpts) {
+export const runSerial = function (opts, versionRange, args, execaOpts) {
   return runCli(opts, `${versionRange} ${versionRange}`, args, execaOpts)
 }
 
 // eslint-disable-next-line max-params
-export const runParallel = function(opts, versionRange, args, execaOpts) {
+export const runParallel = function (opts, versionRange, args, execaOpts) {
   return runCli(
     `${opts} --parallel`,
     `${versionRange} ${versionRange}`,
@@ -24,7 +24,7 @@ export const runParallel = function(opts, versionRange, args, execaOpts) {
 // `execa` (based on the `merge-stream` package).
 // So we don't use `execa.all`
 // eslint-disable-next-line max-params
-export const runCli = async function(opts, versionRange, args, execaOpts) {
+export const runCli = async function (opts, versionRange, args, execaOpts) {
   const binPath = await BIN_PATH
   const {
     exitCode,
@@ -40,7 +40,7 @@ export const runCli = async function(opts, versionRange, args, execaOpts) {
 }
 
 // Normalize Windows specifics
-const normalizeOutput = function(output) {
+const normalizeOutput = function (output) {
   return output
     .replace(/\r\n/gu, '\n')
     .replace(/cmd "test"/gu, 'test')

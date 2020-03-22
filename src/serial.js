@@ -7,7 +7,7 @@ import { printVersions } from './dry.js'
 import { handleSerialError } from './error.js'
 
 // Run multiple Node versions serially
-export const runSerial = async function({
+export const runSerial = async function ({
   versionRanges,
   command,
   args,
@@ -30,7 +30,7 @@ export const runSerial = async function({
   }
 
   const versions = await Promise.all(
-    versionRanges.map(versionRange =>
+    versionRanges.map((versionRange) =>
       nvexeca(versionRange, command, args, optsA),
     ),
   )
@@ -40,7 +40,7 @@ export const runSerial = async function({
   return state.exitCode
 }
 
-const runProcesses = async function({ versions, state, continueOpt }) {
+const runProcesses = async function ({ versions, state, continueOpt }) {
   // eslint-disable-next-line fp/no-loops
   for (const { versionRange, command, args, execaOptions } of versions) {
     printVersionHeader(versionRange)
@@ -65,7 +65,7 @@ const runProcesses = async function({ versions, state, continueOpt }) {
   }
 }
 
-const runProcess = async function({
+const runProcess = async function ({
   versionRange,
   command,
   args,

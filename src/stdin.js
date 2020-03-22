@@ -17,11 +17,11 @@ import getStdin from 'get-stdin'
 //  - with serial commands, the whole stdin must be retrieved first then piped
 //    to each command. Otherwise only the first command would get stdin.
 
-export const getSingleStdinOptions = function() {
+export const getSingleStdinOptions = function () {
   return { stdin: 'inherit' }
 }
 
-export const getSerialStdinOptions = async function() {
+export const getSerialStdinOptions = async function () {
   // stdin in automated tests is always non-interactive, so this must be
   // manually tested instead.
   // istanbul ignore next
@@ -33,7 +33,7 @@ export const getSerialStdinOptions = async function() {
   return { stdin: 'pipe', input }
 }
 
-export const getParallelStdinOptions = async function() {
+export const getParallelStdinOptions = async function () {
   const input = await getStdin.buffer()
   return { stdin: 'pipe', input }
 }

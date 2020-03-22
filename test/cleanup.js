@@ -5,7 +5,7 @@ import { OLD_TEST_VERSION, TEST_VERSION } from './helpers/versions.js'
 import { runCli, runSerial, runParallel } from './helpers/run.js'
 
 each([runSerial, runParallel], ({ title }, run) => {
-  test(`Works with early failures | ${title}`, async t => {
+  test(`Works with early failures | ${title}`, async (t) => {
     const { exitCode } = await run('', TEST_VERSION, 'invalid')
 
     t.is(exitCode, 1)
@@ -18,7 +18,7 @@ each(
     { opts: '--continue', terminate: false },
   ],
   ({ title }, { opts, terminate }) => {
-    test(`Terminate other processes on failures | ${title}`, async t => {
+    test(`Terminate other processes on failures | ${title}`, async (t) => {
       const { stdout } = await runCli(
         `--parallel ${opts}`,
         `${TEST_VERSION} ${OLD_TEST_VERSION}`,

@@ -11,7 +11,7 @@ each(
     { run: runCli, output: TEST_VERSION },
   ],
   ({ title }, { run, output }) => {
-    test(`No commands | ${title}`, async t => {
+    test(`No commands | ${title}`, async (t) => {
       const { stdout } = await run('', `v${TEST_VERSION}`, '')
 
       t.is(stdout, output)

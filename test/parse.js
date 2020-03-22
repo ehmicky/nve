@@ -10,7 +10,7 @@ each(
     { versionRange: '0.0.0', command: 'node --version' },
   ],
   ({ title }, { versionRange, command }) => {
-    test(`Invalid input with help | ${title}`, async t => {
+    test(`Invalid input with help | ${title}`, async (t) => {
       const { exitCode } = await runCli('', versionRange, command)
 
       t.is(exitCode, 1)

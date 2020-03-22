@@ -11,7 +11,7 @@ each(
     { run: runParallel, output: 'test\ntest' },
   ],
   ({ title }, { run, output }) => {
-    test(`stdin | ${title}`, async t => {
+    test(`stdin | ${title}`, async (t) => {
       const { stdout } = await run(
         '',
         TEST_VERSION,
@@ -22,7 +22,7 @@ each(
       t.is(stdout, output)
     })
 
-    test(`No stdin | ${title}`, async t => {
+    test(`No stdin | ${title}`, async (t) => {
       const { stdout } = await run(
         '',
         TEST_VERSION,

@@ -5,7 +5,7 @@ import { printVersion } from './dry.js'
 import { handleSingleError } from './error.js'
 
 // Run a single Node version
-export const runSingle = async function({
+export const runSingle = async function ({
   versionRanges: [versionRange],
   command,
   args,

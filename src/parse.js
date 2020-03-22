@@ -5,7 +5,7 @@ import { validRange } from 'semver'
 import { parseOpts } from './options.js'
 
 // Parse CLI input
-export const parseInput = function(yargs) {
+export const parseInput = function (yargs) {
   const input = argv.slice(2)
 
   const { versionRanges, command, args, opts } = parseArgs(input)
@@ -19,7 +19,7 @@ export const parseInput = function(yargs) {
   return { versionRanges, command, args, opts: optsA, continueOpt, parallel }
 }
 
-const parseArgs = function(input) {
+const parseArgs = function (input) {
   // yargs parses any --option meant for the `command`.
   // However we only want to apply yargs on the --option meant for `nve`.
   const versionStart = getVersionStart(input)
@@ -35,7 +35,7 @@ const parseArgs = function(input) {
 }
 
 // Retrieve the index of the first non --option CLI argument
-const getVersionStart = function(input) {
+const getVersionStart = function (input) {
   const versionStart = input.findIndex(isPositionalArg)
 
   if (versionStart === -1) {
@@ -45,12 +45,12 @@ const getVersionStart = function(input) {
   return versionStart
 }
 
-const isPositionalArg = function(arg) {
+const isPositionalArg = function (arg) {
   return !arg.startsWith('-')
 }
 
 // Retrieve the index of the first non versionRange CLI argument
-const getVersionEnd = function(otherArgs) {
+const getVersionEnd = function (otherArgs) {
   const versionEnd = otherArgs.findIndex(isCommand)
 
   if (versionEnd === -1) {
@@ -60,6 +60,6 @@ const getVersionEnd = function(otherArgs) {
   return versionEnd
 }
 
-const isCommand = function(arg) {
+const isCommand = function (arg) {
   return validRange(arg) === null
 }

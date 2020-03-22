@@ -11,7 +11,7 @@ each(
     { versionRange: TEST_VERSION, command: 'invalid' },
   ],
   ({ title }, { versionRange, command }) => {
-    test(`Invalid input message | ${title}`, async t => {
+    test(`Invalid input message | ${title}`, async (t) => {
       const { stderr } = await runCli('', versionRange, command)
 
       t.true(stderr.includes('Invalid input'))
