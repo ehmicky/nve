@@ -13,12 +13,12 @@ export const parseOpts = function (opts, yargs) {
 const isUserOpt = function (key, value) {
   return (
     value !== undefined &&
-    !INTERNAL_KEYS.includes(key) &&
+    !INTERNAL_KEYS.has(key) &&
     key.length !== 1 &&
     !key.includes('-')
   )
 }
 
-const INTERNAL_KEYS = ['help', 'version', '_', '$0']
+const INTERNAL_KEYS = new Set(['help', 'version', '_', '$0'])
 
 const DEFAULT_CLI_OPTS = { progress: true, continue: false, parallel: false }
