@@ -1,8 +1,8 @@
 import nvexeca from 'nvexeca'
 
-import { getSingleStdinOptions } from './stdin.js'
 import { printVersion } from './dry.js'
 import { handleSingleError } from './error.js'
+import { getSingleStdinOptions } from './stdin.js'
 
 // Run a single Node version
 export const runSingle = async function ({

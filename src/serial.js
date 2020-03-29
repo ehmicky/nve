@@ -1,10 +1,10 @@
 import execa from 'execa'
 import nvexeca from 'nvexeca'
 
-import { getSerialStdinOptions } from './stdin.js'
-import { printVersionHeader } from './header.js'
 import { printVersions } from './dry.js'
 import { handleSerialError } from './error.js'
+import { printVersionHeader } from './header.js'
+import { getSerialStdinOptions } from './stdin.js'
 
 // Run multiple Node versions serially
 export const runSerial = async function ({

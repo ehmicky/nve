@@ -1,6 +1,6 @@
 import execa from 'execa'
-import { getBinPath } from 'get-bin-path'
 import { nodejs } from 'figures'
+import { getBinPath } from 'get-bin-path'
 
 const BIN_PATH = getBinPath()
 

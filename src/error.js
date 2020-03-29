@@ -4,8 +4,8 @@ import { promisify } from 'util'
 import { red } from 'chalk'
 
 import { printInvalidCommand } from './fault.js'
-import { writeProcessOutput } from './output.js'
 import { printVersionHeader } from './header.js'
+import { writeProcessOutput } from './output.js'
 
 const pSetTimeout = promisify(setTimeout)
 

@@ -1,9 +1,9 @@
 import test from 'ava'
-import { each } from 'test-each'
 import hasAnsi from 'has-ansi'
+import { each } from 'test-each'
 
-import { HELPER_VERSION } from './helpers/versions.js'
 import { runParallel } from './helpers/run.js'
+import { HELPER_VERSION } from './helpers/versions.js'
 
 each(
   [

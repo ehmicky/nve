@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 import { exit } from 'process'
 
-import UpdateNotifier from 'update-notifier'
 import readPkgUp from 'read-pkg-up'
+import UpdateNotifier from 'update-notifier'
 
-import { defineCli } from './top.js'
-import { parseInput } from './parse.js'
-import { runSingle } from './single.js'
-import { runSerial } from './serial.js'
-import { runParallel } from './parallel.js'
 import { handleFault } from './fault.js'
+import { runParallel } from './parallel.js'
+import { parseInput } from './parse.js'
+import { runSerial } from './serial.js'
+import { runSingle } from './single.js'
+import { defineCli } from './top.js'
 
 // CLI that forwards its arguments but using a specific Node.js version
 const runCli = async function () {

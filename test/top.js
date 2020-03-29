@@ -1,9 +1,9 @@
 import test from 'ava'
-import { each } from 'test-each'
 import readPkgUp from 'read-pkg-up'
+import { each } from 'test-each'
 
-import { TEST_VERSION } from './helpers/versions.js'
 import { runCli, runSerial, runParallel } from './helpers/run.js'
+import { TEST_VERSION } from './helpers/versions.js'
 
 test('--help', async (t) => {
   const { stdout } = await runCli('', '', '--help')

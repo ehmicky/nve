@@ -1,9 +1,9 @@
 import test from 'ava'
-import { each } from 'test-each'
 import hasAnsi from 'has-ansi'
+import { each } from 'test-each'
 
-import { TEST_VERSION } from './helpers/versions.js'
 import { runSerial, runParallel } from './helpers/run.js'
+import { TEST_VERSION } from './helpers/versions.js'
 
 each([runSerial, runParallel], ({ title }, run) => {
   test(`Prints headers | ${title}`, async (t) => {

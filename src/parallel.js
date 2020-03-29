@@ -4,13 +4,13 @@ import { stdout } from 'process'
 import execa from 'execa'
 import nvexeca from 'nvexeca'
 
-import { getParallelStdinOptions } from './stdin.js'
-import { getColorOptions } from './colors.js'
-import { printVersionHeader } from './header.js'
-import { printVersions } from './dry.js'
 import { cleanupProcesses } from './cleanup.js'
+import { getColorOptions } from './colors.js'
+import { printVersions } from './dry.js'
 import { handleParallelError } from './error.js'
+import { printVersionHeader } from './header.js'
 import { writeProcessOutput } from './output.js'
+import { getParallelStdinOptions } from './stdin.js'
 
 // Run multiple Node versions in parallel
 export const runParallel = async function ({
