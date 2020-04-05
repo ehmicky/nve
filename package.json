@@ -14,7 +14,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "gulp check --full"
+      "pre-push": "gulp -LL check --full"
     }
   },
   "description": "Run any command on specific Node.js versions",
