@@ -1,3 +1,5 @@
+import { version } from 'process'
+
 import test from 'ava'
 import { each } from 'test-each'
 
@@ -25,5 +27,11 @@ each([runCli, runSerial, runParallel], ({ title }, run) => {
     )
 
     t.is(exitCode, 1)
+  })
+
+  test(`Can use aliases | ${title}`, async (t) => {
+    const { stdout } = await run('', '.', 'node --version')
+
+    t.true(stdout.includes(version))
   })
 })
