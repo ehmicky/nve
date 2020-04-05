@@ -1,3 +1,13 @@
+# 9.2.0
+
+## Features
+
+- Can use the `_` alias to refer to the
+  [current process's Node.js version](/README.md#usage): `nve _ npm test`
+- Can use the `.` alias to refer to the
+  [current project's Node.js version](/README.md#usage) using its `.nvmrc`,
+  `.node-version` or `.naverc`: `nve . npm test`
+
 # 9.1.2
 
 ## Bug fixes
