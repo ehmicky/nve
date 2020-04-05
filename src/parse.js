@@ -61,5 +61,7 @@ const getVersionEnd = function (otherArgs) {
 }
 
 const isCommand = function (arg) {
-  return validRange(arg) === null
+  return !ALIASES.has(arg) && validRange(arg) === null
 }
+
+const ALIASES = new Set(['.', '_'])
