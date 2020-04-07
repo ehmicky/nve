@@ -57,8 +57,20 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "AdrieanKhisbe",
+      "name": "Adrien Becchis",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/2601132?v=4",
+      "profile": "https://twitter.com/adrieankhisbe",
+      "contributions": [
+        "code",
+        "test",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "none"
 }
