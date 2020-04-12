@@ -64,4 +64,4 @@ const isCommand = function (arg) {
   return !ALIASES.has(arg) && validRange(arg) === null
 }
 
-const ALIASES = new Set(['.', '_'])
+const ALIASES = new Set(['latest', 'current'])

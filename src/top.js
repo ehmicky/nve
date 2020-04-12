@@ -76,12 +76,16 @@ const EXAMPLES = [
   ['nve --parallel 12 10 8 npm test', 'Run all versions in parallel'],
   ['nve 8.10.0 npm test', 'Run a specific version'],
   [`nve "<8" npm test`, 'Use a version range'],
-  [`nve "*" npm test`, 'Run the latest Node version'],
+  [`nve latest npm test`, 'Run the latest Node version'],
+  [`nve l npm test`, 'Run the latest Node version'],
   [
-    'nve . npm test',
+    'nve current npm test',
     'Run the current project\'s Node.js version using its ".nvmrc" or "package.json"',
   ],
-  ['nve _ npm test', "Run the current process's Node.js version"],
+  [
+    'nve c npm test',
+    'Run the current project\'s Node.js version using its ".nvmrc" or "package.json"',
+  ],
   [
     `nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test`,
     'Use a different mirror for the Node binaries',
@@ -101,7 +105,8 @@ const EXAMPLES = [
   ['nve 8 npm run build && nve 8 npm test', 'Chaining command'],
   ['nve 8', 'Cache Node 8 download'],
   ['nve 12 10 8', 'Cache multiple Node downloads'],
-  [`nve "*"`, 'Prints latest Node.js version. Make sure you use quotes.'],
+  [`nve latest`, 'Prints latest Node.js version'],
+  [`nve l`, 'Prints latest Node.js version'],
   ['nve 8', 'Prints latest Node.js 8 version'],
   ['nve 12 10 8', 'Prints latest Node.js 12, 10 and 8 versions'],
 ]

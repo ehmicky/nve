@@ -34,13 +34,12 @@ print "Use a version range"
 nve "<8" node --version
 
 print "Run the latest Node.js version"
-nve "*" node --version
+nve latest node --version
+nve l node --version
 
 print "Run the current project's Node.js version using its '.nvmrc' or 'package.json'"
-nve . node --version
-
-print "Run the current process's Node.js version"
-nve _ node --version
+nve current node --version
+nve c node --version
 
 print "Use a different mirror for the Node binaries"
 nve --mirror=https://npm.taobao.org/mirrors/node 8 node --version
@@ -63,8 +62,9 @@ nve 8 node --version
 print "Cache multiple Node downloads"
 nve 12 10 8 node --version
 
-print "Prints latest Node.js version. Make sure you use quotes."
-nve "*"
+print "Prints latest Node.js version"
+nve latest
+nve l
 
 print "Prints latest Node.js 8 version"
 nve 8
