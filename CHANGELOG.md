@@ -1,3 +1,11 @@
+# 10.0.0
+
+## Breaking changes
+
+- Rename `*` alias to [`latest` or `l`](/README.md#usage)
+- Rename `.` alias to [`current` or `c`](/README.md#usage)
+- Remove `_` alias
+
 # 9.3.1
 
 ## Bug fixes
