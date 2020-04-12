@@ -53,7 +53,6 @@
   },
   "dependencies": {
     "chalk": "^4.0.0",
-    "core-js": "^3.6.5",
     "execa": "^4.0.0",
     "figures": "^3.2.0",
     "filter-obj": "^2.0.1",
