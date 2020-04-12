@@ -72,14 +72,35 @@ const EXAMPLES = [
     'nve --continue 12 10 8 npm test',
     'Do not abort on the first version that fails',
   ],
+  ['nve --parallel 12 10 8 npm test', 'Run all versions in parallel'],
   ['nve 8.10.0 npm test', 'Run a specific version'],
-  [`nve "*" npm test`, 'Run the latest Node version'],
   [`nve "<8" npm test`, 'Use a version range'],
+  [`nve "*" npm test`, 'Run the latest Node version'],
+  [
+    'nve . npm test',
+    'Run the current project\'s Node.js version using its ".nvmrc" or "package.json"',
+  ],
+  ['nve _ npm test', "Run the current process's Node.js version"],
   [
     `nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test`,
     'Use a different mirror for the Node binaries',
   ],
+  [
+    'nve --fetch 8 npm test',
+    'Do not use the cached list of available Node.js versions',
+  ],
+  [
+    'nve --no-fetch 8 npm test',
+    "Always use the cached list of available Node.js versions even if it's more than one hour old",
+  ],
+  [
+    'nve --arch=x32 8 npm test',
+    'Use a different CPU architecture for the Node binaries',
+  ],
   ['nve 8 npm run build && nve 8 npm test', 'Chaining command'],
-  ['nve 8', 'Cache Node 8 download without executing any command'],
+  ['nve 8', 'Cache Node 8 download'],
   ['nve 12 10 8', 'Cache multiple Node downloads'],
+  [`nve "*"`, 'Prints latest Node.js version. Make sure you use quotes.'],
+  ['nve 8', 'Prints latest Node.js 8 version'],
+  ['nve 12 10 8', 'Prints latest Node.js 12, 10 and 8 versions'],
 ]
