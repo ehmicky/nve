@@ -56,7 +56,7 @@ $ nve "<8" npm test
 # Run the latest Node.js version
 $ nve "*" npm test
 
-# Run the current project's Node.js version using its `.nvmrc` or `package.json`
+# Run the current project's Node.js version using its '.nvmrc' or 'package.json'
 $ nve . npm test
 
 # Run the current process's Node.js version

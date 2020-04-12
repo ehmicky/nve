@@ -36,7 +36,7 @@ nve "<8" node --version
 print "Run the latest Node.js version"
 nve "*" node --version
 
-print "Run the current project's Node.js version using its `.nvmrc` or `package.json`"
+print "Run the current project's Node.js version using its '.nvmrc' or 'package.json'"
 nve . node --version
 
 print "Run the current process's Node.js version"
