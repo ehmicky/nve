@@ -7,7 +7,7 @@ import { HELPER_VERSION } from './helpers/versions.js'
 
 each(
   [
-    { env: { TEST_TTY: 'true' }, colors: true },
+    { env: { TEST_TTY: 'true', FORCE_COLOR: '1' }, colors: true },
     { env: {}, colors: false },
     { env: { TEST_TTY: 'true', TERM: 'dumb' }, colors: false },
   ],
