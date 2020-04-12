@@ -8,10 +8,6 @@
 
 - Checksum checks were not working when the `mirror` option was used
 
-## Dependencies
-
-- Remove `core-js`
-
 # 9.2.0
 
 ## Features
