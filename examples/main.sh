@@ -30,11 +30,17 @@ nve --parallel 12 10 8 node --version
 print "Run a specific version"
 nve 8.10.0 node --version
 
-print "Run the latest Node version"
-nve "*" node --version
-
 print "Use a version range"
 nve "<8" node --version
+
+print "Run the latest Node.js version"
+nve "*" node --version
+
+print "Run the current project's Node.js version using its `.nvmrc` or `package.json`"
+nve . node --version
+
+print "Run the current process's Node.js version"
+nve _ node --version
 
 print "Use a different mirror for the Node binaries"
 nve --mirror=https://npm.taobao.org/mirrors/node 8 node --version
