@@ -9,7 +9,7 @@ each(
   [
     { env: { TEST_TTY: 'true', FORCE_COLOR: '1' }, colors: true },
     { env: {}, colors: false },
-    { env: { TEST_TTY: 'true', TERM: 'dumb' }, colors: false },
+    { env: { TEST_TTY: 'true', TERM: 'dumb', COLORTERM: '' }, colors: false },
   ],
   ({ title }, { env, colors }) => {
     test(`Colors with interactive TTY | runParallel ${title}`, async (t) => {
