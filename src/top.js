@@ -39,6 +39,13 @@ Can be customized (for example "https://npm.taobao.org/mirrors/node").
 
 The following environment variables can also be used: NODE_MIRROR, NVM_NODEJS_ORG_MIRROR, N_NODE_MIRROR or NODIST_NODE_MIRROR.`,
   },
+  fetch: {
+    alias: 'f',
+    boolean: true,
+    describe: `The list of available Node.js versions is cached for one hour by default. With:
+- --fetch: the cache will not be used
+- --no-fetch: the cache will be used even if it's older than one hour`,
+  },
   arch: {
     alias: 'a',
     string: true,
