@@ -20,7 +20,7 @@ export const printVersion = async function (versionRange, opts) {
 // However non-dry mode uses cache, i.e. new Node.js releases might take up to
 // one hour to be used.
 const getVersion = function (versionRange, opts) {
-  return normalizeNodeVersion(versionRange, { ...opts, cache: false })
+  return normalizeNodeVersion(versionRange, { ...opts, fetch: true })
 }
 
 const writeVersion = function (version) {
