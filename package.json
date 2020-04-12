@@ -61,7 +61,7 @@
     "normalize-node-version": "^9.0.0",
     "nvexeca": "^3.0.1",
     "read-pkg-up": "^7.0.1",
-    "semver": "^7.2.2",
+    "semver": "^7.3.2",
     "update-notifier": "^4.1.0",
     "yargs": "^15.3.1"
   },
