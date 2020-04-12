@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import yargs from 'yargs'
 
 export const defineCli = function () {
@@ -104,3 +105,4 @@ const EXAMPLES = [
   ['nve 8', 'Prints latest Node.js 8 version'],
   ['nve 12 10 8', 'Prints latest Node.js 12, 10 and 8 versions'],
 ]
+/* eslint-enable max-lines */
