@@ -58,7 +58,7 @@
     "figures": "^3.2.0",
     "filter-obj": "^2.0.1",
     "get-stdin": "^7.0.0",
-    "normalize-node-version": "^8.0.1",
+    "normalize-node-version": "^9.0.0",
     "nvexeca": "^2.3.0",
     "read-pkg-up": "^7.0.1",
     "semver": "^7.2.2",
