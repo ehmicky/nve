@@ -1,3 +1,9 @@
+# 9.3.1
+
+## Bug fixes
+
+- Fix warning message printed when running some commands
+
 # 9.3.0
 
 ## Features
