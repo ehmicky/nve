@@ -1,10 +1,10 @@
-import { version } from 'process'
-
 import test from 'ava'
 import { each } from 'test-each'
 
 import { runCli, runSerial, runParallel } from './helpers/run.js'
 import { TEST_VERSION } from './helpers/versions.js'
+
+const FIXTURES_DIR = `${__dirname}/helpers/fixtures`
 
 each([runCli, runSerial, runParallel], ({ title }, run) => {
   test(`Forward exit code on success | ${title}`, async (t) => {
@@ -30,8 +30,10 @@ each([runCli, runSerial, runParallel], ({ title }, run) => {
   })
 
   test(`Can use aliases | ${title}`, async (t) => {
-    const { stdout } = await run('', '.', 'node --version')
+    const { stdout } = await run('', '.', 'node --version', {
+      cwd: `${FIXTURES_DIR}/nvmrc`,
+    })
 
-    t.true(stdout.includes(version))
+    t.true(stdout.includes(TEST_VERSION))
   })
 })
