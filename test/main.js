@@ -30,7 +30,7 @@ each([runCli, runSerial, runParallel], ({ title }, run) => {
   })
 
   test(`Can use aliases | ${title}`, async (t) => {
-    const { stdout } = await run('', 'current', 'node --version', {
+    const { stdout } = await run('', 'c', 'node --version', {
       cwd: `${FIXTURES_DIR}/nvmrc`,
     })
 

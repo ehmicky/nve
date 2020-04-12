@@ -1,3 +1,9 @@
+# 10.0.1
+
+## Bug fixes
+
+- Fix aliases shortcuts `l` and `c`
+
 # 10.0.0
 
 ## Breaking changes
