@@ -50,13 +50,13 @@ $ nve 8 ava
 # Run a specific version
 $ nve 8.10.0 npm test
 
-# Run the latest Node version
-$ nve "*" npm test
-
 # Use a version range
 $ nve "<8" npm test
 
-# Run the current project's Node.js version using its `.nvmrc`
+# Run the latest Node.js version
+$ nve "*" npm test
+
+# Run the current project's Node.js version using its `.nvmrc` or `package.json`
 $ nve . npm test
 
 # Run the current process's Node.js version
@@ -160,10 +160,11 @@ But using specific Node `VERSION`. Several `VERSION` can be specified at once.
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`, or one of the following aliases:
 
-- `_` : Current process's Node.js version
+- `*`: Latest available Node version
 - `.` : Node version from a `.nvmrc`, `.node-version` or `.naverc` file in the
   current directory or any parent directory. Defaults to the current process's
-  Node.js version
+  Node version
+- `_` : Current process's Node version
 
 `COMMAND` must be compatible with the specific Node `VERSION`. For example `npm`
 is [only compatible with Node `>=6`](https://github.com/npm/cli#important).
