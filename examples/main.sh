@@ -46,10 +46,10 @@ print "Use a different mirror for the Node binaries"
 nve --mirror=https://npm.taobao.org/mirrors/node 8 node --version
 
 print "Do not use the cached list of available Node.js versions"
-nve --fetch node --version
+nve --fetch 8 node --version
 
 print "Always use the cached list of available Node.js versions even if it's more than one hour old"
-nve --no-fetch node --version
+nve --no-fetch 8 node --version
 
 # print "Use a different CPU architecture for the Node binaries"
 # nve --arch=x32 8 node --version
