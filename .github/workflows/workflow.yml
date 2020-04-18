@@ -11,11 +11,9 @@ jobs:
       # We do not run each possible combination to make CI faster.
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        node: [10.17.0, 13]
-        exclude:
-          - os: macOS-latest
-            node: 10.17.0
-          - os: windows-latest
+        node: [13]
+        include:
+          - os: ubuntu-latest
             node: 10.17.0
       fail-fast: false
     runs-on: ${{ matrix.os }}
