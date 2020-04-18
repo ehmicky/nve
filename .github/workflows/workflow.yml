@@ -1,6 +1,5 @@
 name: Build
 on: [push, pull_request]
-env:
 jobs:
   combinations:
     # git push --tags does not create any commits so should not trigger a new
