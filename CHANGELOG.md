@@ -1,3 +1,10 @@
+# Unreleased
+
+## Features
+
+- The default value of the [`--fetch` CLI flag](/README.md#--fetch) is now
+  `true` when no command was passed
+
 # 13.0.1
 
 ## Bug fixes

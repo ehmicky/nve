@@ -245,6 +245,10 @@ The list of available Node.js versions is cached for one hour by default. With:
 - `--fetch`: the cache will not be used
 - `--no-fetch`: the cache will be used even if it's older than one hour
 
+The default value is `undefined` (neither of the above). When no `COMMAND` is
+specified (only printing the Node.js version), the default value is `--fetch`
+instead.
+
 ### --arch
 
 _Alias_: `-a`\
