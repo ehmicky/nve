@@ -5,6 +5,7 @@ import { each } from 'test-each'
 import { runCli, runSerial, runParallel } from './helpers/run.js'
 import {
   TEST_VERSION,
+  LATEST_STAR_VERSION,
   LATEST_VERSION,
   LTS_VERSION,
   GLOBAL_VERSION,
@@ -35,32 +36,32 @@ each([runCli, runSerial, runParallel], ({ title }, run) => {
 
     t.is(exitCode, 1)
   })
-
-  test(`Can use "latest" alias | ${title}`, async (t) => {
-    const [{ stdout }, { stdout: stdoutA }] = await Promise.all([
-      run('', LATEST_VERSION, 'node --version'),
-      run('', '*', 'node --version'),
-    ])
-    t.is(stdout, stdoutA)
-  })
-
-  test(`Can use "local" alias | ${title}`, async (t) => {
-    const { stdout } = await run('', LOCAL_VERSION, 'node --version', {
-      cwd: `${FIXTURES_DIR}/nvmrc`,
-    })
-
-    t.true(stdout.includes(TEST_VERSION))
-  })
 })
 
-each(
-  [runCli, runSerial, runParallel],
-  [LTS_VERSION, GLOBAL_VERSION],
-  ({ title }, run, alias) => {
-    test(`Can use "lts" and "global" alias | ${title}`, async (t) => {
-      const { stdout } = await run('', alias, 'node --version')
-      const [version] = stdout.split('\n')
-      t.is(`v${cleanVersion(version)}`, version)
-    })
-  },
-)
+// Download too many Node.js binaries at once makes nodejs.org/dist either
+// drop the connection or make it hang forever. Since those tests use different
+// versions, we make sure they are only called once and not inside `test-each`.
+test('Can use "latest" alias', async (t) => {
+  const [{ stdout }, { stdout: stdoutA }] = await Promise.all([
+    runCli('', LATEST_VERSION, 'node --version'),
+    runCli('', LATEST_STAR_VERSION, 'node --version'),
+  ])
+  t.is(stdout, stdoutA)
+})
+
+test('Can use "lts" alias', async (t) => {
+  const { stdout } = await runCli('', LTS_VERSION, 'node --version')
+  t.is(`v${cleanVersion(stdout)}`, stdout)
+})
+
+test('Can use "global" alias', async (t) => {
+  const { stdout } = await runCli('', GLOBAL_VERSION, 'node --version')
+  t.is(`v${cleanVersion(stdout)}`, stdout)
+})
+
+test('Can use "local" alias', async (t) => {
+  const { stdout } = await runCli('', LOCAL_VERSION, 'node --version', {
+    cwd: `${FIXTURES_DIR}/nvmrc`,
+  })
+  t.true(stdout.includes(TEST_VERSION))
+})
