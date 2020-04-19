@@ -1,3 +1,10 @@
+# 12.0.0
+
+## Breaking changes
+
+- Rename the [alias `now`](/README.md#usage) to `here` thanks to
+  [feedback from @AdrieanKhisbe](https://github.com/ehmicky/normalize-node-version/pull/3#issuecomment-617598965)
+
 # 11.0.0
 
 ## Breaking changes

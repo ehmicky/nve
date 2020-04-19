@@ -3,7 +3,11 @@ import { clean as cleanVersion } from 'semver'
 import { each } from 'test-each'
 
 import { runCli, runSerial, runParallel } from './helpers/run.js'
-import { TEST_VERSION, NOW_VERSION, ALIAS_VERSION } from './helpers/versions.js'
+import {
+  TEST_VERSION,
+  HERE_VERSION,
+  ALIAS_VERSION,
+} from './helpers/versions.js'
 
 const FIXTURES_DIR = `${__dirname}/helpers/fixtures`
 
@@ -30,8 +34,8 @@ each([runCli, runSerial, runParallel], ({ title }, run) => {
     t.is(exitCode, 1)
   })
 
-  test(`Can use "now" aliases | ${title}`, async (t) => {
-    const { stdout } = await run('', NOW_VERSION, 'node --version', {
+  test(`Can use "here" aliases | ${title}`, async (t) => {
+    const { stdout } = await run('', HERE_VERSION, 'node --version', {
       cwd: `${FIXTURES_DIR}/nvmrc`,
     })
 

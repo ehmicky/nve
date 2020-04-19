@@ -60,7 +60,7 @@ $ nve latest npm test
 $ nve lts npm test
 
 # Run the current project's Node.js version using its `.nvmrc` or `package.json` (`engines.node` field)
-$ nve now npm test
+$ nve here npm test
 
 # Use a different mirror for the Node binaries
 $ nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test
@@ -169,7 +169,7 @@ But using specific Node `VERSION`. Several `VERSION` can be specified at once.
 
 - `latest`: Latest available Node version
 - `lts`: Latest LTS Node version
-- `now`: Node version from any [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc)
+- `here`: Node version from any [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc)
   or
   [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
   in the current directory, parent directories or home directory.

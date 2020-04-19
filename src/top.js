@@ -79,7 +79,7 @@ const EXAMPLES = [
   [`nve latest npm test`, 'Run the latest Node version'],
   [`nve lts npm test`, 'Run the latest LTS Node version'],
   [
-    'nve now npm test',
+    'nve here npm test',
     'Run the current project\'s Node.js version using its ".nvmrc" or "package.json" ("engines.node" field)',
   ],
   [
