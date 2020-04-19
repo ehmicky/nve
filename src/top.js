@@ -77,14 +77,10 @@ const EXAMPLES = [
   ['nve 8.10.0 npm test', 'Run a specific version'],
   [`nve "<8" npm test`, 'Use a version range'],
   [`nve latest npm test`, 'Run the latest Node version'],
-  [`nve l npm test`, 'Run the latest Node version'],
+  [`nve lts npm test`, 'Run the latest LTS Node version'],
   [
-    'nve current npm test',
-    'Run the current project\'s Node.js version using its ".nvmrc" or "package.json"',
-  ],
-  [
-    'nve c npm test',
-    'Run the current project\'s Node.js version using its ".nvmrc" or "package.json"',
+    'nve now npm test',
+    'Run the current project\'s Node.js version using its ".nvmrc" or "package.json" ("engines.node" field)',
   ],
   [
     `nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test`,
@@ -106,7 +102,6 @@ const EXAMPLES = [
   ['nve 8', 'Cache Node 8 download'],
   ['nve 12 10 8', 'Cache multiple Node downloads'],
   [`nve latest`, 'Prints latest Node.js version'],
-  [`nve l`, 'Prints latest Node.js version'],
   ['nve 8', 'Prints latest Node.js 8 version'],
   ['nve 12 10 8', 'Prints latest Node.js 12, 10 and 8 versions'],
 ]

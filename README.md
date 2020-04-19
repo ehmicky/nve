@@ -55,11 +55,12 @@ $ nve "<8" npm test
 
 # Run the latest Node.js version
 $ nve latest npm test
-$ nve l npm test
 
-# Run the current project's Node.js version using its '.nvmrc' or 'package.json'
-$ nve current npm test
-$ nve c npm test
+# Run the latest LTS version
+$ nve lts npm test
+
+# Run the current project's Node.js version using its `.nvmrc` or `package.json` (`engines.node` field)
+$ nve now npm test
 
 # Use a different mirror for the Node binaries
 $ nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test
@@ -166,10 +167,15 @@ But using specific Node `VERSION`. Several `VERSION` can be specified at once.
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`, or one of the following aliases:
 
-- `latest` or `l`: Latest available Node version
-- `current` or `c`: Node version from a `.nvmrc`, `.node-version` or `.naverc`
-  file in the current directory or any parent directory. Defaults to the current
-  process's Node version
+- `latest`: Latest available Node version
+- `lts`: Latest LTS Node version
+- `now`: Node version from any [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc)
+  or
+  [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
+  in the current directory, parent directories or home directory.
+  [Some additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md)
+  used by other Node.js version managers are also searched for. Defaults to the
+  current process's Node version.
 
 `COMMAND` must be compatible with the specific Node `VERSION`. For example `npm`
 is [only compatible with Node `>=6`](https://github.com/npm/cli#important).

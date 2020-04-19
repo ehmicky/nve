@@ -35,11 +35,12 @@ nve "<8" node --version
 
 print "Run the latest Node.js version"
 nve latest node --version
-nve l node --version
 
-print "Run the current project's Node.js version using its '.nvmrc' or 'package.json'"
-nve current node --version
-nve c node --version
+print "Run the latest LTS Node.js version"
+nve lts node --version
+
+print "Run the current project's Node.js version using its '.nvmrc' or 'package.json' ('engines.node' field)"
+nve now node --version
 
 print "Use a different mirror for the Node binaries"
 nve --mirror=https://npm.taobao.org/mirrors/node 8 node --version
@@ -64,7 +65,6 @@ nve 12 10 8 node --version
 
 print "Prints latest Node.js version"
 nve latest
-nve l
 
 print "Prints latest Node.js 8 version"
 nve 8
