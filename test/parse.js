@@ -21,7 +21,7 @@ each(
 
 each(
   [runCli, runSerial, runParallel],
-  ['--fetch', '--no-fetch', '--fetch=true', '--fetch true'],
+  ['--no-fetch', '--fetch=false', '--fetch false'],
   ({ title }, run, opts) => {
     test(`Parse nve CLI flags | ${title}`, async (t) => {
       const { exitCode } = await run(opts, TEST_VERSION, 'node --version')
