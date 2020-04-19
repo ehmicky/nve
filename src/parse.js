@@ -8,60 +8,63 @@ import { parseOpts } from './options.js'
 export const parseInput = function (yargs) {
   const input = argv.slice(2)
 
-  const { versionRanges, command, args, opts } = parseArgs(input)
+  const { opts, versionArg, command, args } = parseArgs(input)
   const { opts: optsA, continueOpt, parallel } = parseOpts(opts, yargs)
 
   // We do this after options parsing in case --help or --version was passed
-  if (versionRanges.length === 0) {
+  if (versionArg === undefined) {
     throw new Error('Missing version.')
   }
 
+  const versionRanges = versionArg.split(VERSION_DELIMITER)
   return { versionRanges, command, args, opts: optsA, continueOpt, parallel }
 }
 
+// yargs parses any --option meant for the `command`.
+// However we only want to apply yargs on the --option meant for `nve`.
 const parseArgs = function (input) {
-  // yargs parses any --option meant for the `command`.
-  // However we only want to apply yargs on the --option meant for `nve`.
   const versionStart = getVersionStart(input)
   const opts = input.slice(0, versionStart)
-  const otherArgs = input.slice(versionStart)
-
-  // Separate variadic version ranges from `command` and `args`
-  const versionEnd = getVersionEnd(otherArgs)
-  const versionRanges = otherArgs.slice(0, versionEnd)
-  const [command, ...args] = otherArgs.slice(versionEnd)
-
-  return { versionRanges, command, args, opts }
+  const [versionArg, command, ...args] = input.slice(versionStart)
+  return { opts, versionArg, command, args }
 }
 
 // Retrieve the index of the first non --option CLI argument
 const getVersionStart = function (input) {
-  const versionStart = input.findIndex(isPositionalArg)
+  const versionStart = input.findIndex(isVersionArg)
 
-  if (versionStart === -1) {
+  if (versionStart !== -1) {
+    return versionStart
+  }
+
+  if (isGenericFlags(input)) {
     return input.length
   }
 
-  return versionStart
+  return 0
 }
 
-const isPositionalArg = function (arg) {
-  return !arg.startsWith('-')
+// When no version has been specified, this can mean:
+//   - one of those CLI flags has been used
+//   - user error: the version is missing or has a typo
+const isGenericFlags = function (input) {
+  return input.every(isGenericFlag)
 }
 
-// Retrieve the index of the first non versionRange CLI argument
-const getVersionEnd = function (otherArgs) {
-  const versionEnd = otherArgs.findIndex(isCommand)
-
-  if (versionEnd === -1) {
-    return otherArgs.length
-  }
-
-  return versionEnd
+const isGenericFlag = function (arg) {
+  return GENERIC_FLAGS.has(arg)
 }
 
-const isCommand = function (arg) {
-  return !ALIASES.has(arg) && validRange(arg) === null
+const GENERIC_FLAGS = new Set(['-h', '--help', '-v', '--version'])
+
+const isVersionArg = function (arg) {
+  return arg.split(VERSION_DELIMITER).every(isVersion)
+}
+
+const isVersion = function (value) {
+  return ALIASES.has(value) || validRange(value) !== null
 }
 
 const ALIASES = new Set(['latest', 'lts', 'global', 'local'])
+
+const VERSION_DELIMITER = ','

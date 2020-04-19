@@ -2,11 +2,16 @@ import test from 'ava'
 import readPkgUp from 'read-pkg-up'
 import { each } from 'test-each'
 
-import { runCli, runSerial, runParallel } from './helpers/run.js'
+import {
+  runCli,
+  runCliNoVersion,
+  runSerial,
+  runParallel,
+} from './helpers/run.js'
 import { TEST_VERSION } from './helpers/versions.js'
 
 test('--help', async (t) => {
-  const { stdout } = await runCli('', '', '--help')
+  const { stdout } = await runCliNoVersion('', '', '--help')
 
   t.true(stdout.includes('Examples'))
 })
@@ -17,7 +22,7 @@ test('--version', async (t) => {
     {
       packageJson: { version },
     },
-  ] = await Promise.all([runCli('', '', '--version'), readPkgUp()])
+  ] = await Promise.all([runCliNoVersion('', '', '--version'), readPkgUp()])
 
   t.is(stdout, version)
 })

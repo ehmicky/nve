@@ -35,7 +35,7 @@ Node ${TEST_VERSION} failed with exit code 2`,
 test(`Prints aborted message if late | runParallel`, async (t) => {
   const { stderr } = await runCli(
     '--parallel',
-    `${TEST_VERSION} ${OLD_TEST_VERSION}`,
+    `${TEST_VERSION},${OLD_TEST_VERSION}`,
     'node -p Buffer.from("");setTimeout(()=>{},1e9)',
   )
 
@@ -54,7 +54,7 @@ Node ${OLD_TEST_VERSION} failed with exit code 1`,
 test(`Prints no aborted message if early | runParallel`, async (t) => {
   const { stderr } = await runCli(
     '--parallel',
-    `${OLD_TEST_VERSION} ${TEST_VERSION}`,
+    `${OLD_TEST_VERSION},${TEST_VERSION}`,
     'node -p Buffer.from("");setTimeout(()=>{},1e9)',
   )
 

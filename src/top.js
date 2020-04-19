@@ -57,23 +57,24 @@ Default: process.arch`,
   },
 }
 
-const USAGE = `$0 [OPTIONS...] VERSION... [COMMAND] [ARGS...]
+const USAGE = `$0 [OPTIONS...] VERSION,... [COMMAND] [ARGS...]
 
 Run "COMMAND [ARGS...]" on specific Node.js versions.
-Either one or several VERSION can be specified.
-VERSION can be any version range such as "12", "12.6.0" or "<12".`
+Either one or several comma-separated VERSION can be specified.
+VERSION can be any version range such as "12", "12.6.0" or "<12".
+It can also be one of the following aliases: "latest", "lts", "global" or "local".`
 
 const EXAMPLES = [
   ['nve 12 node', 'Same as "node" but with Node 12'],
   ['nve 8 node file.js', 'Same as "node file.js" but with Node 8'],
   ['nve 8 npm test', 'Any command can be used'],
   ['nve 8 ava', 'Execute a local binary'],
-  ['nve 12 10 8 npm test', 'Run multiple versions'],
+  ['nve 12,10,8 npm test', 'Run multiple versions'],
   [
-    'nve --continue 12 10 8 npm test',
+    'nve --continue 12,10,8 npm test',
     'Do not abort on the first version that fails',
   ],
-  ['nve --parallel 12 10 8 npm test', 'Run all versions in parallel'],
+  ['nve --parallel 12,10,8 npm test', 'Run all versions in parallel'],
   ['nve 8.10.0 npm test', 'Run a specific version'],
   [`nve "<8" npm test`, 'Use a version range'],
   [`nve latest npm test`, 'Run the latest Node version'],
@@ -103,10 +104,10 @@ const EXAMPLES = [
     'Use a different CPU architecture for the Node binaries',
   ],
   ['nve 8 npm run build && nve 8 npm test', 'Chaining command'],
-  ['nve 8', 'Cache Node 8 download'],
-  ['nve 12 10 8', 'Cache multiple Node downloads'],
+  ['nve 8 node --version', 'Cache Node 8 download'],
+  ['nve 12,10,8 node --version', 'Cache multiple Node downloads'],
   [`nve latest`, 'Prints latest Node.js version'],
   ['nve 8', 'Prints latest Node.js 8 version'],
-  ['nve 12 10 8', 'Prints latest Node.js 12, 10 and 8 versions'],
+  ['nve 12,10,8', 'Prints latest Node.js 12, 10 and 8 versions'],
 ]
 /* eslint-enable max-lines */

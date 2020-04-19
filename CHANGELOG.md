@@ -3,6 +3,9 @@
 ## Breaking changes
 
 - Rename the [alias `here`](/README.md#usage) to `local`
+- Commas [should now be used](/README.md#usage) to separate multiple Node
+  versions. For example `nve 8 10 12 node --version` should now be
+  `nve 8,10,12 node --version`.
 
 ## Features
 

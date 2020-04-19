@@ -6,17 +6,22 @@ const BIN_PATH = getBinPath()
 
 // eslint-disable-next-line max-params
 export const runSerial = function (opts, versionRange, args, execaOpts) {
-  return runCli(opts, `${versionRange} ${versionRange}`, args, execaOpts)
+  return runCli(opts, `${versionRange},${versionRange}`, args, execaOpts)
 }
 
 // eslint-disable-next-line max-params
 export const runParallel = function (opts, versionRange, args, execaOpts) {
   return runCli(
     `${opts} --parallel`,
-    `${versionRange} ${versionRange}`,
+    `${versionRange},${versionRange}`,
     args,
     execaOpts,
   )
+}
+
+// eslint-disable-next-line max-params
+export const runCliNoVersion = function (opts, versionRange, args, execaOpts) {
+  return runCli(opts, versionRange, args, execaOpts, true)
 }
 
 // When calling several `nve` in parallel, their output is sometimes duplicated
@@ -24,14 +29,21 @@ export const runParallel = function (opts, versionRange, args, execaOpts) {
 // `execa` (based on the `merge-stream` package).
 // So we don't use `execa.all`
 // eslint-disable-next-line max-params
-export const runCli = async function (opts, versionRange, args, execaOpts) {
+export const runCli = async function (
+  opts,
+  versionRange,
+  args,
+  execaOpts,
+  progress,
+) {
   const binPath = await BIN_PATH
+  const noProgress = progress ? '' : '--no-progress'
   const {
     exitCode,
     stdout,
     stderr,
   } = await execa.command(
-    `${binPath} --no-progress ${opts} ${versionRange} ${args}`,
+    `${binPath} ${noProgress} ${opts} ${versionRange} ${args}`,
     { reject: false, stdin: 'ignore', ...execaOpts },
   )
   const stdoutA = normalizeOutput(stdout)

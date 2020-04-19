@@ -19,13 +19,13 @@ print "Any command can be used, including local binaries"
 nve 8 npm --version
 
 print "Run multiple versions"
-nve 12 10 8 node --version
+nve 12,10,8 node --version
 
 print "Do not abort on the first version that fails"
-nve --continue 12 10 8 node --version
+nve --continue 12,10,8 node --version
 
 print "Run all versions in parallel"
-nve --parallel 12 10 8 node --version
+nve --parallel 12,10,8 node --version
 
 print "Run a specific version"
 nve 8.10.0 node --version
@@ -64,7 +64,7 @@ print "Cache Node 8 download"
 nve 8 node --version
 
 print "Cache multiple Node downloads"
-nve 12 10 8 node --version
+nve 12,10,8 node --version
 
 print "Prints latest Node.js version"
 nve latest
@@ -73,4 +73,4 @@ print "Prints latest Node.js 8 version"
 nve 8
 
 print "Prints latest Node.js 12, 10 and 8 versions"
-nve 12 10 8
+nve 12,10,8

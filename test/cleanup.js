@@ -21,7 +21,7 @@ each(
     test(`Terminate other processes on failures | ${title}`, async (t) => {
       const { stdout } = await runCli(
         `--parallel ${opts}`,
-        `${TEST_VERSION} ${OLD_TEST_VERSION}`,
+        `${TEST_VERSION},${OLD_TEST_VERSION}`,
         `node -e Buffer.from("")
 setTimeout(()=>{console.log("test")},5e3)`,
         { all: true },

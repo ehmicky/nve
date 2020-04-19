@@ -45,12 +45,12 @@ ${red('Invalid input syntax.')}
 
 It should be:
 
-  nve [OPTIONS...] VERSION... [COMMAND] [ARGS...]
+  nve [OPTIONS...] VERSION,... [COMMAND] [ARGS...]
 
 Examples:
 
   nve 8 node file.js
   nve 8 npm test
-  nve 8 9 10 npm test
+  nve 8,9,10 npm test
   nve --no-progress 8 npm test
 `

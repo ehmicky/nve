@@ -89,7 +89,7 @@ $ nve 8 node --version
 
 ```bash
 # Run multiple versions
-$ nve 12 10 8 npm test
+$ nve 12,10,8 npm test
 
  ⬢  Node 12
 
@@ -107,13 +107,13 @@ $ nve 12 10 8 npm test
   Finished 'test' after 4.5 s
 
 # Do not abort on the first version that fails
-$ nve --continue 12 10 8 npm test
+$ nve --continue 12,10,8 npm test
 
 # Run all versions in parallel
-$ nve --parallel 12 10 8 npm test
+$ nve --parallel 12,10,8 npm test
 
 # Cache multiple Node downloads
-$ nve 12 10 8 node --version
+$ nve 12,10,8 node --version
 ```
 
 # Examples (list versions)
@@ -128,7 +128,7 @@ $ nve 8
 8.16.2
 
 # Prints latest Node.js 12, 10 and 8 versions
-$ nve 12 10 8
+$ nve 12,10,8
 12.13.0
 10.17.0
 8.16.2
@@ -156,7 +156,7 @@ To use this programmatically (from Node.js) instead, please check
 # Usage
 
 ```bash
-nve [OPTIONS...] VERSION... [COMMAND] [ARGS...]
+nve [OPTIONS...] VERSION,... [COMMAND] [ARGS...]
 ```
 
 This is exactly the same as:
@@ -165,7 +165,8 @@ This is exactly the same as:
 COMMAND [ARGS...]
 ```
 
-But using specific Node `VERSION`. Several `VERSION` can be specified at once.
+But using a specific Node `VERSION`. Several comma-separated `VERSION` can be
+specified at once.
 
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`, or one of the following aliases:
