@@ -1,3 +1,14 @@
+# 13.0.0
+
+## Breaking changes
+
+- Rename the [alias `here`](/README.md#usage) to `local`
+
+## Features
+
+- Add the [alias `global`](/README.md#usage) to target the global Node version,
+  regardless of the current directory
+
 # 12.0.0
 
 ## Breaking changes

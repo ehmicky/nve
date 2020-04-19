@@ -5,8 +5,10 @@ import { each } from 'test-each'
 import { runCli, runSerial, runParallel } from './helpers/run.js'
 import {
   TEST_VERSION,
-  HERE_VERSION,
-  ALIAS_VERSION,
+  LATEST_VERSION,
+  LTS_VERSION,
+  GLOBAL_VERSION,
+  LOCAL_VERSION,
 } from './helpers/versions.js'
 
 const FIXTURES_DIR = `${__dirname}/helpers/fixtures`
@@ -34,17 +36,31 @@ each([runCli, runSerial, runParallel], ({ title }, run) => {
     t.is(exitCode, 1)
   })
 
-  test(`Can use "here" aliases | ${title}`, async (t) => {
-    const { stdout } = await run('', HERE_VERSION, 'node --version', {
+  test(`Can use "latest" alias | ${title}`, async (t) => {
+    const [{ stdout }, { stdout: stdoutA }] = await Promise.all([
+      run('', LATEST_VERSION, 'node --version'),
+      run('', '*', 'node --version'),
+    ])
+    t.is(stdout, stdoutA)
+  })
+
+  test(`Can use "local" alias | ${title}`, async (t) => {
+    const { stdout } = await run('', LOCAL_VERSION, 'node --version', {
       cwd: `${FIXTURES_DIR}/nvmrc`,
     })
 
     t.true(stdout.includes(TEST_VERSION))
   })
-
-  test(`Can use other aliases | ${title}`, async (t) => {
-    const { stdout } = await run('', ALIAS_VERSION, 'node --version')
-    const [version] = stdout.split('\n')
-    t.is(`v${cleanVersion(version)}`, version)
-  })
 })
+
+each(
+  [runCli, runSerial, runParallel],
+  [LTS_VERSION, GLOBAL_VERSION],
+  ({ title }, run, alias) => {
+    test(`Can use "lts" and "global" alias | ${title}`, async (t) => {
+      const { stdout } = await run('', alias, 'node --version')
+      const [version] = stdout.split('\n')
+      t.is(`v${cleanVersion(version)}`, version)
+    })
+  },
+)

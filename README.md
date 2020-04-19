@@ -59,8 +59,11 @@ $ nve latest npm test
 # Run the latest LTS version
 $ nve lts npm test
 
-# Run the current project's Node.js version using its `.nvmrc` or `package.json` (`engines.node` field)
-$ nve here npm test
+# Run the Node version from `~/.nvmrc` or the current process version
+$ nve global npm test
+
+# Run the current directory's Node.js version using its `.nvmrc` or `package.json` (`engines.node` field)
+$ nve local npm test
 
 # Use a different mirror for the Node binaries
 $ nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test
@@ -169,13 +172,19 @@ But using specific Node `VERSION`. Several `VERSION` can be specified at once.
 
 - `latest`: Latest available Node version
 - `lts`: Latest LTS Node version
-- `here`: Node version from any [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc)
-  or
-  [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
-  in the current directory, parent directories or home directory.
-  [Some additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md)
-  used by other Node.js version managers are also searched for. Defaults to the
-  current process's Node version.
+- `global`: Global Node version
+  - Using the home directory [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc) or
+    [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
+  - [Some additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md)
+    used by other Node.js version managers are also searched for
+  - If nothing is found, defaults to the current process's Node version
+- `local`: Current directory's Node version
+  - Using the current directory or parent directories
+    [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc),
+    [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
+    (or
+    [additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md))
+  - Defaults to the `global` version
 
 `COMMAND` must be compatible with the specific Node `VERSION`. For example `npm`
 is [only compatible with Node `>=6`](https://github.com/npm/cli#important).

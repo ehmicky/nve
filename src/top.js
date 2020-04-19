@@ -79,8 +79,12 @@ const EXAMPLES = [
   [`nve latest npm test`, 'Run the latest Node version'],
   [`nve lts npm test`, 'Run the latest LTS Node version'],
   [
-    'nve here npm test',
-    'Run the current project\'s Node.js version using its ".nvmrc" or "package.json" ("engines.node" field)',
+    'nve global npm test',
+    'Run the Node version from "~/.nvmrc" or the current process version',
+  ],
+  [
+    'nve local npm test',
+    'Run the current directory\'s Node.js version using its ".nvmrc" or "package.json" ("engines.node" field)',
   ],
   [
     `nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test`,
