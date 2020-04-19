@@ -2,12 +2,12 @@ import test from 'ava'
 import { each } from 'test-each'
 
 import { runCli } from './helpers/run.js'
-import { TEST_VERSION } from './helpers/versions.js'
+import { TEST_VERSION, INVALID_VERSION } from './helpers/versions.js'
 
 each(
   [
     { versionRange: '', command: '' },
-    { versionRange: 'invalid_version', command: 'node --version' },
+    { versionRange: INVALID_VERSION, command: 'node --version' },
     { versionRange: TEST_VERSION, command: 'invalid' },
   ],
   ({ title }, { versionRange, command }) => {
