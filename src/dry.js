@@ -1,6 +1,6 @@
 import { stdout } from 'process'
 
-import normalizeNodeVersion from 'normalize-node-version'
+import nodeVersionAlias from 'node-version-alias'
 
 // When `command` is `undefined`, we only print the normalized Node.js version
 export const printVersions = async function (versionRanges, opts) {
@@ -20,7 +20,7 @@ export const printVersion = async function (versionRange, opts) {
 // However non-dry mode uses cache, i.e. new Node.js releases might take up to
 // one hour to be used.
 const getVersion = function (versionRange, { mirror }) {
-  return normalizeNodeVersion(versionRange, { fetch: true, mirror })
+  return nodeVersionAlias(versionRange, { fetch: true, mirror })
 }
 
 const writeVersion = function (version) {
