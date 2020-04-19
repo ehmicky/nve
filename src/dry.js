@@ -15,12 +15,13 @@ export const printVersion = async function (versionRange, opts) {
   writeVersion(version)
 }
 
-// We use `cache: false` so that any new Node.js release is shown right away.
+// We default `fetch` to `true` so that any new Node.js release is shown
+// right away, unless overridden by `--no-fetch`.
 // This is because dry-mode is meant to show available Node.js versions.
 // However non-dry mode uses cache, i.e. new Node.js releases might take up to
 // one hour to be used.
-const getVersion = function (versionRange, { mirror }) {
-  return nodeVersionAlias(versionRange, { fetch: true, mirror })
+const getVersion = function (versionRange, { fetch = true, mirror }) {
+  return nodeVersionAlias(versionRange, { fetch, mirror })
 }
 
 const writeVersion = function (version) {
