@@ -2,12 +2,13 @@
 import yargs from 'yargs'
 
 export const defineCli = function () {
-  const yargsA = EXAMPLES.reduce(addExample, yargs)
-  return yargsA.options(CONFIG).usage(USAGE).help().version().strict()
-}
-
-const addExample = function (yargsA, [example, description]) {
-  return yargsA.example(example, description)
+  return yargs
+    .options(CONFIG)
+    .usage(USAGE)
+    .example(EXAMPLES)
+    .help()
+    .version()
+    .strict()
 }
 
 const CONFIG = {
@@ -65,49 +66,49 @@ VERSION can be any version range such as "12", "12.6.0" or "<12".
 It can also be one of the following aliases: "latest", "lts", "global" or "local".`
 
 const EXAMPLES = [
-  ['nve 12 node', 'Same as "node" but with Node 12'],
-  ['nve 8 node file.js', 'Same as "node file.js" but with Node 8'],
-  ['nve 8 npm test', 'Any command can be used'],
-  ['nve 8 ava', 'Execute a local binary'],
-  ['nve 12,10,8 npm test', 'Run multiple versions'],
+  ['$0 12 node', 'Same as "node" but with Node 12'],
+  ['$0 8 node file.js', 'Same as "node file.js" but with Node 8'],
+  ['$0 8 npm test', 'Any command can be used'],
+  ['$0 8 ava', 'Execute a local binary'],
+  ['$0 12,10,8 npm test', 'Run multiple versions'],
   [
-    'nve --continue 12,10,8 npm test',
+    '$0 --continue 12,10,8 npm test',
     'Do not abort on the first version that fails',
   ],
-  ['nve --parallel 12,10,8 npm test', 'Run all versions in parallel'],
-  ['nve 8.10.0 npm test', 'Run a specific version'],
-  [`nve "<8" npm test`, 'Use a version range'],
-  [`nve latest npm test`, 'Run the latest Node version'],
-  [`nve lts npm test`, 'Run the latest LTS Node version'],
+  ['$0 --parallel 12,10,8 npm test', 'Run all versions in parallel'],
+  ['$0 8.10.0 npm test', 'Run a specific version'],
+  ['$0 "<8" npm test', 'Use a version range'],
+  ['$0 latest npm test', 'Run the latest Node version'],
+  ['$0 lts npm test', 'Run the latest LTS Node version'],
   [
-    'nve global npm test',
+    '$0 global npm test',
     'Run the Node version from "~/.nvmrc" or the current process version',
   ],
   [
-    'nve local npm test',
+    '$0 local npm test',
     'Run the current directory\'s Node.js version using its ".nvmrc" or "package.json" ("engines.node" field)',
   ],
   [
-    `nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test`,
+    '$0 --mirror=https://npm.taobao.org/mirrors/node 8 npm test',
     'Use a different mirror for the Node binaries',
   ],
   [
-    'nve --fetch 8 npm test',
+    '$0 --fetch 8 npm test',
     'Do not use the cached list of available Node.js versions',
   ],
   [
-    'nve --no-fetch 8 npm test',
+    '$0 --no-fetch 8 npm test',
     "Always use the cached list of available Node.js versions even if it's more than one hour old",
   ],
   [
-    'nve --arch=x32 8 npm test',
+    '$0 --arch=x32 8 npm test',
     'Use a different CPU architecture for the Node binaries',
   ],
-  ['nve 8 npm run build && nve 8 npm test', 'Chaining command'],
-  ['nve 8 node --version', 'Cache Node 8 download'],
-  ['nve 12,10,8 node --version', 'Cache multiple Node downloads'],
-  [`nve latest`, 'Prints latest Node.js version'],
-  ['nve 8', 'Prints latest Node.js 8 version'],
-  ['nve 12,10,8', 'Prints latest Node.js 12, 10 and 8 versions'],
+  ['$0 8 npm run build && $0 8 npm test', 'Chaining command'],
+  ['$0 8 node --version', 'Cache Node 8 download'],
+  ['$0 12,10,8 node --version', 'Cache multiple Node downloads'],
+  ['$0 latest', 'Prints latest Node.js version'],
+  ['$0 8', 'Prints latest Node.js 8 version'],
+  ['$0 12,10,8', 'Prints latest Node.js 12, 10 and 8 versions'],
 ]
 /* eslint-enable max-lines */
