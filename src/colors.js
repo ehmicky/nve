@@ -32,4 +32,4 @@ const isInteractiveOutput = function () {
   return stdout.isTTY || env.TEST_TTY === 'true'
 }
 
-const COLOR_DEPTH_TO_FORCE = { '1': '0', '4': '1', '8': '2', '24': '3' }
+const COLOR_DEPTH_TO_FORCE = { 1: '0', 4: '1', 8: '2', 24: '3' }
