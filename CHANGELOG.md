@@ -39,7 +39,7 @@
 - Aliases `c` and `current` renamed to `now`
 - The [alias `now`](/README.md#usage) now takes into account `package.json`
   `engines.node` field and
-  [additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md)
+  [additional files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md)
   used by other Node.js version managers.
 - Alias `l` removed: please use `latest` instead
 
@@ -97,15 +97,13 @@
 
 ## Bug fixes
 
-- Fix
-  [`arch` option](https://github.com/ehmicky/nve/blob/master/README.md#--arch)
+- Fix [`arch` option](https://github.com/ehmicky/nve/blob/main/README.md#--arch)
 
 # 9.1.0
 
 ## Features
 
-- Add
-  [`arch` option](https://github.com/ehmicky/nve/blob/master/README.md#--arch)
+- Add [`arch` option](https://github.com/ehmicky/nve/blob/main/README.md#--arch)
   to specify the CPU architecture.
 
 # 9.0.0
@@ -344,7 +342,7 @@
 ## Bug fixes
 
 - Make the
-  [`progress` option](https://github.com/ehmicky/nve/blob/master/README.md#progress)
+  [`progress` option](https://github.com/ehmicky/nve/blob/main/README.md#progress)
   default to `false` programmatically.
 
 # 3.1.0
@@ -352,7 +350,7 @@
 ## Features
 
 - It is now possible to
-  [omit the `command`](https://github.com/ehmicky/nve/blob/master/README.md#cli).
+  [omit the `command`](https://github.com/ehmicky/nve/blob/main/README.md#cli).
   For example `nve 8` instead of `nve 8 npm test`. This can be used to cache the
   Node.js binary download without executing any command.
 
@@ -361,14 +359,14 @@
 ## Breaking changes
 
 - `nve VERSION` must now
-  [be followed by `node`](https://github.com/ehmicky/nve/blob/master/README.md#examples).
+  [be followed by `node`](https://github.com/ehmicky/nve/blob/main/README.md#examples).
   For example `nve 8` should now be `nve 8 node` and `nve 8 file.js` should be
   `nve 8 node file.js`.
 - The `NVE_PROGRESS` environment variable has been removed. The
-  [`--no-progress` option](https://github.com/ehmicky/nve/blob/master/README.md#--progress)
+  [`--no-progress` option](https://github.com/ehmicky/nve/blob/main/README.md#--progress)
   should be used instead.
 - The programmatic usage has changed: please see the new
-  [API](https://github.com/ehmicky/nve/blob/master/README.md#programmatic)
+  [API](https://github.com/ehmicky/nve/blob/main/README.md#programmatic)
 
 ## Features
 
@@ -377,10 +375,10 @@
   example `npm` is only compatible with Node `>=6`.
 - Local binaries can be executed as well
 - Add the
-  [`--shell` option](https://github.com/ehmicky/nve/blob/master/README.md#--shell)
+  [`--shell` option](https://github.com/ehmicky/nve/blob/main/README.md#--shell)
   to run a command inside a shell
 - Add the
-  [`--mirror` option](https://github.com/ehmicky/nve/blob/master/README.md#--mirror)
+  [`--mirror` option](https://github.com/ehmicky/nve/blob/main/README.md#--mirror)
   to change the base URL to retrieve Node.js binaries
 - Add the `--help` and `--version` CLI flags
 - [Execa](https://github.com/sindresorhus/execa) is now used under the hood
