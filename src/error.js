@@ -7,6 +7,8 @@ import { printInvalidCommand } from './fault.js'
 import { printVersionHeader } from './header.js'
 import { writeProcessOutput } from './output.js'
 
+// TODO: replace with `timers/promises` `setTimeout()` after dropping support
+// for Node <15.0.0
 const pSetTimeout = promisify(setTimeout)
 
 // Handle errors thrown by `execa()`
