@@ -2,13 +2,7 @@
 import yargs from 'yargs'
 
 export const defineCli = function () {
-  return yargs
-    .options(CONFIG)
-    .usage(USAGE)
-    .example(EXAMPLES)
-    .help()
-    .version()
-    .strict()
+  return yargs.options(CONFIG).usage(USAGE).example(EXAMPLES).strict()
 }
 
 const CONFIG = {
