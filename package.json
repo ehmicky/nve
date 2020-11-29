@@ -63,7 +63,7 @@
     "read-pkg-up": "^7.0.1",
     "semver": "^7.3.2",
     "update-notifier": "^5.0.1",
-    "yargs": "^16.1.0"
+    "yargs": "^16.1.1"
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^0.31.77",
