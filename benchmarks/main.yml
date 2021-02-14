@@ -6,4 +6,4 @@ tasks:
     main: bash -i -c nvm\ exec\ 10.17.0\ node\ --version
   - id: npx
     title: npx node
-    main: npx node@10.17.0 --version
+    main: npx --yes -- node@10.17.0 --version
