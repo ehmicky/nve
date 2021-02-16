@@ -69,7 +69,6 @@
     "@ehmicky/dev-tasks": "^0.31.81",
     "get-bin-path": "^5.1.0",
     "has-ansi": "^4.0.0",
-    "husky": "^4.3.8",
     "spyd": "^0.3.1",
     "test-each": "^2.0.1"
   },
