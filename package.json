@@ -2,9 +2,8 @@
   "name": "nve",
   "version": "13.0.0",
   "files": [
-    "build/src",
-    "examples",
-    "!*~"
+    "build/src/**/*.{js,ts,map,json,sh,md}",
+    "examples/**/*.{js,ts,map,json,sh,md}"
   ],
   "bin": {
     "nve": "build/src/bin.js"
