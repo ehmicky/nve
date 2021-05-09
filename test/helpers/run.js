@@ -38,11 +38,7 @@ export const runCli = async function (
 ) {
   const binPath = await BIN_PATH
   const noProgress = progress ? '' : '--no-progress'
-  const {
-    exitCode,
-    stdout,
-    stderr,
-  } = await execa.command(
+  const { exitCode, stdout, stderr } = await execa.command(
     `${binPath} ${noProgress} ${opts} ${versionRange} ${args}`,
     { reject: false, stdin: 'ignore', ...execaOpts },
   )

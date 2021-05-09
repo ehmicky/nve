@@ -17,14 +17,8 @@ const runCli = async function () {
     await checkUpdate()
 
     const yargs = defineCli()
-    const {
-      versionRanges,
-      command,
-      args,
-      opts,
-      continueOpt,
-      parallel,
-    } = parseInput(yargs)
+    const { versionRanges, command, args, opts, continueOpt, parallel } =
+      parseInput(yargs)
     const exitCode = await runMain({
       versionRanges,
       command,
