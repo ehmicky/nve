@@ -65,7 +65,7 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^0.31.89",
+    "@ehmicky/dev-tasks": "^0.31.90",
     "get-bin-path": "^5.1.0",
     "has-ansi": "^4.0.1",
     "spyd": "^0.3.1",
