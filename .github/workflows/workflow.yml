@@ -51,7 +51,7 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
-      - name: Node.js 15
+      - name: Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 15
