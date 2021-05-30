@@ -54,7 +54,7 @@ jobs:
       - name: Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 15
+          node-version: 16
       - name: Install dependencies
         run: npm ci
       # Test coverage check must happen after tests for the whole matrix have been
