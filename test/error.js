@@ -6,9 +6,9 @@ import { OLD_TEST_VERSION, TEST_VERSION } from './helpers/versions.js'
 
 each([runCli, runSerial, runParallel], ({ title }, run) => {
   test(`Print non-Execa errors on stderr | ${title}`, async (t) => {
-    const { stderr } = await run('', TEST_VERSION, 'invalidBinary')
+    const { stdout, stderr } = await run('', TEST_VERSION, 'invalidBinary')
 
-    t.true(stderr.includes('invalidBinary'))
+    t.true(`${stdout}${stderr}`.includes('invalidBinary'))
   })
 })
 
