@@ -1,6 +1,7 @@
 {
   "name": "nve",
   "version": "13.0.0",
+  "type": "module",
   "files": [
     "build/src/**/*.{js,ts,map,json,sh,md}",
     "examples/**/*.{js,ts,map,json,sh,md}"
