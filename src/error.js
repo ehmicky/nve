@@ -1,7 +1,7 @@
 import { stdout, stderr } from 'process'
 import { promisify } from 'util'
 
-import { red } from 'chalk'
+import chalk from 'chalk'
 
 import { printInvalidCommand } from './fault.js'
 import { printVersionHeader } from './header.js'
@@ -96,7 +96,7 @@ const printAborted = function ({
 
   writeProcessOutput(error.all, stdout, index)
 
-  stderr.write(red(`Node ${versionRange} aborted\n`))
+  stderr.write(chalk.red(`Node ${versionRange} aborted\n`))
 
   printVersionHeader(failedVersionRange)
 }
@@ -134,7 +134,7 @@ const handleMultipleError = function (
 }
 
 const getCommandMessage = function (shortMessage, versionRange) {
-  return red(
+  return chalk.red(
     shortMessage
       .replace(COMMAND_REGEXP, '')
       .replace('Command', `Node ${versionRange}`),
