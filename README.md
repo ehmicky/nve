@@ -33,7 +33,7 @@ instead.
 ```bash
 # Same as `node` but with Node 12
 $ nve 12 node
-Welcome to Node.js v12.13.0.
+Welcome to Node.js v12.22.1.
 Type ".help" for more information.
 > .exit
 
@@ -120,17 +120,17 @@ $ nve 12,10,8 node --version
 ```bash
 # Prints latest Node.js version
 $ nve latest
-13.1.0
+16.3.0
 
 # Prints latest Node.js 8 version
 $ nve 8
-8.16.2
+8.17.0
 
 # Prints latest Node.js 12, 10 and 8 versions
 $ nve 12,10,8
-12.13.0
-10.17.0
-8.16.2
+12.22.1
+10.24.1
+8.17.0
 ```
 
 # Demo
