@@ -1,5 +1,5 @@
 import execa from 'execa'
-import { nodejs } from 'figures'
+import figures from 'figures'
 import { getBinPath } from 'get-bin-path'
 
 const BIN_PATH = getBinPath()
@@ -53,5 +53,5 @@ const normalizeOutput = function (output) {
     .replace(/\r\n/gu, '\n')
     .replace(/cmd "test"/gu, 'test')
     .trim()
-    .replace(new RegExp(nodejs, 'gu'), '<>')
+    .replace(new RegExp(figures.nodejs, 'gu'), '<>')
 }
