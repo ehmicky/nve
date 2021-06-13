@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url'
 
 import test from 'ava'
-import { clean as cleanVersion } from 'semver'
+import semver from 'semver'
 import { each } from 'test-each'
 
 import { runCli, runSerial, runParallel } from './helpers/run.js'
@@ -55,12 +55,12 @@ test('Can use "latest" alias', async (t) => {
 
 test('Can use "lts" alias', async (t) => {
   const { stdout } = await runCli('', LTS_VERSION, 'node --version')
-  t.is(`v${cleanVersion(stdout)}`, stdout)
+  t.is(`v${semver.clean(stdout)}`, stdout)
 })
 
 test('Can use "global" alias', async (t) => {
   const { stdout } = await runCli('', GLOBAL_VERSION, 'node --version')
-  t.is(`v${cleanVersion(stdout)}`, stdout)
+  t.is(`v${semver.clean(stdout)}`, stdout)
 })
 
 test('Can use "local" alias', async (t) => {

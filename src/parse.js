@@ -1,6 +1,6 @@
 import { argv } from 'process'
 
-import { validRange } from 'semver'
+import semver from 'semver'
 
 import { parseOpts } from './options.js'
 
@@ -62,7 +62,7 @@ const isVersionArg = function (arg) {
 }
 
 const isVersion = function (value) {
-  return ALIASES.has(value) || validRange(value) !== null
+  return ALIASES.has(value) || semver.validRange(value) !== null
 }
 
 const ALIASES = new Set(['latest', 'lts', 'global', 'local'])
