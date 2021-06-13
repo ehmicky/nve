@@ -24,10 +24,11 @@ export const getSingleStdinOptions = function () {
 export const getSerialStdinOptions = async function () {
   // stdin in automated tests is always non-interactive, so this must be
   // manually tested instead.
-  // istanbul ignore next
+  /* c8 ignore start */
   if (stdin.isTTY) {
     return { stdin: 'inherit' }
   }
+  /* c8 ignore stop */
 
   const input = await getStdin.buffer()
   return { stdin: 'pipe', input }
