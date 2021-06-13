@@ -41,7 +41,7 @@ Type ".help" for more information.
 $ nve 8 node file.js
 
 # Any command can be used
-$ nve 8 npm test
+$ nve 12 npm test
 
 # Execute a local binary
 $ nve 8 ava
