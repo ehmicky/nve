@@ -16,7 +16,7 @@ each(
       const { stdout } = await runParallel(
         '',
         HELPER_VERSION,
-        'node -p require("chalk").red("test")',
+        'node --input-type=module -e import\\ chalk\\ from\\ "chalk";\\ console.log(chalk.red("test"))',
         { env },
       )
 
