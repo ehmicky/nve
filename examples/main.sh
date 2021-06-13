@@ -13,7 +13,7 @@ print "Same as 'node --version' but with Node 12"
 nve 12 node --version
 
 print "Same as 'node file.js' but with Node 8"
-nve 8 node file.js
+nve 8 node "$examplesDir/file.js"
 
 print "Any command can be used, including local binaries"
 nve 12 npm --version
@@ -58,7 +58,7 @@ nve --no-fetch 8 node --version
 # nve --arch=x32 8 node --version
 
 print "Chaining commands"
-nve 8 node --version && nve 8 node file.js
+nve 8 node --version && nve 8 node "$examplesDir/file.js"
 
 print "Cache Node 8 download"
 nve 8 node --version
