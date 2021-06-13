@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'url'
+
 import test from 'ava'
 import { clean as cleanVersion } from 'semver'
 import { each } from 'test-each'
@@ -12,7 +14,9 @@ import {
   LOCAL_VERSION,
 } from './helpers/versions.js'
 
-const FIXTURES_DIR = `${__dirname}/helpers/fixtures`
+const FIXTURES_DIR = fileURLToPath(
+  new URL('./helpers/fixtures', import.meta.url),
+)
 
 each([runCli, runSerial, runParallel], ({ title }, run) => {
   test(`Forward exit code on success | ${title}`, async (t) => {
