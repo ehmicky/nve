@@ -1,3 +1,2 @@
-'use strict'
-
-module.exports = require('@ehmicky/dev-tasks')
+// eslint-disable-next-line import/no-unresolved, node/no-missing-import
+export * from '@ehmicky/dev-tasks'
