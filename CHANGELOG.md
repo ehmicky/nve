@@ -12,6 +12,8 @@
 ## Bug fixes
 
 - Fix crash when downloading several Node.js binaries in parallel
+- Improve colors detection
+- Fix offline mode
 
 # 13.0.0
 
