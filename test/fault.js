@@ -1,3 +1,5 @@
+import { platform } from 'process'
+
 import test from 'ava'
 import { each } from 'test-each'
 
@@ -7,7 +9,10 @@ import { TEST_VERSION, INVALID_VERSION } from './helpers/versions.js'
 each(
   [
     { versionRange: '', command: '' },
-    { versionRange: TEST_VERSION, command: 'invalid' },
+    // This feature does not work on Windows cmd.exe
+    ...(platform !== 'win32' && [
+      { versionRange: TEST_VERSION, command: 'invalid' },
+    ]),
   ],
   ({ title }, { versionRange, command }) => {
     test(`Invalid input message | ${title}`, async (t) => {
