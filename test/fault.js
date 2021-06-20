@@ -10,9 +10,9 @@ each(
   [
     { versionRange: '', command: '' },
     // This feature does not work on Windows cmd.exe
-    ...(platform !== 'win32' && [
-      { versionRange: TEST_VERSION, command: 'invalid' },
-    ]),
+    ...(platform === 'win32'
+      ? []
+      : [{ versionRange: TEST_VERSION, command: 'invalid' }]),
   ],
   ({ title }, { versionRange, command }) => {
     test(`Invalid input message | ${title}`, async (t) => {
