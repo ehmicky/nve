@@ -27,14 +27,14 @@ const pSetTimeout = promisify(setTimeout)
 // Execa reports the last three ones differently, using `error.originalMessage`.
 export const handleSingleError = function ({
   originalMessage,
+  code,
   exitCode = DEFAULT_EXIT_CODE,
-  ...error
 }) {
   if (originalMessage !== undefined) {
     stderr.write(`${originalMessage}\n`)
   }
 
-  printInvalidCommand({ ...error, exitCode })
+  printInvalidCommand(code, exitCode)
 
   return exitCode
 }
@@ -120,14 +120,14 @@ const handleAnyParallelError = function ({
 //  - with parallel runs without --continue, this is the first failed child
 //    process
 const handleMultipleError = function (
-  { shortMessage, exitCode = DEFAULT_EXIT_CODE, ...error },
+  { shortMessage, code, exitCode = DEFAULT_EXIT_CODE },
   versionRange,
   state,
 ) {
   const commandMessage = getCommandMessage(shortMessage, versionRange)
   stderr.write(`${commandMessage}\n`)
 
-  printInvalidCommand({ ...error, exitCode })
+  printInvalidCommand(code, exitCode)
 
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
   state.exitCode = exitCode

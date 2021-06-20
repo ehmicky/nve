@@ -24,8 +24,8 @@ const shouldPrintHelp = function (message) {
 
 // Print --help when command is not found, usually indicating input syntax
 // mistake
-export const printInvalidCommand = function (error) {
-  if (!isInvalidComment(error)) {
+export const printInvalidCommand = function (code, exitCode) {
+  if (!isInvalidComment(code, exitCode)) {
     return
   }
 
@@ -33,7 +33,7 @@ export const printInvalidCommand = function (error) {
 }
 
 // This does not always work, e.g. not on Windows cmd.exe
-const isInvalidComment = function ({ code, exitCode }) {
+const isInvalidComment = function (code, exitCode) {
   return code === 'ENOENT' || exitCode === BASH_COMMAND_CODE
 }
 
