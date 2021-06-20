@@ -32,6 +32,7 @@ export const printInvalidCommand = function (error) {
   stderr.write(SHORT_USAGE)
 }
 
+// This does not always work, e.g. not on Windows cmd.exe
 const isInvalidComment = function ({ code, exitCode }) {
   return code === 'ENOENT' || exitCode === BASH_COMMAND_CODE
 }
