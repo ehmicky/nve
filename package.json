@@ -52,7 +52,7 @@
     "figures": "^3.2.0",
     "filter-obj": "^2.0.1",
     "get-stdin": "^9.0.0",
-    "node-version-alias": "^1.0.1",
+    "node-version-alias": "^2.0.0",
     "nvexeca": "^6.0.1",
     "read-pkg-up": "^8.0.0",
     "semver": "^7.3.5",
