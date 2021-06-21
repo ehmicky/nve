@@ -1,11 +1,13 @@
-# Unreleased
+# 14.0.0
+
+## Breaking changes
+
+- Minimal supported Node.js version is now `12.20.0`
 
 ## Features
 
 - The default value of the [`--fetch` CLI flag](/README.md#--fetch) is now
-  `true` when no command was passed
-
-# 13.0.1
+  `true` when no command was passed.
 
 ## Bug fixes
 
