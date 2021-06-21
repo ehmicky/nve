@@ -12,11 +12,6 @@
   "scripts": {
     "test": "gulp test"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "gulp -LL check --full"
-    }
-  },
   "description": "Run any command on specific Node.js versions",
   "keywords": [
     "nodejs",
