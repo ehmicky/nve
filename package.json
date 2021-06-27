@@ -49,7 +49,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "execa": "^5.1.1",
-    "figures": "^3.2.0",
+    "figures": "^4.0.0",
     "filter-obj": "^2.0.1",
     "get-stdin": "^9.0.0",
     "node-version-alias": "^2.0.0",
