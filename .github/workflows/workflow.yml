@@ -23,7 +23,7 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v2
       - name: Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
       # TODO: remove after dropping support for Node <15.0.0, i.e. ensuring
