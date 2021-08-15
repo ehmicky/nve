@@ -10,7 +10,7 @@ export const defineCli = function () {
     .options(CONFIG)
     .usage(USAGE)
     .example(EXAMPLES)
-    .strict()
+    .strictOptions()
 }
 
 const CONFIG = {
