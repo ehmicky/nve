@@ -1,9 +1,0 @@
-tasks:
-  - id: nve
-    main: ./src/bin.js 12.20.0 node --version
-  - id: nvm
-    title: nvm exec
-    main: bash -i -c nvm\ exec\ 12.20.0\ node\ --version
-  - id: npx
-    title: npx node
-    main: npx --yes -- node@12.20.0 --version

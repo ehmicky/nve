@@ -1,4 +1,0 @@
-cwd: build
-duration: 60
-run:
-  cli: {}

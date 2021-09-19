@@ -12,7 +12,7 @@ it:
 
 - can run [multiple Node.js versions](#examples-multiple-versions) at once
 - can be run [programmatically](https://github.com/ehmicky/nvexeca)
-- is [5 times faster](#benchmarks)
+- is [much times faster](#benchmarks)
 - does not need a separate installation step for each Node version
 - can run the major release's latest minor/patch version automatically
 - works on Windows. No need to run as Administrator.
@@ -301,14 +301,14 @@ Otherwise the following error message is shown:
 
 # Benchmarks
 
-The [following benchmarks](benchmarks/main.yml) compare the average time to run
+The [following benchmarks](benchmark/tasks.yml) compare the average time to run
 `nve`, [`nvm exec`](https://github.com/nvm-sh/nvm) and
 [`npx node`](https://github.com/aredridel/node-bin-gen/blob/master/node-bin-README.md#use-with-npx):
 
 ```
-nve:       199ms
-nvm exec: 1002ms
-npx node: 1343ms
+nve:      286ms
+nvm exec: 580ms
+npx node: 861ms
 ```
 
 # See also

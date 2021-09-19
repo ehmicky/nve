@@ -1,0 +1,7 @@
+runner: cli
+titles:
+  nve: nve
+  nvmExec: nvm exec
+  npxNode: npx node
+reporter: boxplot
+precision: 2
