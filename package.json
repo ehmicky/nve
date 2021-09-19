@@ -63,7 +63,7 @@
     "@ehmicky/dev-tasks": "^1.0.47",
     "get-bin-path": "^6.0.1",
     "has-ansi": "^5.0.1",
-    "spyd": "^0.3.1",
+    "spyd": "^0.4.0",
     "test-each": "^3.0.1"
   },
   "engines": {
