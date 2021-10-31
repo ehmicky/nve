@@ -54,7 +54,7 @@
     "get-stdin": "^9.0.0",
     "node-version-alias": "^2.0.0",
     "nvexeca": "^7.0.0",
-    "read-pkg-up": "^8.0.0",
+    "read-pkg-up": "^9.0.0",
     "semver": "^7.3.5",
     "update-notifier": "^5.0.1",
     "yargs": "^17.2.1"
