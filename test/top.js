@@ -1,5 +1,5 @@
 import test from 'ava'
-import { readPackageUpAsync } from 'read-pkg-up'
+import { readPackageUp } from 'read-pkg-up'
 import { each } from 'test-each'
 
 import {
@@ -22,10 +22,7 @@ test('--version', async (t) => {
     {
       packageJson: { version },
     },
-  ] = await Promise.all([
-    runCliNoVersion('', '', '--version'),
-    readPackageUpAsync(),
-  ])
+  ] = await Promise.all([runCliNoVersion('', '', '--version'), readPackageUp()])
 
   t.is(stdout, version)
 })

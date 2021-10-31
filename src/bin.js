@@ -3,7 +3,7 @@ import { dirname } from 'path'
 import { exit } from 'process'
 import { fileURLToPath } from 'url'
 
-import { readPackageUpAsync } from 'read-pkg-up'
+import { readPackageUp } from 'read-pkg-up'
 import UpdateNotifier from 'update-notifier'
 
 import { handleFault } from './fault.js'
@@ -40,7 +40,7 @@ const runCli = async function () {
 // TODO: use static JSON imports once those are possible
 const checkUpdate = async function () {
   const cwd = dirname(fileURLToPath(import.meta.url))
-  const { packageJson } = await readPackageUpAsync({ cwd, normalize: false })
+  const { packageJson } = await readPackageUp({ cwd, normalize: false })
   UpdateNotifier({ pkg: packageJson }).notify()
 }
 
