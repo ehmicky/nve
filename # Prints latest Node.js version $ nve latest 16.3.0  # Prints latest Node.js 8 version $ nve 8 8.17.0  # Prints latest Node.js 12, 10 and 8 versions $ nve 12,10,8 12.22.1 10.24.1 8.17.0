@@ -1,0 +1,13 @@
+# Prints latest Node.js version
+$ nve latest
+16.3.0
+
+# Prints latest Node.js 8 version
+$ nve 8
+8.17.0
+
+# Prints latest Node.js 12, 10 and 8 versions
+$ nve 12,10,8
+12.22.1
+10.24.1
+8.17.0
