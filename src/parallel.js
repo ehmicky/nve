@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import { stdout } from 'process'
 
-import execa from 'execa'
+import { execa } from 'execa'
 import nvexeca from 'nvexeca'
 
 import { cleanupProcesses } from './cleanup.js'

@@ -1,4 +1,4 @@
-import execa from 'execa'
+import { execa } from 'execa'
 import nvexeca from 'nvexeca'
 
 import { printVersions } from './dry.js'
