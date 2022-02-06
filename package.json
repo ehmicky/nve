@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "chalk": "^5.0.0",
-    "execa": "^6.0.0",
+    "execa": "^6.1.0",
     "figures": "^4.0.0",
     "filter-obj": "^3.0.0",
     "get-stdin": "^9.0.0",
