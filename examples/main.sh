@@ -46,7 +46,7 @@ print "Run the current directory's Node.js version using its '.nvmrc' or 'packag
 nve local node --version
 
 print "Use a different mirror for the Node binaries"
-nve --mirror=https://npm.taobao.org/mirrors/node 8 node --version
+nve --mirror=https://npmmirror.com/mirrors/node 8 node --version
 
 print "Do not use the cached list of available Node.js versions"
 nve --fetch 8 node --version

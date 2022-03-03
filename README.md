@@ -65,7 +65,7 @@ $ nve global npm test
 $ nve local npm test
 
 # Use a different mirror for the Node binaries
-$ nve --mirror=https://npm.taobao.org/mirrors/node 8 npm test
+$ nve --mirror=https://npmmirror.com/mirrors/node 8 npm test
 
 # Do not use the cached list of available Node.js versions
 $ nve --fetch 8 npm test
@@ -228,7 +228,7 @@ _Type_: `string`\
 _Default_: `https://nodejs.org/dist`
 
 Base URL to retrieve Node binaries. Can be overridden (for example
-`https://npm.taobao.org/mirrors/node`).
+`https://npmmirror.com/mirrors/node`).
 
 The following environment variables can also be used: `NODE_MIRROR`,
 `NVM_NODEJS_ORG_MIRROR`, `N_NODE_MIRROR` or `NODIST_NODE_MIRROR`.

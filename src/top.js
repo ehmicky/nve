@@ -39,7 +39,7 @@ Default: true`,
     string: true,
     requiresArg: true,
     describe: `Base URL. Defaults to 'https://nodejs.org/dist'.
-Can be customized (for example "https://npm.taobao.org/mirrors/node").
+Can be customized (for example "https://npmmirror.com/mirrors/node").
 
 The following environment variables can also be used: NODE_MIRROR, NVM_NODEJS_ORG_MIRROR, N_NODE_MIRROR or NODIST_NODE_MIRROR.`,
   },
@@ -91,7 +91,7 @@ const EXAMPLES = [
     'Run the current directory\'s Node.js version using its ".nvmrc" or "package.json" ("engines.node" field)',
   ],
   [
-    '$0 --mirror=https://npm.taobao.org/mirrors/node 8 npm test',
+    '$0 --mirror=https://npmmirror.com/mirrors/node 8 npm test',
     'Use a different mirror for the Node binaries',
   ],
   [
