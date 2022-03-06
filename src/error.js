@@ -129,7 +129,6 @@ const handleMultipleError = function (
 
   printInvalidCommand(code, exitCode)
 
-  // eslint-disable-next-line fp/no-mutation, no-param-reassign
   state.exitCode = exitCode
 }
 
