@@ -21,7 +21,7 @@ jobs:
     # takes more time than the time saved on `npm ci`
     steps:
       - name: Git checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
