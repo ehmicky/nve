@@ -30,11 +30,14 @@ export const getSerialStdinOptions = async function () {
   }
   /* c8 ignore stop */
 
-  const input = await getStdin.buffer()
-  return { stdin: 'pipe', input }
+  return await getPipedStdin()
 }
 
 export const getParallelStdinOptions = async function () {
+  return await getPipedStdin()
+}
+
+const getPipedStdin = async function () {
   const input = await getStdin.buffer()
   return { stdin: 'pipe', input }
 }
