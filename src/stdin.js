@@ -11,7 +11,7 @@ import getStdin from 'get-stdin'
 //    would compete for the same stdin
 // If there is no stdin:
 //  - inheriting stdin works
-//  - piping `get-stdin` works because it pipes an empty buffer
+//  - piping `get-stdin` is not needed since it would pipe an empty buffer
 // If stdin is piped:
 //  - inheriting it works
 //  - with serial commands, the whole stdin must be retrieved first then piped
@@ -39,5 +39,5 @@ export const getParallelStdinOptions = async function () {
 
 const getPipedStdin = async function () {
   const input = await getStdin.buffer()
-  return { stdin: 'pipe', input }
+  return input.length === 0 ? { stdin: 'inherit' } : { stdin: 'pipe', input }
 }
