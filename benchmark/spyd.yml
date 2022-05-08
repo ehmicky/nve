@@ -4,4 +4,4 @@ titles:
   nvmExec: nvm exec
   npxNode: npx node
 reporter: boxplot
-precision: 2
+precision: 4
