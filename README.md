@@ -306,9 +306,9 @@ The [following benchmarks](benchmark/tasks.yml) compare the average time to run
 [`npx node`](https://github.com/aredridel/node-bin-gen/blob/master/node-bin-README.md#use-with-npx):
 
 ```
-nve:       265ms
-nvm exec:  622ms
-npx node: 1012ms
+nve:      261ms
+nvm exec: 619ms
+npx node: 994ms
 ```
 
 # See also

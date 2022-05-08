@@ -3,5 +3,5 @@ titles:
   nve: nve
   nvmExec: nvm exec
   npxNode: npx node
-reporter: boxplot
+reporter: debug
 precision: 4
