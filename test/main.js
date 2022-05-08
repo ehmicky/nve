@@ -1,5 +1,3 @@
-import { fileURLToPath } from 'url'
-
 import test from 'ava'
 import semver from 'semver'
 import { each } from 'test-each'
@@ -14,7 +12,7 @@ import {
   LOCAL_VERSION,
 } from './helpers/versions.js'
 
-const FIXTURES_DIR = fileURLToPath(new URL('helpers/fixtures', import.meta.url))
+const FIXTURES_DIR = new URL('helpers/fixtures/', import.meta.url)
 
 each([runCli, runSerial, runParallel], ({ title }, run) => {
   test(`Forward exit code on success | ${title}`, async (t) => {
@@ -63,7 +61,7 @@ test('Can use "global" alias', async (t) => {
 
 test('Can use "local" alias', async (t) => {
   const { stdout } = await runCli('', LOCAL_VERSION, 'node --version', {
-    cwd: `${FIXTURES_DIR}/nvmrc`,
+    cwd: new URL('nvmrc', FIXTURES_DIR),
   })
   t.true(stdout.includes(TEST_VERSION))
 })
