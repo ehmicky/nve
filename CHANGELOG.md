@@ -1,3 +1,13 @@
+# 15.0.0
+
+## Breaking changes
+
+- Minimal supported Node.js version is now `14.18.0`
+
+## Bug fixes
+
+- Fix when `stdin` is empty
+
 # 14.0.0
 
 ## Breaking changes
