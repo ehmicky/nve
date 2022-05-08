@@ -20,8 +20,8 @@ export const printVersion = async function (versionRange, opts) {
 // This is because dry-mode is meant to show available Node.js versions.
 // However non-dry mode uses cache, i.e. new Node.js releases might take up to
 // one hour to be used.
-const getVersion = function (versionRange, { fetch = true, mirror }) {
-  return nodeVersionAlias(versionRange, { fetch, mirror })
+const getVersion = function (versionRange, { fetch: fetchOpt = true, mirror }) {
+  return nodeVersionAlias(versionRange, { fetch: fetchOpt, mirror })
 }
 
 const writeVersion = function (version) {
