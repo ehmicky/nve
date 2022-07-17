@@ -3,6 +3,7 @@ import { dirname } from 'path'
 import { exit } from 'process'
 import { fileURLToPath } from 'url'
 
+import handleCliError from 'handle-cli-error'
 import { readPackageUp } from 'read-pkg-up'
 import UpdateNotifier from 'update-notifier'
 
@@ -33,7 +34,7 @@ const runCli = async function () {
     exit(exitCode)
   } catch (error) {
     handleFault(error)
-    exit(1)
+    handleCliError(error, { short: true })
   }
 }
 

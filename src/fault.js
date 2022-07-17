@@ -2,24 +2,19 @@ import { stderr } from 'process'
 
 import chalk from 'chalk'
 
-// Handle top-level errors not due to child process errors, such as input
-// validation errors, Node.js download errors and bugs.
-export const handleFault = function ({ message }) {
-  stderr.write(`${message}\n`)
-  printHelp(message)
-}
-
 // Print --help on common input syntax mistakes
-const printHelp = function (message) {
-  if (!shouldPrintHelp(message)) {
-    return
+export const handleFault = function (error) {
+  if (shouldPrintHelp(error)) {
+    error.message += `\n${SHORT_USAGE}`
   }
-
-  stderr.write(SHORT_USAGE)
 }
 
-const shouldPrintHelp = function (message) {
-  return message.includes('Missing version')
+const shouldPrintHelp = function (error) {
+  return (
+    error instanceof Error &&
+    typeof error.message === 'string' &&
+    error.message.includes('Missing version')
+  )
 }
 
 // Print --help when command is not found, usually indicating input syntax
@@ -29,7 +24,7 @@ export const printInvalidCommand = function (code, exitCode) {
     return
   }
 
-  stderr.write(SHORT_USAGE)
+  stderr.write(`${SHORT_USAGE}\n`)
 }
 
 // This does not always work, e.g. not on Windows cmd.exe
@@ -53,5 +48,4 @@ Examples:
   nve 8 node file.js
   nve 8 npm test
   nve 8,9,10 npm test
-  nve --no-progress 8 npm test
-`
+  nve --no-progress 8 npm test`
