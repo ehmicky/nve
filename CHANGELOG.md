@@ -1,3 +1,9 @@
+# 15.1.0
+
+## Features
+
+- Improve [error handling](https://github.com/ehmicky/handle-cli-error)
+
 # 15.0.0
 
 ## Breaking changes
