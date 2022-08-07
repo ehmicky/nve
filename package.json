@@ -49,7 +49,7 @@
   "dependencies": {
     "chalk": "^5.0.1",
     "execa": "^6.1.0",
-    "figures": "^4.0.1",
+    "figures": "^5.0.0",
     "filter-obj": "^5.1.0",
     "get-stdin": "^9.0.0",
     "handle-cli-error": "^1.0.1",
