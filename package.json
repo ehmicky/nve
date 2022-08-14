@@ -51,7 +51,7 @@
     "figures": "^5.0.0",
     "filter-obj": "^5.1.0",
     "get-stdin": "^9.0.0",
-    "handle-cli-error": "^1.0.1",
+    "handle-cli-error": "^1.1.0",
     "node-version-alias": "^3.1.0",
     "nvexeca": "^8.1.0",
     "read-pkg-up": "^9.1.0",
