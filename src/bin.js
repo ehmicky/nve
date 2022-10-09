@@ -34,7 +34,7 @@ const runCli = async function () {
     exit(exitCode)
   } catch (error) {
     handleFault(error)
-    handleCliError(error, { short: true })
+    handleCliError(error, { stack: false })
   }
 }
 

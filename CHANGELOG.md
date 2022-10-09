@@ -1,3 +1,9 @@
+# 15.3.0
+
+## Features
+
+- Improve error handling
+
 # 15.2.0
 
 ## Features
