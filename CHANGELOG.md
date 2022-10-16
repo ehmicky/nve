@@ -1,3 +1,9 @@
+# 15.4.0
+
+## Features
+
+- Reduce npm package size
+
 # 15.3.0
 
 ## Features
