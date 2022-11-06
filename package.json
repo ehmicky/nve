@@ -52,7 +52,7 @@
     "filter-obj": "^5.1.0",
     "get-stdin": "^9.0.0",
     "handle-cli-error": "^3.0.1",
-    "node-version-alias": "^3.3.0",
+    "node-version-alias": "^3.4.0",
     "nvexeca": "^8.3.0",
     "read-pkg-up": "^9.1.0",
     "semver": "^7.3.7",
