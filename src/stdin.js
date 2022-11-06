@@ -1,4 +1,4 @@
-import { stdin } from 'process'
+import { stdin } from 'node:process'
 
 import getStdin from 'get-stdin'
 

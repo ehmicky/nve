@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { stdout } from 'process'
+import { stdout } from 'node:process'
 
 import { execa } from 'execa'
 import nvexeca from 'nvexeca'

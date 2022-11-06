@@ -1,4 +1,4 @@
-import { stdout } from 'process'
+import { stdout } from 'node:process'
 
 import nodeVersionAlias from 'node-version-alias'
 

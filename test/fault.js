@@ -1,4 +1,4 @@
-import { platform } from 'process'
+import { platform } from 'node:process'
 
 import test from 'ava'
 import { each } from 'test-each'

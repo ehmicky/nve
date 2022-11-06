@@ -1,5 +1,5 @@
-import { stdout, env } from 'process'
-import { WriteStream } from 'tty'
+import { stdout, env } from 'node:process'
+import { WriteStream } from 'node:tty'
 
 const {
   prototype: { getColorDepth },

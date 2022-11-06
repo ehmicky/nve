@@ -1,4 +1,4 @@
-import { argv } from 'process'
+import { argv } from 'node:process'
 
 import semver from 'semver'
 

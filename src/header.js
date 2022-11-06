@@ -1,4 +1,4 @@
-import { stderr } from 'process'
+import { stderr } from 'node:process'
 
 import chalk from 'chalk'
 import figures from 'figures'

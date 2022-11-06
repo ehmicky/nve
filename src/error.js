@@ -1,5 +1,5 @@
-import { stdout, stderr } from 'process'
-import { promisify } from 'util'
+import { stdout, stderr } from 'node:process'
+import { promisify } from 'node:util'
 
 import chalk from 'chalk'
 

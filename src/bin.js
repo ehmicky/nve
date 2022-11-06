@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { dirname } from 'path'
-import { exit } from 'process'
-import { fileURLToPath } from 'url'
+import { dirname } from 'node:path'
+import { exit } from 'node:process'
+import { fileURLToPath } from 'node:url'
 
 import handleCliError from 'handle-cli-error'
 import { readPackageUp } from 'read-pkg-up'
