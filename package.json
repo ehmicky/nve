@@ -46,7 +46,7 @@
     "test": "test"
   },
   "dependencies": {
-    "chalk": "^5.0.1",
+    "chalk": "^5.1.2",
     "execa": "^6.1.0",
     "figures": "^5.0.0",
     "filter-obj": "^5.1.0",
