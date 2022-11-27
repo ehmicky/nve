@@ -12,7 +12,7 @@ import {
   LOCAL_VERSION,
 } from './helpers/versions.test.js'
 
-const FIXTURES_DIR = new URL('helpers/fixtures/', import.meta.url)
+const FIXTURES_DIR = new URL('fixtures/', import.meta.url)
 
 each([runCli, runSerial, runParallel], ({ title }, run) => {
   test(`Forward exit code on success | ${title}`, async (t) => {
