@@ -2,7 +2,7 @@ import test from 'ava'
 import semver from 'semver'
 import { each } from 'test-each'
 
-import { runCli, runSerial, runParallel } from './helpers/run.js'
+import { runCli, runSerial, runParallel } from './helpers/run.test.js'
 import {
   TEST_VERSION,
   LATEST_STAR_VERSION,
@@ -10,7 +10,7 @@ import {
   LTS_VERSION,
   GLOBAL_VERSION,
   LOCAL_VERSION,
-} from './helpers/versions.js'
+} from './helpers/versions.test.js'
 
 const FIXTURES_DIR = new URL('helpers/fixtures/', import.meta.url)
 

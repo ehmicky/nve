@@ -1,8 +1,8 @@
 import test from 'ava'
 import { each } from 'test-each'
 
-import { runCli, runSerial, runParallel } from './helpers/run.js'
-import { OLD_TEST_VERSION, TEST_VERSION } from './helpers/versions.js'
+import { runCli, runSerial, runParallel } from './helpers/run.test.js'
+import { OLD_TEST_VERSION, TEST_VERSION } from './helpers/versions.test.js'
 
 each([runCli, runSerial, runParallel], ({ title }, run) => {
   test(`Print non-Execa errors on stderr | ${title}`, async (t) => {

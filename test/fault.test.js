@@ -3,8 +3,8 @@ import { platform } from 'node:process'
 import test from 'ava'
 import { each } from 'test-each'
 
-import { runCliNoVersion } from './helpers/run.js'
-import { TEST_VERSION, INVALID_VERSION } from './helpers/versions.js'
+import { runCliNoVersion } from './helpers/run.test.js'
+import { TEST_VERSION, INVALID_VERSION } from './helpers/versions.test.js'
 
 each(
   [

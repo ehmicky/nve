@@ -2,8 +2,8 @@ import test from 'ava'
 import hasAnsi from 'has-ansi'
 import { each } from 'test-each'
 
-import { runParallel } from './helpers/run.js'
-import { HELPER_VERSION } from './helpers/versions.js'
+import { runParallel } from './helpers/run.test.js'
+import { HELPER_VERSION } from './helpers/versions.test.js'
 
 each(
   [

@@ -7,8 +7,8 @@ import {
   runCliNoVersion,
   runSerial,
   runParallel,
-} from './helpers/run.js'
-import { TEST_VERSION } from './helpers/versions.js'
+} from './helpers/run.test.js'
+import { TEST_VERSION } from './helpers/versions.test.js'
 
 test('--help', async (t) => {
   const { stdout } = await runCliNoVersion('', '', '--help')

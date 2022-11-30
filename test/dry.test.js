@@ -1,8 +1,8 @@
 import test from 'ava'
 import { each } from 'test-each'
 
-import { runCli, runSerial, runParallel } from './helpers/run.js'
-import { TEST_VERSION } from './helpers/versions.js'
+import { runCli, runSerial, runParallel } from './helpers/run.test.js'
+import { TEST_VERSION } from './helpers/versions.test.js'
 
 each(
   [
