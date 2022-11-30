@@ -3,7 +3,9 @@
   "version": "15.4.0",
   "type": "module",
   "files": [
-    "build/src/**/*.{js,json}"
+    "build/src/**/*.{js,json}",
+    "!build/src/**/*.test.js",
+    "!build/src/{helpers,fixtures}/**/*.js"
   ],
   "bin": {
     "nve": "build/src/bin.js"
