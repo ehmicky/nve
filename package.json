@@ -5,7 +5,7 @@
   "files": [
     "build/src/**/*.{js,json}",
     "!build/src/**/*.test.js",
-    "!build/src/{helpers,fixtures}/**/*.js"
+    "!build/src/{helpers,fixtures}/**/*.{js,json,d.ts}"
   ],
   "bin": {
     "nve": "build/src/bin.js"
