@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 
 import handleCliError from 'handle-cli-error'
 import { readPackageUp } from 'read-pkg-up'
-import UpdateNotifier from 'update-notifier'
+import updateNotifier from 'update-notifier'
 
 import { handleFault } from './fault.js'
 import { runParallel } from './parallel.js'
@@ -42,7 +42,7 @@ const runCli = async function () {
 const checkUpdate = async function () {
   const cwd = dirname(fileURLToPath(import.meta.url))
   const { packageJson } = await readPackageUp({ cwd, normalize: false })
-  UpdateNotifier({ pkg: packageJson }).notify()
+  updateNotifier({ pkg: packageJson }).notify()
 }
 
 const runMain = function ({
