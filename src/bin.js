@@ -64,4 +64,4 @@ const runMain = function ({
   return runSerial({ versionRanges, command, args, opts, continueOpt })
 }
 
-runCli()
+await runCli()
