@@ -16,7 +16,7 @@ import { runSingle } from './single.js'
 import { defineCli } from './top.js'
 
 // CLI that forwards its arguments but using a specific Node.js version
-const runCli = async function () {
+const runCli = async () => {
   try {
     await checkUpdate()
 
@@ -39,20 +39,20 @@ const runCli = async function () {
 }
 
 // TODO: use static JSON imports once those are possible
-const checkUpdate = async function () {
+const checkUpdate = async () => {
   const cwd = dirname(fileURLToPath(import.meta.url))
   const { packageJson } = await readPackageUp({ cwd, normalize: false })
   updateNotifier({ pkg: packageJson }).notify()
 }
 
-const runMain = function ({
+const runMain = ({
   versionRanges,
   command,
   args,
   opts,
   continueOpt,
   parallel,
-}) {
+}) => {
   if (versionRanges.length === 1) {
     return runSingle({ versionRanges, command, args, opts })
   }

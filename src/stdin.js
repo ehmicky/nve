@@ -17,11 +17,9 @@ import getStdin from 'get-stdin'
 //  - with serial commands, the whole stdin must be retrieved first then piped
 //    to each command. Otherwise only the first command would get stdin.
 
-export const getSingleStdinOptions = function () {
-  return { stdin: 'inherit' }
-}
+export const getSingleStdinOptions = () => ({ stdin: 'inherit' })
 
-export const getSerialStdinOptions = async function () {
+export const getSerialStdinOptions = async () => {
   // stdin in automated tests is always non-interactive, so this must be
   // manually tested instead.
   /* c8 ignore start */
@@ -33,11 +31,9 @@ export const getSerialStdinOptions = async function () {
   return await getPipedStdin()
 }
 
-export const getParallelStdinOptions = async function () {
-  return await getPipedStdin()
-}
+export const getParallelStdinOptions = async () => await getPipedStdin()
 
-const getPipedStdin = async function () {
+const getPipedStdin = async () => {
   const input = await getStdin.buffer()
   return input.length === 0 ? { stdin: 'inherit' } : { stdin: 'pipe', input }
 }

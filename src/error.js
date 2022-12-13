@@ -25,11 +25,11 @@ const pSetTimeout = promisify(setTimeout)
 // possible, so no error messages should be printed except for c) d) and e) as
 // those are not application errors.
 // Execa reports the last three ones differently, using `error.originalMessage`.
-export const handleSingleError = function ({
+export const handleSingleError = ({
   originalMessage,
   code,
   exitCode = DEFAULT_EXIT_CODE,
-}) {
+}) => {
   if (originalMessage !== undefined) {
     stderr.write(`${originalMessage}\n`)
   }
@@ -40,20 +40,20 @@ export const handleSingleError = function ({
 }
 
 // Handle errors thrown in serial runs
-export const handleSerialError = function (error, versionRange, state) {
+export const handleSerialError = (error, versionRange, state) => {
   handleMultipleError(error, versionRange, state)
 }
 
 // Handle errors thrown in parallel runs.
 // We use different error handling logic depending on whether `--continue` is
 // used
-export const handleParallelError = async function ({
+export const handleParallelError = async ({
   error,
   versionRange,
   continueOpt,
   state,
   index,
-}) {
+}) => {
   if (continueOpt) {
     handleAnyParallelError({ error, versionRange, state, index })
     return
@@ -66,12 +66,7 @@ export const handleParallelError = async function ({
 }
 
 // Handle errors thrown in parallel runs without --continue
-const handleFastParallelError = function ({
-  error,
-  versionRange,
-  state,
-  index,
-}) {
+const handleFastParallelError = ({ error, versionRange, state, index }) => {
   printAborted({ error, versionRange, state, index })
   handleAnyParallelError({
     error: state.failedError,
@@ -84,12 +79,12 @@ const handleFastParallelError = function ({
 // When processes are run in parallel and one fails but is not the current one,
 // the current child process shows its current buffered output and a message
 // indicating it's been aborted.
-const printAborted = function ({
+const printAborted = ({
   error,
   versionRange,
   state: { failedError, failedVersionRange },
   index,
-}) {
+}) => {
   if (failedError === error) {
     return
   }
@@ -102,12 +97,7 @@ const printAborted = function ({
 }
 
 // Handle errors thrown in parallel runs (with|without --continue)
-const handleAnyParallelError = function ({
-  error,
-  versionRange,
-  state,
-  index,
-}) {
+const handleAnyParallelError = ({ error, versionRange, state, index }) => {
   writeProcessOutput(`${error.all}\n`, stdout, index)
   handleMultipleError(error, versionRange, state)
 }
@@ -119,11 +109,11 @@ const handleAnyParallelError = function ({
 //    failed child process in input order
 //  - with parallel runs without --continue, this is the first failed child
 //    process
-const handleMultipleError = function (
+const handleMultipleError = (
   { shortMessage, code, exitCode = DEFAULT_EXIT_CODE },
   versionRange,
   state,
-) {
+) => {
   const commandMessage = getCommandMessage(shortMessage, versionRange)
   stderr.write(`${commandMessage}\n`)
 
@@ -132,13 +122,12 @@ const handleMultipleError = function (
   state.exitCode = exitCode
 }
 
-const getCommandMessage = function (shortMessage, versionRange) {
-  return chalk.red(
+const getCommandMessage = (shortMessage, versionRange) =>
+  chalk.red(
     shortMessage
       .replace(COMMAND_REGEXP, '')
       .replace('Command', `Node ${versionRange}`),
   )
-}
 
 // Remove the command path and arguments from the error message
 const COMMAND_REGEXP = /:.*/u

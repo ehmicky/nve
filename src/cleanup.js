@@ -2,7 +2,7 @@
 // by sending SIGTERM to them.
 // We only trigger the termination logic on the first child process that failed.
 // Also this does not apply when --continue is used.
-export const cleanupProcesses = async function (versions, continueOpt, state) {
+export const cleanupProcesses = async (versions, continueOpt, state) => {
   await Promise.all(
     versions.map(({ childProcess, versionRange }, index) =>
       cleanupProcess({
@@ -17,14 +17,14 @@ export const cleanupProcesses = async function (versions, continueOpt, state) {
   )
 }
 
-const cleanupProcess = async function ({
+const cleanupProcess = async ({
   childProcess,
   versionRange,
   versions,
   state,
   continueOpt,
   index,
-}) {
+}) => {
   try {
     await childProcess
   } catch (error) {
@@ -39,14 +39,14 @@ const cleanupProcess = async function ({
   }
 }
 
-const terminateProcesses = function ({
+const terminateProcesses = ({
   error,
   versions,
   versionRange,
   state,
   continueOpt,
   index,
-}) {
+}) => {
   // We check the `continueOpt` after doing `await childProcess` so that later
   // failed child processes do not emit a `rejectionHandled` error when using
   // `--continue`
@@ -65,6 +65,6 @@ const terminateProcesses = function ({
   versions.forEach(terminateProcess)
 }
 
-const terminateProcess = function ({ childProcess }) {
+const terminateProcess = ({ childProcess }) => {
   childProcess.kill()
 }

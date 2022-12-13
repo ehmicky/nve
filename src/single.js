@@ -5,12 +5,12 @@ import { handleSingleError } from './error.js'
 import { getSingleStdinOptions } from './stdin.js'
 
 // Run a single Node version
-export const runSingle = async function ({
+export const runSingle = async ({
   versionRanges: [versionRange],
   command,
   args,
   opts,
-}) {
+}) => {
   if (command === undefined) {
     return printVersion(versionRange, opts)
   }

@@ -1,7 +1,7 @@
 import { excludeKeys } from 'filter-obj'
 
 // Parse nve --options using yargs, and assign default values
-export const parseOpts = function (opts, yargs) {
+export const parseOpts = (opts, yargs) => {
   const optsA = yargs.parse(opts)
   const optsB = excludeKeys(optsA, isInternalOpt)
   const optsC = { ...DEFAULT_CLI_OPTS, ...optsB }
@@ -10,14 +10,11 @@ export const parseOpts = function (opts, yargs) {
 }
 
 // Remove `yargs`-specific options, shortcuts and dash-cased
-const isInternalOpt = function (key, value) {
-  return (
-    value === undefined ||
-    INTERNAL_KEYS.has(key) ||
-    key.length === 1 ||
-    key.includes('-')
-  )
-}
+const isInternalOpt = (key, value) =>
+  value === undefined ||
+  INTERNAL_KEYS.has(key) ||
+  key.length === 1 ||
+  key.includes('-')
 
 const INTERNAL_KEYS = new Set(['help', 'version', '_', '$0'])
 

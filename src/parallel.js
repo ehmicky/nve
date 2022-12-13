@@ -13,13 +13,13 @@ import { writeProcessOutput } from './output.js'
 import { getParallelStdinOptions } from './stdin.js'
 
 // Run multiple Node versions in parallel
-export const runParallel = async function ({
+export const runParallel = async ({
   versionRanges,
   command,
   args,
   continueOpt,
   opts,
-}) {
+}) => {
   if (command === undefined) {
     return printVersions(versionRanges, opts)
   }
@@ -58,7 +58,7 @@ export const runParallel = async function ({
 // We start child processes in parallel.
 // We make a dry run first to ensure Node.js downloads happens before any
 // child process.
-const startProcesses = async function ({ versionRanges, command, args, opts }) {
+const startProcesses = async ({ versionRanges, command, args, opts }) => {
   const versions = await Promise.all(
     versionRanges.map((versionRange) =>
       nvexeca(versionRange, command, args, opts),
@@ -68,14 +68,14 @@ const startProcesses = async function ({ versionRanges, command, args, opts }) {
   return versionsA
 }
 
-const startProcess = function ({ versionRange, command, args, execaOptions }) {
+const startProcess = ({ versionRange, command, args, execaOptions }) => {
   const childProcess = execa(command, args, execaOptions)
   return { childProcess, versionRange }
 }
 
 // Print child processes in serial order, even though they are running in
 // parallel in the background.
-const runProcesses = async function (versions, continueOpt, state) {
+const runProcesses = async (versions, continueOpt, state) => {
   // eslint-disable-next-line fp/no-let
   let index = 0
 
@@ -102,13 +102,13 @@ const runProcesses = async function (versions, continueOpt, state) {
   }
 }
 
-const runProcess = async function ({
+const runProcess = async ({
   childProcess,
   versionRange,
   continueOpt,
   state,
   index,
-}) {
+}) => {
   printVersionHeader(versionRange)
 
   // We stream the first child process output because it is more

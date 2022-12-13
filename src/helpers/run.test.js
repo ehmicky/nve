@@ -5,37 +5,28 @@ import { getBinPath } from 'get-bin-path'
 const BIN_PATH = getBinPath()
 
 // eslint-disable-next-line max-params
-export const runSerial = function (opts, versionRange, args, execaOpts) {
-  return runCli(opts, `${versionRange},${versionRange}`, args, execaOpts)
-}
+export const runSerial = (opts, versionRange, args, execaOpts) =>
+  runCli(opts, `${versionRange},${versionRange}`, args, execaOpts)
 
 // eslint-disable-next-line max-params
-export const runParallel = function (opts, versionRange, args, execaOpts) {
-  return runCli(
+export const runParallel = (opts, versionRange, args, execaOpts) =>
+  runCli(
     `${opts} --parallel`,
     `${versionRange},${versionRange}`,
     args,
     execaOpts,
   )
-}
 
 // eslint-disable-next-line max-params
-export const runCliNoVersion = function (opts, versionRange, args, execaOpts) {
-  return runCli(opts, versionRange, args, execaOpts, true)
-}
+export const runCliNoVersion = (opts, versionRange, args, execaOpts) =>
+  runCli(opts, versionRange, args, execaOpts, true)
 
 // When calling several `nve` in parallel, their output is sometimes duplicated
 // in `execa.all`. This bug is not related to `nve` but to some bug inside
 // `execa` (based on the `merge-stream` package).
 // So we don't use `execa.all`
 // eslint-disable-next-line max-params
-export const runCli = async function (
-  opts,
-  versionRange,
-  args,
-  execaOpts,
-  progress,
-) {
+export const runCli = async (opts, versionRange, args, execaOpts, progress) => {
   const binPath = await BIN_PATH
   const noProgress = progress ? '' : '--no-progress'
   const { exitCode, stdout, stderr } = await execaCommand(
@@ -48,10 +39,9 @@ export const runCli = async function (
 }
 
 // Normalize Windows specifics
-const normalizeOutput = function (output) {
-  return output
+const normalizeOutput = (output) =>
+  output
     .replace(/\r\n/gu, '\n')
     .replace(/cmd "test"/gu, 'test')
     .trim()
     .replace(new RegExp(figures.nodejs, 'gu'), '<>')
-}

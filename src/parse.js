@@ -5,7 +5,7 @@ import semver from 'semver'
 import { parseOpts } from './options.js'
 
 // Parse CLI input
-export const parseInput = function (yargs) {
+export const parseInput = (yargs) => {
   const input = argv.slice(2)
 
   const { opts, versionArg, command, args } = parseArgs(input)
@@ -22,7 +22,7 @@ export const parseInput = function (yargs) {
 
 // yargs parses any --option meant for the `command`.
 // However we only want to apply yargs on the --option meant for `nve`.
-const parseArgs = function (input) {
+const parseArgs = (input) => {
   const versionStart = getVersionStart(input)
   const opts = input.slice(0, versionStart)
   const [versionArg, command, ...args] = input.slice(versionStart)
@@ -30,7 +30,7 @@ const parseArgs = function (input) {
 }
 
 // Retrieve the index of the first non --option CLI argument
-const getVersionStart = function (input) {
+const getVersionStart = (input) => {
   const versionStart = input.findIndex(isVersionArg)
 
   if (versionStart !== -1) {
@@ -47,23 +47,16 @@ const getVersionStart = function (input) {
 // When no version has been specified, this can mean:
 //   - one of those CLI flags has been used
 //   - user error: the version is missing or has a typo
-const isGenericFlags = function (input) {
-  return input.every(isGenericFlag)
-}
+const isGenericFlags = (input) => input.every(isGenericFlag)
 
-const isGenericFlag = function (arg) {
-  return GENERIC_FLAGS.has(arg)
-}
+const isGenericFlag = (arg) => GENERIC_FLAGS.has(arg)
 
 const GENERIC_FLAGS = new Set(['-h', '--help', '-v', '--version'])
 
-const isVersionArg = function (arg) {
-  return arg.split(VERSION_DELIMITER).every(isVersion)
-}
+const isVersionArg = (arg) => arg.split(VERSION_DELIMITER).every(isVersion)
 
-const isVersion = function (value) {
-  return ALIASES.has(value) || semver.validRange(value) !== null
-}
+const isVersion = (value) =>
+  ALIASES.has(value) || semver.validRange(value) !== null
 
 const ALIASES = new Set(['latest', 'lts', 'global', 'local'])
 

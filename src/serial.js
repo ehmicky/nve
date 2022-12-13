@@ -7,13 +7,13 @@ import { printVersionHeader } from './header.js'
 import { getSerialStdinOptions } from './stdin.js'
 
 // Run multiple Node versions serially
-export const runSerial = async function ({
+export const runSerial = async ({
   versionRanges,
   command,
   args,
   opts,
   continueOpt,
-}) {
+}) => {
   if (command === undefined) {
     return printVersions(versionRanges, opts)
   }
@@ -40,7 +40,7 @@ export const runSerial = async function ({
   return state.exitCode
 }
 
-const runProcesses = async function ({ versions, state, continueOpt }) {
+const runProcesses = async ({ versions, state, continueOpt }) => {
   // eslint-disable-next-line fp/no-loops
   for (const { versionRange, command, args, execaOptions } of versions) {
     printVersionHeader(versionRange)
@@ -65,14 +65,14 @@ const runProcesses = async function ({ versions, state, continueOpt }) {
   }
 }
 
-const runProcess = async function ({
+const runProcess = async ({
   versionRange,
   command,
   args,
   execaOptions,
   state,
   continueOpt,
-}) {
+}) => {
   try {
     await execa(command, args, execaOptions)
   } catch (error) {
