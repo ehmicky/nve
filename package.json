@@ -1,6 +1,6 @@
 {
   "name": "nve",
-  "version": "15.4.0",
+  "version": "15.5.0",
   "type": "module",
   "files": [
     "build/src/**/*.{js,json}",
