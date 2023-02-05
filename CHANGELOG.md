@@ -1,3 +1,9 @@
+# 15.5.0
+
+## Features
+
+- Upgrade Execa
+
 # 15.4.0
 
 ## Features
