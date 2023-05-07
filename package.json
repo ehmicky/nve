@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^2.0.80",
-    "get-bin-path": "^9.0.0",
+    "get-bin-path": "^10.0.0",
     "has-ansi": "^5.0.1",
     "is-ci": "^3.0.1",
     "spyd": "^0.6.1",
