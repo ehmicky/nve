@@ -1,15 +1,11 @@
 import { stdout, stderr } from 'node:process'
-import { promisify } from 'node:util'
+import { setTimeout } from 'node:timers/promises'
 
 import chalk from 'chalk'
 
 import { printInvalidCommand } from './fault.js'
 import { printVersionHeader } from './header.js'
 import { writeProcessOutput } from './output.js'
-
-// TODO: replace with `timers/promises` `setTimeout()` after dropping support
-// for Node <15.0.0
-const pSetTimeout = promisify(setTimeout)
 
 // Handle errors thrown by `execa()`
 // We forward the exit code reported by `execa()` using `error.exitCode`.
@@ -60,7 +56,7 @@ export const handleParallelError = async ({
   }
 
   // Ensure termination logic is triggered first
-  await pSetTimeout(0)
+  await setTimeout(0)
 
   handleFastParallelError({ error, versionRange, state, index })
 }
