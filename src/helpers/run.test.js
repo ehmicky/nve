@@ -41,7 +41,7 @@ export const runCli = async (opts, versionRange, args, execaOpts, progress) => {
 // Normalize Windows specifics
 const normalizeOutput = (output) =>
   output
-    .replace(/\r\n/gu, '\n')
-    .replace(/cmd "test"/gu, 'test')
+    .replaceAll('/\r\n', '\n')
+    .replaceAll('cmd "test"', 'test')
     .trim()
-    .replace(new RegExp(figures.nodejs, 'gu'), '<>')
+    .replaceAll(figures.nodejs, '<>')
