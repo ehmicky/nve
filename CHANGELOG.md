@@ -1,3 +1,9 @@
+# 16.0.0
+
+## Breaking changes
+
+- Minimal supported Node.js version is now `16.17.0`
+
 # 15.5.0
 
 ## Features
