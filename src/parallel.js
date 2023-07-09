@@ -4,12 +4,14 @@ import { stdout } from 'node:process'
 import { execa } from 'execa'
 import nvexeca from 'nvexeca'
 
+import { getAbortOptions, cancelOnError } from './abort.js'
 import { cleanupProcesses } from './cleanup.js'
 import { getColorOptions } from './colors.js'
 import { printVersions } from './dry.js'
 import { handleParallelError } from './error.js'
 import { printVersionHeader } from './header.js'
 import { writeProcessOutput } from './output.js'
+// eslint-disable-next-line import/max-dependencies
 import { getParallelStdinOptions } from './stdin.js'
 
 // Run multiple Node versions in parallel
@@ -20,14 +22,16 @@ export const runParallel = async ({
   continueOpt,
   opts,
 }) => {
+  const { controller, opts: optsA } = getAbortOptions(opts)
+
   if (command === undefined) {
-    return printVersions(versionRanges, opts)
+    return printVersions(versionRanges, optsA, controller)
   }
 
   const stdinOptions = await getParallelStdinOptions()
   const colorOptions = getColorOptions()
-  const optsA = {
-    ...opts,
+  const optsB = {
+    ...optsA,
     dry: true,
     ...stdinOptions,
     ...colorOptions,
@@ -43,7 +47,8 @@ export const runParallel = async ({
     versionRanges,
     command,
     args,
-    opts: optsA,
+    opts: optsB,
+    controller,
   })
 
   const state = {}
@@ -58,11 +63,18 @@ export const runParallel = async ({
 // We start child processes in parallel.
 // We make a dry run first to ensure Node.js downloads happens before any
 // child process.
-const startProcesses = async ({ versionRanges, command, args, opts }) => {
-  const versions = await Promise.all(
+const startProcesses = async ({
+  versionRanges,
+  command,
+  args,
+  opts,
+  controller,
+}) => {
+  const versions = await cancelOnError(
     versionRanges.map((versionRange) =>
       nvexeca(versionRange, command, args, opts),
     ),
+    controller,
   )
   const versionsA = versions.map(startProcess)
   return versionsA

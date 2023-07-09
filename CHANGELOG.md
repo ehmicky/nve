@@ -1,3 +1,9 @@
+# 16.0.1
+
+## Bug fixes
+
+- Ensure errors while downloading Node.js binaries are correctly printed (#36)
+
 # 16.0.0
 
 ## Breaking changes

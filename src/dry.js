@@ -2,10 +2,13 @@ import { stdout } from 'node:process'
 
 import nodeVersionAlias from 'node-version-alias'
 
+import { cancelOnError } from './abort.js'
+
 // When `command` is `undefined`, we only print the normalized Node.js version
-export const printVersions = async (versionRanges, opts) => {
-  const versions = await Promise.all(
+export const printVersions = async (versionRanges, opts, controller) => {
+  const versions = await cancelOnError(
     versionRanges.map((versionRange) => getVersion(versionRange, opts)),
+    controller,
   )
   versions.forEach(writeVersion)
 }
@@ -20,8 +23,8 @@ export const printVersion = async (versionRange, opts) => {
 // This is because dry-mode is meant to show available Node.js versions.
 // However non-dry mode uses cache, i.e. new Node.js releases might take up to
 // one hour to be used.
-const getVersion = (versionRange, { fetch: fetchOpt = true, mirror }) =>
-  nodeVersionAlias(versionRange, { fetch: fetchOpt, mirror })
+const getVersion = (versionRange, { fetch: fetchOpt = true, mirror, signal }) =>
+  nodeVersionAlias(versionRange, { fetch: fetchOpt, mirror, signal })
 
 const writeVersion = (version) => {
   stdout.write(`${version}\n`)
