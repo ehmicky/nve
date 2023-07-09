@@ -4,7 +4,7 @@ import { stdout } from 'node:process'
 import { execa } from 'execa'
 import nvexeca from 'nvexeca'
 
-import { getAbortOptions, cancelOnError } from './abort.js'
+import { cancelOnError } from './abort.js'
 import { cleanupProcesses } from './cleanup.js'
 import { getColorOptions } from './colors.js'
 import { printVersions } from './dry.js'
@@ -21,17 +21,16 @@ export const runParallel = async ({
   args,
   continueOpt,
   opts,
+  controller,
 }) => {
-  const { controller, opts: optsA } = getAbortOptions(opts)
-
   if (command === undefined) {
-    return printVersions(versionRanges, optsA, controller)
+    return printVersions(versionRanges, opts, controller)
   }
 
   const stdinOptions = await getParallelStdinOptions()
   const colorOptions = getColorOptions()
-  const optsB = {
-    ...optsA,
+  const optsA = {
+    ...opts,
     dry: true,
     ...stdinOptions,
     ...colorOptions,
@@ -47,7 +46,7 @@ export const runParallel = async ({
     versionRanges,
     command,
     args,
-    opts: optsB,
+    opts: optsA,
     controller,
   })
 

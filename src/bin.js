@@ -7,6 +7,7 @@ import handleCliError from 'handle-cli-error'
 import { readPackageUp } from 'read-pkg-up'
 import updateNotifier from 'update-notifier'
 
+import { getAbortOptions } from './abort.js'
 import { handleFault } from './fault.js'
 import { runParallel } from './parallel.js'
 import { parseInput } from './parse.js'
@@ -57,11 +58,27 @@ const runMain = ({
     return runSingle({ versionRanges, command, args, opts })
   }
 
+  const { controller, opts: optsA } = getAbortOptions(opts)
+
   if (parallel) {
-    return runParallel({ versionRanges, command, args, opts, continueOpt })
+    return runParallel({
+      versionRanges,
+      command,
+      args,
+      opts: optsA,
+      controller,
+      continueOpt,
+    })
   }
 
-  return runSerial({ versionRanges, command, args, opts, continueOpt })
+  return runSerial({
+    versionRanges,
+    command,
+    args,
+    opts: optsA,
+    controller,
+    continueOpt,
+  })
 }
 
 await runCli()

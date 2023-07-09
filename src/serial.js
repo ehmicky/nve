@@ -1,7 +1,7 @@
 import { execa } from 'execa'
 import nvexeca from 'nvexeca'
 
-import { getAbortOptions, cancelOnError } from './abort.js'
+import { cancelOnError } from './abort.js'
 import { printVersions } from './dry.js'
 import { handleSerialError } from './error.js'
 import { printVersionHeader } from './header.js'
@@ -13,17 +13,16 @@ export const runSerial = async ({
   command,
   args,
   opts,
+  controller,
   continueOpt,
 }) => {
-  const { controller, opts: optsA } = getAbortOptions(opts)
-
   if (command === undefined) {
-    return printVersions(versionRanges, optsA, controller)
+    return printVersions(versionRanges, opts, controller)
   }
 
   const stdinOptions = await getSerialStdinOptions()
-  const optsB = {
-    ...optsA,
+  const optsA = {
+    ...opts,
     dry: true,
     ...stdinOptions,
     stdout: 'inherit',
@@ -34,7 +33,7 @@ export const runSerial = async ({
 
   const versions = await cancelOnError(
     versionRanges.map((versionRange) =>
-      nvexeca(versionRange, command, args, optsB),
+      nvexeca(versionRange, command, args, optsA),
     ),
     controller,
   )
