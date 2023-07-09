@@ -65,3 +65,10 @@ test('Can use "local" alias', async (t) => {
   })
   t.true(stdout.includes(TEST_VERSION))
 })
+
+test('Can use a version file path', async (t) => {
+  const { stdout } = await runCli('', 'nvmrc/.nvmrc', 'node --version', {
+    cwd: FIXTURES_DIR,
+  })
+  t.true(stdout.includes(TEST_VERSION))
+})

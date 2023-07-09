@@ -36,8 +36,8 @@ export const handleSingleError = ({
 }
 
 // Handle errors thrown in serial runs
-export const handleSerialError = (error, versionRange, state) => {
-  handleMultipleError(error, versionRange, state)
+export const handleSerialError = (error, version, state) => {
+  handleMultipleError(error, version, state)
 }
 
 // Handle errors thrown in parallel runs.
@@ -45,28 +45,28 @@ export const handleSerialError = (error, versionRange, state) => {
 // used
 export const handleParallelError = async ({
   error,
-  versionRange,
+  version,
   continueOpt,
   state,
   index,
 }) => {
   if (continueOpt) {
-    handleAnyParallelError({ error, versionRange, state, index })
+    handleAnyParallelError({ error, version, state, index })
     return
   }
 
   // Ensure termination logic is triggered first
   await setTimeout(0)
 
-  handleFastParallelError({ error, versionRange, state, index })
+  handleFastParallelError({ error, version, state, index })
 }
 
 // Handle errors thrown in parallel runs without --continue
-const handleFastParallelError = ({ error, versionRange, state, index }) => {
-  printAborted({ error, versionRange, state, index })
+const handleFastParallelError = ({ error, version, state, index }) => {
+  printAborted({ error, version, state, index })
   handleAnyParallelError({
     error: state.failedError,
-    versionRange: state.failedVersionRange,
+    version: state.failedVersion,
     state,
     index: state.failedIndex,
   })
@@ -77,8 +77,8 @@ const handleFastParallelError = ({ error, versionRange, state, index }) => {
 // indicating it's been aborted.
 const printAborted = ({
   error,
-  versionRange,
-  state: { failedError, failedVersionRange },
+  version,
+  state: { failedError, failedVersion },
   index,
 }) => {
   if (failedError === error) {
@@ -87,15 +87,15 @@ const printAborted = ({
 
   writeProcessOutput(error.all, stdout, index)
 
-  stderr.write(chalk.red(`Node ${versionRange} aborted\n`))
+  stderr.write(chalk.red(`Node ${version} aborted\n`))
 
-  printVersionHeader(failedVersionRange)
+  printVersionHeader(failedVersion)
 }
 
 // Handle errors thrown in parallel runs (with|without --continue)
-const handleAnyParallelError = ({ error, versionRange, state, index }) => {
+const handleAnyParallelError = ({ error, version, state, index }) => {
   writeProcessOutput(`${error.all}\n`, stdout, index)
-  handleMultipleError(error, versionRange, state)
+  handleMultipleError(error, version, state)
 }
 
 // If several versions were specified, `nve` is also more explicit about
@@ -107,10 +107,10 @@ const handleAnyParallelError = ({ error, versionRange, state, index }) => {
 //    process
 const handleMultipleError = (
   { shortMessage, code, exitCode = DEFAULT_EXIT_CODE },
-  versionRange,
+  version,
   state,
 ) => {
-  const commandMessage = getCommandMessage(shortMessage, versionRange)
+  const commandMessage = getCommandMessage(shortMessage, version)
   stderr.write(`${commandMessage}\n`)
 
   printInvalidCommand(code, exitCode)
@@ -118,11 +118,11 @@ const handleMultipleError = (
   state.exitCode = exitCode
 }
 
-const getCommandMessage = (shortMessage, versionRange) =>
+const getCommandMessage = (shortMessage, version) =>
   chalk.red(
     shortMessage
       .replace(COMMAND_REGEXP, '')
-      .replace('Command', `Node ${versionRange}`),
+      .replace('Command', `Node ${version}`),
   )
 
 // Remove the command path and arguments from the error message

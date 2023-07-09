@@ -45,12 +45,12 @@ export const runSerial = async ({
 
 const runProcesses = async ({ versions, state, continueOpt }) => {
   // eslint-disable-next-line fp/no-loops
-  for (const { versionRange, command, args, execaOptions } of versions) {
-    printVersionHeader(versionRange)
+  for (const { version, command, args, execaOptions } of versions) {
+    printVersionHeader(version)
 
     // eslint-disable-next-line no-await-in-loop
     const shouldStop = await runProcess({
-      versionRange,
+      version,
       command,
       args,
       execaOptions,
@@ -69,7 +69,7 @@ const runProcesses = async ({ versions, state, continueOpt }) => {
 }
 
 const runProcess = async ({
-  versionRange,
+  version,
   command,
   args,
   execaOptions,
@@ -79,7 +79,7 @@ const runProcess = async ({
   try {
     await execa(command, args, execaOptions)
   } catch (error) {
-    handleSerialError(error, versionRange, state)
+    handleSerialError(error, version, state)
     return !continueOpt
   }
 }

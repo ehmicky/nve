@@ -4,10 +4,10 @@
 // Also this does not apply when --continue is used.
 export const cleanupProcesses = async (versions, continueOpt, state) => {
   await Promise.all(
-    versions.map(({ childProcess, versionRange }, index) =>
+    versions.map(({ childProcess, version }, index) =>
       cleanupProcess({
         childProcess,
-        versionRange,
+        version,
         versions,
         state,
         continueOpt,
@@ -19,7 +19,7 @@ export const cleanupProcesses = async (versions, continueOpt, state) => {
 
 const cleanupProcess = async ({
   childProcess,
-  versionRange,
+  version,
   versions,
   state,
   continueOpt,
@@ -28,21 +28,14 @@ const cleanupProcess = async ({
   try {
     await childProcess
   } catch (error) {
-    terminateProcesses({
-      error,
-      versions,
-      versionRange,
-      state,
-      continueOpt,
-      index,
-    })
+    terminateProcesses({ error, versions, version, state, continueOpt, index })
   }
 }
 
 const terminateProcesses = ({
   error,
   versions,
-  versionRange,
+  version,
   state,
   continueOpt,
   index,
@@ -58,7 +51,7 @@ const terminateProcesses = ({
   // eslint-disable-next-line fp/no-mutating-assign
   Object.assign(state, {
     failedError: error,
-    failedVersionRange: versionRange,
+    failedVersion: version,
     failedIndex: index,
   })
 

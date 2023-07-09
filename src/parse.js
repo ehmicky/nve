@@ -1,5 +1,7 @@
+import { basename } from 'node:path'
 import { argv } from 'node:process'
 
+import { NODE_VERSION_FILES } from 'preferred-node-version'
 import semver from 'semver'
 
 import { parseOpts } from './options.js'
@@ -56,7 +58,14 @@ const GENERIC_FLAGS = new Set(['-h', '--help', '-v', '--version'])
 const isVersionArg = (arg) => arg.split(VERSION_DELIMITER).every(isVersion)
 
 const isVersion = (value) =>
-  ALIASES.has(value) || semver.validRange(value) !== null
+  ALIASES.has(value) ||
+  isVersionFile(value) ||
+  semver.validRange(value) !== null
+
+const isVersionFile = (value) => {
+  const filename = basename(value)
+  return NODE_VERSION_FILES.includes(filename)
+}
 
 const ALIASES = new Set(['latest', 'lts', 'global', 'local'])
 

@@ -36,7 +36,7 @@ instead.
 ```bash
 # Same as `node` but with Node 12
 $ nve 12 node
-Welcome to Node.js v12.22.1.
+Welcome to Node.js v12.22.12.
 Type ".help" for more information.
 > .exit
 
@@ -67,6 +67,9 @@ $ nve global npm test
 # Run the current directory's Node.js version using its `.nvmrc` or `package.json` (`engines.node` field)
 $ nve local npm test
 
+# Run the Node version using a file like `.nvmrc` or `package.json`
+$ nve /path/to/.nvmrc npm test
+
 # Use a different mirror for the Node binaries
 $ nve --mirror=https://npmmirror.com/mirrors/node 8 npm test
 
@@ -93,17 +96,17 @@ $ nve 8 node --version
 # Run multiple versions
 $ nve 12,10,8 npm test
 
- ⬢  Node 12
+ ⬢  Node 12.22.12
 
   105 tests passed
   Finished 'test' after 3.8 s
 
- ⬢  Node 10
+ ⬢  Node 10.24.1
 
   105 tests passed
   Finished 'test' after 4.2 s
 
- ⬢  Node 8
+ ⬢  Node 8.17.0
 
   105 tests passed
   Finished 'test' after 4.5 s
@@ -123,7 +126,7 @@ $ nve 12,10,8 node --version
 ```bash
 # Prints latest Node.js version
 $ nve latest
-16.3.0
+20.4.0
 
 # Prints latest Node.js 8 version
 $ nve 8
@@ -131,7 +134,7 @@ $ nve 8
 
 # Prints latest Node.js 12, 10 and 8 versions
 $ nve 12,10,8
-12.22.1
+12.22.12
 10.24.1
 8.17.0
 ```
@@ -170,24 +173,29 @@ COMMAND [ARGS...]
 But using a specific Node `VERSION`. Several comma-separated `VERSION` can be
 specified at once.
 
-`VERSION` can be any [version range](https://github.com/npm/node-semver) such as
-`12`, `12.6.0` or `<12`, or one of the following aliases:
+`VERSION` can be:
 
+- any [version range](https://github.com/npm/node-semver) such as `12`, `12.6.0`
+  or `<12`
 - `latest`: Latest available Node version
 - `lts`: Latest LTS Node version
 - `global`: Global Node version
   - Using the home directory [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc) or
     [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
-  - [Some additional files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md)
+  - [Some similar files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md)
     used by other Node.js version managers are also searched for
   - If nothing is found, defaults to the current process's Node version
 - `local`: Current directory's Node version
   - Using the current directory or parent directories
     [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc),
     [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
-    (or
-    [additional files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md))
+    or
+    [similar files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md)
   - Defaults to the `global` version
+- a file path towards a [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc),
+  [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
+  or
+  [similar files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md)
 
 `COMMAND` must be compatible with the specific Node `VERSION`. For example `npm`
 is [only compatible with Node `>=6`](https://github.com/npm/cli#important).

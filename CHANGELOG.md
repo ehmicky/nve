@@ -1,3 +1,21 @@
+# 16.1.0
+
+## Features
+
+- The Node.js version can now be specified as a file path to a
+  [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc),
+  [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
+  or
+  [similar files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md).
+
+```sh
+$ nve /path/to/.nvmrc npm test
+```
+
+- When running multiple Node.js versions, the full resolved versions are now
+  printed. For example, `nve 10,12 ...` will print `Node.js 10.24.1` and
+  `Node.js 12.22.12` before each command's output.
+
 # 16.0.1
 
 ## Bug fixes

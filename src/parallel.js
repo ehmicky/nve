@@ -79,9 +79,9 @@ const startProcesses = async ({
   return versionsA
 }
 
-const startProcess = ({ versionRange, command, args, execaOptions }) => {
+const startProcess = ({ version, command, args, execaOptions }) => {
   const childProcess = execa(command, args, execaOptions)
-  return { childProcess, versionRange }
+  return { childProcess, version }
 }
 
 // Print child processes in serial order, even though they are running in
@@ -91,10 +91,10 @@ const runProcesses = async (versions, continueOpt, state) => {
   let index = 0
 
   // eslint-disable-next-line fp/no-loops
-  for await (const { childProcess, versionRange } of versions) {
+  for await (const { childProcess, version } of versions) {
     const shouldStop = await runProcess({
       childProcess,
-      versionRange,
+      version,
       continueOpt,
       state,
       index,
@@ -115,12 +115,12 @@ const runProcesses = async (versions, continueOpt, state) => {
 
 const runProcess = async ({
   childProcess,
-  versionRange,
+  version,
   continueOpt,
   state,
   index,
 }) => {
-  printVersionHeader(versionRange)
+  printVersionHeader(version)
 
   // We stream the first child process output because it is more
   // developer-friendly. However the next ones cannot be streamed since they
@@ -133,13 +133,7 @@ const runProcess = async ({
     const { all } = await childProcess
     writeProcessOutput(all, stdout, index)
   } catch (error) {
-    await handleParallelError({
-      error,
-      versionRange,
-      continueOpt,
-      state,
-      index,
-    })
+    await handleParallelError({ error, version, continueOpt, state, index })
     return !continueOpt
   }
 }
