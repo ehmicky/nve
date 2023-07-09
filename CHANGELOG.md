@@ -14,7 +14,8 @@ $ nve /path/to/.nvmrc npm test
 
 - When running multiple Node.js versions, the full resolved versions are now
   printed. For example, `nve 10,12 ...` will print `Node.js 10.24.1` and
-  `Node.js 12.22.12` before each command's output.
+  `Node.js 12.22.12` before each command's output, providing multiple Node.js
+  versions are used at once.
 
 # 16.0.1
 
