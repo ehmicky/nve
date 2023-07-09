@@ -7,6 +7,7 @@
   [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
   or
   [similar files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md).
+  (#37)
 
 ```sh
 $ nve /path/to/.nvmrc npm test
