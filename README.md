@@ -376,6 +376,9 @@ Thanks go to our wonderful contributors:
       <td align="center" valign="top" width="14.28%"><a href="https://twitter.com/adrieankhisbe"><img src="https://avatars1.githubusercontent.com/u/2601132?v=4?s=100" width="100px;" alt="Adrien Becchis"/><br /><sub><b>Adrien Becchis</b></sub></a><br /><a href="https://github.com/ehmicky/nve/commits?author=AdrieanKhisbe" title="Code">💻</a> <a href="https://github.com/ehmicky/nve/commits?author=AdrieanKhisbe" title="Tests">⚠️</a> <a href="#ideas-AdrieanKhisbe" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.ericcornelissen.dev/"><img src="https://avatars.githubusercontent.com/u/3742559?v=4?s=100" width="100px;" alt="Eric Cornelissen"/><br /><sub><b>Eric Cornelissen</b></sub></a><br /><a href="https://github.com/ehmicky/nve/issues?q=author%3Aericcornelissen" title="Bug reports">🐛</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/thanks"><img src="https://avatars.githubusercontent.com/u/1121545?v=4?s=100" width="100px;" alt="thanks"/><br /><sub><b>thanks</b></sub></a><br /><a href="#ideas-thanks" title="Ideas, Planning, & Feedback">🤔</a></td>
+    </tr>
   </tbody>
 </table>
 
