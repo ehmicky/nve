@@ -1,3 +1,10 @@
+# 16.1.1
+
+## Dependencies
+
+- Upgrade [Execa](https://github.com/sindresorhus/execa) to
+  [`8.0.0`](https://github.com/sindresorhus/execa/releases/tag/v8.0.0)
+
 # 16.1.0
 
 ## Features
