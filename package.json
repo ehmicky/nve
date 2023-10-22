@@ -69,7 +69,7 @@
     "get-bin-path": "^11.0.0",
     "has-ansi": "^5.0.1",
     "is-ci": "^3.0.1",
-    "spyd": "^0.8.1",
+    "spyd": "^0.8.2",
     "test-each": "^7.0.0"
   },
   "engines": {
