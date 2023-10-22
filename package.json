@@ -61,7 +61,7 @@
     "preferred-node-version": "^4.2.0",
     "read-pkg-up": "^10.1.0",
     "semver": "^7.5.4",
-    "update-notifier": "^6.0.2",
+    "update-notifier": "^7.0.0",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
