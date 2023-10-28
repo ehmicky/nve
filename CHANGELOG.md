@@ -1,3 +1,9 @@
+# 17.0.0
+
+## Breaking changes
+
+- Minimal supported Node.js version is now `18.18.0`
+
 # 16.1.1
 
 ## Dependencies
