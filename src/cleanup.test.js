@@ -14,8 +14,8 @@ each([runSerial, runParallel], ({ title }, run) => {
 
 each(
   [
-    { opts: '', terminate: true },
-    { opts: '--continue', terminate: false },
+    { opts: [], terminate: true },
+    { opts: ['--continue'], terminate: false },
   ],
   ({ title }, { opts, terminate }) => {
     test(`Terminate other processes on failures | ${title}`, async (t) => {
@@ -29,7 +29,7 @@ each(
             console.log("test")
           }, 5e3)`,
         ],
-        [`--parallel ${opts}`],
+        ['--parallel', ...opts],
         { all: true },
       )
 
