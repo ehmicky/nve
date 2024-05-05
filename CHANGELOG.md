@@ -1,3 +1,9 @@
+# 18.0.0
+
+## Dependencies
+
+- Upgrade internal dependencies. This is not expected to be a breaking change.
+
 # 17.0.0
 
 ## Breaking changes
