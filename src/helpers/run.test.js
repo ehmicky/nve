@@ -9,7 +9,7 @@ export const runSerial = (versionRange, args, opts, execaOpts) =>
   runCli(`${versionRange},${versionRange}`, args, opts, execaOpts)
 
 // eslint-disable-next-line max-params
-export const runParallel = (versionRange, args, opts, execaOpts) =>
+export const runParallel = (versionRange, args, opts = [], execaOpts = {}) =>
   runCli(
     `${versionRange},${versionRange}`,
     args,
