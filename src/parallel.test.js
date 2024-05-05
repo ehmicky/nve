@@ -1,13 +1,14 @@
 import test from 'ava'
 import { each } from 'test-each'
 
+import { printModernNodeArgs } from './helpers/args.test.js'
 import { runCli, runSerial, runParallel } from './helpers/run.test.js'
 import { TEST_VERSION, OLD_TEST_VERSION } from './helpers/versions.test.js'
 
 test('Forward exit code and output on late failure | runParallel', async (t) => {
   const { exitCode, stdout, stderr } = await runCli(
     `${TEST_VERSION},${OLD_TEST_VERSION}`,
-    ['node', '-p', '".".at(0)'],
+    printModernNodeArgs,
     ['--parallel', '--continue'],
   )
 
@@ -27,7 +28,7 @@ Node ${OLD_TEST_VERSION} failed with exit code 1`),
 test('No --continue | runParallel', async (t) => {
   const { exitCode, stdout, stderr } = await runCli(
     `${OLD_TEST_VERSION},${TEST_VERSION}`,
-    ['node', '-p', '".".at(0)'],
+    printModernNodeArgs,
     ['--parallel'],
   )
 
@@ -44,7 +45,7 @@ Node ${OLD_TEST_VERSION} failed with exit code 1`,
 test('--continue | runParallel', async (t) => {
   const { exitCode, stdout, stderr } = await runCli(
     `${OLD_TEST_VERSION},${TEST_VERSION}`,
-    ['node', '-p', '".".at(0)'],
+    printModernNodeArgs,
     ['--parallel', '--continue'],
   )
 
