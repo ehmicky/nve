@@ -16,7 +16,7 @@ print "Same as 'node file.js' but with Node 8"
 nve 8 node "$examplesDir/file.js"
 
 print "Any command can be used, including local binaries"
-nve 12 npm --version
+nve 18 npm --version
 
 print "Run multiple versions"
 nve 12,10,8 node --version
