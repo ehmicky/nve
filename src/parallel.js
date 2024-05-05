@@ -91,7 +91,8 @@ const runProcesses = async (versions, continueOpt, state) => {
   let index = 0
 
   // eslint-disable-next-line fp/no-loops
-  for await (const { childProcess, version } of versions) {
+  for (const { childProcess, version } of versions) {
+    // eslint-disable-next-line no-await-in-loop
     const shouldStop = await runProcess({
       childProcess,
       version,
