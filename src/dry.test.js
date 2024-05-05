@@ -12,7 +12,7 @@ each(
   ],
   ({ title }, { run, output }) => {
     test(`No commands | ${title}`, async (t) => {
-      const { stdout } = await run('', `v${TEST_VERSION}`, '')
+      const { stdout } = await run(`v${TEST_VERSION}`, [])
 
       t.is(stdout, output)
     })

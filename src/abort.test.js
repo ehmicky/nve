@@ -9,9 +9,9 @@ const RECENT_ARCH_OPT = '--arch arm'
 each(['', '--parallel'], ({ title }, parallelFlag) => {
   test.serial(`Node.js binary failure | ${title}`, async (t) => {
     const { stdout, stderr, exitCode } = await runCli(
-      `${RECENT_ARCH_OPT} ${parallelFlag}`,
       `${VERY_OLD_TEST_VERSION},${TEST_VERSION}`,
-      'node --version',
+      ['node', '--version'],
+      [RECENT_ARCH_OPT, parallelFlag],
     )
 
     t.is(stdout, '')

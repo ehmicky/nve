@@ -13,9 +13,9 @@ each(
   ({ title }, { run, output }) => {
     test(`stdin | ${title}`, async (t) => {
       const { stdout } = await run(
-        '',
         TEST_VERSION,
-        'node -e process.stdin.pipe(process.stdout)',
+        ['node', '-e', 'process.stdin.pipe(process.stdout)'],
+        [],
         { input: 'test\n', stdin: 'pipe' },
       )
 
@@ -24,9 +24,9 @@ each(
 
     test(`No stdin | ${title}`, async (t) => {
       const { stdout } = await run(
-        '',
         TEST_VERSION,
-        'node -e process.stdin.pipe(process.stdout)',
+        ['node', '-e', 'process.stdin.pipe(process.stdout)'],
+        [],
         { stdin: 'ignore' },
       )
 

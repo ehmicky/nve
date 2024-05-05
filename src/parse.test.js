@@ -6,13 +6,13 @@ import { TEST_VERSION } from './helpers/versions.test.js'
 
 each(
   [
-    { versionRange: '', command: '' },
-    { versionRange: 'invalid_version', command: 'node --version' },
-    { versionRange: '0.0.0', command: 'node --version' },
+    { versionRange: '', args: [] },
+    { versionRange: 'invalid_version', args: ['node', '--version'] },
+    { versionRange: '0.0.0', args: ['node', '--version'] },
   ],
-  ({ title }, { versionRange, command }) => {
+  ({ title }, { versionRange, args }) => {
     test(`Invalid input with help | ${title}`, async (t) => {
-      const { exitCode } = await runCli('', versionRange, command)
+      const { exitCode } = await runCli(versionRange, args)
 
       t.is(exitCode, 1)
     })
@@ -21,10 +21,10 @@ each(
 
 each(
   [runCli, runSerial, runParallel],
-  ['--no-fetch', '--fetch=false', '--fetch false'],
+  [['--no-fetch'], ['--fetch=false'], ['--fetch', 'false']],
   ({ title }, run, opts) => {
     test(`Parse nve CLI flags | ${title}`, async (t) => {
-      const { exitCode } = await run(opts, TEST_VERSION, 'node --version')
+      const { exitCode } = await run(TEST_VERSION, ['node', '--version'], opts)
       t.is(exitCode, 0)
     })
   },

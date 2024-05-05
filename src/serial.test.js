@@ -5,9 +5,8 @@ import { TEST_VERSION, OLD_TEST_VERSION } from './helpers/versions.test.js'
 
 test(`Forward exit code and output on late failure | runSerial`, async (t) => {
   const { exitCode, stdout, stderr } = await runCli(
-    '',
     `${TEST_VERSION},${OLD_TEST_VERSION}`,
-    'node -p ".".at(0)',
+    ['node', '-p', '".".at(0)'],
   )
 
   t.is(exitCode, 1)
@@ -26,9 +25,9 @@ test(`Forward exit code and output on late failure | runSerial`, async (t) => {
 
 test(`--continue | runSerial`, async (t) => {
   const { exitCode, stdout, stderr } = await runCli(
-    '--continue',
     `${OLD_TEST_VERSION},${TEST_VERSION}`,
-    'node -p ".".at(0)',
+    ['node', '-p', '".".at(0)'],
+    ['--continue'],
   )
 
   t.is(exitCode, 1)

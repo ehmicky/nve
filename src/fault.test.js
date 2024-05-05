@@ -8,15 +8,15 @@ import { TEST_VERSION, INVALID_VERSION } from './helpers/versions.test.js'
 
 each(
   [
-    { versionRange: '', command: '' },
+    { versionRange: '', args: [] },
     // This feature does not work on Windows cmd.exe
     ...(platform === 'win32'
       ? []
-      : [{ versionRange: TEST_VERSION, command: 'invalid' }]),
+      : [{ versionRange: TEST_VERSION, args: ['invalid'] }]),
   ],
-  ({ title }, { versionRange, command }) => {
+  ({ title }, { versionRange, args }) => {
     test(`Invalid input message | ${title}`, async (t) => {
-      const { stderr } = await runCliNoVersion('', versionRange, command)
+      const { stderr } = await runCliNoVersion(versionRange, args)
       t.true(stderr.includes('Invalid input'))
     })
   },
@@ -30,11 +30,10 @@ each(
   ],
   ({ title }, versionRange) => {
     test(`Invalid version range | ${title}`, async (t) => {
-      const { stderr } = await runCliNoVersion(
-        '',
-        versionRange,
-        'node --version',
-      )
+      const { stderr } = await runCliNoVersion(versionRange, [
+        'node',
+        '--version',
+      ])
       t.true(stderr.includes('Not a valid Node version range'))
     })
   },

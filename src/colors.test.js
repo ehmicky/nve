@@ -14,9 +14,15 @@ each(
   ({ title }, { env, colors }) => {
     test(`Colors with interactive TTY | runParallel ${title}`, async (t) => {
       const { stdout } = await runParallel(
-        '',
         HELPER_VERSION,
-        'node --input-type=module -e import\\ chalk\\ from\\ "chalk";\\ console.log(chalk.red("test"))',
+        [
+          'node',
+          '--input-type=module',
+          '-e',
+          `import chalk from 'chalk';\
+          console.log(chalk.red('test'))`,
+        ],
+        [],
         { env },
       )
 

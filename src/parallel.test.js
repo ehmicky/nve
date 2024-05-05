@@ -6,9 +6,9 @@ import { TEST_VERSION, OLD_TEST_VERSION } from './helpers/versions.test.js'
 
 test('Forward exit code and output on late failure | runParallel', async (t) => {
   const { exitCode, stdout, stderr } = await runCli(
-    '--parallel --continue',
     `${TEST_VERSION},${OLD_TEST_VERSION}`,
-    'node -p ".".at(0)',
+    ['node', '-p', '".".at(0)'],
+    ['--parallel', '--continue'],
   )
 
   t.is(exitCode, 1)
@@ -26,9 +26,9 @@ Node ${OLD_TEST_VERSION} failed with exit code 1`),
 
 test('No --continue | runParallel', async (t) => {
   const { exitCode, stdout, stderr } = await runCli(
-    '--parallel',
     `${OLD_TEST_VERSION},${TEST_VERSION}`,
-    'node -p ".".at(0)',
+    ['node', '-p', '".".at(0)'],
+    ['--parallel'],
   )
 
   t.is(exitCode, 1)
@@ -43,9 +43,9 @@ Node ${OLD_TEST_VERSION} failed with exit code 1`,
 
 test('--continue | runParallel', async (t) => {
   const { exitCode, stdout, stderr } = await runCli(
-    '--parallel --continue',
     `${OLD_TEST_VERSION},${TEST_VERSION}`,
-    'node -p ".".at(0)',
+    ['node', '-p', '".".at(0)'],
+    ['--parallel', '--continue'],
   )
 
   t.is(exitCode, 1)
@@ -68,12 +68,14 @@ each(
   ],
   ({ title }, { run, parallel }) => {
     test(`Run in parallel/serial | ${title}`, async (t) => {
-      const { stdout } = await run(
-        '',
-        TEST_VERSION,
-        `node -e console.log(Date.now())
-setTimeout(()=>{console.log(Date.now())},5e3)`,
-      )
+      const { stdout } = await run(TEST_VERSION, [
+        'node',
+        '-e',
+        `console.log(Date.now())
+        setTimeout(() => {
+          console.log(Date.now())
+        }, 5e3)`,
+      ])
 
       const [, endOne, startTwo] = stdout.split('\n')
       t.is(endOne >= startTwo, parallel)

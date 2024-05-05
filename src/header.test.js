@@ -7,7 +7,7 @@ import { TEST_VERSION } from './helpers/versions.test.js'
 
 each([runSerial, runParallel], ({ title }, run) => {
   test(`Prints headers | ${title}`, async (t) => {
-    const { stdout, stderr } = await run('', TEST_VERSION, 'node --version')
+    const { stdout, stderr } = await run(TEST_VERSION, ['node', '--version'])
 
     t.is(
       stdout,
@@ -24,7 +24,7 @@ v${TEST_VERSION}`,
   })
 
   test(`Prints headers in correct order with fast commands | ${title}`, async (t) => {
-    const { stdout, stderr } = await run('', TEST_VERSION, 'echo test')
+    const { stdout, stderr } = await run(TEST_VERSION, ['echo', 'test'])
 
     t.is(
       stdout,
@@ -41,7 +41,7 @@ test`,
   })
 
   test(`Prints headers in colors | ${title}`, async (t) => {
-    const { stderr } = await run('', TEST_VERSION, 'node --version', {
+    const { stderr } = await run(TEST_VERSION, ['node', '--version'], [], {
       env: { FORCE_COLOR: '1' },
     })
 
