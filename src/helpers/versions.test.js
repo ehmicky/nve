@@ -1,6 +1,6 @@
 export const VERY_OLD_TEST_VERSION = '0.8.28'
-export const OLD_TEST_VERSION = '4.0.0'
-export const TEST_VERSION = '6.2.1'
+export const OLD_TEST_VERSION = '16.5.0'
+export const TEST_VERSION = '16.6.0'
 export const HELPER_VERSION = '18.18.0'
 export const INVALID_VERSION = 'invalid_version'
 export const LATEST_STAR_VERSION = '*'

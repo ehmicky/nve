@@ -22,7 +22,7 @@ each(
       const { stdout } = await runCli(
         `--parallel ${opts}`,
         `${TEST_VERSION},${OLD_TEST_VERSION}`,
-        `node -e Buffer.from("")
+        `node -e ".".at(0)
 setTimeout(()=>{console.log("test")},5e3)`,
         { all: true },
       )

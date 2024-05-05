@@ -7,11 +7,11 @@ test(`Forward exit code and output on late failure | runSerial`, async (t) => {
   const { exitCode, stdout, stderr } = await runCli(
     '',
     `${TEST_VERSION},${OLD_TEST_VERSION}`,
-    'node -p Buffer.from("")',
+    'node -p ".".at(0)',
   )
 
   t.is(exitCode, 1)
-  t.is(stdout, '<Buffer >')
+  t.is(stdout, '.')
   t.true(
     stderr.startsWith(
       `<>  Node ${TEST_VERSION}
@@ -28,11 +28,11 @@ test(`--continue | runSerial`, async (t) => {
   const { exitCode, stdout, stderr } = await runCli(
     '--continue',
     `${OLD_TEST_VERSION},${TEST_VERSION}`,
-    'node -p Buffer.from("")',
+    'node -p ".".at(0)',
   )
 
   t.is(exitCode, 1)
-  t.is(stdout, '<Buffer >')
+  t.is(stdout, '.')
   t.true(
     stderr.startsWith(
       `<>  Node ${OLD_TEST_VERSION}
