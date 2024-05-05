@@ -57,7 +57,7 @@
     "get-stdin": "^9.0.0",
     "handle-cli-error": "^5.0.0",
     "node-version-alias": "^5.0.0",
-    "nvexeca": "^10.0.0",
+    "nvexeca": "^11.0.0",
     "preferred-node-version": "^5.0.0",
     "read-pkg-up": "^10.1.0",
     "semver": "^7.5.4",
