@@ -2,6 +2,7 @@ import test from 'ava'
 import { readPackageUp } from 'read-pkg-up'
 import { each } from 'test-each'
 
+import { printVersionArgs } from './helpers/args.test.js'
 import {
   runCli,
   runCliNoVersion,
@@ -36,13 +37,13 @@ each([runCli, runSerial, runParallel], ({ title }, run) => {
 })
 
 test('node --version | runCli', async (t) => {
-  const { stdout } = await runCli(TEST_VERSION, ['node', '--version'])
+  const { stdout } = await runCli(TEST_VERSION, printVersionArgs)
 
   t.is(stdout, `v${TEST_VERSION}`)
 })
 
 test('node --version | runSerial', async (t) => {
-  const { stdout } = await runSerial(TEST_VERSION, ['node', '--version'])
+  const { stdout } = await runSerial(TEST_VERSION, printVersionArgs)
 
   t.is(stdout, `v${TEST_VERSION}\nv${TEST_VERSION}`)
 })
