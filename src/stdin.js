@@ -17,7 +17,7 @@ import getStdin from 'get-stdin'
 //  - with serial commands, the whole stdin must be retrieved first then piped
 //    to each command. Otherwise only the first command would get stdin.
 
-export const getSingleStdinOptions = () => ({ stdin: 'inherit' })
+export const singleStdinOptions = { stdin: 'inherit' }
 
 export const getSerialStdinOptions = async () => {
   // stdin in automated tests is always non-interactive, so this must be

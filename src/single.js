@@ -2,7 +2,7 @@ import nvexeca from 'nvexeca'
 
 import { printVersion } from './dry.js'
 import { handleSingleError } from './error.js'
-import { getSingleStdinOptions } from './stdin.js'
+import { singleStdinOptions } from './stdin.js'
 
 // Run a single Node version
 export const runSingle = async ({
@@ -15,10 +15,9 @@ export const runSingle = async ({
     return printVersion(versionRange, opts)
   }
 
-  const stdinOptions = getSingleStdinOptions()
   const optsA = {
     ...opts,
-    ...stdinOptions,
+    ...singleStdinOptions,
     stdout: 'inherit',
     stderr: 'inherit',
     buffer: false,

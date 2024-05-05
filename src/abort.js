@@ -2,7 +2,7 @@ import process from 'node:process'
 
 export const getAbortOptions = (opts) => {
   const controller = new AbortController()
-  const optsA = { ...opts, signal: controller.signal }
+  const optsA = { ...opts, cancelSignal: controller.signal }
   return { controller, opts: optsA }
 }
 
