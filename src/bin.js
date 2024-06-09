@@ -4,7 +4,7 @@ import { exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 
 import handleCliError from 'handle-cli-error'
-import { readPackageUp } from 'read-pkg-up'
+import { readPackageUp } from 'read-package-up'
 import updateNotifier from 'update-notifier'
 
 import { getAbortOptions } from './abort.js'

@@ -1,5 +1,5 @@
 import test from 'ava'
-import { readPackageUp } from 'read-pkg-up'
+import { readPackageUp } from 'read-package-up'
 import { each } from 'test-each'
 
 import { printVersionArgs } from './helpers/args.test.js'

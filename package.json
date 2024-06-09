@@ -59,7 +59,7 @@
     "node-version-alias": "^5.0.0",
     "nvexeca": "^11.0.0",
     "preferred-node-version": "^5.0.0",
-    "read-pkg-up": "^10.1.0",
+    "read-package-up": "^11.0.0",
     "semver": "^7.6.2",
     "update-notifier": "^7.0.0",
     "yargs": "^17.7.2"
