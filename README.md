@@ -272,8 +272,7 @@ instead.
 
 _Alias_: `-a`\
 _Type_: `string`\
-_Default_:
-[`process.arch`](https://nodejs.org/api/process.html#process_process_arch)
+_Default_: [`process.arch`](https://nodejs.org/api/process.html#process_process_arch)
 
 Node.js binary's CPU architecture. This is useful for example when you're on x64
 but would like to run Node.js x32.
