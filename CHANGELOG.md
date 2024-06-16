@@ -2,8 +2,8 @@
 
 ## Bug fixes
 
-- Fix `EMFILE` errors thrown on Windows when `nvexeca()` is called multiple
-  times at once.
+- Fix `EMFILE` errors thrown on Windows when `nve` is called multiple times at
+  once.
 
 # 18.0.0
 
