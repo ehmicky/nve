@@ -60,7 +60,7 @@
     "nvexeca": "^11.0.1",
     "preferred-node-version": "^5.0.0",
     "read-package-up": "^11.0.0",
-    "semver": "^7.6.2",
+    "semver": "^7.6.3",
     "update-notifier": "^7.1.0",
     "yargs": "^17.7.2"
   },
