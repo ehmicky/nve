@@ -148,13 +148,6 @@ $ nve 12,10,8
 8.17.0
 ```
 
-# Demo
-
-You can try this library:
-
-- either directly [in your browser](https://repl.it/@ehmicky/nve).
-- or by executing the [`examples` files](examples/README.md) in a terminal.
-
 # Install
 
 ```bash
