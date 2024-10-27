@@ -66,7 +66,7 @@
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^3.0.20",
-    "@ehmicky/eslint-config": "^20.0.4",
+    "@ehmicky/eslint-config": "^20.0.5",
     "@ehmicky/prettier-config": "^1.0.0",
     "get-bin-path": "^11.0.0",
     "has-ansi": "^6.0.0",
