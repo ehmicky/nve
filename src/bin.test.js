@@ -3,14 +3,14 @@ import semver from 'semver'
 import { each } from 'test-each'
 
 import { printVersionArgs } from './helpers/args.test.js'
-import { runCli, runSerial, runParallel } from './helpers/run.test.js'
+import { runCli, runParallel, runSerial } from './helpers/run.test.js'
 import {
-  TEST_VERSION,
+  GLOBAL_VERSION,
   LATEST_STAR_VERSION,
   LATEST_VERSION,
-  LTS_VERSION,
-  GLOBAL_VERSION,
   LOCAL_VERSION,
+  LTS_VERSION,
+  TEST_VERSION,
 } from './helpers/versions.test.js'
 
 const FIXTURES_DIR = new URL('fixtures/', import.meta.url)

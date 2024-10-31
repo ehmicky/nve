@@ -6,8 +6,8 @@ import { printVersionArgs } from './helpers/args.test.js'
 import {
   runCli,
   runCliNoVersion,
-  runSerial,
   runParallel,
+  runSerial,
 } from './helpers/run.test.js'
 import { TEST_VERSION } from './helpers/versions.test.js'
 

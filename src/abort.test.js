@@ -3,7 +3,7 @@ import { each } from 'test-each'
 
 import { printVersionArgs } from './helpers/args.test.js'
 import { runCli } from './helpers/run.test.js'
-import { VERY_OLD_TEST_VERSION, TEST_VERSION } from './helpers/versions.test.js'
+import { TEST_VERSION, VERY_OLD_TEST_VERSION } from './helpers/versions.test.js'
 
 const RECENT_ARCH_OPT = ['--arch', 'arm']
 

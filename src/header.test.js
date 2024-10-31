@@ -3,7 +3,7 @@ import hasAnsi from 'has-ansi'
 import { each } from 'test-each'
 
 import { printVersionArgs } from './helpers/args.test.js'
-import { runSerial, runParallel } from './helpers/run.test.js'
+import { runParallel, runSerial } from './helpers/run.test.js'
 import { TEST_VERSION } from './helpers/versions.test.js'
 
 each([runSerial, runParallel], ({ title }, run) => {

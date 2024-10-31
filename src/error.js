@@ -1,4 +1,4 @@
-import { stdout, stderr } from 'node:process'
+import { stderr, stdout } from 'node:process'
 import { setTimeout } from 'node:timers/promises'
 
 import chalk from 'chalk'

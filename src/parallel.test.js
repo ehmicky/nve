@@ -2,8 +2,8 @@ import test from 'ava'
 import { each } from 'test-each'
 
 import { printModernNodeArgs } from './helpers/args.test.js'
-import { runCli, runSerial, runParallel } from './helpers/run.test.js'
-import { TEST_VERSION, OLD_TEST_VERSION } from './helpers/versions.test.js'
+import { runCli, runParallel, runSerial } from './helpers/run.test.js'
+import { OLD_TEST_VERSION, TEST_VERSION } from './helpers/versions.test.js'
 
 test('Forward exit code and output on late failure | runParallel', async (t) => {
   const { exitCode, stdout, stderr } = await runCli(

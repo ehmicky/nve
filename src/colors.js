@@ -1,4 +1,4 @@
-import { stdout, env } from 'node:process'
+import { env, stdout } from 'node:process'
 import { WriteStream } from 'node:tty'
 
 const {
