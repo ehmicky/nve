@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "chalk": "^5.4.1",
-    "execa": "^9.5.1",
+    "execa": "^9.5.2",
     "figures": "^6.0.1",
     "filter-obj": "^6.1.0",
     "get-stdin": "^9.0.0",
