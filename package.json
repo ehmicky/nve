@@ -65,7 +65,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^3.0.31",
+    "@ehmicky/dev-tasks": "^3.0.32",
     "@ehmicky/eslint-config": "^20.0.26",
     "@ehmicky/prettier-config": "^1.0.5",
     "get-bin-path": "^11.0.0",
