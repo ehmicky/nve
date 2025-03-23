@@ -58,7 +58,7 @@
     "handle-cli-error": "^5.0.1",
     "node-version-alias": "^5.0.1",
     "nvexeca": "^11.0.2",
-    "preferred-node-version": "^5.0.0",
+    "preferred-node-version": "^5.0.1",
     "read-package-up": "^11.0.0",
     "semver": "^7.7.1",
     "update-notifier": "^7.3.1",
