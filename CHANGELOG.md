@@ -1,3 +1,9 @@
+# 18.0.3
+
+## Dependencies
+
+- Upgrade `tar-fs` dependency
+
 # 18.0.2
 
 ## Documentation
