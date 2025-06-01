@@ -71,7 +71,7 @@
     "get-bin-path": "^11.0.1",
     "has-ansi": "^6.0.0",
     "is-ci": "^4.1.0",
-    "spyd": "^0.8.3",
+    "spyd": "^0.8.4",
     "test-each": "^7.0.1"
   },
   "engines": {
