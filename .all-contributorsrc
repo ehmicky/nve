@@ -79,6 +79,15 @@
         "bug",
         "ideas"
       ]
+    },
+    {
+      "login": "hildjj",
+      "name": "Joe Hildebrand",
+      "avatar_url": "https://avatars.githubusercontent.com/u/93963?v=4",
+      "profile": "https://hachyderm.io/@hildjj",
+      "contributions": [
+        "question"
+      ]
     }
   ],
   "contributorsPerLine": 7,
