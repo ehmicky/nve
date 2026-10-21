@@ -190,8 +190,9 @@ specified at once.
   or
   [similar files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md)
 
-`COMMAND` must be compatible with the specific Node `VERSION`. For example `npm`
-is [only compatible with Node `>=6`](https://github.com/npm/cli#important).
+`COMMAND` must be compatible with the specific Node `VERSION`. For example, recent
+`npm` releases only run on
+[currently supported Node versions](https://github.com/npm/cli#requirements).
 
 Both global and local binaries can be executed.
 
