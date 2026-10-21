@@ -371,6 +371,7 @@ Thanks go to our wonderful contributors:
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://hachyderm.io/@hildjj"><img src="https://avatars.githubusercontent.com/u/93963?v=4?s=100" width="100px;" alt="Joe Hildebrand"/><br /><sub><b>Joe Hildebrand</b></sub></a><br /><a href="#question-hildjj" title="Answering Questions">💬</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dcadolph"><img src="https://avatars.githubusercontent.com/u/116844282?v=4?s=100" width="100px;" alt="Douglas Adolph"/><br /><sub><b>Douglas Adolph</b></sub></a><br /><a href="https://github.com/ehmicky/nve/commits?author=dcadolph" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
