@@ -342,6 +342,15 @@ Everyone is welcome regardless of personal background. We enforce a
 [Code of conduct](CODE_OF_CONDUCT.md) in order to promote a positive and
 inclusive environment.
 
+# Dependency report
+
+Maintainers can run **Dependency triage report** from the Actions tab to review
+the committed npm dependency tree. Download `dependency-triage-report` and open
+the HTML file. The job uses npm audit with zero-shelter 0.0.10, reads the
+lockfile without installing this project's dependencies or running lifecycle
+scripts, and fails when it reports findings or cannot complete the inspection.
+The report covers dependency metadata rather than runtime reachability.
+
 # Contributing
 
 This project was made with ❤️. The simplest way to give back is by starring and
